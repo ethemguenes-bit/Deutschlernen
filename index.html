@@ -45,7 +45,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--f-ui);font-size:
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:22px 22px}
 *{box-sizing:border-box}
 button,input,select,textarea{font:inherit;color:inherit}
-button{cursor:pointer}
+button{cursor:pointer;touch-action:manipulation}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .inner{max-width:640px;margin:0 auto;width:100%}
@@ -788,7 +788,7 @@ function viewHome() {
     <ol class="method">
       <li><span>Türkçe cümleyi oku. Almancasını <b>önce sesli söyle</b>, istersen yaz. Tanımak yetmez, kendin üretmelisin.</span></li>
       <li><span>Cevabı aç, dinle ve cümleyi konuşmacıyla birlikte <b>yüksek sesle tekrar et</b> (gölgeleme).</span></li>
-      <li><span>Dürüstçe puanla. <b>Tekrar</b> dediğin cümle birkaç dakika sonra yine gelir, bildiğin cümleler giderek seyrekleşir.</span></li>
+      <li><span>Dürüstçe puanla. <b>Bilemedim</b> dediğin cümle birkaç dakika sonra yine gelir, bildiğin cümleler giderek seyrekleşir.</span></li>
     </ol>
   </section>`;
 }
@@ -840,7 +840,7 @@ function viewSession() {
     if (sess.mode === 'weak') return '';
     const n = schedule(card, g, Date.now()); return fmtIvl(n.d - Date.now());
   });
-  const names = ['Tekrar', 'Zor', 'İyi', 'Kolay'];
+  const names = ['Bilemedim', 'Zor', 'İyi', 'Kolay'];
   const other = dir === 'tr-de' ? '' : `<div class="muted">${esc(dir === 'listen' ? s.tr : s.de)}</div>`;
   return bar + `<section class="sheet card">${chips}${dir === 'listen' ? `<div class="lang">Duyduğun cümle</div>` : promptHtml}
     <div class="answer">
@@ -850,10 +850,11 @@ function viewSession() {
       ${cmp ? `<div class="typed">Senin cevabın: ${cmp.typedHtml}</div>` : ''}
       ${canSpeak() ? `<div class="row"><button class="btn" data-act="say">${ICON.play} Dinle</button><button class="btn" data-act="sayslow">${ICON.slow} Yavaş</button><span class="muted small">Dinle, sonra sesli tekrar et.</span></div>` : ''}
     </div>
-    <p class="rate-hint">Ne kadar iyi bildin? Seçince sonraki cümle gelir.</p>
+    <p class="rate-hint">Ne kadar iyi bildin? Birine dokun, sonraki cümle gelir.</p>
     <div class="rate" role="group" aria-label="Ne kadar iyi bildin?">
       ${[1, 2, 3, 4].map(g => `<button class="g${g}${sugg === g ? ' sugg' : ''}" data-rate="${g}"><b>${names[g - 1]}</b><span>${prevs[g - 1] || '&nbsp;'}</span></button>`).join('')}
     </div>
+    <button class="btn primary wide" data-rate="${sugg || 3}">Sonraki cümle → <span style="font-weight:400;opacity:.85">(${names[(sugg || 3) - 1]})</span></button>
     <p class="kbd">${sess.mode === 'weak' ? 'Alıştırma modu: puanın tekrar takvimini değiştirmez, hataların sayılır.' : 'Altındaki süre, cümlenin bir sonraki gelişine kadar geçecek zaman.'}</p>
   </section>`;
 }
@@ -953,7 +954,7 @@ function viewStats() {
   </section>
   <section class="sheet">
     <div class="row" style="justify-content:space-between;margin-bottom:6px"><h2 style="margin:0">En çok yanlış yapılanlar</h2>${weak.length ? `<button class="btn" data-act="weak">Bunları çalış</button>` : ''}</div>
-    ${weak.length ? `<ul class="weaklist">${weak.map(x => `<li><span class="de" lang="de">${esc(x.s.de)}</span><span class="tr">${esc(x.s.tr)}</span><span class="errn">${x.c.w} hata / ${x.c.w + x.c.k}</span></li>`).join('')}</ul>` : `<p class="muted">Henüz yanlış yok. “Tekrar” dediğin cümleler burada listelenir.</p>`}
+    ${weak.length ? `<ul class="weaklist">${weak.map(x => `<li><span class="de" lang="de">${esc(x.s.de)}</span><span class="tr">${esc(x.s.tr)}</span><span class="errn">${x.c.w} hata / ${x.c.w + x.c.k}</span></li>`).join('')}</ul>` : `<p class="muted">Henüz yanlış yok. “Bilemedim” dediğin cümleler burada listelenir.</p>`}
   </section>`;
 }
 
