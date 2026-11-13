@@ -135,6 +135,7 @@ textarea.ans:focus{border-style:solid;border-color:var(--accent);outline:none}
 .rate button.sugg{outline:2px solid currentColor;outline-offset:-1px}
 .rate .g1.sugg{outline-color:var(--red)} .rate .g2.sugg{outline-color:var(--amber)} .rate .g3.sugg{outline-color:var(--green)} .rate .g4.sugg{outline-color:var(--accent)}
 .kbd{font-size:12px;color:var(--ink-soft)}
+.rate-hint{font-size:14px;font-weight:600;margin:4px 0 -6px}
 .bigplay{width:84px;height:84px;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;align-self:center}
 .bigplay svg{width:34px;height:34px}
 
@@ -656,7 +657,7 @@ function weakCards() {
 }
 function reveal() {
   if (!sess || sess.revealed || !sess.cur) return;
-  const ta = $('#ans'); sess.typed = ta ? ta.value : '';
+  const ta = $('#ans'); sess.typed = ta ? ta.value : ''; if (ta) ta.blur();
   sess.revealed = true; render();
   const s = findSentence(sess.cur);
   if (S.settings.autoSpeak && s && sess.dirNow !== 'listen') speak(s.de);
@@ -745,6 +746,7 @@ function afterRender() {
     if (ta && matchMedia('(hover:hover)').matches) ta.focus();
     if (sess.dirNow === 'listen' && sess.spokenFor !== sess.cur) { sess.spokenFor = sess.cur; const s = findSentence(sess.cur); if (s) setTimeout(() => speak(s.de), 250); }
   }
+  if (tab === 'study' && sess && sess.cur && sess.revealed) { const r = $('.rate'); if (r) r.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
   if (tab === 'list') { const q = $('#q'); if (q && listState.focus) { q.focus(); q.setSelectionRange(q.value.length, q.value.length); listState.focus = false; } }
 }
 
@@ -825,7 +827,7 @@ function viewSession() {
   const targetLang = dir === 'de-tr' ? 'tr' : 'de';
   if (!sess.revealed) {
     return bar + `<section class="sheet card">${chips}${promptHtml}
-      <textarea id="ans" class="ans" lang="${targetLang}" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="${targetLang === 'de' ? 'Almancasını yaz (isteğe bağlı)' : 'Türkçesini yaz (isteğe bağlı)'}"></textarea>
+      <textarea id="ans" class="ans" lang="${targetLang}" enterkeyhint="go" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="${targetLang === 'de' ? 'Almancasını yaz (isteğe bağlı)' : 'Türkçesini yaz (isteğe bağlı)'}"></textarea>
       <button class="btn primary wide" data-act="reveal">Cevabı göster</button>
       <p class="kbd">Enter: cevabı göster · 1–4: puanla</p>
     </section>`;
@@ -848,6 +850,7 @@ function viewSession() {
       ${cmp ? `<div class="typed">Senin cevabın: ${cmp.typedHtml}</div>` : ''}
       ${canSpeak() ? `<div class="row"><button class="btn" data-act="say">${ICON.play} Dinle</button><button class="btn" data-act="sayslow">${ICON.slow} Yavaş</button><span class="muted small">Dinle, sonra sesli tekrar et.</span></div>` : ''}
     </div>
+    <p class="rate-hint">Ne kadar iyi bildin? Seçince sonraki cümle gelir.</p>
     <div class="rate" role="group" aria-label="Ne kadar iyi bildin?">
       ${[1, 2, 3, 4].map(g => `<button class="g${g}${sugg === g ? ' sugg' : ''}" data-rate="${g}"><b>${names[g - 1]}</b><span>${prevs[g - 1] || '&nbsp;'}</span></button>`).join('')}
     </div>
@@ -1121,6 +1124,7 @@ document.addEventListener('submit', e => {
   }
 });
 document.addEventListener('input', e => {
+  if (e.target.id === 'ans' && /\n/.test(e.target.value)) { e.target.value = e.target.value.replace(/\n/g, ' ').trim(); reveal(); return; }
   if (e.target.id === 'q') { listState.q = e.target.value; listState.limit = 150; listState.focus = true; render(); }
   else if (e.target.id === 'setRate') { S.settings.rate = +e.target.value; $('#rateVal').textContent = S.settings.rate.toFixed(2); }
 });

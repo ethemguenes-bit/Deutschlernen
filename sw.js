@@ -1,6 +1,6 @@
 // Satzheft service worker: works offline after the first visit.
 // Bump VERSION whenever app files change so phones pick up the new version.
-const VERSION = 'satzheft-v1';
+const VERSION = 'satzheft-v2';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
