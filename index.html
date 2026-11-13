@@ -471,7 +471,7 @@ const BUILTIN = []; const DECK_ORDER = [];
 const LS_KEY = 'satzheft.v1';
 function defaultState() {
   return { v: 1, updatedAt: 0, cards: {}, custom: [], edits: {}, hidden: {}, days: {},
-    settings: { newPerDay: 10, dir: 'tr-de', autoSpeak: true, rate: 0.9, decks: null } };
+    settings: { newPerDay: 10, dir: 'tr-de', autoSpeak: true, rate: 0.9, decks: null, level: 'all' } };
 }
 let S = defaultState();
 function loadLocal() {
@@ -537,7 +537,17 @@ function deckNames() {
   const custom = []; for (const c of S.custom) if (!DECK_ORDER.includes(c.deck) && !custom.includes(c.deck)) custom.push(c.deck);
   return [...custom, ...DECK_ORDER];
 }
-function activeDeck(deck) { return !S.settings.decks || S.settings.decks.includes(deck); }
+function levelOfDeck(deck) { const m = /^(A1|A2|B1|B2|C1|C2)\b/i.exec(deck || ''); return m ? m[1].toUpperCase() : 'mine'; }
+function inLevel(deck) { const l = S.settings.level || 'all'; return l === 'all' || levelOfDeck(deck) === l; }
+function activeDeck(deck) { return inLevel(deck) && (!S.settings.decks || S.settings.decks.includes(deck)); }
+const LEVEL_LABEL = { all: 'Tümü', A1: 'A1', A2: 'A2', B1: 'B1', B2: 'B2', C1: 'C1', C2: 'C2', mine: 'Benim' };
+function levelButtons() {
+  const per = { all: 0 };
+  for (const s of allSentences()) { const l = levelOfDeck(s.deck); per[l] = (per[l] || 0) + 1; per.all++; }
+  const order = ['all', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'mine'].filter(l => l === 'all' || per[l]);
+  const cur = S.settings.level || 'all';
+  return `<div class="seg" role="group" aria-label="Seviye" style="grid-template-columns:repeat(${order.length},1fr)">${order.map(l => `<button data-level="${l}" aria-pressed="${cur === l}">${LEVEL_LABEL[l]}<br><span class="small muted">${per[l]}</span></button>`).join('')}</div>`;
+}
 function findSentence(id) { return allSentences().find(s => s.id === id); }
 
 /* ---------- scheduling (SM-2 style with learning steps) ---------- */
@@ -757,7 +767,7 @@ function viewHome() {
   const tomorrow = (() => { const end = startOfDay() + 2 * DAY; let n = 0; for (const s of allSentences()) { const cc = cardOf(s.id); if (cc && cc.s === 2 && cc.d > Date.now() && cc.d < end && activeDeck(s.deck)) n++; } return n; })();
   return `
   <section class="sheet">
-    <h2>Bugün</h2>
+    <h2>Bugün${(S.settings.level || 'all') !== 'all' ? ' · ' + LEVEL_LABEL[S.settings.level] : ''}</h2>
     <div class="today">
       <div class="n-learn"><strong>${c.learn}</strong><span>öğreniliyor</span></div>
       <div class="n-rev"><strong>${c.rev}</strong><span>tekrar</span></div>
@@ -768,6 +778,10 @@ function viewHome() {
         ${c.freshTotal ? `<button class="btn wide" data-act="morenew">${ICON.plus} Bugün 5 yeni cümle daha</button>` : ''}
       </div>`
       : `<button class="btn primary wide" data-act="start">Çalışmaya başla</button>`}
+  </section>
+  <section class="stack plain">
+    <h2 style="margin:0">Seviye</h2>
+    ${levelButtons()}
   </section>
   <section class="stack plain">
     <h2 style="margin:0">Yön</h2>
@@ -1075,6 +1089,7 @@ document.addEventListener('click', e => {
   const t = e.target.closest('button,[data-edit]'); if (!t) return;
   if (t.dataset.tab) { tab = t.dataset.tab; render(); $('#main').scrollTop = 0; return; }
   if (t.dataset.dir) { S.settings.dir = t.dataset.dir; save(); render(); return; }
+  if (t.dataset.level) { S.settings.level = t.dataset.level; save(); render(); toast(t.dataset.level === 'all' ? 'Tüm seviyeler seçildi' : LEVEL_LABEL[t.dataset.level] + ' cümleleri çalışılacak'); return; }
   if (t.dataset.rate) { rate(+t.dataset.rate); return; }
   if (t.dataset.f) { listState.f = t.dataset.f; listState.limit = 150; render(); return; }
   if (t.dataset.edit) { openEdit(t.dataset.edit); return; }
