@@ -1,14 +1,26 @@
 ---
 name: sayfa-tasarimi
-description: Satzheft (index.html) için yeni ekran, sekme, kart, modal, form veya bileşen tasarlarken ya da mevcut sayfaların görünümünü değiştirirken kullan. "Kareli defter" tasarım dilini, renk/yazı tokenlarını, hazır CSS sınıflarını, mobil/karanlık mod kurallarını ve ekran görüntüsüyle doğrulama adımını içerir. Tetikleyiciler: sayfa tasarımı, yeni ekran, arayüz, UI, görünüm, renk, buton, kart, modal, tema, karanlık mod, mobil düzen.
+description: Satzheft (index.html) için birden fazla tasarım stiliyle (Defter, Renkli/oyunsu) yeni ekran, sekme, kart, modal, form veya bileşen tasarlarken ya da mevcut sayfaların görünümünü değiştirirken kullan. "Kareli defter" tasarım dilini, renk/yazı tokenlarını, hazır CSS sınıflarını, mobil/karanlık mod kurallarını ve ekran görüntüsüyle doğrulama adımını içerir. Tetikleyiciler: sayfa tasarımı, yeni ekran, arayüz, UI, görünüm, renk, buton, kart, modal, tema, karanlık mod, mobil düzen.
 ---
 
 # Satzheft sayfa tasarımı
 
 Uygulama tek dosyadır: `index.html` (CSS `<style>` içinde, ekranlar JS şablon fonksiyonlarıyla üretilir).
+## Stil seçimi
+
+Birden fazla tasarım stili var. Her biri `stiller/` klasöründe ayrı dosyadır:
+
+| Stil | Dosya | Ne zaman |
+|---|---|---|
+| Defter (varsayılan, şu an uygulamada) | `stiller/defter.md` | Kullanıcı stil belirtmezse |
+| Renkli / oyunsu | `stiller/renkli.md` | "renkli", "oyunsu", "eğlenceli", "canlı", "çocuksu", "oyun gibi" denirse |
+
+Kullanıcının istediği stilin dosyasını oku. O dosya bu sayfadaki **tokenları, yazı tiplerini ve bileşen görünümünü** değiştirir; yerleşim, erişilebilirlik, dil ve doğrulama kuralları her stilde aynen geçerlidir. Belirsizse kullanıcıya hangi stili istediğini sor.
+Yeni stil eklemek: `stiller/<ad>.md` oluştur (renkli.md'yi şablon al), aynı token adlarını kullan, kontrastı ölç (≥ 4.5:1) ve yukarıdaki tabloya ekle.
+
 Yeni bir şey tasarlamadan önce `index.html` içindeki `<style>` bloğunu oku ve **önce mevcut sınıfları kullan**. Yeni CSS sadece gerçekten gerekiyorsa, ilgili `/* bölüm */` yorumunun altına eklenir.
 
-## Tasarım dili
+## Tasarım dili (Defter stili)
 
 **Kareli alıştırma defteri.** Açık mavi kareli kağıt zemin (`body` arka planı, 22px ızgara), üstünde beyaz "yaprak"lar (`.sheet`), mavi mürekkep ve öğretmenin **kırmızı kalemi** (hatalar, zayıf cümleler).
 - Almanca/Türkçe **cümleler** her zaman serif: `var(--f-sent)` (Literata).
