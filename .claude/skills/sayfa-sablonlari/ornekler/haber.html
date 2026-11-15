@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Gündem · Haber</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Haber paylaşımı: gazete sayfası. Siyah mürekkep, kırık beyaz kağıt, tek vurgu rengi (kırmızı) sadece kategori ve son dakika için. */
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --ink:#151515; --ink-soft:#5f5f5f; --line:#e3e1dc; --rule:#151515;
+  --accent:#b3261e; --accent-bg:#fbe9e7; --live:#b3261e; --opinion:#6b4fa0; --opinion-bg:#efeaf7; --sponsor:#7a6200; --sponsor-bg:#f7f0d4;
+  --f-head:'Newsreader',Georgia,serif; --f-ui:'Inter',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121212; --surface:#1b1b1b; --ink:#ededed; --ink-soft:#a5a5a5; --line:#2e2e2e; --rule:#ededed;
+  --accent:#ff7a70; --accent-bg:#3a1c1a; --live:#ff7a70; --opinion:#c4aef0; --opinion-bg:#2d2540; --sponsor:#e9cf6a; --sponsor-bg:#332b10; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121212; --surface:#1b1b1b; --ink:#ededed; --ink-soft:#a5a5a5; --line:#2e2e2e; --rule:#ededed;
+  --accent:#ff7a70; --accent-bg:#3a1c1a; --live:#ff7a70; --opinion:#c4aef0; --opinion-bg:#2d2540; --sponsor:#e9cf6a; --sponsor-bg:#332b10; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--f-ui)}
+a{color:inherit;text-decoration:none}
+a:hover h3,a:hover h1{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
+.mast{background:var(--surface);border-bottom:3px double var(--rule)}
+.mast .wrap{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-block:14px 10px}
+.logo{font-family:var(--f-head);font-weight:700;font-size:30px;letter-spacing:-.02em}
+.date{font-size:13px;color:var(--ink-soft)}
+nav.cats{background:var(--surface);border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+nav.cats .wrap{display:flex;gap:20px;white-space:nowrap}
+nav.cats a{font-size:14px;font-weight:600;padding:10px 0;border-bottom:2px solid transparent}
+nav.cats a[aria-current="page"]{border-color:var(--accent);color:var(--accent)}
+.live{display:flex;align-items:center;gap:10px;padding-block:10px;font-size:14px;border-bottom:1px solid var(--line)}
+.live b{flex:none;color:#fff;background:var(--live);font-size:11px;letter-spacing:.08em;padding:3px 7px;border-radius:3px}
+:root[data-theme="dark"] .live b{color:#1b1b1b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .live b{color:#1b1b1b}}
+.live span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.kicker.op{color:var(--opinion)}
+.byline{font-size:13px;color:var(--ink-soft)}
+.img{background:linear-gradient(135deg,#7d8b94,#c9b79c);aspect-ratio:16/9;border-radius:2px;display:block;width:100%}
+figure{margin:0}
+figcaption{font-size:13px;color:var(--ink-soft);margin-top:6px}
+figcaption small{font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.front{display:grid;gap:24px;padding-block:20px}
+@media (min-width:860px){.front{grid-template-columns:2fr 1fr}}
+.lead h1{font-family:var(--f-head);font-weight:700;font-size:clamp(28px,5vw,44px);line-height:1.12;margin:8px 0;text-wrap:balance;letter-spacing:-.01em}
+.dek{font-family:var(--f-head);font-size:19px;color:var(--ink-soft);margin:0 0 10px}
+.side{display:flex;flex-direction:column}
+.side a{padding:14px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.side a:first-child{border-top:0;padding-top:0}
+h3{font-family:var(--f-head);font-weight:600;font-size:20px;line-height:1.25;margin:0;text-wrap:balance}
+.sec{border-top:3px solid var(--rule);padding-top:10px;margin-top:8px}
+.sec>h2{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:0 0 14px}
+.grid{display:grid;gap:22px;grid-template-columns:1fr;padding-bottom:28px}
+@media (min-width:560px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:860px){.grid{grid-template-columns:repeat(4,1fr)}}
+.grid a{display:flex;flex-direction:column;gap:6px}
+.grid .img{aspect-ratio:3/2}
+.op-card{background:var(--opinion-bg);padding:14px;border-radius:4px}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:3px}
+.tag.sp{background:var(--sponsor-bg);color:var(--sponsor)}
+footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:13px;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<header class="mast"><div class="wrap">
+  <div class="logo">Gündem</div>
+  <time class="date" datetime="2026-11-15">15 Kasım 2026, Pazar</time>
+</div></header>
+<nav class="cats" aria-label="Kategoriler"><div class="wrap">
+  <a href="#" aria-current="page">Manşet</a><a href="#">Yerel</a><a href="#">Ekonomi</a><a href="#">Dünya</a><a href="#">Bilim</a><a href="#">Spor</a><a href="#">Görüş</a>
+</div></nav>
+
+<div class="wrap">
+  <div class="live" role="status"><b>SON DAKİKA</b><span>Örnek: Şehir genelinde toplu taşıma seferleri yarın sabah normale dönüyor</span></div>
+
+  <section class="front">
+    <a class="lead" href="#">
+      <figure><span class="img" role="img" aria-label="Örnek görsel: kıyı şeridinde yeni bisiklet yolu"></span>
+        <figcaption>Kıyı şeridindeki ilk etap Mart'ta açılacak. <small>Fotoğraf: Örnek Ajans</small></figcaption></figure>
+      <div class="kicker" style="margin-top:14px">Yerel</div>
+      <h1>Kıyı şeridine 18 kilometrelik kesintisiz bisiklet yolu yapılacak</h1>
+      <p class="dek">Belediye meclisinin onayladığı projeyle 12 mahalle birbirine bağlanacak; esnaf temsilcileri park yerlerinin azalmasından endişeli.</p>
+      <div class="byline">Ayşe Yılmaz · <time datetime="2026-11-15T09:40">09.40</time> · Güncellendi <time datetime="2026-11-15T11:05">11.05</time> · 5 dk okuma</div>
+    </a>
+    <div class="side">
+      <a href="#"><span class="kicker">Ekonomi</span><h3>Kira artışlarında yeni dönem: Kiracılar neyi bilmeli?</h3><span class="byline">2 saat önce</span></a>
+      <a href="#"><span class="kicker">Bilim</span><h3>Gölde 30 yıl sonra ilk kez su samuru görüntülendi</h3><span class="byline">3 saat önce</span></a>
+      <a href="#"><span class="kicker op">Görüş</span><h3>Şehirler arabalar için değil, insanlar için tasarlanmalı</h3><span class="byline">Mehmet Demir yazdı</span></a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Öne çıkanlar</h2>
+    <div class="grid">
+      <a href="#"><span class="img" role="img" aria-label="Örnek görsel"></span><span class="kicker">Dünya</span><h3>İklim zirvesinde ortak bildiri için son gün</h3><span class="byline">4 saat önce</span></a>
+      <a href="#"><span class="img" role="img" aria-label="Örnek görsel"></span><span class="kicker">Spor</span><h3>Genç milli takım finalde: Maç ne zaman, hangi kanalda?</h3><span class="byline">5 saat önce</span></a>
+      <a href="#" class="op-card"><span class="kicker op">Görüş</span><h3>Yerel haberciliği kim yaşatacak?</h3><span class="byline">Zeynep Kaya yazdı</span></a>
+      <a href="#"><span class="img" role="img" aria-label="Örnek görsel"></span><span class="tag sp">Sponsorlu içerik</span><h3>Evde enerji tasarrufu için 7 pratik öneri</h3><span class="byline">Örnek Enerji A.Ş. işbirliğiyle</span></a>
+    </div>
+  </section>
+</div>
+<footer><div class="wrap">Bu bir örnek şablondur; haberler, kişiler ve kurumlar kurgusaldır. · <a href="#" style="text-decoration:underline">Düzeltme talebi</a> · <a href="#" style="text-decoration:underline">Yayın ilkeleri</a></div></footer>
+</body>
+</html>

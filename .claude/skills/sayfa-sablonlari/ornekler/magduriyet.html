@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sesim · Tanıklık</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Mağduriyet paylaşımı: sakin, onurlu, sansasyonsuz. Sıcak kağıt zemin, koyu petrol vurgusu; kırmızı sadece gerçek uyarı için. */
+:root{
+  --bg:#faf7f2; --surface:#ffffff; --ink:#26221d; --ink-soft:#6a6259; --line:#e7e0d5;
+  --accent:#1d6a64; --accent-ink:#ffffff; --accent-bg:#e2f0ee;
+  --warn:#8a5a00; --warn-bg:#fdf2dc; --alert:#b0322a;
+  --ok:#2f6b2f; --ok-bg:#e5f1e3; --mid:#5b5f8a; --mid-bg:#ebecf6;
+  --f-story:'Source Serif 4',Georgia,serif; --f-ui:'Public Sans',system-ui,sans-serif; --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#171513; --surface:#211e1b; --ink:#efe9e1; --ink-soft:#ada498; --line:#36312b;
+  --accent:#6cc4bb; --accent-ink:#0d2624; --accent-bg:#1c3532;
+  --warn:#f1c46b; --warn-bg:#3a2e14; --alert:#ff8a80;
+  --ok:#8fd28a; --ok-bg:#1d3320; --mid:#b3b7ec; --mid-bg:#2a2c44; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171513; --surface:#211e1b; --ink:#efe9e1; --ink-soft:#ada498; --line:#36312b;
+  --accent:#6cc4bb; --accent-ink:#0d2624; --accent-bg:#1c3532;
+  --warn:#f1c46b; --warn-bg:#3a2e14; --alert:#ff8a80;
+  --ok:#8fd28a; --ok-bg:#1d3320; --mid:#b3b7ec; --mid-bg:#2a2c44; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-ui)}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:680px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
+header{border-bottom:1px solid var(--line);background:var(--surface)}
+header .wrap{display:flex;justify-content:space-between;align-items:center;padding-block:12px}
+.logo{font-family:var(--f-story);font-weight:600;font-size:21px}
+.logo span{color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 15px var(--f-ui);cursor:pointer;text-decoration:none}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn svg{width:18px;height:18px}
+main{padding-block:20px 48px;display:flex;flex-direction:column;gap:20px}
+.cw{background:var(--warn-bg);border-radius:var(--r);padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.cw svg{flex:none;width:22px;height:22px;color:var(--warn);margin-top:2px}
+.cw b{display:block;color:var(--warn)}
+.cw p{margin:2px 0 0;font-size:14px}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.badge{font-size:13px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--ink-soft)}
+.badge.anon{background:var(--mid-bg);color:var(--mid);border-color:transparent}
+.badge.doc{background:var(--ok-bg);color:var(--ok);border-color:transparent}
+h1{font-family:var(--f-story);font-weight:600;font-size:clamp(26px,6.5vw,36px);line-height:1.2;margin:4px 0 0;text-wrap:balance}
+.meta{font-size:14px;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:4px 14px}
+.story{font-family:var(--f-story);font-size:19px;line-height:1.7}
+.story p{margin:0 0 1em}
+.redact{background:var(--ink);color:transparent;border-radius:3px;padding:0 .3em;user-select:none}
+blockquote{margin:6px 0 22px;padding:4px 0 4px 18px;border-left:3px solid var(--accent);font-size:22px;line-height:1.45;font-style:italic}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 12px}
+.timeline{list-style:none;margin:0;padding:0}
+.timeline li{position:relative;padding:0 0 16px 22px;border-left:2px solid var(--line);margin-left:6px}
+.timeline li:last-child{padding-bottom:0;border-color:transparent}
+.timeline li::before{content:"";position:absolute;left:-7px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.timeline time{font-size:13px;font-weight:600;color:var(--accent);display:block}
+.belgeler{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.belge{aspect-ratio:3/4;border-radius:10px;border:1px solid var(--line);background:repeating-linear-gradient(0deg,var(--line) 0 2px,transparent 2px 14px),var(--bg);display:flex;align-items:flex-end;padding:8px;font-size:12px;color:var(--ink-soft);filter:blur(0);position:relative;overflow:hidden}
+.belge::after{content:"Kişisel bilgiler gizlendi";position:absolute;inset:auto 8px 32px 8px;background:var(--ink);color:var(--bg);font-size:11px;padding:3px 6px;border-radius:4px;text-align:center}
+.ask{margin:0;padding-left:20px}
+.ask li+li{margin-top:6px}
+.solidarity{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.count{font-size:14px;color:var(--ink-soft)}
+.count b{font-size:22px;color:var(--ink);font-variant-numeric:tabular-nums;display:block;line-height:1.1}
+.help{border-left:4px solid var(--accent);background:var(--accent-bg);border-radius:0 var(--r) var(--r) 0;padding:14px 16px;font-size:15px}
+.help b{display:block}
+.fine{font-size:13px;color:var(--ink-soft)}
+.btn[aria-pressed="true"]{background:var(--accent-bg);border-color:var(--accent);color:var(--accent)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="logo">Ses<span>im</span></div>
+  <a class="btn primary" href="#">Hikâyeni paylaş</a>
+</div></header>
+
+<main class="wrap">
+  <div class="cw" role="note">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>
+    <div><b>İçerik notu: işyerinde baskı, maddi kayıp</b><p>Bu tanıklıkta şiddet içeren ayrıntı yok. Okumaya hazır hissetmiyorsan daha sonra dönebilirsin.</p></div>
+  </div>
+
+  <article style="display:flex;flex-direction:column;gap:14px">
+    <div class="badges">
+      <span class="badge">Çalışma hayatı</span>
+      <span class="badge anon">Anonim paylaşım</span>
+      <span class="badge doc">Belge sunuldu · editör inceledi</span>
+    </div>
+    <h1>“Üç aydır maaşımı alamıyorum, sorduğumda işten çıkarılmakla tehdit edildim”</h1>
+    <div class="meta"><span>Paylaşan: Depo çalışanı, 34</span><span>İstanbul</span><time datetime="2026-11-02">2 Kasım 2026</time><span>4 dk okuma</span></div>
+
+    <div class="story">
+      <p>Yaklaşık iki yıldır <span class="redact" aria-label="firma adı gizlendi">Firma Adı</span> deposunda vardiyalı çalışıyorum. Ağustos ayından beri maaşlarımız ya eksik ya da hiç yatmıyor.</p>
+      <blockquote>“Kirayı ödeyemediğim ilk ay, çocuklarıma ne diyeceğimi bilemedim.”</blockquote>
+      <p>Durumu yazılı olarak sorduğumuzda bize “isteyen kapıdan çıkabilir” denildi. Aynı vardiyada çalışan arkadaşlarımın da benzer durumda olduğunu biliyorum.</p>
+      <p>Tek istediğim emeğimin karşılığını almak ve bu süreçte yalnız olmadığımı bilmek.</p>
+    </div>
+  </article>
+
+  <section class="card" aria-labelledby="t1">
+    <h2 id="t1">Neler oldu</h2>
+    <ol class="timeline">
+      <li><time datetime="2026-08">Ağustos 2026</time>Maaşın yarısı yattı, kalanı için “gelecek ay” denildi.</li>
+      <li><time datetime="2026-09">Eylül 2026</time>Maaş yatmadı. Yazılı dilekçe verildi.</li>
+      <li><time datetime="2026-10">Ekim 2026</time>Sözlü olarak işten çıkarılma tehdidi.</li>
+      <li><time datetime="2026-10-20">20 Ekim 2026</time>Resmi şikâyet başvurusu yapıldı.</li>
+    </ol>
+  </section>
+
+  <section class="card" aria-labelledby="t2">
+    <h2 id="t2">Sunulan belgeler</h2>
+    <div class="belgeler">
+      <div class="belge">Banka dökümü</div>
+      <div class="belge">Dilekçe</div>
+      <div class="belge">Başvuru belgesi</div>
+    </div>
+    <p class="fine" style="margin:10px 0 0">Belgeler yalnızca editörler tarafından görüldü; kimlik, hesap ve adres bilgileri yayımlanmaz.</p>
+  </section>
+
+  <section class="card" aria-labelledby="t3">
+    <h2 id="t3">Ne istiyor?</h2>
+    <ul class="ask"><li>Ödenmeyen maaşların faiziyle ödenmesi</li><li>Şikâyet sürecinde işten çıkarılmama güvencesi</li></ul>
+  </section>
+
+  <section class="card solidarity">
+    <div class="count"><b id="n">1.284</b>kişi yanında olduğunu söyledi</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn primary" id="yanindayim" aria-pressed="false">Yanındayım</button>
+      <button class="btn" aria-label="Paylaş"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>Paylaş</button>
+    </div>
+  </section>
+
+  <aside class="help">
+    <b>Benzer bir durum mu yaşıyorsun?</b>
+    Hikâyeni anonim olarak paylaşabilir ya da hukuki destek veren kuruluşlara ulaşabilirsin. Hayati tehlike varsa <b style="display:inline">112</b>'yi ara.
+  </aside>
+
+  <p class="fine">Bu sayfadaki anlatım paylaşan kişiye aittir. Adı geçen kurumların yanıt hakkı vardır: <a href="#">yanıt gönder</a>. Bu bir örnek şablondur; kişiler ve olaylar kurgusaldır.</p>
+</main>
+<script>
+const b=document.getElementById('yanindayim'),n=document.getElementById('n');
+b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);b.textContent=on?'Yanındasın ✓':'Yanındayım';const v=parseInt(n.textContent.replace(/\./g,''))+(on?1:-1);n.textContent=v.toLocaleString('tr-TR');});
+</script>
+</body>
+</html>
