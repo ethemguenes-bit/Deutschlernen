@@ -23,7 +23,7 @@
 :root{
   --paper:#f4f6fb; --sheet:#ffffff; --grid:rgba(47,79,216,.075); --ink:#1b2350; --ink-soft:#5b6385; --line:#dde2ef;
   --accent:#2f4fd8; --accent-ink:#ffffff; --accent-bg:#e8ecfd;
-  --red:#c8352b; --red-bg:#fbe8e6; --green:#1b8556; --green-bg:#e2f3ea; --amber:#a86d12; --amber-bg:#fbefd8;
+  --red:#c8352b; --red-bg:#fbe8e6; --green:#1b8556; --green-bg:#e2f3ea; --amber:#a86d12; --amber-bg:#fbefd8; --rose:#b8336f;
   --shadow:0 1px 2px rgba(27,35,80,.06),0 6px 20px rgba(27,35,80,.06);
   --f-sent:'Literata',Georgia,'Times New Roman',serif;
   --f-ui:'Schibsted Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
@@ -32,12 +32,12 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#10131c; --sheet:#181c28; --grid:rgba(142,162,255,.05); --ink:#e6e9f6; --ink-soft:#99a1c0; --line:#2a3044;
   --accent:#8ea2ff; --accent-ink:#0e1330; --accent-bg:#232b4d;
-  --red:#ff8c80; --red-bg:#3a1f1d; --green:#62d3a1; --green-bg:#173129; --amber:#f0c068; --amber-bg:#352b15;
+  --red:#ff8c80; --red-bg:#3a1f1d; --green:#62d3a1; --green-bg:#173129; --amber:#f0c068; --amber-bg:#352b15; --rose:#ff8fc4;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark}}
 :root[data-theme="dark"]{
   --paper:#10131c; --sheet:#181c28; --grid:rgba(142,162,255,.05); --ink:#e6e9f6; --ink-soft:#99a1c0; --line:#2a3044;
   --accent:#8ea2ff; --accent-ink:#0e1330; --accent-bg:#232b4d;
-  --red:#ff8c80; --red-bg:#3a1f1d; --green:#62d3a1; --green-bg:#173129; --amber:#f0c068; --amber-bg:#352b15;
+  --red:#ff8c80; --red-bg:#3a1f1d; --green:#62d3a1; --green-bg:#173129; --amber:#f0c068; --amber-bg:#352b15; --rose:#ff8fc4;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark}
 
 html,body{height:100%}
@@ -61,7 +61,23 @@ header.top .inner{display:flex;align-items:center;justify-content:space-between;
 main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 main .inner{padding-block:18px 28px;display:flex;flex-direction:column;gap:16px}
 nav.tabs{flex:none;background:var(--sheet);border-top:1px solid var(--line)}
-nav.tabs .inner{display:grid;grid-template-columns:repeat(4,1fr)}
+nav.tabs .inner{display:grid;grid-template-columns:repeat(5,1fr)}
+.gbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.gstat{font-size:14px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.gstat b{color:var(--ink);font-size:16px}
+.board{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gcol{display:flex;flex-direction:column;gap:8px;min-width:0}
+.gtile{display:flex;align-items:center;flex-wrap:wrap;gap:0 .3em;min-height:58px;border:1.5px solid var(--line);background:var(--sheet);border-radius:10px;padding:8px 10px;font-size:16px;line-height:1.3;text-align:left;overflow-wrap:anywhere;box-shadow:var(--shadow);transition:background .15s,border-color .15s,opacity .3s}
+.gtile.de{font-family:var(--f-sent);font-size:17px}
+.gtile.sel{border-color:var(--accent);background:var(--accent-bg)}
+.gtile.done{border-color:transparent;background:var(--green-bg);color:var(--green);opacity:.5;box-shadow:none;cursor:default}
+.gtile.done .art{color:inherit}
+.gtile.bad{border-color:var(--red);background:var(--red-bg);animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.art{font-weight:600}
+.art-der{color:var(--accent)} .art-die{color:var(--rose)} .art-das{color:var(--green)}
+.weaklist .de .art{font-family:var(--f-ui);font-size:.9em}
+
 nav.tabs button{background:none;border:0;padding:8px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--ink-soft)}
 nav.tabs button svg{width:22px;height:22px}
 nav.tabs button[aria-current="page"]{color:var(--accent);font-weight:600}
@@ -219,6 +235,7 @@ textarea.ans:focus{border-style:solid;border-color:var(--accent);outline:none}
   <nav class="tabs gut" aria-label="Bölümler"><div class="inner">
     <button data-tab="study"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 8h6M9 12h4"/></svg>Çalış</button>
     <button data-tab="list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Cümleler</button>
+    <button data-tab="game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M14 6.5h4a2.5 2.5 0 0 1 2.5 2.5v1.5M10 17.5H6A2.5 2.5 0 0 1 3.5 15v-1.5"/></svg>Oyun</button>
     <button data-tab="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>İstatistik</button>
     <button data-tab="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Ayarlar</button>
   </div></nav>
@@ -455,6 +472,287 @@ const ICON = {
 };
 
 /* ---------- built-in sentences ---------- */
+/* ---------- word matching game ---------- */
+const WORD_DATA = `#A1 · İnsanlar ve ev
+der Mann;adam
+die Frau;kadın
+das Kind;çocuk
+die Mutter;anne
+der Vater;baba
+der Bruder;erkek kardeş
+die Schwester;kız kardeş
+der Freund;arkadaş
+das Haus;ev
+die Wohnung;daire
+die Stadt;şehir
+die Straße;cadde
+der Bahnhof;tren istasyonu
+die Schule;okul
+die Arbeit;iş
+der Tisch;masa
+der Stuhl;sandalye
+die Tür;kapı
+das Fenster;pencere
+das Buch;kitap
+#A1 · Yiyecek ve ulaşım
+das Wasser;su
+das Brot;ekmek
+der Kaffee;kahve
+der Tee;çay
+die Milch;süt
+der Apfel;elma
+das Auto;araba
+der Bus;otobüs
+der Zug;tren
+#A1 · Zaman
+der Tag;gün
+die Woche;hafta
+der Monat;ay
+das Jahr;yıl
+heute;bugün
+morgen;yarın
+gestern;dün
+#A1 · Sıfatlar ve fiiller
+groß;büyük
+klein;küçük
+gut;iyi
+schön;güzel
+neu;yeni
+teuer;pahalı
+billig;ucuz
+essen;yemek yemek
+trinken;içmek
+schlafen;uyumak
+arbeiten;çalışmak
+wohnen;oturmak (ikamet etmek)
+sprechen;konuşmak
+lernen;öğrenmek
+kaufen;satın almak
+#A2 · Sağlık ve resmi işler
+der Termin;randevu
+der Arzt;doktor
+die Apotheke;eczane
+das Medikament;ilaç
+das Fieber;ateş
+die Rechnung;fatura
+die Miete;kira
+die Heizung;kalorifer
+der Schlüssel;anahtar
+das Formular;form
+der Ausweis;kimlik kartı
+#A2 · Yolculuk ve alışveriş
+die Fahrkarte;bilet
+der Flughafen;havalimanı
+die Reise;seyahat
+der Urlaub;tatil
+das Wetter;hava durumu
+der Regen;yağmur
+der Schnee;kar
+das Geschenk;hediye
+der Geburtstag;doğum günü
+die Größe;beden
+die Kleidung;giysi
+der Kunde;müşteri
+#A2 · İş
+die Stelle;iş pozisyonu
+der Kollege;iş arkadaşı
+die Erfahrung;deneyim
+die Ausbildung;meslek eğitimi
+#A2 · Fiiller ve sıfatlar
+anrufen;telefon etmek
+bezahlen;ödemek
+bestellen;sipariş vermek
+umsteigen;aktarma yapmak
+verpassen;kaçırmak
+ausfüllen;doldurmak
+vergessen;unutmak
+erklären;açıklamak
+pünktlich;dakik
+krank;hasta
+müde;yorgun
+gesund;sağlıklı
+langsam;yavaş
+schnell;hızlı
+wichtig;önemli
+schwierig;zor
+#B1 · İsimler
+die Meinung;görüş
+der Vorschlag;öneri
+die Lösung;çözüm
+die Entscheidung;karar
+der Grund;sebep
+der Zweifel;şüphe
+die Gesellschaft;toplum
+die Umwelt;çevre
+die Gesundheit;sağlık
+die Bewerbung;iş başvurusu
+das Vorstellungsgespräch;iş görüşmesi
+der Vertrag;sözleşme
+die Prüfung;sınav
+die Voraussetzung;ön koşul
+der Unterschied;fark
+die Sorge;endişe
+der Erfolg;başarı
+die Möglichkeit;imkân
+#B1 · Fiiller
+sich kümmern um;ilgilenmek, bakmak
+sich bewerben;başvurmak
+sich erinnern an;hatırlamak
+sich freuen auf;dört gözle beklemek
+sich gewöhnen an;alışmak
+überzeugen;ikna etmek
+unterstützen;desteklemek
+ablehnen;reddetmek
+verschieben;ertelemek
+sparen;biriktirmek
+verdienen;para kazanmak
+zustimmen;katılmak (bir fikre)
+entscheiden;karar vermek
+vermeiden;kaçınmak
+#B1 · Bağlaçlar ve sıfatlar
+obwohl;-e rağmen
+deshalb;bu yüzden
+trotzdem;yine de
+außerdem;ayrıca
+sobald;-ır -maz
+ungefähr;yaklaşık
+zuverlässig;güvenilir
+gemeinsam;birlikte
+notwendig;gerekli`;
+const WORDS = [];
+(function parseWords() {
+  let deck = 'Genel';
+  for (const raw of WORD_DATA.split('\n')) {
+    const line = raw.trim(); if (!line) continue;
+    if (line.startsWith('#')) { deck = line.slice(1).trim(); continue; }
+    const i = line.indexOf(';'); if (i < 0) continue;
+    const de = line.slice(0, i).trim(), tr = line.slice(i + 1).trim();
+    WORDS.push({ id: 'w' + hash(de), de, tr, deck });
+  }
+})();
+const PAIRS = 6;
+let game = null, gameTick = null;
+function wordStat(id) { return (S.words || {})[id] || null; }
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+// Weighted random pick: words you got wrong (and words never seen) come up more often.
+function pickWords(n) {
+  const pool = WORDS.filter(w => inLevel(w.deck)).map(w => {
+    const s = wordStat(w.id); const wr = s ? s.w : 0, ok = s ? s.k : 0;
+    const weight = 1 + 4 * wr / (wr + ok + 1) + (s ? 0 : 0.8);
+    return { w, key: Math.pow(Math.random(), 1 / weight) };
+  }).sort((a, b) => b.key - a.key);
+  const out = [], seenTr = new Set();
+  for (const { w } of pool) { const t = normTok(w.tr.replace(/\s+/g, ''), 'tr'); if (seenTr.has(t)) continue; seenTr.add(t); out.push(w); if (out.length === n) break; }
+  return out;
+}
+function artHtml(de) {
+  const m = /^(der|die|das) (.+)$/.exec(de);
+  return m ? `<span class="art art-${m[1]}">${m[1]}</span> <span>${esc(m[2])}</span>` : esc(de);
+}
+function fmtSecs(s) { s = Math.round(s); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+function startGame() {
+  const words = pickWords(PAIRS);
+  if (words.length < 3) { toast('Bu seviyede kelime yok. Başka bir seviye seç.'); return; }
+  const ids = words.map(w => w.id);
+  game = { words, left: shuffle(ids.slice()), right: shuffle(ids.slice()), selDe: null, selTr: null, done: new Set(), wrong: 0, missed: new Set(), start: Date.now(), end: 0 };
+  clearInterval(gameTick);
+  gameTick = setInterval(() => { const el = $('#gTime'); if (el && game && !game.end) el.textContent = fmtSecs((Date.now() - game.start) / 1000); }, 500);
+  render();
+}
+function gameWord(id) { return game.words.find(w => w.id === id); }
+function gameTap(el) {
+  if (!game || game.end || el.classList.contains('done')) return;
+  const side = el.dataset.gde ? 'de' : 'tr'; const id = el.dataset.gde || el.dataset.gtr;
+  const key = side === 'de' ? 'selDe' : 'selTr';
+  if (side === 'de' && canSpeak() && S.settings.autoSpeak) speak(gameWord(id).de);
+  document.querySelectorAll(`[data-g${side}].sel`).forEach(x => x.classList.remove('sel'));
+  if (game[key] === id) { game[key] = null; return; }
+  game[key] = id; el.classList.add('sel');
+  if (!(game.selDe && game.selTr)) return;
+  const a = game.selDe, b = game.selTr; game.selDe = game.selTr = null;
+  const ea = document.querySelector(`[data-gde="${a}"]`), eb = document.querySelector(`[data-gtr="${b}"]`);
+  ea.classList.remove('sel'); eb.classList.remove('sel');
+  if (a === b) {
+    ea.classList.add('done'); eb.classList.add('done'); ea.disabled = eb.disabled = true;
+    game.done.add(a);
+    $('#gLeft').textContent = game.words.length - game.done.size;
+    if (game.done.size === game.words.length) setTimeout(finishGame, 350);
+  } else {
+    game.wrong++; game.missed.add(a); game.missed.add(b);
+    $('#gWrong').textContent = game.wrong;
+    ea.classList.add('bad'); eb.classList.add('bad');
+    setTimeout(() => { ea.classList.remove('bad'); eb.classList.remove('bad'); }, 600);
+  }
+}
+function finishGame() {
+  if (!game || game.end) return;
+  game.end = Date.now(); clearInterval(gameTick);
+  S.words = S.words || {};
+  for (const w of game.words) {
+    const s = S.words[w.id] || { w: 0, k: 0 };
+    if (game.missed.has(w.id)) s.w++; else s.k++;
+    s.ls = game.end; S.words[w.id] = s;
+  }
+  const secs = Math.round((game.end - game.start) / 1000), lvl = S.settings.level || 'all';
+  S.game = S.game || { best: {}, rounds: 0 }; S.game.rounds++;
+  if (!game.wrong && (!S.game.best[lvl] || secs < S.game.best[lvl])) { S.game.best[lvl] = secs; game.newBest = true; }
+  today().g = (today().g || 0) + 1;
+  save(); render();
+}
+function hardWords(n) {
+  const out = [];
+  for (const w of WORDS) { const s = wordStat(w.id); if (s && s.w) out.push({ w, s }); }
+  return out.sort((a, b) => (b.s.w / (b.s.w + b.s.k)) - (a.s.w / (a.s.w + a.s.k)) || b.s.w - a.s.w).slice(0, n);
+}
+function viewGame() {
+  const lvl = S.settings.level || 'all';
+  const best = (S.game && S.game.best[lvl]) || 0;
+  if (game && !game.end) {
+    const tile = (id, side) => { const w = gameWord(id); const done = game.done.has(id);
+      return `<button class="gtile ${side}${done ? ' done' : ''}" data-g${side}="${id}" ${done ? 'disabled' : ''} ${side === 'de' ? 'lang="de"' : ''}>${side === 'de' ? artHtml(w.de) : esc(w.tr)}</button>`; };
+    return `<div class="gbar">
+        <button class="iconbtn" data-act="gquit" aria-label="Oyunu bitir">${ICON.close}</button>
+        <span class="gstat">Süre <b id="gTime">${fmtSecs((Date.now() - game.start) / 1000)}</b></span>
+        <span class="gstat">Hata <b id="gWrong">${game.wrong}</b></span>
+        <span class="gstat"><b id="gLeft">${game.words.length - game.done.size}</b> çift</span>
+      </div>
+      <div class="board">
+        <div class="gcol" aria-label="Almanca">${game.left.map(id => tile(id, 'de')).join('')}</div>
+        <div class="gcol" aria-label="Türkçe">${game.right.map(id => tile(id, 'tr')).join('')}</div>
+      </div>
+      <p class="muted small">Bir Almanca kelimeye, sonra Türkçe karşılığına dokun. Artikeller: <span class="art art-der">der</span> · <span class="art art-die">die</span> · <span class="art art-das">das</span></p>`;
+  }
+  if (game && game.end) {
+    const secs = Math.round((game.end - game.start) / 1000);
+    const missed = game.words.filter(w => game.missed.has(w.id));
+    return `<section class="sheet stack">
+      <h3>${game.wrong ? 'Tur bitti' : 'Hatasız tur!'}${game.newBest ? ' Yeni rekor.' : ''}</h3>
+      <div class="today">
+        <div><strong>${fmtSecs(secs)}</strong><span>süre</span></div>
+        <div class="${game.wrong ? 'n-learn' : 'n-rev'}"><strong>${game.wrong}</strong><span>hata</span></div>
+        <div><strong>${best ? fmtSecs(best) : '–'}</strong><span>en iyi (hatasız)</span></div>
+      </div>
+      ${missed.length ? `<div><h2>Karıştırdığın kelimeler</h2><ul class="weaklist">${missed.map(w => `<li><span class="de" lang="de">${artHtml(w.de)}</span><span class="tr">${esc(w.tr)}</span>${canSpeak() ? `<button class="iconbtn" data-say="${esc(w.de)}" aria-label="Dinle" style="grid-column:2;grid-row:1 / span 2">${ICON.play}</button>` : ''}</li>`).join('')}</ul><p class="muted small" style="margin-top:6px">Bunlar sonraki turlarda daha sık çıkacak.</p></div>` : ''}
+      <div class="row"><button class="btn primary" data-act="gstart" style="flex:1">Yeni tur</button><button class="btn" data-act="gquit">Bitir</button></div>
+    </section>`;
+  }
+  const hard = hardWords(8);
+  return `
+  <section class="sheet stack">
+    <div><h3>Kelime eşleştir</h3><p class="muted small">Her turda ${PAIRS} Almanca kelime ve Türkçe karşılıkları karışık gelir. Doğru çiftleri olabildiğince hızlı eşleştir. Yanlış yaptığın kelimeler sonraki turlarda daha sık çıkar.</p></div>
+    <div class="row small muted">${S.game && S.game.rounds ? `<span>${S.game.rounds} tur oynandı</span>` : ''}${best ? `<span>· Bu seviyede en iyi süre: <b>${fmtSecs(best)}</b></span>` : ''}</div>
+    <button class="btn primary wide" data-act="gstart">Oyunu başlat</button>
+  </section>
+  <section class="stack plain">
+    <h2 style="margin:0">Seviye</h2>
+    ${levelButtons(WORDS)}
+  </section>
+  <section class="sheet">
+    <h2>Zorlandığın kelimeler</h2>
+    ${hard.length ? `<ul class="weaklist">${hard.map(x => `<li><span class="de" lang="de">${artHtml(x.w.de)}</span><span class="tr">${esc(x.w.tr)}</span><span class="errn">${x.s.w} hata / ${x.s.w + x.s.k}</span></li>`).join('')}</ul>` : `<p class="muted">Henüz yok. Eşleştirirken karıştırdığın kelimeler burada listelenir.</p>`}
+  </section>`;
+}
+
 const BUILTIN = []; const DECK_ORDER = [];
 (function parse() {
   let deck = 'Genel';
@@ -481,7 +779,7 @@ function loadLocal() {
 function normalize(o) {
   const d = defaultState();
   if (!o || typeof o !== 'object') return d;
-  return { ...d, ...o, settings: { ...d.settings, ...(o.settings || {}) }, cards: o.cards || {}, custom: o.custom || [], edits: o.edits || {}, hidden: o.hidden || {}, days: o.days || {} };
+  return { ...d, ...o, settings: { ...d.settings, ...(o.settings || {}) }, cards: o.cards || {}, custom: o.custom || [], edits: o.edits || {}, hidden: o.hidden || {}, days: o.days || {}, words: o.words || {}, game: { best: {}, rounds: 0, ...(o.game || {}) } };
 }
 const cloud = { db: null, ref: null, status: 'local', writing: Promise.resolve(), timer: null };
 function save() {
@@ -541,9 +839,9 @@ function levelOfDeck(deck) { const m = /^(A1|A2|B1|B2|C1|C2)\b/i.exec(deck || ''
 function inLevel(deck) { const l = S.settings.level || 'all'; return l === 'all' || levelOfDeck(deck) === l; }
 function activeDeck(deck) { return inLevel(deck) && (!S.settings.decks || S.settings.decks.includes(deck)); }
 const LEVEL_LABEL = { all: 'Tümü', A1: 'A1', A2: 'A2', B1: 'B1', B2: 'B2', C1: 'C1', C2: 'C2', mine: 'Benim' };
-function levelButtons() {
+function levelButtons(items) {
   const per = { all: 0 };
-  for (const s of allSentences()) { const l = levelOfDeck(s.deck); per[l] = (per[l] || 0) + 1; per.all++; }
+  for (const s of (items || allSentences())) { const l = levelOfDeck(s.deck); per[l] = (per[l] || 0) + 1; per.all++; }
   const order = ['all', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'mine'].filter(l => l === 'all' || per[l]);
   const cur = S.settings.level || 'all';
   return `<div class="seg" role="group" aria-label="Seviye" style="grid-template-columns:repeat(${order.length},1fr)">${order.map(l => `<button data-level="${l}" aria-pressed="${cur === l}">${LEVEL_LABEL[l]}<br><span class="small muted">${per[l]}</span></button>`).join('')}</div>`;
@@ -746,6 +1044,7 @@ function render() {
   const v = $('#view');
   if (tab === 'study') v.innerHTML = sess ? viewSession() : viewHome();
   else if (tab === 'list') v.innerHTML = viewList();
+  else if (tab === 'game') v.innerHTML = viewGame();
   else if (tab === 'stats') v.innerHTML = viewStats();
   else v.innerHTML = viewSettings();
   afterRender();
@@ -967,6 +1266,10 @@ function viewStats() {
     </div>
   </section>
   <section class="sheet">
+    <h2>Kelime oyunu</h2>
+    ${S.game && S.game.rounds ? `<p>${S.game.rounds} tur oynandı. ${Object.keys(S.game.best).length ? 'En iyi hatasız süreler: ' + Object.entries(S.game.best).map(([l, s]) => `${LEVEL_LABEL[l]} <b>${fmtSecs(s)}</b>`).join(', ') + '.' : ''}</p>${hardWords(1).length ? `<p class="muted small">En çok karıştırılan: ${hardWords(3).map(x => esc(x.w.de)).join(', ')}</p>` : ''}` : `<p class="muted">Henüz oynanmadı. Alttaki <b>Oyun</b> sekmesinden başlayabilirsin.</p>`}
+  </section>
+  <section class="sheet">
     <div class="row" style="justify-content:space-between;margin-bottom:6px"><h2 style="margin:0">En çok yanlış yapılanlar</h2>${weak.length ? `<button class="btn" data-act="weak">Bunları çalış</button>` : ''}</div>
     ${weak.length ? `<ul class="weaklist">${weak.map(x => `<li><span class="de" lang="de">${esc(x.s.de)}</span><span class="tr">${esc(x.s.tr)}</span><span class="errn">${x.c.w} hata / ${x.c.w + x.c.k}</span></li>`).join('')}</ul>` : `<p class="muted">Henüz yanlış yok. “Bilemedim” dediğin cümleler burada listelenir.</p>`}
   </section>`;
@@ -1087,9 +1390,10 @@ function openImport() {
 /* ---------- events ---------- */
 document.addEventListener('click', e => {
   const t = e.target.closest('button,[data-edit]'); if (!t) return;
+  if (t.dataset.gde || t.dataset.gtr) { gameTap(t); return; }
   if (t.dataset.tab) { tab = t.dataset.tab; render(); $('#main').scrollTop = 0; return; }
   if (t.dataset.dir) { S.settings.dir = t.dataset.dir; save(); render(); return; }
-  if (t.dataset.level) { S.settings.level = t.dataset.level; save(); render(); toast(t.dataset.level === 'all' ? 'Tüm seviyeler seçildi' : LEVEL_LABEL[t.dataset.level] + ' cümleleri çalışılacak'); return; }
+  if (t.dataset.level) { S.settings.level = t.dataset.level; save(); render(); toast(t.dataset.level === 'all' ? 'Tüm seviyeler seçildi' : 'Seviye: ' + LEVEL_LABEL[t.dataset.level]); return; }
   if (t.dataset.rate) { rate(+t.dataset.rate); return; }
   if (t.dataset.f) { listState.f = t.dataset.f; listState.limit = 150; render(); return; }
   if (t.dataset.edit) { openEdit(t.dataset.edit); return; }
@@ -1103,12 +1407,14 @@ document.addEventListener('click', e => {
   else if (a === 'say' || a === 'sayslow') { const s = findSentence(sess && sess.cur); if (s) speak(s.de, a === 'sayslow'); }
   else if (a === 'morenew') { today().x = (today().x || 0) + 5; save(); startSession('srs'); }
   else if (a === 'add') openAdd();
+  else if (a === 'gstart') startGame();
+  else if (a === 'gquit') { game = null; clearInterval(gameTick); render(); }
   else if (a === 'more') { listState.limit += 150; render(); }
   else if (a === 'close') closeModal();
   else if (a === 'export') openExport();
   else if (a === 'import') openImport();
   else if (a === 'testsay') speak('Ich lerne jeden Tag ein bisschen Deutsch.');
-  else if (a === 'reset') confirmBox('İlerlemeyi sıfırla', 'Tüm tekrar geçmişi ve istatistikler silinecek. Eklediğin cümleler kalacak. Bu geri alınamaz.', 'Sıfırla', () => { S.cards = {}; S.days = {}; save(); render(); toast('İlerleme sıfırlandı'); });
+  else if (a === 'reset') confirmBox('İlerlemeyi sıfırla', 'Tüm tekrar geçmişi ve istatistikler silinecek. Eklediğin cümleler kalacak. Bu geri alınamaz.', 'Sıfırla', () => { S.cards = {}; S.days = {}; S.words = {}; S.game = { best: {}, rounds: 0 }; save(); render(); toast('İlerleme sıfırlandı'); });
   else if (a === 'resetcard') { const id = $('#editForm').dataset.id; delete S.cards[id]; save(); closeModal(); render(); toast('Cümle yeniden “yeni” oldu'); }
   else if (a === 'delcard') {
     const id = $('#editForm').dataset.id; const s = findSentence(id);
