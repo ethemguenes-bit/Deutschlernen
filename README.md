@@ -7,7 +7,7 @@ Almanca cümle ezber programı (Anki tarzı aralıklı tekrar). Tek dosya: `inde
 - Üç yön: Türkçe → Almanca, Almanca → Türkçe, Dinle → Yaz
 - Yazılan cevabı kelime kelime karşılaştırma, Almanca seslendirme (normal ve yavaş)
 - "Zayıf cümleler" alıştırması: en çok yanlış yapılanlar
-- Kelime eşleştirme oyunu: 135 kelime (A1–B1), renkli artikeller (der/die/das), karıştırılan kelimeler daha sık gelir
+- Kelime eşleştirme oyunu: 734 kelime (A1: 650, A2: 43, B1: 41), renkli artikeller (der/die/das), karıştırılan kelimeler daha sık gelir
 - Seviye seçimi: Tümü / A1 / A2 / B1 / Benim
 - Tek tek veya toplu (`Türkçe;Almanca`) cümle ekleme, düzenleme, silme
 - İstatistik: seri, doğruluk, 30 günlük grafik, 7 günlük tekrar tahmini, en çok yanlış yapılanlar
