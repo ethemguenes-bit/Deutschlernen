@@ -3971,7 +3971,7 @@ const BUILTIN = []; const DECK_ORDER = [];
 const LS_KEY = 'satzheft.v1';
 function defaultState() {
   return { v: 1, updatedAt: 0, cards: {}, custom: [], edits: {}, hidden: {}, days: {},
-    settings: { newPerDay: 10, dir: 'tr-de', autoSpeak: true, rate: 0.9, decks: null, level: 'all' } };
+    settings: { newPerDay: 10, dir: 'tr-de', autoSpeak: true, rate: 0.9, skipDecks: [], level: 'all' } };
 }
 let S = defaultState();
 function loadLocal() {
@@ -3981,7 +3981,11 @@ function loadLocal() {
 function normalize(o) {
   const d = defaultState();
   if (!o || typeof o !== 'object') return d;
-  return { ...d, ...o, settings: { ...d.settings, ...(o.settings || {}) }, cards: o.cards || {}, custom: o.custom || [], edits: o.edits || {}, hidden: o.hidden || {}, days: o.days || {}, words: o.words || {}, stories: o.stories || {}, game: { best: {}, rounds: 0, ...(o.game || {}) } };
+  const st = { ...d.settings, ...(o.settings || {}) };
+  // Old versions kept a list of *included* decks that the level filter could empty by mistake; start over with all decks on.
+  if ('decks' in st) { delete st.decks; st.skipDecks = []; }
+  if (!Array.isArray(st.skipDecks)) st.skipDecks = [];
+  return { ...d, ...o, settings: st, cards: o.cards || {}, custom: o.custom || [], edits: o.edits || {}, hidden: o.hidden || {}, days: o.days || {}, words: o.words || {}, stories: o.stories || {}, game: { best: {}, rounds: 0, ...(o.game || {}) } };
 }
 const cloud = { db: null, ref: null, status: 'local', writing: Promise.resolve(), timer: null };
 function save() {
@@ -4039,7 +4043,8 @@ function deckNames() {
 }
 function levelOfDeck(deck) { const m = /^(A1|A2|B1|B2|C1|C2)\b/i.exec(deck || ''); return m ? m[1].toUpperCase() : 'mine'; }
 function inLevel(deck) { const l = S.settings.level || 'all'; return l === 'all' || levelOfDeck(deck) === l; }
-function activeDeck(deck) { return inLevel(deck) && (!S.settings.decks || S.settings.decks.includes(deck)); }
+function deckOn(deck) { return !(S.settings.skipDecks || []).includes(deck); }
+function activeDeck(deck) { return inLevel(deck) && deckOn(deck); }
 const LEVEL_LABEL = { all: 'Tümü', A1: 'A1', A2: 'A2', B1: 'B1', B2: 'B2', C1: 'C1', C2: 'C2', mine: 'Benim' };
 function levelButtons(items) {
   const per = { all: 0 };
@@ -4277,7 +4282,7 @@ function viewHome() {
     </div>
     ${done ? `<div class="stack">
         <p><b>Bugünkü tekrarlar bitti.</b> <span class="muted">${t.n ? `Bugün ${t.n} kart çalıştın, %${Math.round(100 * t.ok / t.n)} doğru. ` : ''}Yarın ${tomorrow} cümle seni bekliyor.</span></p>
-        ${c.freshTotal ? `<button class="btn wide" data-act="morenew">${ICON.plus} Bugün 5 yeni cümle daha</button>` : ''}
+        ${c.freshTotal ? `<p class="muted small">Günlük yeni cümle sınırına (${S.settings.newPerDay}) ulaştın. Sınırı Ayarlar'dan değiştirebilirsin.</p><button class="btn wide" data-act="morenew">${ICON.plus} Bugün 5 yeni cümle daha</button>` : `<p class="muted small">${(S.settings.level || 'all') === 'all' ? 'Seçili destelerde' : LEVEL_LABEL[S.settings.level] + ' seviyesinde'} yeni cümle kalmadı. Başka bir seviye seçebilir ya da cümle ekleyebilirsin.</p>`}
       </div>`
       : `<button class="btn primary wide" data-act="start">Çalışmaya başla</button>`}
   </section>
@@ -4492,15 +4497,15 @@ function viewSettings() {
   return `
   <section class="sheet">
     <h2>Çalışma</h2>
-    <div class="setrow"><div><b>Günlük yeni cümle</b><p class="muted small">Her gün kaç yeni cümle gelsin.</p></div>
-      <select id="setNew" class="toolbar" style="border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--sheet)">${[5, 10, 15, 20, 30, 50].map(n => `<option ${n === st.newPerDay ? 'selected' : ''}>${n}</option>`).join('')}</select></div>
+    <div class="setrow"><div><b>Günlük yeni cümle</b><p class="muted small">Her gün kaç yeni cümle gelsin. Tekrarların sınırı yok, zamanı gelen her cümle sorulur.</p></div>
+      <select id="setNew" class="toolbar" style="border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--sheet)">${[5, 10, 15, 20, 30, 50, 100, 9999].map(n => `<option value="${n}" ${n === st.newPerDay ? 'selected' : ''}>${n === 9999 ? 'Sınırsız' : n}</option>`).join('')}</select></div>
     <div class="setrow"><div><b>Cevapta otomatik seslendir</b><p class="muted small">Cevabı açınca Almanca cümle okunur.</p></div><input type="checkbox" class="switch" id="setSpeak" ${st.autoSpeak ? 'checked' : ''} aria-label="Otomatik seslendirme"></div>
     <div class="setrow"><div><b>Konuşma hızı</b><p class="muted small"><span id="rateVal">${st.rate.toFixed(2)}</span>× ${canSpeak() ? '' : '· bu cihazda seslendirme bulunamadı'}</p></div>
       <div class="row"><input type="range" id="setRate" min="0.6" max="1.2" step="0.05" value="${st.rate}" aria-label="Konuşma hızı"><button class="iconbtn" data-act="testsay" aria-label="Dene">${ICON.play}</button></div></div>
   </section>
   <section class="sheet">
     <h2>Çalışılacak desteler</h2>
-    <div class="decklist">${deckNames().map(d => `<label><input type="checkbox" data-deck="${esc(d)}" ${activeDeck(d) ? 'checked' : ''}>${esc(d)}<span class="c">${per[d] || 0}</span></label>`).join('')}</div>
+    <div class="decklist">${deckNames().map(d => `<label><input type="checkbox" data-deck="${esc(d)}" ${deckOn(d) ? 'checked' : ''}>${esc(d)}<span class="c">${per[d] || 0}</span></label>`).join('')}</div>
   </section>
   <section class="sheet stack">
     <h2 style="margin:0">Kayıt ve yedek</h2>
@@ -4546,7 +4551,7 @@ function addSentences(pairs, deck) {
     S.custom.push({ id: 'u' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), tr, de, deck: deck || 'Benim cümlelerim', added: Date.now() });
     added++;
   }
-  if (S.settings.decks && deck && !S.settings.decks.includes(deck)) S.settings.decks.push(deck);
+  if (deck) S.settings.skipDecks = (S.settings.skipDecks || []).filter(x => x !== deck);
   save();
   return { added, dup };
 }
@@ -4677,9 +4682,9 @@ document.addEventListener('change', e => {
   else if (t.id === 'setSpeak') { S.settings.autoSpeak = t.checked; save(); }
   else if (t.id === 'setRate') { save(); }
   else if (t.dataset.deck !== undefined) {
-    const sel = [...document.querySelectorAll('[data-deck]')].filter(x => x.checked).map(x => x.dataset.deck);
-    if (!sel.length) { t.checked = true; toast('En az bir deste seçili olmalı'); return; }
-    S.settings.decks = sel.length === deckNames().length ? null : sel; save();
+    const boxes = [...document.querySelectorAll('[data-deck]')];
+    if (!boxes.some(x => x.checked)) { t.checked = true; toast('En az bir deste seçili olmalı'); return; }
+    S.settings.skipDecks = boxes.filter(x => !x.checked).map(x => x.dataset.deck); save();
   }
 });
 document.addEventListener('keydown', e => {
