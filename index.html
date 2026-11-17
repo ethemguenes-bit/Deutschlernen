@@ -61,7 +61,33 @@ header.top .inner{display:flex;align-items:center;justify-content:space-between;
 main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 main .inner{padding-block:18px 28px;display:flex;flex-direction:column;gap:16px}
 nav.tabs{flex:none;background:var(--sheet);border-top:1px solid var(--line)}
-nav.tabs .inner{display:grid;grid-template-columns:repeat(5,1fr)}
+nav.tabs .inner{display:grid;grid-template-columns:repeat(6,1fr)}
+.stitle{font-family:var(--f-sent);font-size:clamp(24px,6vw,30px);margin:0}
+.story{display:flex;flex-direction:column;gap:4px;padding-block:10px}
+.sent{padding:6px 8px;margin:0 -8px;border-radius:8px;transition:background .2s}
+.sent.cur{background:var(--accent-bg)}
+.sent .de{font-family:var(--f-sent);font-size:19px;line-height:1.6;margin:0;overflow-wrap:anywhere}
+.w{background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;border-radius:3px;touch-action:manipulation}
+.w:hover{background:var(--accent-bg)}
+.w.on{background:var(--amber-bg);color:var(--ink);box-shadow:0 0 0 2px var(--amber-bg)}
+.tbtn{font-family:var(--f-ui);font-size:11px;font-weight:700;letter-spacing:.04em;border:1px solid var(--line);background:var(--paper);color:var(--ink-soft);border-radius:6px;padding:1px 6px;vertical-align:2px;margin-left:2px}
+.tbtn[aria-expanded="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.trow{display:flex;flex-direction:column;gap:6px;padding:4px 0 6px;border-left:2px solid var(--accent);padding-left:10px;margin-top:4px}
+.trow .tr{margin:0;color:var(--ink-soft)}
+.mini{display:inline-flex;align-items:center;gap:5px;font-size:13px;border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:4px 10px;min-height:32px}
+.mini svg{width:14px;height:14px}
+.q p{margin:0 0 8px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{text-align:left;border:1.5px solid var(--line);background:var(--sheet);border-radius:10px;padding:10px 12px;min-height:44px}
+.opt.sel{border-color:var(--accent);background:var(--accent-bg)}
+.opt.right{border-color:var(--green);background:var(--green-bg);color:var(--green);font-weight:600}
+.opt.wrong{border-color:var(--red);background:var(--red-bg);color:var(--red)}
+.opt:disabled{cursor:default;opacity:1}
+#wordbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom,0px));width:calc(100% - 24px);max-width:600px;z-index:40;background:var(--sheet);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:10px 10px 10px 16px;display:flex;align-items:center;gap:10px;font-size:15px}
+#wordbar>div{flex:1}
+body.wb main .inner{padding-bottom:120px}
+#wordbar b{font-family:var(--f-sent);font-size:18px;margin-right:6px}
+
 .gbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .gstat{font-size:14px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .gstat b{color:var(--ink);font-size:16px}
@@ -78,7 +104,7 @@ nav.tabs .inner{display:grid;grid-template-columns:repeat(5,1fr)}
 .art-der{color:var(--accent)} .art-die{color:var(--rose)} .art-das{color:var(--green)}
 .weaklist .de .art{font-family:var(--f-ui);font-size:.9em}
 
-nav.tabs button{background:none;border:0;padding:8px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--ink-soft)}
+nav.tabs button{background:none;border:0;padding:8px 2px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--ink-soft)}
 nav.tabs button svg{width:22px;height:22px}
 nav.tabs button[aria-current="page"]{color:var(--accent);font-weight:600}
 
@@ -236,11 +262,13 @@ textarea.ans:focus{border-style:solid;border-color:var(--accent);outline:none}
     <button data-tab="study"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 8h6M9 12h4"/></svg>Çalış</button>
     <button data-tab="list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Cümleler</button>
     <button data-tab="game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M14 6.5h4a2.5 2.5 0 0 1 2.5 2.5v1.5M10 17.5H6A2.5 2.5 0 0 1 3.5 15v-1.5"/></svg>Oyun</button>
+    <button data-tab="read"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.5C4 4.5 7 4 12 6c5-2 8-1.5 10-.5V19c-2-1-5-1.5-10 .5-5-2-8-1.5-10-.5z"/><path d="M12 6v13.5"/></svg>Okuma</button>
     <button data-tab="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>İstatistik</button>
     <button data-tab="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Ayarlar</button>
   </div></nav>
 </div>
 <div class="overlay" id="overlay" hidden><div class="modal" id="modal" role="dialog" aria-modal="true"></div></div>
+<div id="wordbar" role="status" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -899,6 +927,7 @@ const ICON = {
   play: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>',
   slow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg>',
   close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
   plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'
 };
 
@@ -3510,6 +3539,422 @@ function viewGame() {
   </section>`;
 }
 
+/* ---------- graded stories ---------- */
+const STORY_DATA = `=A1|Ein Tag mit Tom|Tom'la bir gün
+Tom wohnt in Köln.|Tom Köln'de oturuyor.
+Er ist dreißig Jahre alt und arbeitet in einem Büro.|Otuz yaşında ve bir ofiste çalışıyor.
+Jeden Morgen steht er um sechs Uhr auf.|Her sabah saat altıda kalkıyor.
+Er duscht und trinkt einen Kaffee.|Duş alıyor ve bir kahve içiyor.
+Zum Frühstück isst er Brot mit Käse.|Kahvaltıda peynirli ekmek yiyor.
+Um sieben Uhr fährt er mit dem Bus zur Arbeit.|Saat yedide otobüsle işe gidiyor.
+Die Arbeit beginnt um acht Uhr.|İş saat sekizde başlıyor.
+Mittags isst Tom mit seinen Kollegen in der Kantine.|Öğlenleri Tom iş arkadaşlarıyla yemekhanede yemek yiyor.
+Um fünf Uhr hat er Feierabend.|Saat beşte mesaisi bitiyor.
+Dann geht er in den Park und spielt Fußball.|Sonra parka gidiyor ve futbol oynuyor.
+Am Abend kocht er Nudeln und sieht fern.|Akşam makarna pişiriyor ve televizyon izliyor.
+Um elf Uhr geht er ins Bett.|Saat on birde yatıyor.
+Tom ist müde, aber zufrieden.|Tom yorgun ama memnun.
+?Tom nerede oturuyor?|Berlin'de|*Köln'de|Münih'te
+?Tom işe nasıl gidiyor?|Bisikletle|Arabayla|*Otobüsle
+?Tom işten sonra ne yapıyor?|*Parka gidip futbol oynuyor|Alışverişe gidiyor|Hemen uyuyor
+~wohnt=oturuyor;arbeitet=çalışıyor;steht auf=kalkıyor;steht=kalkıyor (aufstehen);duscht=duş alıyor;trinkt=içiyor;isst=yiyor;fährt=gidiyor (araçla);beginnt=başlıyor;hat=var (sahip);geht=gidiyor;spielt=oynuyor;kocht=pişiriyor;sieht fern=televizyon izliyor;sieht=görüyor;kollegen=iş arkadaşları;kantine=yemekhane;zufrieden=memnun
+=A1|Im Café|Kafede
+Maria und Ali sind Freunde.|Maria ile Ali arkadaş.
+Am Samstag gehen sie zusammen ins Café.|Cumartesi günü birlikte kafeye gidiyorlar.
+Das Café ist klein und gemütlich.|Kafe küçük ve rahat.
+Der Kellner kommt und fragt: „Was möchten Sie?“|Garson geliyor ve soruyor: "Ne istersiniz?"
+Maria möchte einen Tee mit Zitrone.|Maria limonlu bir çay istiyor.
+Ali nimmt einen Kaffee und ein Stück Kuchen.|Ali bir kahve ve bir dilim pasta alıyor.
+Der Kuchen ist sehr lecker.|Pasta çok lezzetli.
+Maria erzählt von ihrem Deutschkurs.|Maria Almanca kursunu anlatıyor.
+Ali hört zu und lacht.|Ali dinliyor ve gülüyor.
+Nach einer Stunde fragt Ali: „Die Rechnung, bitte!“|Bir saat sonra Ali "Hesap lütfen!" diyor.
+Alles zusammen kostet elf Euro.|Hepsi birlikte on bir avro tutuyor.
+Ali bezahlt heute, und Maria bezahlt nächstes Mal.|Bugün Ali ödüyor, bir dahaki sefere Maria ödeyecek.
+?Maria ne içiyor?|Kahve|*Limonlu çay|Portakal suyu
+?Ali ne yiyor?|*Bir dilim pasta|Bir sandviç|Hiçbir şey
+?Hesap ne kadar tutuyor?|Sekiz avro|*On bir avro|On beş avro
+~gehen=gidiyorlar;gemütlich=rahat, samimi;kommt=geliyor;fragt=soruyor;möchte=istiyor;möchten=isterdiniz;nimmt=alıyor;stück=dilim;erzählt=anlatıyor;ihrem=onun (kadın);hört zu=dinliyor;hört=duyuyor;lacht=gülüyor;kostet=tutuyor (fiyat);bezahlt=ödüyor;nächstes=gelecek;mal=sefer
+=A1|Meine neue Wohnung|Yeni dairem
+Ich heiße Elif und ich habe eine neue Wohnung.|Adım Elif ve yeni bir dairem var.
+Die Wohnung ist in der Stadtmitte.|Daire şehir merkezinde.
+Sie hat zwei Zimmer, eine Küche und ein Bad.|İki odası, bir mutfağı ve bir banyosu var.
+Das Wohnzimmer ist groß und hell.|Oturma odası büyük ve aydınlık.
+Dort stehen ein Sofa, ein Tisch und vier Stühle.|Orada bir kanepe, bir masa ve dört sandalye duruyor.
+Das Schlafzimmer ist klein, aber ruhig.|Yatak odası küçük ama sakin.
+Die Küche ist neu.|Mutfak yeni.
+Leider gibt es keinen Balkon.|Maalesef balkon yok.
+Die Miete ist nicht billig, aber die Lage ist super.|Kira ucuz değil ama konumu harika.
+Der Supermarkt und die Haltestelle sind ganz nah.|Süpermarket ve durak çok yakın.
+Meine Nachbarn sind sehr nett.|Komşularım çok nazik.
+Am Sonntag mache ich eine kleine Party.|Pazar günü küçük bir parti yapıyorum.
+Alle meine Freunde kommen.|Bütün arkadaşlarım geliyor.
+?Daire nerede?|*Şehir merkezinde|Bir köyde|Havalimanının yanında
+?Dairede ne yok?|Mutfak|*Balkon|Banyo
+?Elif pazar günü ne yapıyor?|Taşınıyor|*Küçük bir parti veriyor|Tatile gidiyor
+~heiße=adım ... (heißen);hell=aydınlık;stehen=duruyor;stühle=sandalyeler;ruhig=sakin;leider=maalesef;gibt es=var;keinen=hiç;lage=konum;ganz=çok, tamamen;nachbarn=komşular;mache=yapıyorum;alle=bütün;freunde=arkadaşlar
+=A1|Einkaufen am Samstag|Cumartesi alışverişi
+Am Samstag geht Herr Becker auf den Markt.|Cumartesi Bay Becker pazara gidiyor.
+Er hat eine Liste.|Bir listesi var.
+Er braucht Äpfel, Tomaten, Kartoffeln und Eier.|Elma, domates, patates ve yumurtaya ihtiyacı var.
+Auf dem Markt ist es sehr voll.|Pazar çok kalabalık.
+Er kauft ein Kilo Äpfel und zwei Kilo Kartoffeln.|Bir kilo elma ve iki kilo patates alıyor.
+Die Tomaten sind heute sehr teuer.|Domatesler bugün çok pahalı.
+Herr Becker nimmt nur ein halbes Kilo.|Bay Becker sadece yarım kilo alıyor.
+Dann geht er in die Bäckerei.|Sonra fırına gidiyor.
+Dort kauft er ein Brot und sechs Brötchen.|Orada bir ekmek ve altı küçük ekmek alıyor.
+Zu Hause sieht er die Liste noch einmal an.|Evde listeye bir kez daha bakıyor.
+Oh nein, er hat die Eier vergessen!|Ah hayır, yumurtaları unutmuş!
+Er lacht und geht noch einmal los.|Gülüyor ve bir kez daha yola çıkıyor.
+?Bay Becker cumartesi nereye gidiyor?|*Pazara|Doktora|İşe
+?Bay Becker neyi unutuyor?|Ekmeği|Elmaları|*Yumurtaları
+?Domatesler bugün nasıl?|Ucuz|*Çok pahalı|Kötü
+~braucht=ihtiyacı var;voll=kalabalık (dolu);kauft=satın alıyor;eier=yumurtalar;äpfel=elmalar;kartoffeln=patatesler;tomaten=domatesler;halbes=yarım;sieht an=bakıyor;sieht=bakıyor;vergessen=unutmuş;geht los=yola çıkıyor;los=yola
+=A1|Der Hund von Frau Weber|Bayan Weber'in köpeği
+Frau Weber ist meine Nachbarin.|Bayan Weber benim komşum.
+Sie ist achtzig Jahre alt und hat einen Hund.|Seksen yaşında ve bir köpeği var.
+Der Hund heißt Bruno.|Köpeğin adı Bruno.
+Bruno ist groß und braun.|Bruno büyük ve kahverengi.
+Frau Weber hat heute Rückenschmerzen.|Bayan Weber'in bugün sırtı ağrıyor.
+Sie kann nicht spazieren gehen.|Yürüyüşe çıkamıyor.
+Ich helfe gern.|Seve seve yardım ediyorum.
+Ich gehe mit Bruno in den Park.|Bruno ile parka gidiyorum.
+Bruno spielt mit einem Ball und läuft schnell.|Bruno bir topla oynuyor ve hızlı koşuyor.
+Nach einer Stunde sind wir wieder zu Hause.|Bir saat sonra tekrar evdeyiz.
+Frau Weber ist sehr froh.|Bayan Weber çok memnun.
+Sie sagt: „Vielen Dank! Möchten Sie einen Tee?“|"Çok teşekkürler! Bir çay ister misiniz?" diyor.
+Wir trinken zusammen Tee und essen Kekse.|Birlikte çay içiyor ve kurabiye yiyoruz.
+?Bruno kim?|Komşunun kedisi|*Komşunun köpeği|Komşunun torunu
+?Bayan Weber neden yürüyüşe çıkamıyor?|*Sırtı ağrıyor|Yağmur yağıyor|Çok meşgul
+?Sonunda ne yapıyorlar?|Futbol oynuyorlar|*Birlikte çay içiyorlar|Alışverişe gidiyorlar
+~nachbarin=komşu (kadın);heißt=adı ... (heißen);rückenschmerzen=sırt ağrısı;kann=-ebilir;helfe=yardım ediyorum;spielt=oynuyor;ball=top;läuft=koşuyor;wieder=tekrar;froh=memnun;sagt=diyor;kekse=kurabiyeler
+=A2|Der verpasste Zug|Kaçırılan tren
+Letzten Freitag wollte Jonas seine Eltern in Hamburg besuchen.|Geçen cuma Jonas Hamburg'daki ailesini ziyaret etmek istiyordu.
+Sein Zug sollte um 17:30 Uhr abfahren.|Treninin saat 17:30'da kalkması gerekiyordu.
+Aber an diesem Tag gab es viel Arbeit im Büro.|Ama o gün ofiste çok iş vardı.
+Jonas hat erst um 17 Uhr Feierabend gemacht.|Jonas ancak saat 17'de işten çıktı.
+Er ist schnell zur U-Bahn gelaufen.|Hızla metroya koştu.
+Leider hatte die U-Bahn zehn Minuten Verspätung.|Maalesef metro on dakika rötar yaptı.
+Als Jonas am Bahnhof ankam, war es schon 17:35 Uhr.|Jonas istasyona vardığında saat 17:35 olmuştu bile.
+Der Zug war weg!|Tren gitmişti!
+Jonas war sehr ärgerlich, weil er sich so auf das Wochenende gefreut hatte.|Jonas çok sinirliydi, çünkü hafta sonunu çok dört gözle bekliyordu.
+Er ist zum Schalter gegangen und hat gefragt, wann der nächste Zug fährt.|Gişeye gitti ve bir sonraki trenin ne zaman kalktığını sordu.
+Die Frau am Schalter war sehr freundlich.|Gişedeki kadın çok güler yüzlüydü.
+Sie hat gesagt, dass um 18:15 Uhr noch ein Zug fährt.|Saat 18:15'te bir tren daha olduğunu söyledi.
+Jonas musste nicht einmal eine neue Fahrkarte kaufen.|Jonas'ın yeni bir bilet alması bile gerekmedi.
+Er hat seine Mutter angerufen und ihr alles erzählt.|Annesini aradı ve ona her şeyi anlattı.
+Dann hat er einen Kaffee getrunken und ein Buch gelesen.|Sonra bir kahve içti ve kitap okudu.
+Um 21 Uhr ist er in Hamburg angekommen.|Saat 21'de Hamburg'a vardı.
+Seine Eltern haben ihn mit einem warmen Abendessen begrüßt.|Ailesi onu sıcak bir akşam yemeğiyle karşıladı.
+?Jonas neden treni kaçırdı?|Uyuyakaldı|*İşten geç çıktı ve metro rötar yaptı|Bileti unuttu
+?Gişedeki kadın ne söyledi?|*18:15'te bir tren daha var|Bugün başka tren yok|Yeni bilet alması gerekiyor
+?Jonas Hamburg'a saat kaçta vardı?|17:30'da|19:00'da|*21:00'de
+~wollte=istiyordu;besuchen=ziyaret etmek;sollte=gerekiyordu;gab es=vardı;gab=vardı;erst=ancak;gelaufen=koştu;hatte=vardı (sahipti);ankam=vardı (ulaştı);war=idi;weg=gitmiş;ärgerlich=sinirli;gefreut=sevinmiş, dört gözle beklemiş;gegangen=gitti;gefragt=sordu;gesagt=söyledi;musste=zorunda kaldı;angerufen=aradı (telefon);erzählt=anlattı;getrunken=içti;gelesen=okudu;angekommen=vardı;begrüßt=karşıladı
+=A2|Beim Arzt|Doktorda
+Seit drei Tagen fühlt sich Selin nicht gut.|Selin üç gündür kendini iyi hissetmiyor.
+Sie hat Kopfschmerzen und Halsschmerzen, und gestern Abend hatte sie auch Fieber.|Başı ve boğazı ağrıyor, dün akşam ateşi de vardı.
+Am Montagmorgen hat sie in der Praxis angerufen.|Pazartesi sabahı muayenehaneyi aradı.
+Sie hat einen Termin für zehn Uhr bekommen.|Saat on için bir randevu aldı.
+Im Wartezimmer saßen schon viele Leute.|Bekleme odasında zaten birçok kişi oturuyordu.
+Selin musste fast eine Stunde warten.|Selin neredeyse bir saat beklemek zorunda kaldı.
+Dann hat die Ärztin sie aufgerufen.|Sonra doktor onu çağırdı.
+„Was fehlt Ihnen?“, hat die Ärztin gefragt.|"Neyiniz var?" diye sordu doktor.
+Selin hat ihre Probleme erklärt.|Selin şikâyetlerini anlattı.
+Die Ärztin hat sie untersucht und gesagt, dass sie eine Grippe hat.|Doktor onu muayene etti ve grip olduğunu söyledi.
+Sie hat ihr ein Medikament gegen das Fieber verschrieben.|Ateş için ona bir ilaç yazdı.
+„Sie sollten viel Tee trinken und im Bett bleiben“, hat sie gesagt.|"Bol çay içmeli ve yatakta kalmalısınız" dedi.
+Selin hat außerdem eine Krankmeldung für ihren Arbeitgeber bekommen.|Selin ayrıca işvereni için hastalık raporu aldı.
+Auf dem Weg nach Hause ist sie zur Apotheke gegangen.|Eve giderken eczaneye uğradı.
+Eine Woche später war sie wieder gesund und konnte arbeiten.|Bir hafta sonra yeniden sağlıklıydı ve çalışabildi.
+?Selin'in hangi şikâyeti yoktu?|Baş ağrısı|Ateş|*Karın ağrısı
+?Doktor ne teşhis koydu?|*Grip|Alerji|Kırık
+?Selin bekleme odasında ne kadar bekledi?|Beş dakika|*Neredeyse bir saat|Üç saat
+~fühlt sich=hissediyor;fühlt=hissediyor;halsschmerzen=boğaz ağrısı;angerufen=aradı;bekommen=aldı;saßen=oturuyordu;musste=zorunda kaldı;aufgerufen=çağırdı;fehlt=eksik (neyiniz var);ärztin=doktor (kadın);erklärt=açıkladı;untersucht=muayene etti;verschrieben=reçete etti;sollten=-meli;bleiben=kalmak;krankmeldung=hastalık raporu;konnte=-ebildi
+=A2|Ein Wochenende in Hamburg|Hamburg'da bir hafta sonu
+Im Mai haben Lisa und ihr Freund Can ein Wochenende in Hamburg verbracht.|Mayısta Lisa ve erkek arkadaşı Can Hamburg'da bir hafta sonu geçirdi.
+Sie sind am Freitagabend mit dem Bus gefahren, weil das billiger als der Zug war.|Cuma akşamı otobüsle gittiler, çünkü trenden daha ucuzdu.
+Ihr Hotel war klein, aber sehr zentral.|Otelleri küçüktü ama çok merkezîydi.
+Am Samstagmorgen hat es leider geregnet.|Cumartesi sabahı maalesef yağmur yağdı.
+Deshalb haben sie zuerst ein Museum besucht.|Bu yüzden önce bir müzeyi ziyaret ettiler.
+Am Nachmittag kam endlich die Sonne.|Öğleden sonra nihayet güneş çıktı.
+Sie haben eine Hafenrundfahrt mit dem Schiff gemacht.|Gemiyle bir liman turu yaptılar.
+Can hat sehr viele Fotos gemacht.|Can çok fazla fotoğraf çekti.
+Am Abend haben sie in einem kleinen Restaurant Fisch gegessen.|Akşam küçük bir restoranda balık yediler.
+Das Essen war frisch und nicht zu teuer.|Yemek tazeydi ve çok pahalı değildi.
+Am Sonntag sind sie früh aufgestanden und auf den Fischmarkt gegangen.|Pazar günü erken kalkıp balık pazarına gittiler.
+Dort war es laut und bunt.|Orası gürültülü ve renkliydi.
+Lisa hat für ihre Mutter ein kleines Geschenk gekauft.|Lisa annesi için küçük bir hediye aldı.
+Am Nachmittag mussten sie leider schon zurückfahren.|Öğleden sonra maalesef geri dönmeleri gerekti.
+Im Bus haben sie beschlossen: Nächstes Jahr kommen wir wieder!|Otobüste karar verdiler: Seneye yine geleceğiz!
+?Neden otobüsle gittiler?|Daha hızlıydı|*Trenden daha ucuzdu|Tren yoktu
+?Cumartesi sabahı neden müzeye gittiler?|*Yağmur yağıyordu|Müze ücretsizdi|Can müzeleri çok sever
+?Lisa annesi için ne aldı?|Balık|Fotoğraf|*Küçük bir hediye
+~verbracht=geçirdi;gefahren=gitti (araçla);billiger=daha ucuz;zentral=merkezî;geregnet=yağmur yağdı;deshalb=bu yüzden;besucht=ziyaret etti;kam=geldi;hafenrundfahrt=liman turu;gemacht=yaptı;gegessen=yedi;aufgestanden=kalktı;fischmarkt=balık pazarı;gekauft=aldı;mussten=zorunda kaldılar;zurückfahren=geri dönmek;beschlossen=karar verdi
+=A2|Die Geburtstagsparty|Doğum günü partisi
+Nächsten Samstag hat Murat Geburtstag.|Gelecek cumartesi Murat'ın doğum günü.
+Seine Frau Ayşe möchte ihm eine Überraschung machen.|Eşi Ayşe ona bir sürpriz yapmak istiyor.
+Sie hat heimlich alle Freunde eingeladen.|Gizlice bütün arkadaşları davet etti.
+Murat darf natürlich nichts wissen.|Murat'ın tabii ki hiçbir şey bilmemesi gerekiyor.
+Am Samstagmorgen schickt Ayşe ihn zum Einkaufen.|Cumartesi sabahı Ayşe onu alışverişe gönderiyor.
+Sie gibt ihm eine lange Liste, damit er lange unterwegs ist.|Uzun süre dışarıda kalsın diye ona uzun bir liste veriyor.
+Inzwischen kommen die Gäste.|Bu arada misafirler geliyor.
+Sie hängen Luftballons auf und stellen einen großen Kuchen auf den Tisch.|Balonları asıyorlar ve masaya büyük bir pasta koyuyorlar.
+Um zwölf Uhr hört Ayşe den Schlüssel in der Tür.|Saat on ikide Ayşe kapıda anahtarın sesini duyuyor.
+Alle sind ganz still.|Herkes çok sessiz.
+Murat öffnet die Tür und alle rufen: „Überraschung!“|Murat kapıyı açıyor ve herkes bağırıyor: "Sürpriz!"
+Murat ist so überrascht, dass er die Einkaufstasche fallen lässt.|Murat o kadar şaşırıyor ki alışveriş çantasını düşürüyor.
+Zum Glück waren keine Eier darin!|Neyse ki içinde yumurta yoktu!
+Alle lachen und singen „Zum Geburtstag viel Glück“.|Herkes gülüyor ve "İyi ki doğdun" şarkısını söylüyor.
+Später sagt Murat: „Das war der schönste Geburtstag meines Lebens.“|Daha sonra Murat diyor ki: "Bu hayatımın en güzel doğum günüydü."
+?Ayşe neden Murat'a uzun bir liste veriyor?|Çok şey lazım|*Murat uzun süre dışarıda kalsın diye|Misafirler aç
+?Murat kapıyı açınca ne oluyor?|*Herkes "Sürpriz!" diye bağırıyor|Kimse yok|Pasta yere düşüyor
+?Murat neyi düşürüyor?|Pastayı|Anahtarı|*Alışveriş çantasını
+~überraschung=sürpriz;heimlich=gizlice;eingeladen=davet etti;darf=-meli (izinli);wissen=bilmek;schickt=gönderiyor;gibt=veriyor;damit=-sın diye;unterwegs=yolda, dışarıda;inzwischen=bu arada;gäste=misafirler;hängen auf=asıyorlar;hängen=asıyorlar;luftballons=balonlar;stellen=koyuyorlar;hört=duyuyor;still=sessiz;öffnet=açıyor;rufen=bağırıyorlar;überrascht=şaşırmış;einkaufstasche=alışveriş çantası;fallen lässt=düşürüyor;zum glück=neyse ki;schönste=en güzel
+=A2|Der erste Arbeitstag|İlk iş günü
+Gestern war Daniels erster Arbeitstag in einer neuen Firma.|Dün Daniel'in yeni bir şirketteki ilk iş günüydü.
+Er war sehr nervös und konnte in der Nacht kaum schlafen.|Çok gergindi ve gece neredeyse hiç uyuyamadı.
+Er ist eine halbe Stunde zu früh losgefahren, weil er auf keinen Fall zu spät kommen wollte.|Kesinlikle geç kalmak istemediği için yarım saat erken yola çıktı.
+Am Empfang hat ihn seine neue Chefin, Frau Schmidt, begrüßt.|Resepsiyonda yeni şefi Bayan Schmidt onu karşıladı.
+Sie hat ihm das Büro gezeigt und ihn den Kollegen vorgestellt.|Ona ofisi gösterdi ve onu iş arkadaşlarıyla tanıştırdı.
+Alle waren sehr freundlich.|Herkes çok güler yüzlüydü.
+Ein Kollege, Herr Lang, hat ihm den Computer erklärt.|Bir iş arkadaşı, Bay Lang, ona bilgisayarı anlattı.
+Daniel musste viele Passwörter und Programme lernen.|Daniel birçok şifre ve program öğrenmek zorunda kaldı.
+In der Mittagspause sind sie zusammen in die Kantine gegangen.|Öğle arasında birlikte yemekhaneye gittiler.
+Das Essen war besser, als Daniel gedacht hatte.|Yemek Daniel'in düşündüğünden daha iyiydi.
+Am Nachmittag hatte er seine erste Besprechung.|Öğleden sonra ilk toplantısı vardı.
+Er hat nicht alles verstanden, aber er hat viele Notizen gemacht.|Her şeyi anlamadı ama çok not aldı.
+Um fünf Uhr hat Frau Schmidt gefragt: „Na, wie war Ihr erster Tag?“|Saat beşte Bayan Schmidt sordu: "Eee, ilk gününüz nasıldı?"
+Daniel hat geantwortet: „Anstrengend, aber sehr schön.“|Daniel cevap verdi: "Yorucu ama çok güzel."
+Zu Hause ist er sofort eingeschlafen.|Evde hemen uyuyakaldı.
+?Daniel neden erken yola çıktı?|*Kesinlikle geç kalmak istemediği için|Trafik vardı|Patronu istedi
+?Bilgisayarı Daniel'e kim anlattı?|Bayan Schmidt|*Bay Lang|Kimse
+?Daniel ilk günü nasıl buldu?|Sıkıcı|*Yorucu ama çok güzel|Çok kolay
+~erster=ilk;nervös=gergin;konnte=-ebildi;kaum=neredeyse hiç;losgefahren=yola çıktı;auf keinen fall=asla, kesinlikle;wollte=istiyordu;empfang=resepsiyon;chefin=şef (kadın);begrüßt=karşıladı;gezeigt=gösterdi;vorgestellt=tanıttı;erklärt=açıkladı;passwörter=şifreler;mittagspause=öğle arası;gedacht=düşünmüştü;verstanden=anladı;notizen=notlar;geantwortet=cevap verdi;anstrengend=yorucu;eingeschlafen=uyuyakaldı
+=B1|Die Bewerbung|İş başvurusu
+Nach ihrem Studium suchte Leyla fast ein halbes Jahr lang eine Stelle als Grafikdesignerin.|Leyla üniversiteden sonra neredeyse yarım yıl boyunca grafik tasarımcı olarak iş aradı.
+Sie hatte schon über zwanzig Bewerbungen geschrieben, aber meistens bekam sie nicht einmal eine Antwort.|Yirmiden fazla başvuru yazmıştı, ama çoğu zaman bir cevap bile alamadı.
+Allmählich verlor sie die Hoffnung.|Yavaş yavaş umudunu kaybetti.
+Eines Tages entdeckte sie im Internet eine Anzeige, die perfekt zu ihr passte.|Bir gün internette tam ona göre bir ilan keşfetti.
+Eine kleine Werbeagentur in Leipzig suchte jemanden, der kreativ ist und gut im Team arbeiten kann.|Leipzig'de küçük bir reklam ajansı yaratıcı olan ve ekip içinde iyi çalışabilen birini arıyordu.
+Diesmal wollte Leyla alles anders machen.|Leyla bu sefer her şeyi farklı yapmak istedi.
+Statt eines Standardbriefs schrieb sie ein persönliches Anschreiben und schickte einige ihrer besten Arbeiten mit.|Standart bir mektup yerine kişisel bir ön yazı yazdı ve en iyi işlerinden bazılarını da gönderdi.
+Schon nach drei Tagen wurde sie zu einem Vorstellungsgespräch eingeladen.|Daha üç gün sonra iş görüşmesine davet edildi.
+Am Abend vorher bereitete sie sich gründlich vor.|Önceki akşam iyice hazırlandı.
+Sie informierte sich über die Firma und überlegte, welche Fragen man ihr stellen könnte.|Şirket hakkında bilgi topladı ve kendisine hangi soruların sorulabileceğini düşündü.
+Das Gespräch begann etwas steif, doch bald entstand eine angenehme Atmosphäre.|Görüşme biraz resmî başladı, ama kısa sürede hoş bir hava oluştu.
+Der Geschäftsführer wollte wissen, warum sie sich gerade bei ihnen beworben hatte.|Genel müdür neden özellikle onlara başvurduğunu öğrenmek istedi.
+Leyla antwortete ehrlich, dass ihr die Projekte der Agentur schon lange gefielen.|Leyla ajansın projelerini uzun zamandır beğendiğini dürüstçe söyledi.
+Am Ende fragte man sie nach ihren Gehaltsvorstellungen.|Sonunda ona maaş beklentisi soruldu.
+Darauf war sie zum Glück vorbereitet.|Neyse ki buna hazırlıklıydı.
+Eine Woche später klingelte ihr Handy.|Bir hafta sonra telefonu çaldı.
+Man bot ihr die Stelle an, zunächst befristet auf ein Jahr.|Ona iş teklif edildi, önce bir yıllık süreyle.
+Leyla war überglücklich und nahm das Angebot sofort an.|Leyla çok mutlu oldu ve teklifi hemen kabul etti.
+Heute sagt sie: „Die vielen Absagen haben mir geholfen, mich besser zu präsentieren.“|Bugün şöyle diyor: "Gelen birçok ret cevabı kendimi daha iyi tanıtmama yardım etti."
+?Leyla bu sefer neyi farklı yaptı?|Daha fazla şirkete başvurdu|*Kişisel bir ön yazı yazdı ve işlerini gönderdi|Ajansı telefonla aradı
+?Genel müdür ne öğrenmek istedi?|*Neden özellikle onlara başvurduğunu|Kaç yaşında olduğunu|Nerede oturduğunu
+?Leyla'ya nasıl bir sözleşme teklif edildi?|Süresiz|Yarı zamanlı|*Bir yıl süreli
+~suchte=aradı;geschrieben=yazmıştı;bekam=aldı;allmählich=yavaş yavaş;verlor=kaybetti;entdeckte=keşfetti;passte=uyuyordu;werbeagentur=reklam ajansı;diesmal=bu sefer;anschreiben=ön yazı (başvuru mektubu);schickte mit=yanında gönderdi;schickte=gönderdi;wurde eingeladen=davet edildi;wurde=edildi;eingeladen=davet edilmiş;bereitete vor=hazırladı;gründlich=iyice;informierte sich=bilgi topladı;überlegte=düşündü;könnte=-ebilirdi;steif=resmî, gergin;entstand=oluştu;geschäftsführer=genel müdür;beworben=başvurmuş;gefielen=hoşuna gidiyordu;gehaltsvorstellungen=maaş beklentisi;klingelte=çaldı;bot an=teklif etti;bot=teklif etti;zunächst=önce;überglücklich=çok mutlu;nahm an=kabul etti;nahm=aldı;absagen=ret cevapları
+=B1|Ärger mit dem Vermieter|Ev sahibiyle sorun
+Im Januar, mitten im kältesten Monat des Jahres, fiel in Peters Wohnung die Heizung aus.|Ocakta, yılın en soğuk ayının ortasında, Peter'in dairesinde kalorifer bozuldu.
+Zuerst dachte er, das Problem würde sich von selbst lösen.|Önce sorunun kendiliğinden çözüleceğini düşündü.
+Doch nach zwei Tagen war es in der Wohnung nur noch vierzehn Grad warm.|Ama iki gün sonra dairede sıcaklık sadece on dört dereceydi.
+Peter rief seinen Vermieter an, erreichte ihn aber nicht.|Peter ev sahibini aradı ama ona ulaşamadı.
+Er schrieb ihm eine E-Mail und bat ihn, so schnell wie möglich einen Handwerker zu schicken.|Ona bir e-posta yazdı ve en kısa zamanda bir usta göndermesini rica etti.
+Eine Antwort kam nicht.|Cevap gelmedi.
+Inzwischen schlief Peter mit zwei Decken und einem dicken Pullover.|Bu arada Peter iki battaniye ve kalın bir kazakla uyuyordu.
+Eine Nachbarin, die schon lange im Haus wohnte, gab ihm einen wichtigen Tipp.|Uzun süredir binada oturan bir komşu ona önemli bir tavsiye verdi.
+Sie erklärte ihm, dass der Vermieter verpflichtet sei, die Heizung reparieren zu lassen.|Ona ev sahibinin kaloriferi tamir ettirmekle yükümlü olduğunu açıkladı.
+Außerdem habe er als Mieter das Recht, die Miete zu mindern, solange die Wohnung kalt bleibe.|Ayrıca kiracı olarak daire soğuk kaldığı sürece kirayı düşürme hakkı olduğunu söyledi.
+Peter schrieb daraufhin einen offiziellen Brief, in dem er eine Frist von drei Tagen setzte.|Bunun üzerine Peter üç günlük süre verdiği resmî bir mektup yazdı.
+Diesmal reagierte der Vermieter sofort.|Bu sefer ev sahibi hemen tepki verdi.
+Er entschuldigte sich und erklärte, dass er im Urlaub gewesen sei.|Özür diledi ve tatilde olduğunu açıkladı.
+Schon am nächsten Morgen kam ein Techniker und reparierte die Heizung.|Daha ertesi sabah bir teknisyen geldi ve kaloriferi tamir etti.
+Für die kalten Tage bekam Peter eine kleine Mietminderung.|Soğuk günler için Peter kirada küçük bir indirim aldı.
+Seitdem weiß er, wie wichtig es ist, seine Rechte zu kennen.|O zamandan beri haklarını bilmenin ne kadar önemli olduğunu biliyor.
+Und er hat sich vorgenommen, seine Nachbarin bald zum Essen einzuladen.|Ve komşusunu yakında yemeğe davet etmeye karar verdi.
+?Peter'in dairesinde ne oldu?|Su borusu patladı|*Kalorifer bozuldu|Elektrik kesildi
+?Komşu Peter'e ne tavsiye etti?|Taşınmasını|*Haklarını ve kirayı düşürme hakkını|Kaloriferi kendisinin tamir etmesini
+?Ev sahibi ilk e-postaya neden cevap vermedi?|Hastaydı|*Tatildeydi|Taşınmıştı
+~mitten=ortasında;kältesten=en soğuk;fiel aus=bozuldu;fiel=düştü;dachte=düşündü;würde=-ecekti;lösen=çözmek;rief an=aradı;rief=seslendi;erreichte=ulaştı;bat=rica etti;handwerker=usta;schlief=uyuyordu;decken=battaniyeler;dicken=kalın;tipp=tavsiye;erklärte=açıkladı;verpflichtet=yükümlü;sei=olduğu (dolaylı anlatım);reparieren lassen=tamir ettirmek;mieter=kiracı;habe=olduğu (dolaylı anlatım);mindern=düşürmek;solange=-dığı sürece;bleibe=kaldığı (dolaylı anlatım);daraufhin=bunun üzerine;frist=süre;setzte=koydu;reagierte=tepki verdi;entschuldigte sich=özür diledi;gewesen=olmuş;techniker=teknisyen;reparierte=tamir etti;mietminderung=kira indirimi;seitdem=o zamandan beri;rechte=haklar;vorgenommen=niyet etti
+=B1|Eine Woche ohne Handy|Telefonsuz bir hafta
+Als Sarah merkte, dass sie täglich fast fünf Stunden auf ihr Handy schaute, erschrak sie.|Sarah günde neredeyse beş saat telefonuna baktığını fark edince irkildi.
+Sie beschloss, ein Experiment zu machen: eine ganze Woche ohne Smartphone.|Bir deney yapmaya karar verdi: koca bir hafta akıllı telefon olmadan.
+Ihre Freunde lachten und meinten, sie würde keine zwei Tage durchhalten.|Arkadaşları güldüler ve onun iki gün bile dayanamayacağını söylediler.
+Die ersten Tage waren tatsächlich schwierig.|İlk günler gerçekten zordu.
+Immer wieder griff sie automatisch in ihre Tasche, obwohl das Handy zu Hause in der Schublade lag.|Telefon evde çekmecede durmasına rağmen sürekli otomatik olarak cebine uzanıyordu.
+Ohne Navigation verlief sie sich in einem Stadtteil, den sie nicht kannte.|Navigasyon olmadan bilmediği bir semtte yolunu kaybetti.
+Also musste sie Passanten nach dem Weg fragen, was sie seit Jahren nicht mehr getan hatte.|Bu yüzden yoldan geçenlere yol sormak zorunda kaldı, ki bunu yıllardır yapmamıştı.
+Doch nach und nach veränderte sich etwas.|Ama yavaş yavaş bir şeyler değişti.
+Sarah schlief besser, weil sie abends nicht mehr im Bett Videos ansah.|Sarah daha iyi uyudu, çünkü akşamları artık yatakta video izlemiyordu.
+In der Straßenbahn beobachtete sie die Menschen oder las ein Buch.|Tramvayda insanları izledi ya da kitap okudu.
+Sie rief ihre Großmutter vom Festnetz an und unterhielt sich eine Stunde mit ihr.|Büyükannesini sabit hattan aradı ve onunla bir saat sohbet etti.
+Am meisten überraschte sie, wie viel Zeit sie plötzlich hatte.|Onu en çok şaşırtan, birden ne kadar çok vakti olduğuydu.
+Natürlich hatte das Experiment auch Nachteile.|Tabii ki deneyin dezavantajları da vardı.
+Sie verpasste eine Einladung, weil die Nachricht nur in einer Gruppe geschickt worden war.|Bir daveti kaçırdı, çünkü mesaj sadece bir grupta gönderilmişti.
+Nach sieben Tagen schaltete sie das Handy wieder ein.|Yedi gün sonra telefonu yeniden açtı.
+Sie hatte über hundert ungelesene Nachrichten, aber kaum eine davon war wirklich wichtig.|Yüzden fazla okunmamış mesajı vardı, ama neredeyse hiçbiri gerçekten önemli değildi.
+Heute benutzt Sarah ihr Smartphone bewusster.|Bugün Sarah akıllı telefonunu daha bilinçli kullanıyor.
+Abends bleibt es in der Küche, und am Sonntag macht sie regelmäßig einen handyfreien Tag.|Akşamları telefon mutfakta kalıyor ve pazar günleri düzenli olarak telefonsuz bir gün geçiriyor.
+?Sarah deneye neden başladı?|Telefonu bozuldu|*Günde neredeyse beş saat telefona baktığını fark etti|Arkadaşları önerdi
+?Deneyin dezavantajı neydi?|Daha kötü uyudu|*Bir grup mesajındaki daveti kaçırdı|İşini kaybetti
+?Sarah bugün telefonunu nasıl kullanıyor?|Hiç kullanmıyor|Eskisi gibi|*Daha bilinçli
+~merkte=fark etti;täglich=günlük, her gün;schaute=baktı;erschrak=irkildi;beschloss=karar verdi;experiment=deney;lachten=güldüler;meinten=düşündüler, söylediler;würde=-ecekti;durchhalten=dayanmak;tatsächlich=gerçekten;griff=uzandı;schublade=çekmece;lag=duruyordu;verlief sich=yolunu kaybetti;verlief=yolunu kaybetti;kannte=tanıyordu;passanten=yoldan geçenler;getan=yapmış;nach und nach=yavaş yavaş;veränderte sich=değişti;veränderte=değiştirdi;schlief=uyudu;ansah=izledi;beobachtete=gözlemledi;las=okudu;festnetz=sabit hat;unterhielt sich=sohbet etti;überraschte=şaşırttı;nachteile=dezavantajlar;verpasste=kaçırdı;geschickt worden war=gönderilmişti;schaltete ein=açtı;ungelesene=okunmamış;kaum=neredeyse hiç;bewusster=daha bilinçli;handyfreien=telefonsuz
+=B1|Das gestohlene Fahrrad|Çalınan bisiklet
+Jeden Morgen fährt Herr Yılmaz mit dem Fahrrad zur Arbeit, egal ob es regnet oder schneit.|Bay Yılmaz yağmur da yağsa kar da yağsa her sabah bisikletle işe gidiyor.
+Das Fahrrad hatte er sich vor zwei Jahren gekauft und es war ziemlich teuer gewesen.|Bisikleti iki yıl önce almıştı ve oldukça pahalıydı.
+Eines Abends, als er aus dem Büro kam, war der Fahrradständer leer.|Bir akşam ofisten çıktığında bisiklet park yeri boştu.
+Nur das aufgeschnittene Schloss lag noch auf dem Boden.|Yerde sadece kesilmiş kilit duruyordu.
+Herr Yılmaz konnte es kaum glauben.|Bay Yılmaz buna neredeyse inanamadı.
+Er ging sofort zur Polizei, um den Diebstahl anzuzeigen.|Hırsızlığı bildirmek için hemen polise gitti.
+Dort wurden seine Daten aufgenommen und er wurde gefragt, ob er die Rahmennummer kenne.|Orada bilgileri alındı ve kendisine şasi numarasını bilip bilmediği soruldu.
+Zum Glück hatte er ein Foto vom Kaufvertrag auf seinem Handy gespeichert.|Neyse ki telefonunda satış sözleşmesinin fotoğrafını kaydetmişti.
+Der Polizist erklärte ihm jedoch, dass gestohlene Fahrräder nur selten gefunden würden.|Ancak polis ona çalınan bisikletlerin çok nadiren bulunduğunu açıkladı.
+Auch die Versicherung machte ihm wenig Hoffnung.|Sigorta da ona pek umut vermedi.
+Da sein Fahrrad nicht extra versichert war, würde er nur einen Teil des Wertes zurückbekommen.|Bisikleti ayrıca sigortalı olmadığı için değerinin sadece bir kısmını geri alacaktı.
+Drei Wochen später stellte eine Kollegin ihm eine Anzeige auf einer Verkaufsplattform vor.|Üç hafta sonra bir iş arkadaşı ona bir satış platformundaki ilanı gösterdi.
+Das Fahrrad auf dem Foto sah genauso aus wie seins, sogar der kleine Aufkleber am Rahmen war zu sehen.|Fotoğraftaki bisiklet tıpkı onunkine benziyordu, çerçevedeki küçük çıkartma bile görünüyordu.
+Herr Yılmaz informierte sofort die Polizei, statt selbst etwas zu unternehmen.|Bay Yılmaz kendisi bir şey yapmak yerine hemen polise haber verdi.
+Die Beamten vereinbarten mit dem Verkäufer einen Termin, angeblich um das Fahrrad zu kaufen.|Memurlar güya bisikleti satın almak için satıcıyla bir randevu ayarladı.
+Als der Mann erschien, wurde er festgenommen.|Adam geldiğinde gözaltına alındı.
+Einige Tage später konnte Herr Yılmaz sein Fahrrad bei der Polizei abholen.|Birkaç gün sonra Bay Yılmaz bisikletini polisten alabildi.
+Seitdem benutzt er zwei Schlösser und hat sein Rad richtig versichern lassen.|O zamandan beri iki kilit kullanıyor ve bisikletini düzgünce sigortalattı.
+?Bay Yılmaz bisikletin çalındığını nasıl anladı?|Polis aradı|*Park yeri boştu, yerde kesilmiş kilit vardı|Bir komşu söyledi
+?Bisikleti tanımasını ne sağladı?|Rengi|*Çerçevedeki küçük çıkartma|Zil
+?Polis hırsızı nasıl yakaladı?|*Satıcıyla alıcı gibi randevu ayarladı|Kamerada gördü|Hırsız kendi teslim oldu
+~gestohlene=çalınmış;egal ob=-sa da -masa da;gekauft=satın almış;gewesen=olmuştu;fahrradständer=bisiklet park yeri;leer=boş;aufgeschnittene=kesilmiş;schloss=kilit;lag=duruyordu;glauben=inanmak;diebstahl=hırsızlık;anzuzeigen=bildirmek (şikâyet);wurden aufgenommen=alındı;wurde gefragt=soruldu;rahmennummer=şasi numarası;kenne=bildiğini (dolaylı);kaufvertrag=satış sözleşmesi;gespeichert=kaydetmiş;jedoch=ancak;selten=nadiren;gefunden würden=bulunduğu;versichert=sigortalı;wertes=değerinin;zurückbekommen=geri almak;stellte vor=gösterdi, tanıttı;verkaufsplattform=satış platformu;sah aus=görünüyordu;genauso=tıpkı;seins=onunki;aufkleber=çıkartma;rahmen=çerçeve;unternehmen=girişimde bulunmak;beamten=memurlar;angeblich=güya;erschien=ortaya çıktı;festgenommen=gözaltına alındı;abholen=gidip almak;schlösser=kilitler;versichern lassen=sigortalatmak
+=B1|Zwei Städte, ein Zuhause|İki şehir, tek yuva
+Vor acht Jahren ist Emre von Izmir nach Stuttgart gezogen, um dort als Ingenieur zu arbeiten.|Emre sekiz yıl önce mühendis olarak çalışmak için İzmir'den Stuttgart'a taşındı.
+Am Anfang war vieles fremd für ihn.|Başta pek çok şey ona yabancıydı.
+Die Menschen wirkten distanziert, das Wetter war grau, und das Essen schmeckte ihm nicht besonders.|İnsanlar mesafeli görünüyordu, hava griydi ve yemekleri pek beğenmiyordu.
+Besonders schwer war die Sprache.|Özellikle dil zordu.
+Obwohl er in der Türkei einen Deutschkurs gemacht hatte, verstand er seine Kollegen kaum, weil sie Schwäbisch sprachen.|Türkiye'de Almanca kursuna gitmiş olmasına rağmen iş arkadaşlarını neredeyse anlamıyordu, çünkü Şvabya lehçesi konuşuyorlardı.
+Manchmal dachte er: Wenn ich doch nur in Izmir geblieben wäre!|Bazen şöyle düşünüyordu: Keşke İzmir'de kalsaydım!
+Doch mit der Zeit änderte sich seine Einstellung.|Ama zamanla tutumu değişti.
+Er trat einem Fußballverein bei und fand dort schnell Freunde.|Bir futbol kulübüne katıldı ve orada çabucak arkadaş buldu.
+Er lernte, dass hinter der Distanz oft Höflichkeit steckt und dass Freundschaften hier langsamer entstehen, aber dafür lange halten.|Mesafenin ardında çoğu zaman nezaket yattığını ve arkadaşlıkların burada daha yavaş kurulduğunu ama buna karşılık uzun sürdüğünü öğrendi.
+Heute fühlt sich Emre in Stuttgart zu Hause.|Bugün Emre kendini Stuttgart'ta evinde hissediyor.
+Er schätzt die Pünktlichkeit, die gut organisierten Verkehrsmittel und die Wälder rund um die Stadt.|Dakikliği, iyi düzenlenmiş toplu taşımayı ve şehrin çevresindeki ormanları takdir ediyor.
+Trotzdem vermisst er manches aus der Türkei: das Meer, das Frühstück am Sonntag mit der ganzen Familie und die Spontaneität der Menschen.|Yine de Türkiye'den bazı şeyleri özlüyor: denizi, bütün aileyle pazar kahvaltısını ve insanların doğallığını.
+Wenn er im Sommer in Izmir ist, merkt er, dass er sich auch dort verändert hat.|Yazın İzmir'deyken orada da değişmiş olduğunu fark ediyor.
+Seine Freunde sagen, er sei „ein bisschen deutsch“ geworden, weil er immer pünktlich ist.|Arkadaşları her zaman dakik olduğu için onun "biraz Alman" olduğunu söylüyor.
+Emre lacht darüber.|Emre buna gülüyor.
+Er findet, dass man nicht zwischen zwei Ländern wählen muss.|Kişinin iki ülke arasında seçim yapmak zorunda olmadığını düşünüyor.
+„Ich habe nicht eine Heimat verloren“, sagt er, „sondern eine zweite gewonnen.“|"Bir memleketi kaybetmedim" diyor, "ikincisini kazandım."
+?Emre başta neyi en zor buldu?|Havayı|*Dili|Yemeği
+?Emre Stuttgart'ta nasıl arkadaş buldu?|İş yerinde|*Bir futbol kulübüne katılarak|Komşuları sayesinde
+?Emre sonunda ne düşünüyor?|Türkiye'ye geri dönmesi gerektiğini|*İki ülke arasında seçim yapmak gerekmediğini|Stuttgart'ın daha iyi olduğunu
+~gezogen=taşındı;anfang=başlangıç;wirkten=görünüyordu;distanziert=mesafeli;schmeckte=tadı ... geldi;verstand=anladı;schwäbisch=Şvabya lehçesi;sprachen=konuşuyorlardı;dachte=düşündü;geblieben wäre=kalsaydım;änderte sich=değişti;einstellung=tutum;trat bei=katıldı;fußballverein=futbol kulübü;fand=buldu;lernte=öğrendi;höflichkeit=nezaket;steckt=yatıyor (saklı);freundschaften=arkadaşlıklar;entstehen=oluşuyor;dafür=buna karşılık;halten=sürüyor (dayanıyor);fühlt sich=hissediyor;schätzt=takdir ediyor;pünktlichkeit=dakiklik;organisierten=düzenlenmiş;wäldern=ormanlar;wälder=ormanlar;manches=bazı şeyler;spontaneität=doğallık;merkt=fark ediyor;verändert=değişmiş;sei=olduğunu (dolaylı);geworden=olmuş;darüber=buna;heimat=memleket;verloren=kaybettim;gewonnen=kazandım`;
+const STORIES = [];
+(function parseStories() {
+  let st = null;
+  for (const raw of STORY_DATA.split('\n')) {
+    const line = raw.trim(); if (!line) continue;
+    if (line.startsWith('=')) {
+      const [level, title, titleTr] = line.slice(1).split('|');
+      st = { id: 's' + hash(title), level, deck: level, title, titleTr, sents: [], qs: [], gloss: {}, phrases: [] };
+      STORIES.push(st); continue;
+    }
+    if (!st) continue;
+    if (line.startsWith('?')) {
+      const parts = line.slice(1).split('|');
+      const opts = parts.slice(1).map(o => o.replace(/^\*/, ''));
+      st.qs.push({ q: parts[0], opts, ok: parts.slice(1).findIndex(o => o.startsWith('*')) });
+    } else if (line.startsWith('~')) {
+      for (const pair of line.slice(1).split(';')) {
+        const i = pair.indexOf('='); if (i < 0) continue;
+        const k = pair.slice(0, i).trim().toLowerCase(), v = pair.slice(i + 1).trim();
+        if (k.includes(' ')) st.phrases.push([k.split(' '), v, k]); else st.gloss[k] = v;
+      }
+    } else {
+      const i = line.indexOf('|'); st.sents.push([line.slice(0, i).trim(), line.slice(i + 1).trim()]);
+    }
+  }
+  for (const s of STORIES) s.words = s.sents.reduce((n, x) => n + x[0].split(/\s+/).length, 0);
+})();
+const WORD_INDEX = (() => {
+  const m = new Map();
+  for (const w of WORDS) { const k = w.de.replace(/^(der|die|das) /, '').replace(/^sich /, '').toLowerCase(); if (!k.includes(' ') && !m.has(k)) m.set(k, w.tr); }
+  for (const pair of 'ein=bir;eine=bir;einen=bir;einem=bir;einer=bir;eines=bir;der=belirli artikel (der);die=belirli artikel (die);das=belirli artikel (das), bu;den=belirli artikel (den);dem=belirli artikel (dem);des=belirli artikel (des);sich=kendini, kendine;es=o (nötr), bu;ihn=onu (erkek);ihm=ona (erkek);ihr=onun (kadın), ona;ihre=onun (kadın), onların;ihren=onun, onların;ihrem=onun, onların;ihrer=onun, onların;sein=onun (erkek), olmak;seine=onun (erkek);seinen=onun (erkek);seinem=onun (erkek);seiner=onun (erkek);meine=benim;meinen=benim;meinem=benim;meiner=benim;deine=senin;uns=bizi, bize;unser=bizim;unsere=bizim;mich=beni;mir=bana;dich=seni;dir=sana;man=insan (genel özne);im=-de, içinde (in dem);am=-de (an dem);zum=-e (zu dem);zur=-e (zu der);ins=-e, içine (in das);vom=-den (von dem);beim=-de, yanında (bei dem);an=-de, -e;zu=-e, çok;so=öyle, böyle;wie=gibi, nasıl;als=-dığında, -den (daha);dass=-dığını, ki;ob=-ip -mediğini;noch=daha, hâlâ;schon=zaten, bile;nur=sadece;sehr=çok;nicht=değil;kein=hiç;keine=hiç;keinen=hiç;ist=-dir (olmak);sind=-dirler (olmak);war=idi;waren=idiler;hat=var (sahip);haben=sahip olmak;hatte=vardı;hatten=vardı;wird=olacak, -ecek;wurde=oldu, edildi;wurden=oldular, edildiler;kann=-ebilir;können=-ebilmek;muss=zorunda;doch=ama, yine de;denn=çünkü;dort=orada;da=orada, çünkü;dann=sonra;alles=her şey;viele=birçok;vielen=birçok;einige=birkaç;einmal=bir kez;immer=her zaman;wieder=yine;sofort=hemen;jeden=her;jede=her;jedes=her;ganz=bütün, çok;ganze=bütün;ganzen=bütün;gemacht=yaptı;gefragt=sordu;gesagt=söyledi;gegangen=gitti;besser=daha iyi;besten=en iyi;welche=hangi;gespräch=görüşme;begann=başladı;schrieb=yazdı;kam=geldi;gab=verdi, vardı;bekam=aldı;konnte=-ebildi;rief=aradı, seslendi;menschen=insanlar;aus=-den;ende=son;selbst=kendisi;glück=şans;geholfen=yardım etti;gerade=tam, özellikle;darauf=buna;davon=bundan;diesem=bu;diesmal=bu sefer;nimmt=alıyor;liste=liste;dank=teşekkür;super=süper;spazieren=gezmek;oh=ah;na=eee;darin=içinde;eier=yumurtalar;meisten=en çok;automatisch=otomatik;smartphone=akıllı telefon;navigation=navigasyon;agentur=ajans;atmosphäre=atmosfer;vierzehn=on dört;einzuladen=davet etmek'.split(';')) { const i = pair.indexOf('='); const k = pair.slice(0, i); if (!m.has(k)) m.set(k, pair.slice(i + 1)); }
+  return m;
+})();
+function cleanWord(raw) { return raw.toLowerCase().replace(/[^\p{L}\-]/gu, ''); }
+function lookupWord(raw, story, sentence) {
+  const w = cleanWord(raw); if (!w) return null;
+  const toks = sentence.split(/\s+/).map(cleanWord);
+  for (const [parts, v, k] of story.phrases) if (parts.includes(w) && parts.every(p => toks.includes(p))) return { head: k, tr: v };
+  if (story.gloss[w]) return { head: w, tr: story.gloss[w] };
+  if (WORD_INDEX.has(w)) return { head: w, tr: WORD_INDEX.get(w) };
+  const tries = [];
+  for (const suf of ['en', 'e', 'n', 's', 't', 'st', 'te', 'ten', 'er', 'es', 'em']) if (w.endsWith(suf) && w.length - suf.length >= 3) { const st = w.slice(0, -suf.length); tries.push(st, st + 'en', st + 'n', st + 'e'); }
+  tries.push(w + 'en', w + 'n');
+  for (const t of tries) if (WORD_INDEX.has(t)) return { head: t, tr: WORD_INDEX.get(t), base: true };
+  return null;
+}
+let reader = null; // {id, open:Set, all, ans:{}, checked, playing}
+function storyStat(id) { return (S.stories || {})[id] || null; }
+function openStory(id) { reader = { id, open: new Set(), all: false, ans: {}, checked: false }; hideWord(); render(); $('#main').scrollTop = 0; }
+function curStory() { return reader && STORIES.find(s => s.id === reader.id); }
+function showWord(btn) {
+  const st = curStory(); if (!st) return;
+  const si = +btn.closest('[data-si]').dataset.si; const sent = st.sents[si][0];
+  const r = lookupWord(btn.textContent, st, sent);
+  document.querySelectorAll('.w.on').forEach(x => x.classList.remove('on')); btn.classList.add('on');
+  const bar = $('#wordbar');
+  bar.innerHTML = `<div style="min-width:0"><b lang="de">${esc(r ? r.head : cleanWord(btn.textContent))}</b> <span>${r ? esc(r.tr) + (r.base ? ' <span class="muted small">(temel biçim)</span>' : '') : (/^\p{Lu}/u.test(btn.textContent) ? '<span class="muted">Sözlükte yok, bir isim olabilir. Cümlenin çevirisine bak.</span>' : '<span class="muted">Sözlükte yok. Cümlenin çevirisine bak.</span>')}</span></div>
+    ${canSpeak() ? `<button class="iconbtn" data-say="${esc(btn.textContent)}" aria-label="Dinle">${ICON.play}</button>` : ''}<button class="iconbtn" data-act="wclose" aria-label="Kapat">${ICON.close}</button>`;
+  bar.hidden = false; document.body.classList.add('wb');
+}
+function hideWord() { const bar = $('#wordbar'); if (bar) bar.hidden = true; document.body.classList.remove('wb'); document.querySelectorAll('.w.on').forEach(x => x.classList.remove('on')); }
+function playStory() {
+  const st = curStory(); if (!st) return;
+  if (speech.synth) {
+    speech.synth.cancel();
+    st.sents.forEach(([de], i) => {
+      const u = new SpeechSynthesisUtterance(de); u.lang = 'de-DE'; if (speech.voice) u.voice = speech.voice; u.rate = S.settings.rate || 0.9;
+      u.onstart = () => { document.querySelectorAll('.sent.cur').forEach(x => x.classList.remove('cur')); const el = document.querySelector(`[data-si="${i}"]`); if (el) { el.classList.add('cur'); el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } };
+      u.onend = () => { if (i === st.sents.length - 1) document.querySelectorAll('.sent.cur').forEach(x => x.classList.remove('cur')); };
+      speech.synth.speak(u);
+    });
+  } else speak(st.sents.map(x => x[0]).join(' '));
+}
+function stopStory() { if (speech.synth) speech.synth.cancel(); if (speech.tts) try { speech.tts.stop(); } catch (e) {} document.querySelectorAll('.sent.cur').forEach(x => x.classList.remove('cur')); }
+function wordsHtml(de) { return de.split(/(\s+)/).map(t => /\p{L}/u.test(t) ? `<button class="w">${esc(t)}</button>` : t).join(''); }
+function viewStories() {
+  const st = curStory();
+  if (st) {
+    const stat = storyStat(st.id);
+    const sents = st.sents.map(([de, tr], i) => {
+      const open = reader.all || reader.open.has(i);
+      return `<div class="sent" data-si="${i}"><p class="de" lang="de">${wordsHtml(de)} <button class="tbtn" data-st="${i}" aria-expanded="${open}" aria-label="Çeviri">TR</button></p>
+        ${open ? `<div class="trow"><p class="tr">${esc(tr)}</p><div class="row">${canSpeak() ? `<button class="mini" data-say="${esc(de)}">${ICON.play} Dinle</button>` : ''}<button class="mini" data-sadd="${i}">${ICON.plus} Kartlarıma ekle</button></div></div>` : ''}</div>`;
+    }).join('');
+    const qs = st.qs.map((q, qi) => `<div class="q"><p><b>${qi + 1}.</b> ${esc(q.q)}</p><div class="opts">${q.opts.map((o, oi) => {
+      let cls = reader.ans[qi] === oi ? ' sel' : '';
+      if (reader.checked) cls = oi === q.ok ? ' right' : (reader.ans[qi] === oi ? ' wrong' : '');
+      return `<button class="opt${cls}" data-sq="${qi}:${oi}" ${reader.checked ? 'disabled' : ''}>${esc(o)}</button>`;
+    }).join('')}</div></div>`).join('');
+    const score = st.qs.reduce((n, q, i) => n + (reader.ans[i] === q.ok ? 1 : 0), 0);
+    return `<div class="row"><button class="iconbtn" data-act="sback" aria-label="Hikaye listesine dön">${ICON.back}</button><span class="chip">${st.level}</span><span class="muted small">${st.words} kelime · ${st.sents.length} cümle</span></div>
+      <div><h3 class="stitle" lang="de">${esc(st.title)}</h3><p class="muted">${esc(st.titleTr)}</p></div>
+      <div class="row">${canSpeak() ? `<button class="btn" data-act="splay">${ICON.play} Tamamını dinle</button><button class="btn" data-act="sstop">Durdur</button>` : ''}<button class="btn" data-act="strall">${reader.all ? 'Çevirileri gizle' : 'Tüm çevirileri göster'}</button></div>
+      <p class="muted small">Bilmediğin kelimeye dokun, anlamı altta çıkar. Önce kendin anlamaya çalış, sonra cümlenin yanındaki <b>TR</b>'ye dokun.</p>
+      <section class="sheet story">${sents}</section>
+      <section class="sheet stack"><h2 style="margin:0">Anladın mı?</h2>${qs}
+        ${reader.checked ? `<p class="score ${score === st.qs.length ? 'good' : score ? 'mid' : 'bad'}" style="align-self:flex-start">${score} / ${st.qs.length} doğru</p><div class="row"><button class="btn" data-act="sretry">Tekrar dene</button><button class="btn primary" data-act="sback">Hikayelere dön</button></div>`
+          : `<button class="btn primary wide" data-act="scheck" ${Object.keys(reader.ans).length < st.qs.length ? 'disabled' : ''}>Cevapları kontrol et</button>`}
+        ${stat && stat.read && !reader.checked ? `<p class="muted small">Daha önce okudun: ${stat.score}/${stat.total} doğru.</p>` : ''}
+      </section>`;
+  }
+  const list = STORIES.filter(s => inLevel(s.deck));
+  const readN = STORIES.filter(s => storyStat(s.id) && storyStat(s.id).read).length;
+  return `<div><h3>Hikayeler</h3><p class="muted small">Seviyene göre kısa hikayeler. ${readN} / ${STORIES.length} okundu.</p></div>
+    ${levelButtons(STORIES)}
+    ${list.length ? `<ul class="slist">${list.map(s => { const stt = storyStat(s.id);
+      return `<li><button data-story="${s.id}"><span class="de" lang="de">${esc(s.title)}</span><span class="tr">${esc(s.titleTr)} · ${s.words} kelime</span>
+        <span class="meta"><span class="chip">${s.level}</span>${stt && stt.read ? `<span class="chip mature">Okundu ${stt.score}/${stt.total}</span>` : '<span class="chip new">Yeni</span>'}</span></button></li>`; }).join('')}</ul>`
+      : `<div class="sheet empty">Bu seviyede hikaye yok. Başka bir seviye seç.</div>`}`;
+}
+
 const BUILTIN = []; const DECK_ORDER = [];
 (function parse() {
   let deck = 'Genel';
@@ -3536,7 +3981,7 @@ function loadLocal() {
 function normalize(o) {
   const d = defaultState();
   if (!o || typeof o !== 'object') return d;
-  return { ...d, ...o, settings: { ...d.settings, ...(o.settings || {}) }, cards: o.cards || {}, custom: o.custom || [], edits: o.edits || {}, hidden: o.hidden || {}, days: o.days || {}, words: o.words || {}, game: { best: {}, rounds: 0, ...(o.game || {}) } };
+  return { ...d, ...o, settings: { ...d.settings, ...(o.settings || {}) }, cards: o.cards || {}, custom: o.custom || [], edits: o.edits || {}, hidden: o.hidden || {}, days: o.days || {}, words: o.words || {}, stories: o.stories || {}, game: { best: {}, rounds: 0, ...(o.game || {}) } };
 }
 const cloud = { db: null, ref: null, status: 'local', writing: Promise.resolve(), timer: null };
 function save() {
@@ -3802,6 +4247,7 @@ function render() {
   if (tab === 'study') v.innerHTML = sess ? viewSession() : viewHome();
   else if (tab === 'list') v.innerHTML = viewList();
   else if (tab === 'game') v.innerHTML = viewGame();
+  else if (tab === 'read') v.innerHTML = viewStories();
   else if (tab === 'stats') v.innerHTML = viewStats();
   else v.innerHTML = viewSettings();
   afterRender();
@@ -4023,6 +4469,10 @@ function viewStats() {
     </div>
   </section>
   <section class="sheet">
+    <h2>Hikayeler</h2>
+    <p>${STORIES.filter(s => storyStat(s.id) && storyStat(s.id).read).length} / ${STORIES.length} hikaye okundu.${(() => { const r = Object.values(S.stories || {}); const a = r.reduce((n, x) => n + x.score, 0), b = r.reduce((n, x) => n + x.total, 0); return b ? ` Anlama sorularında ${a}/${b} doğru.` : ''; })()}</p>
+  </section>
+  <section class="sheet">
     <h2>Kelime oyunu</h2>
     ${S.game && S.game.rounds ? `<p>${S.game.rounds} tur oynandı. ${Object.keys(S.game.best).length ? 'En iyi hatasız süreler: ' + Object.entries(S.game.best).map(([l, s]) => `${LEVEL_LABEL[l]} <b>${fmtSecs(s)}</b>`).join(', ') + '.' : ''}</p>${hardWords(1).length ? `<p class="muted small">En çok karıştırılan: ${hardWords(3).map(x => esc(x.w.de)).join(', ')}</p>` : ''}` : `<p class="muted">Henüz oynanmadı. Alttaki <b>Oyun</b> sekmesinden başlayabilirsin.</p>`}
   </section>
@@ -4146,9 +4596,15 @@ function openImport() {
 
 /* ---------- events ---------- */
 document.addEventListener('click', e => {
+  if (!e.target.closest('#wordbar') && !e.target.closest('.w') && !$('#wordbar').hidden) hideWord();
   const t = e.target.closest('button,[data-edit]'); if (!t) return;
   if (t.dataset.gde || t.dataset.gtr) { gameTap(t); return; }
-  if (t.dataset.tab) { tab = t.dataset.tab; render(); $('#main').scrollTop = 0; return; }
+  if (t.classList.contains('w')) { showWord(t); return; }
+  if (t.dataset.story) { openStory(t.dataset.story); return; }
+  if (t.dataset.st) { const i = +t.dataset.st; reader.open.has(i) ? reader.open.delete(i) : reader.open.add(i); if (reader.all) { reader.all = false; curStory().sents.forEach((_, k) => k !== i && reader.open.add(k)); reader.open.delete(i); } render(); return; }
+  if (t.dataset.sadd) { const st = curStory(); const [de, tr] = st.sents[+t.dataset.sadd]; const r = addSentences([[tr, de]], st.level + ' · Hikaye cümleleri'); toast(r.added ? 'Kartlarına eklendi' : 'Bu cümle zaten kartlarında'); return; }
+  if (t.dataset.sq) { const [qi, oi] = t.dataset.sq.split(':').map(Number); reader.ans[qi] = oi; render(); return; }
+  if (t.dataset.tab) { tab = t.dataset.tab; hideWord(); stopStory(); if (tab === 'read') reader = null; render(); $('#main').scrollTop = 0; return; }
   if (t.dataset.dir) { S.settings.dir = t.dataset.dir; save(); render(); return; }
   if (t.dataset.level) { S.settings.level = t.dataset.level; save(); render(); toast(t.dataset.level === 'all' ? 'Tüm seviyeler seçildi' : 'Seviye: ' + LEVEL_LABEL[t.dataset.level]); return; }
   if (t.dataset.rate) { rate(+t.dataset.rate); return; }
@@ -4164,6 +4620,13 @@ document.addEventListener('click', e => {
   else if (a === 'say' || a === 'sayslow') { const s = findSentence(sess && sess.cur); if (s) speak(s.de, a === 'sayslow'); }
   else if (a === 'morenew') { today().x = (today().x || 0) + 5; save(); startSession('srs'); }
   else if (a === 'add') openAdd();
+  else if (a === 'sback') { stopStory(); hideWord(); reader = null; render(); $('#main').scrollTop = 0; }
+  else if (a === 'splay') playStory();
+  else if (a === 'sstop') stopStory();
+  else if (a === 'wclose') hideWord();
+  else if (a === 'strall') { reader.all = !reader.all; reader.open.clear(); render(); }
+  else if (a === 'sretry') { reader.ans = {}; reader.checked = false; render(); }
+  else if (a === 'scheck') { const st = curStory(); reader.checked = true; const sc = st.qs.reduce((n, q, i) => n + (reader.ans[i] === q.ok ? 1 : 0), 0); S.stories = S.stories || {}; S.stories[st.id] = { read: 1, score: sc, total: st.qs.length, at: Date.now() }; save(); render(); }
   else if (a === 'gstart') startGame();
   else if (a === 'gquit') { game = null; clearInterval(gameTick); render(); }
   else if (a === 'more') { listState.limit += 150; render(); }
@@ -4171,7 +4634,7 @@ document.addEventListener('click', e => {
   else if (a === 'export') openExport();
   else if (a === 'import') openImport();
   else if (a === 'testsay') speak('Ich lerne jeden Tag ein bisschen Deutsch.');
-  else if (a === 'reset') confirmBox('İlerlemeyi sıfırla', 'Tüm tekrar geçmişi ve istatistikler silinecek. Eklediğin cümleler kalacak. Bu geri alınamaz.', 'Sıfırla', () => { S.cards = {}; S.days = {}; S.words = {}; S.game = { best: {}, rounds: 0 }; save(); render(); toast('İlerleme sıfırlandı'); });
+  else if (a === 'reset') confirmBox('İlerlemeyi sıfırla', 'Tüm tekrar geçmişi ve istatistikler silinecek. Eklediğin cümleler kalacak. Bu geri alınamaz.', 'Sıfırla', () => { S.cards = {}; S.days = {}; S.stories = {}; S.words = {}; S.game = { best: {}, rounds: 0 }; save(); render(); toast('İlerleme sıfırlandı'); });
   else if (a === 'resetcard') { const id = $('#editForm').dataset.id; delete S.cards[id]; save(); closeModal(); render(); toast('Cümle yeniden “yeni” oldu'); }
   else if (a === 'delcard') {
     const id = $('#editForm').dataset.id; const s = findSentence(id);
