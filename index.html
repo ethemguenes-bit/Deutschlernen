@@ -62,6 +62,66 @@ main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 main .inner{padding-block:18px 28px;display:flex;flex-direction:column;gap:16px}
 nav.tabs{flex:none;background:var(--sheet);border-top:1px solid var(--line)}
 nav.tabs .inner{display:grid;grid-template-columns:repeat(6,1fr)}
+.rulebox .rule{font-size:17px;line-height:1.5;margin:0}
+.hl{color:var(--accent);font-weight:700}
+.ig-wrap{overflow-x:auto;margin:0 -4px}
+.ig-table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+.ig-table th,.ig-table td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+.ig-table thead th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);border-bottom:2px solid var(--line)}
+.ig-table tbody th{font-weight:600;color:var(--ink-soft);font-size:13px;white-space:nowrap}
+.ig-table td{font-family:var(--f-sent)}
+.ig-table thead th.cm{color:var(--accent)} .ig-table thead th.cf{color:var(--rose)} .ig-table thead th.cn{color:var(--green)}
+.ig-table td.cm{background:color-mix(in srgb,var(--accent) 7%,transparent)} .ig-table td.cf{background:color-mix(in srgb,var(--rose) 7%,transparent)} .ig-table td.cn{background:color-mix(in srgb,var(--green) 7%,transparent)}
+.ig-pairs{margin:0;display:flex;flex-direction:column;gap:8px}
+.ig-pairs div{display:flex;flex-direction:column;gap:1px}
+.ig-pairs dt{font-family:var(--f-sent);font-size:16px}
+.ig-pairs dd{margin:0;color:var(--ink-soft);font-size:14px}
+.ig-slots{display:flex;flex-direction:column;gap:10px}
+.slrow{display:flex;flex-direction:column;gap:4px}
+.sllab{font-size:12px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.slcells{display:flex;flex-wrap:wrap;gap:5px}
+.sl{display:inline-block;font-family:var(--f-sent);font-size:16px;padding:4px 9px;border-radius:7px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink)}
+.sl-v{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.sl-v2{border-color:var(--accent);color:var(--accent);font-weight:600;background:var(--sheet)}
+.sl-s{background:var(--green-bg);border-color:transparent;color:var(--green)}
+.sl-c{background:var(--amber-bg);border-color:transparent;color:var(--amber);font-weight:600}
+.sl-n{background:var(--red-bg);border-color:transparent;color:var(--red)}
+.sllegend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--ink-soft)}
+.sllegend span{display:inline-flex;align-items:center;gap:5px}
+.sllegend i.sl{width:14px;height:14px;padding:0;border-radius:4px}
+.ig-formula{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.fparts{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.fparts .sl{font-size:18px;padding:6px 12px}
+.fop{font-size:22px;font-weight:700;color:var(--ink-soft)}
+.ig-flow{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.ig-flow li span{display:block;font-family:var(--f-sent);color:var(--ink-soft)}
+.ig-time{display:grid;gap:4px;position:relative;padding-top:12px}
+.ig-time::before{content:"";position:absolute;left:6%;right:6%;top:17px;height:2px;background:var(--line)}
+.tpt{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;position:relative;min-width:0}
+.tpt i{width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--sheet);margin-bottom:4px}
+.tpt b{font-size:13px}
+.tpt span[lang]{font-family:var(--f-sent);font-size:14px;overflow-wrap:anywhere}
+.ig-svg{width:100%;max-width:420px;height:auto;align-self:center}
+.ig-svg .wbox{fill:none;stroke:var(--ink);stroke-width:3;stroke-linejoin:round}
+.ig-svg .wball{fill:var(--accent)} .ig-svg .wfaint{opacity:.45}
+.ig-svg .warrow{fill:none;stroke:var(--red);stroke-width:2.5;stroke-dasharray:5 4}
+.ig-svg .warrhead{fill:var(--red)}
+.ig-svg .wsep{stroke:var(--line);stroke-width:1.5}
+.ig-svg text{fill:var(--ink);font-family:var(--f-ui);text-anchor:middle}
+.ig-svg .wt{font-size:13px;font-weight:700} .ig-svg .ws{font-size:13px;fill:var(--ink-soft);font-family:var(--f-sent)}
+.ig-compare{display:flex;flex-direction:column;gap:10px}
+.cmprow{display:grid;grid-template-columns:1fr;gap:6px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+@media (min-width:560px){.cmprow{grid-template-columns:1fr 1fr}}
+.cmprow>div{display:flex;flex-direction:column;gap:1px;min-width:0}
+.cmplab{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);font-weight:600}
+.cmprow span[lang]{font-family:var(--f-sent);font-size:16px;overflow-wrap:anywhere}
+.exlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.exlist li{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:9px 0}
+.exlist li+li{border-top:1px solid var(--line)}
+.exlist li>div{min-width:0}
+.exlist .de{font-family:var(--f-sent);font-size:17px;margin:0;overflow-wrap:anywhere}
+.exlist .tr{margin:0;color:var(--ink-soft);font-size:14px}
+.tips{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
 .stitle{font-family:var(--f-sent);font-size:clamp(24px,6vw,30px);margin:0}
 .story{display:flex;flex-direction:column;gap:4px;padding-block:10px}
 .sent{padding:6px 8px;margin:0 -8px;border-radius:8px;transition:background .2s}
@@ -262,7 +322,7 @@ textarea.ans:focus{border-style:solid;border-color:var(--accent);outline:none}
     <button data-tab="study"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 8h6M9 12h4"/></svg>Çalış</button>
     <button data-tab="list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Cümleler</button>
     <button data-tab="game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M14 6.5h4a2.5 2.5 0 0 1 2.5 2.5v1.5M10 17.5H6A2.5 2.5 0 0 1 3.5 15v-1.5"/></svg>Oyun</button>
-    <button data-tab="read"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.5C4 4.5 7 4 12 6c5-2 8-1.5 10-.5V19c-2-1-5-1.5-10 .5-5-2-8-1.5-10-.5z"/><path d="M12 6v13.5"/></svg>Okuma</button>
+    <button data-tab="read"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.5C4 4.5 7 4 12 6c5-2 8-1.5 10-.5V19c-2-1-5-1.5-10 .5-5-2-8-1.5-10-.5z"/><path d="M12 6v13.5"/></svg>Öğren</button>
     <button data-tab="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>İstatistik</button>
     <button data-tab="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Ayarlar</button>
   </div></nav>
@@ -3955,6 +4015,449 @@ function viewStories() {
       : `<div class="sheet empty">Bu seviyede hikaye yok. Başka bir seviye seç.</div>`}`;
 }
 
+/* ---------- grammar lessons ---------- */
+const LESSONS = [
+{ id: 'a1-praesens', level: 'A1', title: 'Präsens: Fiil çekimi', sub: 'Şimdiki/geniş zaman',
+  rule: 'Fiil, özneye göre ek alır. Kök + ek: lern-e, lern-st, lern-t.',
+  info: [
+    { t: 'table', head: ['Özne', 'lernen', 'wohnen', 'arbeiten'], rows: [
+      ['ich', 'lern**e**', 'wohn**e**', 'arbeit**e**'], ['du', 'lern**st**', 'wohn**st**', 'arbeit**est**'], ['er / sie / es', 'lern**t**', 'wohn**t**', 'arbeit**et**'],
+      ['wir', 'lern**en**', 'wohn**en**', 'arbeit**en**'], ['ihr', 'lern**t**', 'wohn**t**', 'arbeit**et**'], ['sie / Sie', 'lern**en**', 'wohn**en**', 'arbeit**en**']] }
+  ],
+  ex: [['Ich lerne Deutsch.', 'Almanca öğreniyorum.'], ['Du wohnst in Berlin.', 'Berlin\'de oturuyorsun.'], ['Er arbeitet im Büro.', 'O ofiste çalışıyor.'], ['Wir spielen gern Fußball.', 'Futbol oynamayı severiz.'], ['Sprechen Sie Türkisch?', 'Türkçe konuşuyor musunuz?']],
+  tips: ['Türkçede de fiil kişiye göre ek alır (öğreni-yor-um, öğreni-yor-sun). Almancada da mantık aynı: kök + kişi eki.',
+    'Präsens hem "şimdi yapıyorum" hem "genelde yaparım" anlamına gelir. Ayrı bir "-yor" eki yoktur.',
+    'Kökü -t veya -d ile bitenlerde araya -e- girer: du arbeitest, er findet.',
+    'Bazı fiillerde du ve er/sie/es biçiminde ünlü değişir: fahren → du fährst, sprechen → er spricht, sehen → er sieht.'],
+  quiz: [{ q: 'Du ___ (kommen) aus der Türkei.', o: ['komme', 'kommst', 'kommt'], a: 1 }, { q: 'Wir ___ (wohnen) in Köln.', o: ['wohnen', 'wohnt', 'wohnst'], a: 0 },
+    { q: 'Sie (o, kadın) ___ (arbeiten) viel.', o: ['arbeitt', 'arbeiten', 'arbeitet'], a: 2 }, { q: 'Er ___ (fahren) mit dem Bus.', o: ['fahrt', 'fährt', 'fahren'], a: 1 }],
+  link: /\b(ich|du|er|sie|wir|ihr)\s+\p{Ll}+(e|st|t|en)\b/iu },
+{ id: 'a1-sein-haben', level: 'A1', title: 'sein und haben', sub: 'olmak ve sahip olmak',
+  rule: '"sein" (olmak) ve "haben" (sahip olmak) en sık kullanılan iki fiil ve ikisi de düzensiz. Ezberlemek gerekir.',
+  info: [
+    { t: 'table', head: ['Özne', 'sein', 'haben'], rows: [['ich', '**bin**', '**habe**'], ['du', '**bist**', '**hast**'], ['er / sie / es', '**ist**', '**hat**'], ['wir', '**sind**', '**haben**'], ['ihr', '**seid**', '**habt**'], ['sie / Sie', '**sind**', '**haben**']] },
+    { t: 'pairs', rows: [['Ich bin müde.', 'Yorgunum. (sein)'], ['Ich habe Hunger.', 'Açım. (haben: "açlığım var")'], ['Ich bin 30 Jahre alt.', '30 yaşındayım. (sein)'], ['Ich habe ein Auto.', 'Bir arabam var. (haben)']] }
+  ],
+  ex: [['Ich bin Ingenieur.', 'Mühendisim.'], ['Bist du verheiratet?', 'Evli misin?'], ['Wir haben zwei Kinder.', 'İki çocuğumuz var.'], ['Hast du heute Zeit?', 'Bugün vaktin var mı?'], ['Das Wetter ist schön.', 'Hava güzel.']],
+  tips: ['Türkçedeki "var" çoğu zaman "haben" olur: Bir arabam var = Ich habe ein Auto.',
+    'Yaş "sein" ile söylenir: Ich bin 30 (Jahre alt). "Ich habe 30 Jahre" yanlıştır.',
+    'Açlık, susuzluk, korku ve vakit "haben" ile söylenir: Ich habe Hunger / Durst / Angst / Zeit.',
+    'Meslek söylerken artikel kullanılmaz: Ich bin Lehrer (ein Lehrer değil).'],
+  quiz: [{ q: 'Wir ___ müde.', o: ['sind', 'seid', 'haben'], a: 0 }, { q: 'Er ___ zwei Brüder.', o: ['ist', 'hat', 'habt'], a: 1 },
+    { q: '"30 yaşındayım" Almancada nasıl söylenir?', o: ['Ich habe 30 Jahre.', 'Ich bin 30 Jahre alt.', 'Ich habe 30 Jahre alt.'], a: 1 }, { q: 'Ihr ___ heute frei.', o: ['habt', 'hat', 'seid'], a: 0 }],
+  link: /\b(bin|bist|ist|sind|seid|habe|hast|hat|haben|habt)\b/u },
+{ id: 'a1-artikel', level: 'A1', title: 'Artikel: der, die, das', sub: 'Belirli ve belirsiz artikel, kein',
+  rule: 'Her ismin bir cinsiyeti vardır: der (eril), die (dişil), das (nötr). Çoğulda hep die.',
+  info: [
+    { t: 'table', cols: ['', 'cm', 'cf', 'cn', 'cp'], head: ['', 'eril', 'dişil', 'nötr', 'çoğul'], rows: [
+      ['belirli', 'der Mann', 'die Frau', 'das Kind', 'die Kinder'], ['belirsiz (bir)', 'ein Mann', 'eine Frau', 'ein Kind', '— Kinder'], ['olumsuz (hiç)', 'kein Mann', 'keine Frau', 'kein Kind', 'keine Kinder']] },
+    { t: 'pairs', rows: [['-ung, -heit, -keit, -ion → die', 'die Zeitung, die Freiheit, die Information'], ['-chen, -lein → das', 'das Mädchen, das Brötchen'], ['Günler, aylar, mevsimler → der', 'der Montag, der Mai, der Sommer']] }
+  ],
+  ex: [['Der Tisch ist neu.', 'Masa yeni.'], ['Die Lampe ist kaputt.', 'Lamba bozuk.'], ['Das Buch ist interessant.', 'Kitap ilginç.'], ['Ich habe eine Frage.', 'Bir sorum var.'], ['Wir haben keine Kinder.', 'Çocuğumuz yok.']],
+  tips: ['Türkçede artikel yok, bu yüzden en zor konulardan biri. Her ismi artikeliyle birlikte ezberle: "Tisch" değil, "der Tisch".',
+    'Oyundaki renkler burada da geçerli: der mavi, die pembe, das yeşil. Rengi hatırlamak artikeli hatırlamayı kolaylaştırır.',
+    'Cinsiyet çoğu zaman mantıkla bulunmaz: das Mädchen (kız) nötrdür. Ekler (-ung, -chen gibi) en güvenilir ipucudur.',
+    '"kein" = "ein"in olumsuzu: Ich habe ein Auto → Ich habe kein Auto.'],
+  quiz: [{ q: '___ Zeitung liegt auf dem Tisch.', o: ['Der', 'Die', 'Das'], a: 1 }, { q: '___ Brötchen ist frisch.', o: ['Der', 'Die', 'Das'], a: 2 },
+    { q: 'Ich habe ___ Hund. (bir köpeğim var, der Hund)', o: ['eine', 'ein', 'einen'], a: 2 }, { q: 'Çoğul isimlerin belirli artikeli hangisidir?', o: ['der', 'die', 'das'], a: 1 }],
+  link: /\b(der|die|das|ein|eine|kein|keine)\s+\p{Lu}/u },
+{ id: 'a1-satzbau', level: 'A1', title: 'Satzbau: Fiil 2. sırada', sub: 'Cümle düzeni ve soru cümleleri',
+  rule: 'Ana cümlede çekimli fiil her zaman 2. sıradadır. Evet/hayır sorularında fiil 1. sıraya geçer.',
+  info: [
+    { t: 'slots', rows: [
+      ['Düz cümle', [['Ich', 's'], ['lerne', 'v'], ['heute', 'o'], ['Deutsch.', 'o']]],
+      ['Zaman başta', [['Heute', 'o'], ['lerne', 'v'], ['ich', 's'], ['Deutsch.', 'o']]],
+      ['W-sorusu', [['Was', 'c'], ['lernst', 'v'], ['du', 's'], ['heute?', 'o']]],
+      ['Evet/hayır', [['Lernst', 'v'], ['du', 's'], ['heute', 'o'], ['Deutsch?', 'o']]]] },
+    { t: 'pairs', rows: [['wer?', 'kim?'], ['was?', 'ne?'], ['wo? / wohin? / woher?', 'nerede? / nereye? / nereden?'], ['wann? / wie? / warum?', 'ne zaman? / nasıl? / neden?']] }
+  ],
+  ex: [['Morgen fahre ich nach Hamburg.', 'Yarın Hamburg\'a gidiyorum.'], ['Am Wochenende arbeitet sie nicht.', 'Hafta sonu çalışmıyor.'], ['Wo wohnst du?', 'Nerede oturuyorsun?'], ['Kommst du heute?', 'Bugün geliyor musun?'], ['Warum lernst du Deutsch?', 'Neden Almanca öğreniyorsun?']],
+  tips: ['Türkçede fiil sondadır: "Bugün Almanca öğreniyorum." Almancada ana cümlede fiil 2. sıraya kayar. Bu Türkler için en sık hatalardan biri.',
+    'Cümleye zamanla (Heute, Morgen, Am Montag) başlarsan özne fiilin ARKASINA geçer: "Heute ich lerne" yanlış, "Heute lerne ich" doğru.',
+    '"Sıra" kelime sayısı değil, öbek sayısıdır: "Am Wochenende" iki kelime ama tek öbek (1. sıra).',
+    'Evet/hayır sorusunda Türkçedeki "mi" ekinin yerini fiilin başa geçmesi alır: Kommst du?'],
+  quiz: [{ q: 'Hangisi doğru?', o: ['Heute ich gehe ins Kino.', 'Heute gehe ich ins Kino.', 'Heute ins Kino ich gehe.'], a: 1 }, { q: 'Hangisi doğru bir evet/hayır sorusu?', o: ['Du kommst morgen?', 'Kommst du morgen?', 'Morgen du kommst?'], a: 1 },
+    { q: 'Am Montag ___ ich zum Arzt.', o: ['gehe', 'ich gehe', 'gehen'], a: 0 }, { q: '___ wohnst du? – In Berlin.', o: ['Wann', 'Wo', 'Wer'], a: 1 }],
+  link: /\?\s*$/u },
+{ id: 'a1-akkusativ', level: 'A1', title: 'Akkusativ', sub: 'Belirtme hâli (-i hâli)',
+  rule: 'Fiilin etkilediği nesne Akkusativ olur. Sadece eril artikel değişir: der → den, ein → einen, kein → keinen.',
+  info: [
+    { t: 'table', cols: ['', 'cm', 'cf', 'cn', 'cp'], head: ['', 'eril', 'dişil', 'nötr', 'çoğul'], rows: [
+      ['Nominativ (özne)', 'der / ein', 'die / eine', 'das / ein', 'die / —'], ['Akkusativ (nesne)', '**den / einen**', 'die / eine', 'das / ein', 'die / —']] },
+    { t: 'slots', rows: [['Örnek', [['Ich', 's'], ['sehe', 'v'], ['den', 'n'], ['Mann.', 'o']]], ['', [['Der Mann', 's'], ['sieht', 'v'], ['mich.', 'n']]]] }
+  ],
+  ex: [['Ich kaufe einen Kaffee.', 'Bir kahve alıyorum.'], ['Siehst du den Bus?', 'Otobüsü görüyor musun?'], ['Wir haben keinen Balkon.', 'Balkonumuz yok.'], ['Ich brauche eine Tasche.', 'Bir çantaya ihtiyacım var.'], ['Er trinkt das Wasser.', 'Suyu içiyor.']],
+  tips: ['Türkçedeki "-i" hâline benzer: Adamı görüyorum = Ich sehe den Mann.',
+    'İyi haber: sadece eril (der) kelimeler değişir. die, das ve çoğul aynı kalır.',
+    '"haben", "kaufen", "brauchen", "sehen", "trinken", "essen", "möchten" hep Akkusativ ister.',
+    'Zamirler de değişir: ich → mich, du → dich, er → ihn, wir → uns.'],
+  quiz: [{ q: 'Ich habe ___ Bruder. (der Bruder)', o: ['ein', 'einen', 'einem'], a: 1 }, { q: 'Siehst du ___ Frau dort? (die Frau)', o: ['die', 'den', 'der'], a: 0 },
+    { q: 'Wir kaufen ___ Auto. (das Auto)', o: ['einen', 'ein', 'eine'], a: 1 }, { q: 'Ich liebe ___. (o, erkek)', o: ['er', 'ihn', 'ihm'], a: 1 }],
+  link: /\b(den|einen|keinen|meinen|deinen|ihn|mich|dich)\b/u },
+{ id: 'a1-modal', level: 'A1', title: 'Modalverben', sub: 'können, müssen, wollen, möchten…',
+  rule: 'Modal fiil 2. sırada çekilir, asıl fiil cümlenin SONUNA mastar olarak gider.',
+  info: [
+    { t: 'slots', rows: [['Örnek', [['Ich', 's'], ['kann', 'v'], ['heute nicht', 'o'], ['kommen.', 'v2']]], ['Soru', [['Musst', 'v'], ['du', 's'], ['morgen', 'o'], ['arbeiten?', 'v2']]]] },
+    { t: 'table', head: ['', 'können', 'müssen', 'wollen', 'möchten'], rows: [['ich', 'kann', 'muss', 'will', 'möchte'], ['du', 'kannst', 'musst', 'willst', 'möchtest'], ['er / sie', 'kann', 'muss', 'will', 'möchte'], ['wir / sie / Sie', 'können', 'müssen', 'wollen', 'möchten']] },
+    { t: 'pairs', rows: [['können', '-ebilmek'], ['müssen', 'zorunda olmak'], ['wollen / möchten', 'istemek / istemek (kibar)'], ['dürfen', 'izni olmak'], ['sollen', '-meli (başkası istiyor)']] }
+  ],
+  ex: [['Ich kann gut schwimmen.', 'İyi yüzebilirim.'], ['Du musst mehr schlafen.', 'Daha çok uyumalısın.'], ['Wir wollen nach Spanien fahren.', 'İspanya\'ya gitmek istiyoruz.'], ['Hier darf man nicht parken.', 'Buraya park edilmez.'], ['Ich möchte einen Tee.', 'Bir çay istiyorum.']],
+  tips: ['Asıl fiilin sona gitmesi Türkçeye benzer: "Bugün gel-emem" → Ich kann heute nicht kommen.',
+    'ich ve er/sie/es biçimi aynıdır ve ek almaz: ich kann, er kann (er kannt değil!).',
+    '"möchten" kibar istek içindir, alışverişte ve restoranda en çok bu kullanılır.',
+    '"müssen nicht" = gerek yok (yasak değil!). Yasak için "nicht dürfen" kullanılır.'],
+  quiz: [{ q: 'Ich ___ heute lange arbeiten.', o: ['muss', 'musst', 'müssen'], a: 0 }, { q: 'Hangisi doğru?', o: ['Er kann sprechen gut Deutsch.', 'Er kann gut Deutsch sprechen.', 'Er kannt gut Deutsch sprechen.'], a: 1 },
+    { q: '"Burada sigara içmek yasak" için hangi fiil?', o: ['nicht müssen', 'nicht dürfen', 'nicht möchten'], a: 1 }, { q: '___ du mir helfen?', o: ['Kann', 'Kannst', 'Können'], a: 1 }],
+  link: /\b(kann|kannst|können|muss|musst|müssen|will|willst|wollen|möchte|möchtest|möchten|darf|darfst|dürfen|soll|sollst|sollen)\b/u },
+{ id: 'a1-trennbar', level: 'A1', title: 'Trennbare Verben', sub: 'Ayrılabilen fiiller',
+  rule: 'Bazı fiillerin ön eki cümlede ayrılır ve en SONA gider: aufstehen → Ich stehe um 7 Uhr auf.',
+  info: [
+    { t: 'slots', rows: [['aufstehen', [['Ich', 's'], ['stehe', 'v'], ['um 7 Uhr', 'o'], ['auf.', 'v2']]], ['einkaufen', [['Wir', 's'], ['kaufen', 'v'], ['am Samstag', 'o'], ['ein.', 'v2']]], ['anrufen', [['Rufst', 'v'], ['du', 's'], ['mich', 'o'], ['an?', 'v2']]]] },
+    { t: 'pairs', rows: [['an-, auf-, aus-, ein-, mit-, zu-, ab-, vor-, fern-, zurück-', 'Ayrılan ön ekler (vurgulu)'], ['be-, ver-, er-, ent-, ge-', 'Ayrılmayan ön ekler: bezahlen → ich bezahle']] }
+  ],
+  ex: [['Der Zug fährt um 8 Uhr ab.', 'Tren saat 8\'de kalkıyor.'], ['Ich rufe dich morgen an.', 'Seni yarın ararım.'], ['Kommst du mit?', 'Sen de geliyor musun?'], ['Abends sehe ich fern.', 'Akşamları televizyon izlerim.'], ['Mach bitte die Tür zu!', 'Lütfen kapıyı kapat!']],
+  tips: ['Ön ek fiilin anlamını değiştirir: kommen (gelmek), ankommen (varmak), mitkommen (birlikte gelmek).',
+    'Modal fiille birlikte ayrılmaz, bitişik ve sonda kalır: Ich muss früh aufstehen.',
+    'Sözlükte ve kelime oyununda hep bitişik (mastar) hâli görürsün: aufstehen.',
+    'Cümlenin sonunu dinlemeden anlamı tahmin etme: "Ich mache…" sonra "…zu" gelince anlam "kapatmak" olur.'],
+  quiz: [{ q: 'einkaufen: Ich ___ am Montag ___.', o: ['einkaufe / —', 'kaufe / ein', 'kaufe ein / —'], a: 1 }, { q: 'Hangisi doğru?', o: ['Ich anrufe dich.', 'Ich rufe dich an.', 'Ich rufe an dich.'], a: 1 },
+    { q: 'Hangi fiil ayrılmaz?', o: ['aufstehen', 'bezahlen', 'mitkommen'], a: 1 }, { q: 'Ich muss morgen früh ___.', o: ['stehe auf', 'aufstehen', 'auf stehen'], a: 1 }],
+  link: /\b(auf|an|aus|ein|mit|zu|fern|vor|ab|zurück)[.!?]\s*$/u },
+{ id: 'a1-negation', level: 'A1', title: 'Verneinung: nicht oder kein?', sub: 'Olumsuzluk',
+  rule: 'İsim "ein"li veya artikelsizse "kein" kullanılır. Diğer her şey (fiil, sıfat, "der/die/das"lı isim) "nicht" ile olumsuz yapılır.',
+  info: [
+    { t: 'flow', rows: [['Olumsuz yapacağın şey ein/eine ile ya da artikelsiz bir isim mi?', ''], ['Evet → kein / keine / keinen', 'Ich habe ein Auto → Ich habe kein Auto.'], ['Hayır → nicht', 'Ich komme → Ich komme nicht. / Das ist teuer → Das ist nicht teuer.']] },
+    { t: 'slots', rows: [['nicht', [['Ich', 's'], ['arbeite', 'v'], ['heute', 'o'], ['nicht.', 'n']]], ['kein', [['Ich', 's'], ['habe', 'v'], ['keine', 'n'], ['Zeit.', 'o']]]] }
+  ],
+  ex: [['Ich spreche nicht gut Deutsch.', 'Almancam iyi değil.'], ['Das ist nicht mein Handy.', 'Bu benim telefonum değil.'], ['Ich habe keinen Hunger.', 'Aç değilim.'], ['Wir haben keine Kinder.', 'Çocuğumuz yok.'], ['Er kommt heute nicht.', 'Bugün gelmiyor.']],
+  tips: ['Türkçedeki "yok" çoğu zaman "kein" olur: Vaktim yok = Ich habe keine Zeit.',
+    '"-me/-ma" ve "değil" çoğu zaman "nicht" olur: Gelmiyorum = Ich komme nicht. Pahalı değil = Nicht teuer.',
+    '"nicht" genelde olumsuz yapılan kelimenin hemen önüne, fiili olumsuz yapıyorsa cümlenin sonuna gider.',
+    '"kein" ein gibi çekilir: keinen Hunger (der), keine Zeit (die), kein Auto (das).'],
+  quiz: [{ q: 'Ich habe ___ Auto.', o: ['nicht', 'kein', 'keine'], a: 1 }, { q: 'Das Essen ist ___ lecker.', o: ['kein', 'keine', 'nicht'], a: 2 },
+    { q: 'Wir haben ___ Zeit. (die Zeit)', o: ['keine', 'keinen', 'nicht'], a: 0 }, { q: 'Er kommt heute ___.', o: ['kein', 'nicht', 'keinen'], a: 1 }],
+  link: /\b(nicht|kein|keine|keinen)\b/u },
+{ id: 'a2-perfekt', level: 'A2', title: 'Perfekt', sub: 'Konuşmada geçmiş zaman',
+  rule: 'Perfekt = haben veya sein (2. sırada) + Partizip II (sonda). Konuşmada geçmiş zaman en çok böyle anlatılır.',
+  info: [
+    { t: 'formula', parts: [['haben / sein', 'v'], ['+', 'op'], ['Partizip II', 'v2']], note: 'ge- … -t (düzenli) / ge- … -en (düzensiz)' },
+    { t: 'slots', rows: [['haben', [['Ich', 's'], ['habe', 'v'], ['gestern Pizza', 'o'], ['gegessen.', 'v2']]], ['sein', [['Wir', 's'], ['sind', 'v'], ['nach Berlin', 'o'], ['gefahren.', 'v2']]]] },
+    { t: 'table', head: ['Mastar', 'Partizip II', 'Yardımcı fiil'], rows: [['machen', 'ge**mach**t', 'haben'], ['kaufen', 'ge**kauf**t', 'haben'], ['essen', 'ge**gess**en', 'haben'], ['fahren', 'ge**fahr**en', 'sein'], ['gehen', 'ge**gang**en', 'sein'], ['aufstehen', 'auf**ge**standen', 'sein'], ['bezahlen', 'bezahlt (ge- yok)', 'haben'], ['studieren', 'studiert (ge- yok)', 'haben']] }
+  ],
+  ex: [['Ich habe gestern lange gearbeitet.', 'Dün uzun süre çalıştım.'], ['Hast du schon gegessen?', 'Yemek yedin mi?'], ['Wir sind ins Kino gegangen.', 'Sinemaya gittik.'], ['Sie ist um 7 Uhr aufgestanden.', 'Saat 7\'de kalktı.'], ['Ich habe die Rechnung bezahlt.', 'Faturayı ödedim.']],
+  tips: ['"sein" ile kurulanlar: bir yerden bir yere hareket (gehen, fahren, fliegen, kommen) ve durum değişimi (aufstehen, einschlafen, sterben). Ayrıca sein, bleiben ve passieren.',
+    'Geri kalan fiillerin büyük çoğunluğu "haben" ile kurulur.',
+    'be-, ver-, er-, ent- ile başlayan ve -ieren ile biten fiiller "ge-" almaz: bezahlt, vergessen, studiert.',
+    'Ayrılabilen fiillerde "ge" ortaya girer: einkaufen → eingekauft, anrufen → angerufen.'],
+  quiz: [{ q: 'Ich ___ gestern nach Hause gegangen.', o: ['habe', 'bin', 'hat'], a: 1 }, { q: 'Wir haben eine Pizza ___.', o: ['gegesst', 'gegessen', 'essen'], a: 1 },
+    { q: 'kaufen → Partizip II?', o: ['gekauft', 'gekaufen', 'kaufte'], a: 0 }, { q: 'Hast du die Rechnung schon ___?', o: ['gebezahlt', 'bezahlt', 'bezahlen'], a: 1 }],
+  link: /\b(habe|hast|hat|haben|habt|bin|bist|ist|sind|seid)\b.*\b(ge\p{Ll}+(t|en)|\p{Ll}+ge\p{Ll}+(t|en)|\p{Ll}+iert)[.!?]\s*$/u },
+{ id: 'a2-dativ', level: 'A2', title: 'Dativ', sub: 'Yönelme / bulunma hâli (-e hâli)',
+  rule: 'Dolaylı nesne (kime?) ve bazı edatlardan sonra Dativ gelir. Bütün artikeller değişir.',
+  info: [
+    { t: 'table', cols: ['', 'cm', 'cf', 'cn', 'cp'], head: ['', 'eril', 'dişil', 'nötr', 'çoğul'], rows: [['Nominativ', 'der / ein', 'die / eine', 'das / ein', 'die'], ['Dativ', '**dem / einem**', '**der / einer**', '**dem / einem**', '**den** + -n']] },
+    { t: 'pairs', rows: [['aus, bei, mit, nach, seit, von, zu', 'Hep Dativ alan edatlar'], ['zu + dem = zum, zu + der = zur, bei + dem = beim, von + dem = vom', 'Birleşik biçimler'], ['helfen, danken, gefallen, gehören, antworten', 'Dativ alan fiiller'], ['mir, dir, ihm, ihr, uns, euch, ihnen / Ihnen', 'Dativ zamirleri']] }
+  ],
+  ex: [['Ich gebe dem Kind ein Buch.', 'Çocuğa bir kitap veriyorum.'], ['Ich fahre mit dem Bus.', 'Otobüsle gidiyorum.'], ['Das Hemd gefällt mir.', 'Gömlek hoşuma gidiyor.'], ['Kannst du mir helfen?', 'Bana yardım edebilir misin?'], ['Ich gehe zum Arzt.', 'Doktora gidiyorum.']],
+  tips: ['Türkçedeki "-e" hâline benzer: Çocuğa veriyorum = Ich gebe dem Kind.',
+    'Ama "ile" de Dativ ister: mit dem Bus (otobüsle). Türkçede bu ayrı bir ek, Almancada edat + Dativ.',
+    '"helfen" Dativ ister: Ich helfe dir. "Ich helfe dich" yanlıştır.',
+    'Çoğul Dativ ismin sonuna -n ekler: mit den Kindern.'],
+  quiz: [{ q: 'Ich fahre mit ___ Zug. (der Zug)', o: ['den', 'dem', 'der'], a: 1 }, { q: 'Ich helfe ___. (sen)', o: ['dich', 'dir', 'du'], a: 1 },
+    { q: 'Er wohnt bei ___ Eltern. (seine Eltern, çoğul)', o: ['seinen', 'seine', 'seinem'], a: 0 }, { q: 'Ich gehe ___ Apotheke. (zu + die)', o: ['zum', 'zur', 'zu die'], a: 1 }],
+  link: /\b(dem|einem|meinem|deinem|mir|dir|ihm|zum|zur|vom|beim)\b/u },
+{ id: 'a2-wechsel', level: 'A2', title: 'Wechselpräpositionen', sub: 'Wo? Dativ – Wohin? Akkusativ',
+  rule: 'in, an, auf, über, unter, vor, hinter, neben, zwischen: "Nerede?" (durma) → Dativ, "Nereye?" (hareket) → Akkusativ.',
+  info: [
+    { t: 'wechsel' },
+    { t: 'compare', head: ['Nereye? (hareket) → Akkusativ', 'Nerede? (durum) → Dativ'], rows: [['legen: Ich lege das Buch **auf den** Tisch.', 'liegen: Das Buch liegt **auf dem** Tisch.'], ['stellen: Ich stelle die Flasche **in den** Kühlschrank.', 'stehen: Die Flasche steht **im** Kühlschrank.'], ['hängen: Ich hänge das Bild **an die** Wand.', 'hängen: Das Bild hängt **an der** Wand.'], ['gehen: Ich gehe **ins** Kino.', 'sein: Ich bin **im** Kino.']] }
+  ],
+  ex: [['Die Katze schläft auf dem Sofa.', 'Kedi kanepede uyuyor.'], ['Die Katze springt auf das Sofa.', 'Kedi kanepeye zıplıyor.'], ['Wir gehen in den Park.', 'Parka gidiyoruz.'], ['Wir sind im Park.', 'Parktayız.'], ['Der Schlüssel liegt neben der Tür.', 'Anahtar kapının yanında duruyor.']],
+  tips: ['Türkçede de aynı ayrım var: "-de" (parkta) → Dativ, "-e" (parka) → Akkusativ.',
+    'Soruyu kendine sor: Wo? (nerede) mi, Wohin? (nereye) mi?',
+    'Fiil çiftlerini birlikte öğren: legen/liegen, stellen/stehen, setzen/sitzen.',
+    'in + dem = im, in + das = ins, an + dem = am.'],
+  quiz: [{ q: 'Ich gehe in ___ Supermarkt. (der)', o: ['den', 'dem', 'der'], a: 0 }, { q: 'Ich bin in ___ Supermarkt.', o: ['den', 'dem', 'die'], a: 1 },
+    { q: 'Das Bild hängt an ___ Wand. (die)', o: ['die', 'der', 'den'], a: 1 }, { q: 'Ich lege das Handy auf ___ Tisch.', o: ['den', 'dem', 'der'], a: 0 }],
+  link: /\b(im|ins|am|ans)\b|\b(auf|in|an|unter|über|neben|vor|hinter|zwischen) (dem|den|der|die|das)\b/u },
+{ id: 'a2-nebensatz', level: 'A2', title: 'Nebensätze: weil, dass, wenn', sub: 'Yan cümlede fiil sona gider',
+  rule: 'weil, dass, wenn, ob ile başlayan yan cümlede çekimli fiil EN SONA gider.',
+  info: [
+    { t: 'slots', rows: [['Ana + yan', [['Ich bleibe zu Hause,', 'o'], ['weil', 'c'], ['ich', 's'], ['krank', 'o'], ['bin.', 'v']]], ['dass', [['Ich weiß,', 'o'], ['dass', 'c'], ['er', 's'], ['morgen', 'o'], ['kommt.', 'v']]], ['Yan cümle başta', [['Wenn ich Zeit habe,', 'c'], ['komme', 'v'], ['ich', 's'], ['vorbei.', 'v2']]]] },
+    { t: 'pairs', rows: [['weil', 'çünkü, -dığı için'], ['dass', '-dığını, ki'], ['wenn', 'eğer, -dığında (her seferinde)'], ['ob', '-ip -mediğini']] }
+  ],
+  ex: [['Ich lerne Deutsch, weil ich in Deutschland arbeite.', 'Almanya\'da çalıştığım için Almanca öğreniyorum.'], ['Ich glaube, dass es morgen regnet.', 'Yarın yağmur yağacağını düşünüyorum.'], ['Wenn du willst, können wir ins Kino gehen.', 'İstersen sinemaya gidebiliriz.'], ['Weißt du, ob sie verheiratet ist?', 'Evli olup olmadığını biliyor musun?'], ['Weil es regnet, nehme ich den Bus.', 'Yağmur yağdığı için otobüse biniyorum.']],
+  tips: ['Müjde: Yan cümle Türkçeye benzer, fiil sonda! "Hasta olduğum için" → weil ich krank bin.',
+    'Yan cümle başa gelirse ana cümle fiille başlar: "Wenn ich Zeit habe, komme ich." (fiil-virgül-fiil).',
+    'Konuşmada "denn" de "çünkü" demektir ama fiil sona gitmez: Ich bleibe zu Hause, denn ich bin krank.',
+    'Modal fiilli yan cümlede modal en sonda: …, weil ich arbeiten muss.'],
+  quiz: [{ q: 'Ich komme nicht, weil ich ___.', o: ['bin krank', 'krank bin', 'krank ich bin'], a: 1 }, { q: 'Wenn ich Zeit habe, ___ ich dich.', o: ['besuche', 'ich besuche', 'besuchen'], a: 0 },
+    { q: 'Ich weiß nicht, ___ er kommt. (gelip gelmeyeceğini)', o: ['dass', 'ob', 'wenn'], a: 1 }, { q: 'Er sagt, dass er keine Zeit ___.', o: ['hat', 'haben', 'hat er'], a: 0 }],
+  link: /\b(weil|dass|wenn|ob)\b/u },
+{ id: 'a2-komparativ', level: 'A2', title: 'Komparativ und Superlativ', sub: 'Karşılaştırma',
+  rule: 'Daha: sıfat + -er (+ als). En: am + sıfat + -sten.',
+  info: [
+    { t: 'table', head: ['Sıfat', 'Daha …', 'En …'], rows: [['schnell', 'schnell**er**', 'am schnell**sten**'], ['klein', 'klein**er**', 'am klein**sten**'], ['alt', '**ä**lt**er**', 'am **ä**lt**esten**'], ['groß', 'gr**ö**ß**er**', 'am gr**ö**ß**ten**'], ['gut', '**besser**', 'am **besten**'], ['viel', '**mehr**', 'am **meisten**'], ['gern', '**lieber**', 'am **liebsten**']] },
+    { t: 'pairs', rows: [['größer **als**', '… -den daha büyük'], ['so groß **wie**', '… kadar büyük']] }
+  ],
+  ex: [['Berlin ist größer als München.', 'Berlin Münih\'ten daha büyük.'], ['Mein Bruder ist so alt wie ich.', 'Ağabeyim benimle aynı yaşta.'], ['Ich trinke lieber Tee als Kaffee.', 'Çayı kahveye tercih ederim.'], ['Im Sommer ist es am wärmsten.', 'En sıcak yazın olur.'], ['Das ist das beste Restaurant.', 'Bu en iyi restoran.']],
+  tips: ['"-den daha" için "als", "kadar" için "wie" kullanılır. "größer wie" yaygın bir hatadır.',
+    'Tek heceli sıfatların çoğu umlaut alır: alt → älter, jung → jünger, warm → wärmer.',
+    '"Daha çok severim" = lieber: Ich spiele lieber Fußball.',
+    'İsimden önce sıfat eki de gelir: das beste Restaurant, der schnellste Zug.'],
+  quiz: [{ q: 'Der Zug ist schneller ___ der Bus.', o: ['wie', 'als', 'dann'], a: 1 }, { q: 'gut → daha iyi?', o: ['guter', 'besser', 'gutter'], a: 1 },
+    { q: 'Ich trinke ___ Tee als Kaffee.', o: ['gerner', 'lieber', 'mehr gern'], a: 1 }, { q: 'Im Winter ist es am ___.', o: ['kältesten', 'kalter', 'kaltsten'], a: 0 }],
+  link: /\b\p{Ll}+er als\b|\bam \p{Ll}+(sten|ten)\b|\b(lieber|besser|mehr)\b/u },
+{ id: 'a2-reflexiv', level: 'A2', title: 'Reflexive Verben', sub: 'Dönüşlü fiiller (sich)',
+  rule: 'Bazı fiiller öznenin kendisine dönen bir zamirle kullanılır: sich freuen → Ich freue mich.',
+  info: [
+    { t: 'table', head: ['Özne', 'Akkusativ', 'Örnek'], rows: [['ich', '**mich**', 'Ich freue mich.'], ['du', '**dich**', 'Du freust dich.'], ['er / sie / es', '**sich**', 'Er freut sich.'], ['wir', '**uns**', 'Wir freuen uns.'], ['ihr', '**euch**', 'Ihr freut euch.'], ['sie / Sie', '**sich**', 'Sie freuen sich.']] },
+    { t: 'pairs', rows: [['sich freuen', 'sevinmek'], ['sich beeilen', 'acele etmek'], ['sich treffen', 'buluşmak'], ['sich fühlen', 'hissetmek'], ['sich interessieren für', 'ilgilenmek'], ['sich waschen / duschen', 'yıkanmak / duş almak']] }
+  ],
+  ex: [['Ich freue mich auf das Wochenende.', 'Hafta sonunu dört gözle bekliyorum.'], ['Wir treffen uns um acht.', 'Saat sekizde buluşuyoruz.'], ['Beeil dich!', 'Acele et!'], ['Er fühlt sich nicht gut.', 'Kendini iyi hissetmiyor.'], ['Ich wasche mir die Hände.', 'Ellerimi yıkıyorum.']],
+  tips: ['Türkçedeki "-n" ekli fiillere benzer: yıka-n-mak = sich waschen, giyi-n-mek = sich anziehen.',
+    'Sadece "sich" üçüncü şahıs ve "Sie" için. Diğerlerinde normal zamir: mich, dich, uns, euch.',
+    'Başka bir nesne varsa Dativ zamir gelir: Ich wasche mir die Hände (mich değil).',
+    'Sözlükte ve kartlarda "sich" görürsen fiilin dönüşlü olduğunu bil: sich erinnern, sich gewöhnen.'],
+  quiz: [{ q: 'Ich freue ___ sehr.', o: ['mich', 'mir', 'sich'], a: 0 }, { q: 'Wir treffen ___ morgen.', o: ['sich', 'uns', 'euch'], a: 1 },
+    { q: 'Er beeilt ___.', o: ['ihn', 'sich', 'ihm'], a: 1 }, { q: 'Ich putze ___ die Zähne.', o: ['mich', 'mir', 'sich'], a: 1 }],
+  link: /\b(mich|dich|sich|uns|euch)\b/u },
+{ id: 'a2-imperativ', level: 'A2', title: 'Imperativ', sub: 'Emir kipi ve rica',
+  rule: 'du: fiil kökü (Komm!), ihr: -t (Kommt!), Sie: mastar + Sie (Kommen Sie!).',
+  info: [
+    { t: 'table', head: ['Mastar', 'du', 'ihr', 'Sie'], rows: [['kommen', '**Komm!**', '**Kommt!**', '**Kommen Sie!**'], ['warten', 'Warte!', 'Wartet!', 'Warten Sie!'], ['nehmen', 'N**i**mm!', 'Nehmt!', 'Nehmen Sie!'], ['essen', '**I**ss!', 'Esst!', 'Essen Sie!'], ['zumachen', 'Mach … zu!', 'Macht … zu!', 'Machen Sie … zu!'], ['sein', '**Sei**!', '**Seid**!', '**Seien Sie**!']] }
+  ],
+  ex: [['Komm bitte her!', 'Lütfen buraya gel!'], ['Mach bitte das Fenster zu!', 'Lütfen pencereyi kapat!'], ['Warten Sie bitte einen Moment!', 'Lütfen bir dakika bekleyin!'], ['Sei leise!', 'Sessiz ol!'], ['Vergiss deinen Pass nicht!', 'Pasaportunu unutma!']],
+  tips: ['du biçiminde "du" ve "-st" düşer: du kommst → Komm!',
+    'e → i değişen fiiller emirde de değişir: nehmen → Nimm!, geben → Gib!, essen → Iss! Ama a → ä değişmez: fahren → Fahr!',
+    '"bitte" emri kibar bir ricaya çevirir. Almanya\'da neredeyse her zaman kullanılır.',
+    'Daha kibarı Konjunktiv II ile: Könnten Sie bitte warten?'],
+  quiz: [{ q: 'du + kommen → ?', o: ['Kommst!', 'Komm!', 'Kommen!'], a: 1 }, { q: 'du + nehmen → ?', o: ['Nehm!', 'Nimm!', 'Nimmst!'], a: 1 },
+    { q: 'Sie + warten → ?', o: ['Warten Sie!', 'Wartet!', 'Sie warten!'], a: 0 }, { q: 'du + sein → ___ ruhig!', o: ['Bist', 'Sei', 'Seid'], a: 1 }],
+  link: /!\s*$/u },
+{ id: 'a2-adjektiv', level: 'A2', title: 'Adjektivendungen (Grundlagen)', sub: 'İsimden önce sıfat eki',
+  rule: 'Sıfat ismin önündeyse ek alır. der/die/das\'tan sonra çoğunlukla -e, ein\'dan sonra artikelin eksik bilgisi sıfata geçer.',
+  info: [
+    { t: 'table', cols: ['', 'cm', 'cf', 'cn', 'cp'], head: ['Nominativ', 'eril', 'dişil', 'nötr', 'çoğul'], rows: [['der/die/das +', 'der neu**e** Tisch', 'die neu**e** Lampe', 'das neu**e** Bett', 'die neu**en** Stühle'], ['ein/eine +', 'ein neu**er** Tisch', 'eine neu**e** Lampe', 'ein neu**es** Bett', 'neu**e** Stühle']] },
+    { t: 'pairs', rows: [['Der Tisch ist neu.', 'Yüklemde (sein ile) ek YOK'], ['Ich kaufe einen neu**en** Tisch.', 'Akkusativ eril: -en'], ['mit dem neu**en** Tisch', 'Dativ: hep -en']] }
+  ],
+  ex: [['Das ist ein schönes Haus.', 'Bu güzel bir ev.'], ['Ich suche eine große Wohnung.', 'Büyük bir daire arıyorum.'], ['Der neue Kollege ist nett.', 'Yeni iş arkadaşı nazik.'], ['Ich habe einen kleinen Hund.', 'Küçük bir köpeğim var.'], ['Wir wohnen in einem alten Haus.', 'Eski bir evde oturuyoruz.']],
+  tips: ['Türkçede sıfat hiç ek almaz (güzel ev, güzel evde). Almancada alır, bu yüzden zaman ister. Önce bu tablodaki 7 biçimi oturt.',
+    'Kısa kural: ein\'dan sonra sıfat, artikelin söylemediği cinsiyeti gösterir: ein neuER (der), ein neuES (das).',
+    'Dativ ve çoğulda (der/die/das\'tan sonra) neredeyse her zaman -en.',
+    'Sıfat yüklemde (ist, sind) ise ek yok: Das Haus ist schön.'],
+  quiz: [{ q: 'Das ist ein ___ Auto. (neu, das Auto)', o: ['neue', 'neuer', 'neues'], a: 2 }, { q: 'Der ___ Mann ist mein Vater. (alt)', o: ['alte', 'alter', 'alten'], a: 0 },
+    { q: 'Ich habe einen ___ Bruder. (klein)', o: ['kleiner', 'kleinen', 'kleine'], a: 1 }, { q: 'Das Wetter ist ___.', o: ['schön', 'schöne', 'schönes'], a: 0 }],
+  link: /\b(ein|eine|einen|einem|der|die|das|den|dem)\s+\p{Ll}+(e|en|er|es|em)\s+\p{Lu}/u },
+{ id: 'b1-praeteritum', level: 'B1', title: 'Präteritum', sub: 'Yazıda ve anlatımda geçmiş zaman',
+  rule: 'Präteritum hikaye, haber ve yazılarda kullanılır. Konuşmada genelde Perfekt tercih edilir; ama sein, haben ve modal fiiller konuşmada da Präteritum ile söylenir.',
+  info: [
+    { t: 'timeline', points: [['Präteritum', 'Ich ging', 'geçmiş (yazı, anlatı)'], ['Perfekt', 'Ich bin gegangen', 'geçmiş (konuşma)'], ['Präsens', 'Ich gehe', 'şimdi / genel'], ['Futur I', 'Ich werde gehen', 'gelecek (niyet, tahmin)']] },
+    { t: 'table', head: ['', 'düzenli: machen', 'düzensiz: gehen', 'sein', 'haben'], rows: [['ich', 'mach**te**', 'g**ing**', '**war**', '**hatte**'], ['du', 'mach**test**', 'g**ing**st', 'warst', 'hattest'], ['er / sie / es', 'mach**te**', 'g**ing**', 'war', 'hatte'], ['wir / sie / Sie', 'mach**ten**', 'g**ing**en', 'waren', 'hatten']] },
+    { t: 'pairs', rows: [['kommen → kam, sehen → sah, finden → fand', 'sık düzensizler'], ['schreiben → schrieb, geben → gab, nehmen → nahm', ''], ['können → konnte, müssen → musste, wollen → wollte', 'modal fiiller']] }
+  ],
+  ex: [['Gestern war ich sehr müde.', 'Dün çok yorgundum.'], ['Als Kind hatte ich einen Hund.', 'Çocukken bir köpeğim vardı.'], ['Ich konnte nicht kommen.', 'Gelemedim.'], ['Er kam spät nach Hause.', 'Eve geç geldi.'], ['Sie schrieb einen langen Brief.', 'Uzun bir mektup yazdı.']],
+  tips: ['ich ve er/sie/es biçimi aynıdır: ich war, er war; ich kam, er kam.',
+    'Okuduğun hikayeler (B1) çoğunlukla Präteritum ile yazıldı. Bu fiilleri orada tanımaya çalış.',
+    'Konuşurken "Ich ging gestern ins Kino" kulağa resmî gelir; "Ich bin gestern ins Kino gegangen" daha doğal.',
+    'Düzensiz fiillerin Präteritum ve Partizip biçimlerini birlikte öğren: gehen – ging – gegangen.'],
+  quiz: [{ q: 'Gestern ___ ich keine Zeit. (haben)', o: ['hatte', 'habte', 'hat'], a: 0 }, { q: 'Wir ___ zu Hause. (sein)', o: ['waren', 'warten', 'sind gewesen'], a: 0 },
+    { q: 'kommen → Präteritum (er)?', o: ['kommte', 'kam', 'kamm'], a: 1 }, { q: 'Ich ___ nicht schlafen. (können)', o: ['konnte', 'könnte', 'kannte'], a: 0 }],
+  link: /\b(war|waren|warst|hatte|hatten|konnte|musste|wollte|sollte|durfte|ging|kam|sah|fand|schrieb|gab|bekam|rief|schlief|blieb|nahm|fuhr|lief|saß|stand|dachte|wusste|brachte|suchte|machte|sagte)\b/u },
+{ id: 'b1-passiv', level: 'B1', title: 'Passiv', sub: 'Edilgen yapı',
+  rule: 'Passiv = werden (2. sırada) + Partizip II (sonda). İşi kimin yaptığı önemsizse kullanılır.',
+  info: [
+    { t: 'formula', parts: [['werden', 'v'], ['+', 'op'], ['Partizip II', 'v2']], note: 'Geçmiş: wurde + Partizip II · İşi yapan: von + Dativ' },
+    { t: 'slots', rows: [['Präsens', [['Das Büro', 's'], ['wird', 'v'], ['jeden Abend', 'o'], ['geputzt.', 'v2']]], ['Präteritum', [['Das Haus', 's'], ['wurde', 'v'], ['1900', 'o'], ['gebaut.', 'v2']]], ['Modal', [['Das Formular', 's'], ['muss', 'v'], ['heute', 'o'], ['ausgefüllt werden.', 'v2']]]] },
+    { t: 'pairs', rows: [['Aktiv: Der Mechaniker repariert das Auto.', 'Tamirci arabayı tamir ediyor.'], ['Passiv: Das Auto wird (vom Mechaniker) repariert.', 'Araba (tamirci tarafından) tamir ediliyor.']] }
+  ],
+  ex: [['Hier wird Deutsch gesprochen.', 'Burada Almanca konuşulur.'], ['Die Fenster werden morgen geputzt.', 'Pencereler yarın temizlenecek.'], ['Das Paket wurde gestern geliefert.', 'Paket dün teslim edildi.'], ['Der Termin wurde abgesagt.', 'Randevu iptal edildi.'], ['Hier darf nicht geraucht werden.', 'Burada sigara içilmemeli.']],
+  tips: ['Türkçedeki "-il / -in" edilgen ekine karşılık gelir: yapılır = wird gemacht, yapıldı = wurde gemacht.',
+    '"werden" burada "olmak" değil, edilgen yardımcı fiilidir. Partizip II ile birlikte görünce Passiv olduğunu anla.',
+    'Resmî yazılarda, kullanım kılavuzlarında ve haberlerde çok sık geçer.',
+    'İşi yapanı söylemek gerekirse "von + Dativ": von der Polizei, vom Arzt.'],
+  quiz: [{ q: 'Das Auto ___ repariert. (Präsens)', o: ['wird', 'wurde', 'ist'], a: 0 }, { q: 'Das Haus wurde 1950 ___.', o: ['bauen', 'gebaut', 'baute'], a: 1 },
+    { q: '"Mektup yazıldı" hangisi?', o: ['Der Brief schrieb.', 'Der Brief wurde geschrieben.', 'Der Brief wird schreiben.'], a: 1 }, { q: 'Die Rechnung muss bezahlt ___.', o: ['werden', 'wird', 'worden'], a: 0 }],
+  link: /\b(wird|werden|wurde|wurden)\b.*\b(ge\p{Ll}+(t|en)|\p{Ll}+ge\p{Ll}+(t|en)|\p{Ll}+iert|bezahlt|verschoben|übersetzt|abgesagt)\b/u },
+{ id: 'b1-konjunktiv2', level: 'B1', title: 'Konjunktiv II', sub: 'Dilek, varsayım ve kibar rica',
+  rule: 'Gerçek olmayan durumlar ve kibar ricalar için: würde + mastar. sein, haben ve modal fiillerde: wäre, hätte, könnte…',
+  info: [
+    { t: 'table', head: ['', 'würde', 'sein', 'haben', 'können'], rows: [['ich', '**würde**', '**wäre**', '**hätte**', '**könnte**'], ['du', 'würdest', 'wärst', 'hättest', 'könntest'], ['er / sie / es', 'würde', 'wäre', 'hätte', 'könnte'], ['wir / sie / Sie', 'würden', 'wären', 'hätten', 'könnten']] },
+    { t: 'pairs', rows: [['Wenn ich Zeit hätte, würde ich reisen.', 'Vaktim olsa seyahat ederdim. (varsayım)'], ['Ich hätte gern einen Kaffee.', 'Bir kahve rica ediyorum. (kibar istek)'], ['Könnten Sie mir helfen?', 'Bana yardım edebilir miydiniz? (kibar rica)'], ['An deiner Stelle würde ich …', 'Senin yerinde olsam … (tavsiye)'], ['Wenn ich doch mehr Zeit hätte!', 'Keşke daha çok vaktim olsa! (dilek)']] }
+  ],
+  ex: [['Wenn ich reich wäre, würde ich ein Haus kaufen.', 'Zengin olsam bir ev alırdım.'], ['Würdest du mir helfen?', 'Bana yardım eder misin?'], ['Du solltest mehr schlafen.', 'Daha çok uyumalısın.'], ['Ich hätte gern die Rechnung.', 'Hesabı rica edeceğim.'], ['Das wäre toll!', 'Bu harika olurdu!']],
+  tips: ['Türkçedeki "-se / -sa" ve "-irdi" yapısına karşılık gelir: olsa = wäre, olurdu = würde … sein.',
+    'İki hâlde de "wenn"li yan cümlede fiil sona gider: Wenn ich Zeit hätte, …',
+    '"sollte" tavsiye için çok kullanışlıdır: Du solltest zum Arzt gehen.',
+    'Geçmişte gerçekleşmemiş olaylar için: hätte/wäre + Partizip II → Wenn du früher gekommen wärst, hättest du ihn gesehen.'],
+  quiz: [{ q: 'Wenn ich Zeit ___, würde ich kommen.', o: ['habe', 'hätte', 'hatte'], a: 1 }, { q: '___ Sie mir bitte helfen? (kibar)', o: ['Können', 'Könnten', 'Konnten'], a: 1 },
+    { q: 'An deiner Stelle ___ ich zum Arzt gehen.', o: ['würde', 'werde', 'wurde'], a: 0 }, { q: 'Keşke burada olsaydın: Wenn du doch hier ___!', o: ['bist', 'wärst', 'warst'], a: 1 }],
+  link: /\b(würde|würdest|würden|hätte|hättest|hätten|wäre|wärst|wären|könnte|könntest|könnten|sollte|solltest|sollten)\b/u },
+{ id: 'b1-relativsatz', level: 'B1', title: 'Relativsätze', sub: 'İlgi cümleleri (der, die, das)',
+  rule: 'Bir ismi açıklayan yan cümle. İlgi zamiri ismin cinsiyetini alır, hâli ise yan cümledeki görevine göre değişir. Fiil sona gider.',
+  info: [
+    { t: 'slots', rows: [['Nominativ', [['Der Mann,', 'o'], ['der', 'c'], ['dort', 'o'], ['steht,', 'v'], ['ist mein Nachbar.', 'o']]], ['Akkusativ', [['Das Buch,', 'o'], ['das', 'c'], ['ich', 's'], ['lese,', 'v'], ['ist spannend.', 'o']]], ['Dativ', [['Die Frau,', 'o'], ['der', 'c'], ['ich', 's'], ['helfe,', 'v'], ['ist alt.', 'o']]]] },
+    { t: 'table', cols: ['', 'cm', 'cf', 'cn', 'cp'], head: ['', 'eril', 'dişil', 'nötr', 'çoğul'], rows: [['Nominativ', 'der', 'die', 'das', 'die'], ['Akkusativ', '**den**', 'die', 'das', 'die'], ['Dativ', '**dem**', '**der**', '**dem**', '**denen**']] }
+  ],
+  ex: [['Das ist der Kollege, der aus Izmir kommt.', 'Bu İzmir\'den gelen iş arkadaşı.'], ['Die Wohnung, die wir gesehen haben, war zu teuer.', 'Gördüğümüz daire çok pahalıydı.'], ['Der Film, den ich gestern gesehen habe, war super.', 'Dün izlediğim film harikaydı.'], ['Das ist die Frau, mit der ich arbeite.', 'Bu birlikte çalıştığım kadın.'], ['Die Kinder, denen ich helfe, sind sehr nett.', 'Yardım ettiğim çocuklar çok tatlı.']],
+  tips: ['Türkçede bu iş "-an / -dığı" sıfat-fiilleriyle yapılır: "dün izlediğim film" = der Film, den ich gestern gesehen habe.',
+    'Önce cinsiyete bak (der Film → eril), sonra yan cümledeki göreve (ich sehe den Film → Akkusativ) → den.',
+    'Edat varsa önce gelir: die Frau, mit der ich arbeite.',
+    'Virgül zorunludur ve yan cümledeki fiil hep sondadır.'],
+  quiz: [{ q: 'Der Mann, ___ dort wohnt, ist Arzt.', o: ['der', 'den', 'dem'], a: 0 }, { q: 'Das Auto, ___ ich gekauft habe, ist rot.', o: ['der', 'das', 'dem'], a: 1 },
+    { q: 'Der Freund, ___ ich geholfen habe, … (helfen + Dativ)', o: ['den', 'dem', 'der'], a: 1 }, { q: 'Die Leute, mit ___ ich arbeite, … (çoğul, Dativ)', o: ['die', 'denen', 'den'], a: 1 }],
+  link: /, (der|die|das|den|dem|denen|deren|dessen) |, (mit|von|bei|zu|für|an|auf|in) (dem|der|den|denen) /u },
+{ id: 'b1-genitiv', level: 'B1', title: 'Genitiv', sub: 'Tamlama (-in hâli)',
+  rule: 'Sahiplik ve bazı edatlar (wegen, trotz, während, statt) için Genitiv kullanılır: des + -(e)s, der.',
+  info: [
+    { t: 'table', cols: ['', 'cm', 'cf', 'cn', 'cp'], head: ['', 'eril', 'dişil', 'nötr', 'çoğul'], rows: [['Genitiv', '**des** Mann**es**', '**der** Frau', '**des** Kind**es**', '**der** Kinder'], ['belirsiz', '**eines** Mann**es**', '**einer** Frau', '**eines** Kind**es**', '—']] },
+    { t: 'pairs', rows: [['das Auto **meines** Vaters', 'babamın arabası'], ['wegen **des** Wetters', 'hava yüzünden'], ['trotz **des** Regens', 'yağmura rağmen'], ['während **der** Arbeit', 'iş sırasında'], ['Konuşmada: das Auto **von meinem** Vater', 'günlük dilde von + Dativ']] }
+  ],
+  ex: [['Das ist das Haus meiner Eltern.', 'Bu ailemin evi.'], ['Wegen des Staus kam ich zu spät.', 'Trafik yüzünden geç kaldım.'], ['Trotz des schlechten Wetters sind wir gewandert.', 'Kötü havaya rağmen doğa yürüyüşü yaptık.'], ['Während des Urlaubs habe ich viel gelesen.', 'Tatil sırasında çok okudum.'], ['Annas Bruder wohnt in Bonn.', 'Anna\'nın erkek kardeşi Bonn\'da oturuyor.']],
+  tips: ['Türkçedeki "-in" tamlamasının tersidir: babamın arabası = das Auto meines Vaters (sahip sonra gelir).',
+    'Özel isimlerde sadece -s eklenir, kesme işareti yok: Annas Buch.',
+    'Eril ve nötr isim de -s / -es eki alır: des Vaters, des Kindes.',
+    'Konuşmada Genitiv giderek azalıyor, "von + Dativ" daha yaygın. Ama resmî yazılarda ve B1 sınavında bilinmesi gerekir.'],
+  quiz: [{ q: 'Das Auto ___ Vaters ist neu.', o: ['meinem', 'meines', 'meiner'], a: 1 }, { q: 'Wegen ___ Regens bleiben wir zu Hause.', o: ['dem', 'des', 'der'], a: 1 },
+    { q: 'Hangisi Genitiv alır?', o: ['mit', 'trotz', 'für'], a: 1 }, { q: '"Ali\'nin kitabı" hangisi?', o: ['Ali\'s Buch', 'Alis Buch', 'das Buch Ali'], a: 1 }],
+  link: /\b(des|eines|meines|deines|trotz|wegen|während|statt)\b/u },
+{ id: 'b1-zuinfinitiv', level: 'B1', title: 'zu + Infinitiv, um … zu', sub: 'Mastar cümleleri',
+  rule: 'Bazı fiil ve kalıplardan sonra "zu + mastar" gelir ve sona gider. Amaç için: um … zu (aynı özne), damit (farklı özne).',
+  info: [
+    { t: 'slots', rows: [['zu + mastar', [['Ich', 's'], ['versuche,', 'v'], ['jeden Tag Deutsch', 'o'], ['zu sprechen.', 'v2']]], ['ayrılabilen', [['Ich', 's'], ['habe', 'v'], ['keine Lust,', 'o'], ['früh', 'o'], ['aufzustehen.', 'v2']]], ['um … zu', [['Ich', 's'], ['lerne', 'v'], ['Deutsch,', 'o'], ['um', 'c'], ['hier', 'o'], ['zu arbeiten.', 'v2']]]] },
+    { t: 'pairs', rows: [['versuchen, vergessen, anfangen, aufhören, vorhaben', 'zu + mastar alan fiiller'], ['Lust haben, Zeit haben, Angst haben', 'zu + mastar alan kalıplar'], ['Es ist wichtig / schwer / schön, …', 'zu + mastar ile tamamlanır'], ['ohne … zu / statt … zu', '-meden / -mek yerine']] }
+  ],
+  ex: [['Vergiss nicht, die Tür abzuschließen!', 'Kapıyı kilitlemeyi unutma!'], ['Es ist wichtig, regelmäßig zu üben.', 'Düzenli pratik yapmak önemli.'], ['Ich spare, um ein Auto zu kaufen.', 'Araba almak için para biriktiriyorum.'], ['Ich spreche langsam, damit alle mich verstehen.', 'Herkes anlasın diye yavaş konuşuyorum.'], ['Er ging, ohne sich zu verabschieden.', 'Vedalaşmadan gitti.']],
+  tips: ['"um … zu" = "-mek için": um zu arbeiten = çalışmak için. Türkçede olduğu gibi fiil sonda.',
+    'Özne farklıysa "um … zu" olmaz, "damit" + yan cümle gelir: Ich erkläre es, damit du es verstehst.',
+    'Ayrılabilen fiillerde "zu" ortaya girer: aufstehen → aufzustehen, anrufen → anzurufen.',
+    'Modal fiillerden sonra "zu" kullanılmaz: Ich kann schwimmen (zu schwimmen değil).'],
+  quiz: [{ q: 'Ich habe keine Zeit, dich ___.', o: ['anrufen', 'anzurufen', 'zu anrufen'], a: 1 }, { q: 'Ich lerne, ___ die Prüfung zu bestehen.', o: ['damit', 'um', 'dass'], a: 1 },
+    { q: 'Ich erkläre es dir, ___ du es verstehst.', o: ['um', 'damit', 'zu'], a: 1 }, { q: 'Hangisi doğru?', o: ['Ich kann zu schwimmen.', 'Ich kann schwimmen.', 'Ich kann schwimmen zu.'], a: 1 }],
+  link: /\bzu \p{Ll}+en\b|\b\p{Ll}+zu\p{Ll}+en\b|\bdamit\b/u },
+{ id: 'b1-praepverben', level: 'B1', title: 'Verben mit Präpositionen', sub: 'Edatlı fiiller',
+  rule: 'Birçok fiil sabit bir edatla kullanılır ve edat da kendi hâlini ister. Fiili edatıyla birlikte ezberle.',
+  info: [
+    { t: 'table', head: ['Fiil + edat', 'Hâl', 'Anlam'], rows: [['warten **auf**', 'Akk', '-i beklemek'], ['denken **an**', 'Akk', '-i düşünmek'], ['sich freuen **auf**', 'Akk', '-i dört gözle beklemek'], ['sich freuen **über**', 'Akk', '-e sevinmek'], ['sich interessieren **für**', 'Akk', '-le ilgilenmek'], ['sich kümmern **um**', 'Akk', '-le ilgilenmek (bakmak)'], ['träumen **von**', 'Dat', '-i hayal etmek'], ['teilnehmen **an**', 'Dat', '-e katılmak'], ['Angst haben **vor**', 'Dat', '-den korkmak']] },
+    { t: 'pairs', rows: [['Worauf wartest du? – Darauf.', 'Nesneler için: wo(r)- / da(r)- + edat'], ['Auf wen wartest du? – Auf ihn.', 'Kişiler için: edat + zamir']] }
+  ],
+  ex: [['Ich warte auf den Bus.', 'Otobüsü bekliyorum.'], ['Ich denke oft an dich.', 'Seni sık sık düşünüyorum.'], ['Wir freuen uns auf den Urlaub.', 'Tatili dört gözle bekliyoruz.'], ['Sie interessiert sich für Kunst.', 'Sanatla ilgileniyor.'], ['Hast du Angst vor Hunden?', 'Köpeklerden korkar mısın?']],
+  tips: ['Türkçedeki hâl eki burada edat olarak gelir ve çoğu zaman eşleşmez: "otobüsü beklemek" ama "auf den Bus warten". Tahmin etme, ezberle.',
+    'Kelime oyununun B1 bölümünde bu fiiller edatlarıyla birlikte var. Oyunla pekiştirebilirsin.',
+    'freuen auf (gelecek) ile freuen über (olmuş bir şey) farklıdır.',
+    'Soru sorarken nesne için "Worauf…?", kişi için "Auf wen…?" kullanılır.'],
+  quiz: [{ q: 'Ich warte ___ dich.', o: ['für', 'auf', 'an'], a: 1 }, { q: 'Er interessiert sich ___ Politik.', o: ['für', 'über', 'an'], a: 0 },
+    { q: 'Wir nehmen ___ dem Kurs teil.', o: ['auf', 'an', 'zu'], a: 1 }, { q: '___ freust du dich? – Auf das Wochenende.', o: ['Worauf', 'Wofür', 'Auf was für'], a: 0 }],
+  link: /\b(warte|wartest|wartet|warten)\b.*\bauf\b|\bdenke\b.*\ban\b|\b(freue|freust|freut|freuen)\b|\b(interessier|kümmer|erinner|gewöhn|träum|verlass|bewerb|beschwer)\p{Ll}*\b|\bteil(zu)?nehmen\b|\bnimmt\b.*\bteil\b|\bAngst vor\b/u },
+{ id: 'b1-konnektoren', level: 'B1', title: 'Konnektoren', sub: 'Bağlaçlar ve iki parçalı bağlaçlar',
+  rule: 'deshalb, trotzdem gibi bağlaç-zarflar 1. sırayı alır, fiil hemen arkasından gelir. İki parçalı bağlaçlar iki şeyi birbirine bağlar.',
+  info: [
+    { t: 'slots', rows: [['deshalb', [['Ich bin müde,', 'o'], ['deshalb', 'c'], ['gehe', 'v'], ['ich', 's'], ['ins Bett.', 'o']]], ['trotzdem', [['Es regnet,', 'o'], ['trotzdem', 'c'], ['gehen', 'v'], ['wir', 's'], ['spazieren.', 'o']]]] },
+    { t: 'pairs', rows: [['**sowohl … als auch** · hem … hem de', 'Ich spreche sowohl Deutsch als auch Englisch.'], ['**weder … noch** · ne … ne de', 'Ich trinke weder Tee noch Kaffee.'], ['**entweder … oder** · ya … ya da', 'Wir fahren entweder heute oder morgen.'], ['**nicht nur … sondern auch** · sadece … değil, … da', 'Er ist nicht nur nett, sondern auch klug.'], ['**zwar … aber** · gerçi … ama', 'Das ist zwar teuer, aber gut.'], ['**je … desto** · ne kadar … o kadar', 'Je mehr ich übe, desto besser spreche ich.']] }
+  ],
+  ex: [['Der Bus kam nicht, deshalb habe ich ein Taxi genommen.', 'Otobüs gelmedi, bu yüzden taksiye bindim.'], ['Ich war krank, trotzdem bin ich arbeiten gegangen.', 'Hastaydım, yine de işe gittim.'], ['Außerdem ist die Wohnung sehr ruhig.', 'Ayrıca daire çok sakin.'], ['Einerseits ist es teuer, andererseits sehr praktisch.', 'Bir yandan pahalı, öte yandan çok pratik.'], ['Je früher du anfängst, desto besser.', 'Ne kadar erken başlarsan o kadar iyi.']],
+  tips: ['"weil" ile "deshalb" aynı ilişkiyi kurar ama dizilim farklıdır: weil → fiil sonda; deshalb → fiil hemen arkasında.',
+    'deshalb, trotzdem, außerdem, dann gibi kelimelerden sonra özne fiilin arkasına geçer (fiil hep 2. sırada!).',
+    '"aber, und, oder, denn, sondern" dizilimi değiştirmez: Ich bin müde, aber ich komme.',
+    'Yazılı sınavda (B1) einerseits/andererseits ve zwar/aber yüksek puan getirir.'],
+  quiz: [{ q: 'Es regnet, deshalb ___ zu Hause.', o: ['ich bleibe', 'bleibe ich', 'ich bleiben'], a: 1 }, { q: 'Ich trinke ___ Tee noch Kaffee.', o: ['weder', 'entweder', 'sowohl'], a: 0 },
+    { q: 'Er spricht nicht nur Deutsch, ___ auch Französisch.', o: ['aber', 'sondern', 'oder'], a: 1 }, { q: 'Je mehr ich lese, ___ mehr Wörter lerne ich.', o: ['desto', 'als', 'so'], a: 0 }],
+  link: /\b(sowohl|weder|entweder|nicht nur|zwar|desto|deshalb|trotzdem|deswegen|darum|außerdem|einerseits|andererseits)\b/u },
+];
+LESSONS.forEach(l => { l.deck = l.level; });
+// Lesson example sentences can be practised too (they are not added to the daily cards).
+const LESSON_EX = new Map();
+LESSONS.forEach(l => l.ex.forEach(([de, tr]) => { const id = 'lx' + hash(de); LESSON_EX.set(id, { id, de, tr, deck: l.level + ' · Gramer örneği', custom: false }); }));
+const LEVEL_RANK = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6, mine: 9 };
+let learnSub = 'grammar';
+let lesson = null; // {id, ans:{}, checked}
+function markup(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, '<b class="hl">$1</b>'); }
+const SLOT_LABEL = { s: 'Özne', v: 'Çekimli fiil', v2: 'Fiilin 2. parçası', c: 'Bağlaç / soru kelimesi', n: 'Nesne / olumsuzluk', o: 'Diğer' };
+const WECHSEL_SVG = `<svg class="ig-svg" viewBox="0 0 320 160" role="img" aria-label="Solda top kutunun içinde duruyor: Wo? Dativ, im Karton. Sağda top kutuya atılıyor: Wohin? Akkusativ, in den Karton.">
+  <defs><marker id="warr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="warrhead"/></marker></defs>
+  <text x="80" y="20" class="wt">Wo? → Dativ</text>
+  <path d="M35 60 V125 H125 V60" class="wbox"/><circle cx="80" cy="111" r="13" class="wball"/>
+  <text x="80" y="150" class="ws">im Karton</text>
+  <line x1="160" y1="34" x2="160" y2="140" class="wsep"/>
+  <text x="240" y="20" class="wt">Wohin? → Akkusativ</text>
+  <path d="M195 60 V125 H285 V60" class="wbox"/><circle cx="206" cy="42" r="13" class="wball wfaint"/>
+  <path d="M221 40 Q264 34 250 96" class="warrow" marker-end="url(#warr)"/>
+  <text x="240" y="150" class="ws">in den Karton</text>
+</svg>`;
+function igHtml(ig) {
+  const col = i => (ig.cols || [])[i] || '';
+  if (ig.t === 'table') return `<div class="ig-wrap"><table class="ig-table"><thead><tr>${ig.head.map((h, i) => `<th class="${col(i)}">${esc(h)}</th>`).join('')}</tr></thead><tbody>${ig.rows.map(r => `<tr>${r.map((c, i) => i === 0 ? `<th scope="row">${markup(c)}</th>` : `<td class="${col(i)}" lang="de">${markup(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  if (ig.t === 'pairs') return `<dl class="ig-pairs">${ig.rows.map(([a, b]) => `<div><dt lang="de">${markup(a)}</dt>${b ? `<dd>${markup(b)}</dd>` : ''}</div>`).join('')}</dl>`;
+  if (ig.t === 'slots') {
+    const kinds = new Set();
+    const rows = ig.rows.map(([lab, cells]) => `<div class="slrow">${lab ? `<div class="sllab">${esc(lab)}</div>` : ''}<div class="slcells" lang="de">${cells.map(([t, k]) => { kinds.add(k); return `<span class="sl sl-${k}">${esc(t)}</span>`; }).join('')}</div></div>`).join('');
+    return `<div class="ig-slots">${rows}<div class="sllegend">${[...kinds].filter(k => k !== 'o').map(k => `<span><i class="sl sl-${k}"></i>${SLOT_LABEL[k]}</span>`).join('')}</div></div>`;
+  }
+  if (ig.t === 'formula') return `<div class="ig-formula"><div class="fparts" lang="de">${ig.parts.map(([t, k]) => k === 'op' ? `<span class="fop">${esc(t)}</span>` : `<span class="sl sl-${k}">${esc(t)}</span>`).join('')}</div>${ig.note ? `<p class="muted small" lang="de">${esc(ig.note)}</p>` : ''}</div>`;
+  if (ig.t === 'flow') return `<ol class="ig-flow">${ig.rows.map(([a, b]) => `<li><b>${esc(a)}</b>${b ? `<span lang="de">${esc(b)}</span>` : ''}</li>`).join('')}</ol>`;
+  if (ig.t === 'timeline') return `<div class="ig-time" style="grid-template-columns:repeat(${ig.points.length},1fr)">${ig.points.map(([lab, de, tr]) => `<div class="tpt"><i></i><b>${esc(lab)}</b><span lang="de">${esc(de)}</span><span class="muted small">${esc(tr)}</span></div>`).join('')}</div>`;
+  if (ig.t === 'compare') return `<div class="ig-compare">${ig.rows.map(r => `<div class="cmprow">${r.map((c, i) => `<div><span class="cmplab">${esc(ig.head[i])}</span><span lang="de">${markup(c)}</span></div>`).join('')}</div>`).join('')}</div>`;
+  if (ig.t === 'wechsel') return WECHSEL_SVG;
+  return '';
+}
+function lessonStat(id) { return (S.lessons || {})[id] || null; }
+function curLesson() { return lesson && LESSONS.find(l => l.id === lesson.id); }
+function lessonSentences(L) {
+  const rank = LEVEL_RANK[L.level] || 9;
+  const pool = allSentences().filter(s => (LEVEL_RANK[levelOfDeck(s.deck)] || 9) <= rank && L.link.test(s.de));
+  const same = pool.filter(s => levelOfDeck(s.deck) === L.level), lower = pool.filter(s => levelOfDeck(s.deck) !== L.level);
+  const ids = [...shuffle(same), ...shuffle(lower)].slice(0, 15).map(s => s.id);
+  const extra = ids.length < 10 ? shuffle(L.ex.map(([de]) => 'lx' + hash(de))).slice(0, 15 - ids.length) : [];
+  return { total: pool.length, ids: [...ids, ...extra], extra: extra.length };
+}
+function startPractice(ids, label) {
+  if (!ids.length) { toast('Bu konuda henüz cümle yok.'); return; }
+  tab = 'study';
+  sess = { mode: 'weak', label, done: 0, ok: 0, lastId: null, cur: null, revealed: false, typed: '', start: Date.now(), weakQueue: ids.slice() };
+  sess.cur = pickNext(); render(); $('#main').scrollTop = 0;
+}
+function viewGrammar() {
+  const list = LESSONS.filter(l => inLevel(l.deck));
+  const done = LESSONS.filter(l => lessonStat(l.id)).length;
+  return `<div><h3>Gramer</h3><p class="muted small">Kısa dersler: kural, görsel özet, örnekler ve mini test. ${done} / ${LESSONS.length} ders tamamlandı.</p></div>
+    ${levelButtons(LESSONS)}
+    ${list.length ? `<ul class="slist">${list.map((l, i) => { const st = lessonStat(l.id);
+      return `<li><button data-lesson="${l.id}"><span class="de" lang="de">${esc(l.title)}</span><span class="tr">${esc(l.sub)}</span>
+        <span class="meta"><span class="chip">${l.level}</span>${st ? `<span class="chip ${st.score === st.total ? 'mature' : 'young'}">Test ${st.score}/${st.total}</span>` : '<span class="chip new">Yeni</span>'}</span></button></li>`; }).join('')}</ul>`
+      : `<div class="sheet empty">Bu seviyede ders yok. Başka bir seviye seç.</div>`}`;
+}
+function viewLesson() {
+  const L = curLesson(); if (!L) { lesson = null; return viewLearn(); }
+  const st = lessonStat(L.id);
+  const qs = L.quiz.map((q, qi) => `<div class="q"><p><b>${qi + 1}.</b> <span lang="de">${esc(q.q)}</span></p><div class="opts">${q.o.map((o, oi) => {
+    let cls = lesson.ans[qi] === oi ? ' sel' : '';
+    if (lesson.checked) cls = oi === q.a ? ' right' : (lesson.ans[qi] === oi ? ' wrong' : '');
+    return `<button class="opt${cls}" data-lq="${qi}:${oi}" lang="de" ${lesson.checked ? 'disabled' : ''}>${esc(o)}</button>`;
+  }).join('')}</div></div>`).join('');
+  const score = L.quiz.reduce((n, q, i) => n + (lesson.ans[i] === q.a ? 1 : 0), 0);
+  const prac = lessonSentences(L);
+  return `<div class="row"><button class="iconbtn" data-act="lback" aria-label="Ders listesine dön">${ICON.back}</button><span class="chip">${L.level}</span><span class="muted small">Gramer dersi</span></div>
+    <div><h3 class="stitle" lang="de">${esc(L.title)}</h3><p class="muted">${esc(L.sub)}</p></div>
+    <section class="sheet rulebox"><h2>Kural</h2><p class="rule">${markup(L.rule)}</p></section>
+    <section class="sheet stack"><h2 style="margin:0">Görsel özet</h2>${L.info.map(igHtml).join('')}</section>
+    <section class="sheet"><h2>Örnekler</h2><ul class="exlist">${L.ex.map(([de, tr]) => `<li><div><p class="de" lang="de">${esc(de)}</p><p class="tr">${esc(tr)}</p></div>${canSpeak() ? `<button class="iconbtn" data-say="${esc(de)}" aria-label="Dinle">${ICON.play}</button>` : ''}</li>`).join('')}</ul></section>
+    <section class="sheet"><h2>Türkçe konuşanlar için ipuçları</h2><ul class="tips">${L.tips.map(t => `<li>${markup(t)}</li>`).join('')}</ul></section>
+    <section class="sheet stack"><h2 style="margin:0">Mini test</h2>${qs}
+      ${lesson.checked ? `<p class="score ${score === L.quiz.length ? 'good' : score ? 'mid' : 'bad'}" style="align-self:flex-start">${score} / ${L.quiz.length} doğru</p><button class="btn" data-act="lretry">Tekrar dene</button>`
+        : `<button class="btn primary wide" data-act="lcheck" ${Object.keys(lesson.ans).length < L.quiz.length ? 'disabled' : ''}>Cevapları kontrol et</button>${st ? `<p class="muted small">Önceki sonucun: ${st.score}/${st.total} doğru.</p>` : ''}`}
+    </section>
+    <section class="sheet stack"><h2 style="margin:0">Cümlelerle çalış</h2>
+      <p class="muted">Cümle kartlarında bu konunun geçtiği ${prac.total} cümle var. Alıştırmada ${prac.ids.length} cümle çalışacaksın${prac.extra ? `, ${prac.extra} tanesi bu dersin örnekleri` : ''}. Bu alıştırma tekrar takvimini değiştirmez.</p>
+      <button class="btn primary wide" data-act="lpractice">Bu konudaki cümleleri çalış</button>
+    </section>`;
+}
+function viewLearn() {
+  if (lesson) return viewLesson();
+  if (learnSub === 'stories' && reader) return viewStories();
+  return `<div class="seg" role="group" aria-label="Öğren" style="grid-template-columns:1fr 1fr"><button data-learn="grammar" aria-pressed="${learnSub === 'grammar'}">Gramer</button><button data-learn="stories" aria-pressed="${learnSub === 'stories'}">Hikayeler</button></div>
+    ${learnSub === 'grammar' ? viewGrammar() : viewStories()}`;
+}
+
 const BUILTIN = []; const DECK_ORDER = [];
 (function parse() {
   let deck = 'Genel';
@@ -3985,7 +4488,7 @@ function normalize(o) {
   // Old versions kept a list of *included* decks that the level filter could empty by mistake; start over with all decks on.
   if ('decks' in st) { delete st.decks; st.skipDecks = []; }
   if (!Array.isArray(st.skipDecks)) st.skipDecks = [];
-  return { ...d, ...o, settings: st, cards: o.cards || {}, custom: o.custom || [], edits: o.edits || {}, hidden: o.hidden || {}, days: o.days || {}, words: o.words || {}, stories: o.stories || {}, game: { best: {}, rounds: 0, ...(o.game || {}) } };
+  return { ...d, ...o, settings: st, cards: o.cards || {}, custom: o.custom || [], edits: o.edits || {}, hidden: o.hidden || {}, days: o.days || {}, words: o.words || {}, stories: o.stories || {}, lessons: o.lessons || {}, game: { best: {}, rounds: 0, ...(o.game || {}) } };
 }
 const cloud = { db: null, ref: null, status: 'local', writing: Promise.resolve(), timer: null };
 function save() {
@@ -4053,7 +4556,7 @@ function levelButtons(items) {
   const cur = S.settings.level || 'all';
   return `<div class="seg" role="group" aria-label="Seviye" style="grid-template-columns:repeat(${order.length},1fr)">${order.map(l => `<button data-level="${l}" aria-pressed="${cur === l}">${LEVEL_LABEL[l]}<br><span class="small muted">${per[l]}</span></button>`).join('')}</div>`;
 }
-function findSentence(id) { return allSentences().find(s => s.id === id); }
+function findSentence(id) { return allSentences().find(s => s.id === id) || (typeof LESSON_EX !== 'undefined' ? LESSON_EX.get(id) : undefined); }
 
 /* ---------- scheduling (SM-2 style with learning steps) ---------- */
 const LEARN = [1, 10], RELEARN = [10];
@@ -4252,7 +4755,7 @@ function render() {
   if (tab === 'study') v.innerHTML = sess ? viewSession() : viewHome();
   else if (tab === 'list') v.innerHTML = viewList();
   else if (tab === 'game') v.innerHTML = viewGame();
-  else if (tab === 'read') v.innerHTML = viewStories();
+  else if (tab === 'read') v.innerHTML = viewLearn();
   else if (tab === 'stats') v.innerHTML = viewStats();
   else v.innerHTML = viewSettings();
   afterRender();
@@ -4321,13 +4824,13 @@ function viewSession() {
   const bar = `<div class="sbar">
       <button class="iconbtn" data-act="quit" aria-label="Oturumu bitir">${ICON.close}</button>
       <div class="meter" aria-hidden="true"><i style="width:${pct}%"></i></div>
-      <span class="cnt">${sess.mode === 'weak' ? 'Zayıflar · ' : ''}${left} kaldı</span>
+      <span class="cnt">${sess.mode === 'weak' ? esc(sess.label || 'Zayıflar') + ' · ' : ''}${left} kaldı</span>
     </div>`;
   if (!sess.cur) {
     const acc = sess.done ? Math.round(100 * sess.ok / sess.done) : 0;
     const mins = Math.max(1, Math.round((Date.now() - sess.start) / MIN));
     return bar + `<section class="sheet stack">
-      <h3>${sess.mode === 'weak' ? 'Zayıf cümleler bitti' : 'Bu oturum tamam'}</h3>
+      <h3>${sess.mode === 'weak' ? (sess.label ? 'Alıştırma bitti' : 'Zayıf cümleler bitti') : 'Bu oturum tamam'}</h3>
       <div class="today">
         <div><strong>${sess.done}</strong><span>kart</span></div>
         <div class="n-rev"><strong>%${acc}</strong><span>doğru</span></div>
@@ -4474,7 +4977,8 @@ function viewStats() {
     </div>
   </section>
   <section class="sheet">
-    <h2>Hikayeler</h2>
+    <h2>Öğren</h2>
+    <p>${LESSONS.filter(l => lessonStat(l.id)).length} / ${LESSONS.length} gramer dersi tamamlandı.</p>
     <p>${STORIES.filter(s => storyStat(s.id) && storyStat(s.id).read).length} / ${STORIES.length} hikaye okundu.${(() => { const r = Object.values(S.stories || {}); const a = r.reduce((n, x) => n + x.score, 0), b = r.reduce((n, x) => n + x.total, 0); return b ? ` Anlama sorularında ${a}/${b} doğru.` : ''; })()}</p>
   </section>
   <section class="sheet">
@@ -4605,11 +5109,14 @@ document.addEventListener('click', e => {
   const t = e.target.closest('button,[data-edit]'); if (!t) return;
   if (t.dataset.gde || t.dataset.gtr) { gameTap(t); return; }
   if (t.classList.contains('w')) { showWord(t); return; }
+  if (t.dataset.learn) { learnSub = t.dataset.learn; reader = null; lesson = null; render(); return; }
+  if (t.dataset.lesson) { lesson = { id: t.dataset.lesson, ans: {}, checked: false }; render(); $('#main').scrollTop = 0; return; }
+  if (t.dataset.lq) { const [qi, oi] = t.dataset.lq.split(':').map(Number); lesson.ans[qi] = oi; render(); return; }
   if (t.dataset.story) { openStory(t.dataset.story); return; }
   if (t.dataset.st) { const i = +t.dataset.st; reader.open.has(i) ? reader.open.delete(i) : reader.open.add(i); if (reader.all) { reader.all = false; curStory().sents.forEach((_, k) => k !== i && reader.open.add(k)); reader.open.delete(i); } render(); return; }
   if (t.dataset.sadd) { const st = curStory(); const [de, tr] = st.sents[+t.dataset.sadd]; const r = addSentences([[tr, de]], st.level + ' · Hikaye cümleleri'); toast(r.added ? 'Kartlarına eklendi' : 'Bu cümle zaten kartlarında'); return; }
   if (t.dataset.sq) { const [qi, oi] = t.dataset.sq.split(':').map(Number); reader.ans[qi] = oi; render(); return; }
-  if (t.dataset.tab) { tab = t.dataset.tab; hideWord(); stopStory(); if (tab === 'read') reader = null; render(); $('#main').scrollTop = 0; return; }
+  if (t.dataset.tab) { tab = t.dataset.tab; hideWord(); stopStory(); if (tab === 'read') { reader = null; lesson = null; } render(); $('#main').scrollTop = 0; return; }
   if (t.dataset.dir) { S.settings.dir = t.dataset.dir; save(); render(); return; }
   if (t.dataset.level) { S.settings.level = t.dataset.level; save(); render(); toast(t.dataset.level === 'all' ? 'Tüm seviyeler seçildi' : 'Seviye: ' + LEVEL_LABEL[t.dataset.level]); return; }
   if (t.dataset.rate) { rate(+t.dataset.rate); return; }
@@ -4625,6 +5132,10 @@ document.addEventListener('click', e => {
   else if (a === 'say' || a === 'sayslow') { const s = findSentence(sess && sess.cur); if (s) speak(s.de, a === 'sayslow'); }
   else if (a === 'morenew') { today().x = (today().x || 0) + 5; save(); startSession('srs'); }
   else if (a === 'add') openAdd();
+  else if (a === 'lback') { lesson = null; render(); $('#main').scrollTop = 0; }
+  else if (a === 'lretry') { lesson.ans = {}; lesson.checked = false; render(); }
+  else if (a === 'lcheck') { const L = curLesson(); lesson.checked = true; const sc = L.quiz.reduce((n, q, i) => n + (lesson.ans[i] === q.a ? 1 : 0), 0); S.lessons = S.lessons || {}; S.lessons[L.id] = { score: sc, total: L.quiz.length, at: Date.now() }; save(); render(); }
+  else if (a === 'lpractice') { const L = curLesson(); startPractice(lessonSentences(L).ids, 'Gramer: ' + L.title); }
   else if (a === 'sback') { stopStory(); hideWord(); reader = null; render(); $('#main').scrollTop = 0; }
   else if (a === 'splay') playStory();
   else if (a === 'sstop') stopStory();
@@ -4639,7 +5150,7 @@ document.addEventListener('click', e => {
   else if (a === 'export') openExport();
   else if (a === 'import') openImport();
   else if (a === 'testsay') speak('Ich lerne jeden Tag ein bisschen Deutsch.');
-  else if (a === 'reset') confirmBox('İlerlemeyi sıfırla', 'Tüm tekrar geçmişi ve istatistikler silinecek. Eklediğin cümleler kalacak. Bu geri alınamaz.', 'Sıfırla', () => { S.cards = {}; S.days = {}; S.stories = {}; S.words = {}; S.game = { best: {}, rounds: 0 }; save(); render(); toast('İlerleme sıfırlandı'); });
+  else if (a === 'reset') confirmBox('İlerlemeyi sıfırla', 'Tüm tekrar geçmişi ve istatistikler silinecek. Eklediğin cümleler kalacak. Bu geri alınamaz.', 'Sıfırla', () => { S.cards = {}; S.days = {}; S.stories = {}; S.lessons = {}; S.words = {}; S.game = { best: {}, rounds: 0 }; save(); render(); toast('İlerleme sıfırlandı'); });
   else if (a === 'resetcard') { const id = $('#editForm').dataset.id; delete S.cards[id]; save(); closeModal(); render(); toast('Cümle yeniden “yeni” oldu'); }
   else if (a === 'delcard') {
     const id = $('#editForm').dataset.id; const s = findSentence(id);
