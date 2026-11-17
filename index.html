@@ -23,7 +23,7 @@
 :root{
   --paper:#f4f6fb; --sheet:#ffffff; --grid:rgba(47,79,216,.075); --ink:#1b2350; --ink-soft:#5b6385; --line:#dde2ef;
   --accent:#2f4fd8; --accent-ink:#ffffff; --accent-bg:#e8ecfd;
-  --red:#c8352b; --red-bg:#fbe8e6; --green:#1b8556; --green-bg:#e2f3ea; --amber:#a86d12; --amber-bg:#fbefd8;
+  --red:#c8352b; --red-bg:#fbe8e6; --green:#1b8556; --green-bg:#e2f3ea; --amber:#a86d12; --amber-bg:#fbefd8; --rose:#b8336f;
   --shadow:0 1px 2px rgba(27,35,80,.06),0 6px 20px rgba(27,35,80,.06);
   --f-sent:'Literata',Georgia,'Times New Roman',serif;
   --f-ui:'Schibsted Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
@@ -32,12 +32,12 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#10131c; --sheet:#181c28; --grid:rgba(142,162,255,.05); --ink:#e6e9f6; --ink-soft:#99a1c0; --line:#2a3044;
   --accent:#8ea2ff; --accent-ink:#0e1330; --accent-bg:#232b4d;
-  --red:#ff8c80; --red-bg:#3a1f1d; --green:#62d3a1; --green-bg:#173129; --amber:#f0c068; --amber-bg:#352b15;
+  --red:#ff8c80; --red-bg:#3a1f1d; --green:#62d3a1; --green-bg:#173129; --amber:#f0c068; --amber-bg:#352b15; --rose:#ff8fc4;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark}}
 :root[data-theme="dark"]{
   --paper:#10131c; --sheet:#181c28; --grid:rgba(142,162,255,.05); --ink:#e6e9f6; --ink-soft:#99a1c0; --line:#2a3044;
   --accent:#8ea2ff; --accent-ink:#0e1330; --accent-bg:#232b4d;
-  --red:#ff8c80; --red-bg:#3a1f1d; --green:#62d3a1; --green-bg:#173129; --amber:#f0c068; --amber-bg:#352b15;
+  --red:#ff8c80; --red-bg:#3a1f1d; --green:#62d3a1; --green-bg:#173129; --amber:#f0c068; --amber-bg:#352b15; --rose:#ff8fc4;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark}
 
 html,body{height:100%}
@@ -45,7 +45,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--f-ui);font-size:
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:22px 22px}
 *{box-sizing:border-box}
 button,input,select,textarea{font:inherit;color:inherit}
-button{cursor:pointer}
+button{cursor:pointer;touch-action:manipulation}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .inner{max-width:640px;margin:0 auto;width:100%}
@@ -61,8 +61,50 @@ header.top .inner{display:flex;align-items:center;justify-content:space-between;
 main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 main .inner{padding-block:18px 28px;display:flex;flex-direction:column;gap:16px}
 nav.tabs{flex:none;background:var(--sheet);border-top:1px solid var(--line)}
-nav.tabs .inner{display:grid;grid-template-columns:repeat(4,1fr)}
-nav.tabs button{background:none;border:0;padding:8px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--ink-soft)}
+nav.tabs .inner{display:grid;grid-template-columns:repeat(6,1fr)}
+.stitle{font-family:var(--f-sent);font-size:clamp(24px,6vw,30px);margin:0}
+.story{display:flex;flex-direction:column;gap:4px;padding-block:10px}
+.sent{padding:6px 8px;margin:0 -8px;border-radius:8px;transition:background .2s}
+.sent.cur{background:var(--accent-bg)}
+.sent .de{font-family:var(--f-sent);font-size:19px;line-height:1.6;margin:0;overflow-wrap:anywhere}
+.w{background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;border-radius:3px;touch-action:manipulation}
+.w:hover{background:var(--accent-bg)}
+.w.on{background:var(--amber-bg);color:var(--ink);box-shadow:0 0 0 2px var(--amber-bg)}
+.tbtn{font-family:var(--f-ui);font-size:11px;font-weight:700;letter-spacing:.04em;border:1px solid var(--line);background:var(--paper);color:var(--ink-soft);border-radius:6px;padding:1px 6px;vertical-align:2px;margin-left:2px}
+.tbtn[aria-expanded="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.trow{display:flex;flex-direction:column;gap:6px;padding:4px 0 6px;border-left:2px solid var(--accent);padding-left:10px;margin-top:4px}
+.trow .tr{margin:0;color:var(--ink-soft)}
+.mini{display:inline-flex;align-items:center;gap:5px;font-size:13px;border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:4px 10px;min-height:32px}
+.mini svg{width:14px;height:14px}
+.q p{margin:0 0 8px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{text-align:left;border:1.5px solid var(--line);background:var(--sheet);border-radius:10px;padding:10px 12px;min-height:44px}
+.opt.sel{border-color:var(--accent);background:var(--accent-bg)}
+.opt.right{border-color:var(--green);background:var(--green-bg);color:var(--green);font-weight:600}
+.opt.wrong{border-color:var(--red);background:var(--red-bg);color:var(--red)}
+.opt:disabled{cursor:default;opacity:1}
+#wordbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom,0px));width:calc(100% - 24px);max-width:600px;z-index:40;background:var(--sheet);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:10px 10px 10px 16px;display:flex;align-items:center;gap:10px;font-size:15px}
+#wordbar>div{flex:1}
+body.wb main .inner{padding-bottom:120px}
+#wordbar b{font-family:var(--f-sent);font-size:18px;margin-right:6px}
+
+.gbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.gstat{font-size:14px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.gstat b{color:var(--ink);font-size:16px}
+.board{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gcol{display:flex;flex-direction:column;gap:8px;min-width:0}
+.gtile{display:flex;align-items:center;flex-wrap:wrap;gap:0 .3em;min-height:58px;border:1.5px solid var(--line);background:var(--sheet);border-radius:10px;padding:8px 10px;font-size:16px;line-height:1.3;text-align:left;overflow-wrap:anywhere;box-shadow:var(--shadow);transition:background .15s,border-color .15s,opacity .3s}
+.gtile.de{font-family:var(--f-sent);font-size:17px}
+.gtile.sel{border-color:var(--accent);background:var(--accent-bg)}
+.gtile.done{border-color:transparent;background:var(--green-bg);color:var(--green);opacity:.5;box-shadow:none;cursor:default}
+.gtile.done .art{color:inherit}
+.gtile.bad{border-color:var(--red);background:var(--red-bg);animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.art{font-weight:600}
+.art-der{color:var(--accent)} .art-die{color:var(--rose)} .art-das{color:var(--green)}
+.weaklist .de .art{font-family:var(--f-ui);font-size:.9em}
+
+nav.tabs button{background:none;border:0;padding:8px 2px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--ink-soft)}
 nav.tabs button svg{width:22px;height:22px}
 nav.tabs button[aria-current="page"]{color:var(--accent);font-weight:600}
 
@@ -219,11 +261,14 @@ textarea.ans:focus{border-style:solid;border-color:var(--accent);outline:none}
   <nav class="tabs gut" aria-label="Bölümler"><div class="inner">
     <button data-tab="study"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 8h6M9 12h4"/></svg>Çalış</button>
     <button data-tab="list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Cümleler</button>
+    <button data-tab="game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M14 6.5h4a2.5 2.5 0 0 1 2.5 2.5v1.5M10 17.5H6A2.5 2.5 0 0 1 3.5 15v-1.5"/></svg>Oyun</button>
+    <button data-tab="read"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.5C4 4.5 7 4 12 6c5-2 8-1.5 10-.5V19c-2-1-5-1.5-10 .5-5-2-8-1.5-10-.5z"/><path d="M12 6v13.5"/></svg>Okuma</button>
     <button data-tab="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>İstatistik</button>
     <button data-tab="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Ayarlar</button>
   </div></nav>
 </div>
 <div class="overlay" id="overlay" hidden><div class="modal" id="modal" role="dialog" aria-modal="true"></div></div>
+<div id="wordbar" role="status" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -279,6 +324,167 @@ Yarın görüşürüz!;Bis morgen!
 Kusura bakmayın, geç kaldım.;Entschuldigung, ich bin zu spät.
 Sorun değil.;Kein Problem.
 Nerede buluşalım?;Wo treffen wir uns?
+#A1 · Aile ve ev
+Bu benim ailem.;Das ist meine Familie.
+Kız kardeşim on beş yaşında.;Meine Schwester ist fünfzehn Jahre alt.
+Babam bir fabrikada çalışıyor.;Mein Vater arbeitet in einer Fabrik.
+Ailemle birlikte yaşıyorum.;Ich wohne mit meiner Familie zusammen.
+Büyükannemle büyükbabam Türkiye'de yaşıyor.;Meine Großeltern leben in der Türkei.
+Çocuğun var mı?;Hast du Kinder?
+Hayır, çocuğum yok.;Nein, ich habe keine Kinder.
+Oğlum okula gidiyor.;Mein Sohn geht in die Schule.
+Dairemiz küçük ama güzel.;Unsere Wohnung ist klein, aber schön.
+Dairemizin üç odası var.;Unsere Wohnung hat drei Zimmer.
+Mutfak çok büyük.;Die Küche ist sehr groß.
+Banyo nerede?;Wo ist das Bad?
+Yatak odası solda.;Das Schlafzimmer ist links.
+Balkonumuz yok.;Wir haben keinen Balkon.
+İkinci katta oturuyoruz.;Wir wohnen im zweiten Stock.
+Asansör bozuk.;Der Aufzug ist kaputt.
+Masada bir lamba var.;Auf dem Tisch steht eine Lampe.
+Anahtarım nerede?;Wo ist mein Schlüssel?
+Yeni bir kanepe istiyorum.;Ich möchte ein neues Sofa.
+Kapıyı açabilir misin?;Kannst du die Tür öffnen?
+Pencereyi kapat lütfen.;Mach bitte das Fenster zu.
+Komşumuz çok nazik.;Unser Nachbar ist sehr nett.
+Kiramız ayda sekiz yüz avro.;Unsere Miete kostet achthundert Euro im Monat.
+#A1 · Yemek ve içmek
+Kahvaltıda ne yiyorsun?;Was isst du zum Frühstück?
+Sabahları kahve içerim.;Morgens trinke ich Kaffee.
+Çayı şekersiz içerim.;Ich trinke den Tee ohne Zucker.
+Et yemiyorum.;Ich esse kein Fleisch.
+Balığı çok severim.;Ich esse sehr gern Fisch.
+Bir şişe su lütfen.;Eine Flasche Wasser, bitte.
+Menüyü alabilir miyim?;Kann ich bitte die Speisekarte haben?
+Ne içmek istersiniz?;Was möchten Sie trinken?
+Bir portakal suyu istiyorum.;Ich möchte einen Orangensaft.
+Yemek çok lezzetli.;Das Essen ist sehr lecker.
+Çorba sıcak.;Die Suppe ist heiß.
+Akşam yemeğini birlikte pişiriyoruz.;Wir kochen zusammen das Abendessen.
+Buzdolabında süt var mı?;Ist noch Milch im Kühlschrank?
+Ekmek ve peynir alıyorum.;Ich kaufe Brot und Käse.
+Bir kilo elma lütfen.;Ein Kilo Äpfel, bitte.
+Öğlenleri salata yiyorum.;Mittags esse ich einen Salat.
+Tatlı olarak pasta istiyorum.;Als Nachtisch möchte ich Kuchen.
+Hesabı ayrı ayrı ödeyebilir miyiz?;Können wir getrennt bezahlen?
+Birlikte ödüyoruz.;Wir zahlen zusammen.
+Hiç aç değilim.;Ich habe keinen Hunger.
+Biraz daha kahve ister misin?;Möchtest du noch etwas Kaffee?
+Hayır, teşekkürler, doydum.;Nein danke, ich bin satt.
+#A1 · Alışveriş
+Süpermarket ne zaman açılıyor?;Wann öffnet der Supermarkt?
+Süpermarket saat sekize kadar açık.;Der Supermarkt ist bis acht Uhr geöffnet.
+Bu elbise ne kadar?;Wie viel kostet das Kleid?
+Elli avro.;Es kostet fünfzig Euro.
+Bu ayakkabılar çok güzel.;Diese Schuhe sind sehr schön.
+Bu pantolon bana olmuyor.;Die Hose passt mir nicht.
+Bu ceketin mavisi var mı?;Haben Sie die Jacke in Blau?
+Nakit mi kartla mı ödüyorsunuz?;Zahlen Sie bar oder mit Karte?
+Nakit ödüyorum.;Ich zahle bar.
+Poşet ister misiniz?;Möchten Sie eine Tüte?
+Ekmeği nerede bulabilirim?;Wo finde ich Brot?
+Fırın köşede.;Die Bäckerei ist an der Ecke.
+Yeni bir cep telefonu arıyorum.;Ich suche ein neues Handy.
+Bu çok ucuz.;Das ist sehr billig.
+#A1 · Şehirde ve yolda
+Postane nerede?;Wo ist die Post?
+Buradan uzak mı?;Ist das weit von hier?
+Hayır, çok yakın.;Nein, das ist ganz nah.
+İkinci caddeden sağa dönün.;Gehen Sie die zweite Straße rechts.
+Durak tam karşıda.;Die Haltestelle ist gegenüber.
+Otobüs ne zaman geliyor?;Wann kommt der Bus?
+Metroyla işe gidiyorum.;Ich fahre mit der U-Bahn zur Arbeit.
+Bisikletle geliyorum.;Ich komme mit dem Fahrrad.
+Yürüyerek on dakika.;Zu Fuß sind es zehn Minuten.
+Taksi çağırabilir misiniz?;Können Sie ein Taxi rufen?
+Havalimanına gitmek istiyorum.;Ich möchte zum Flughafen fahren.
+Tren on dakika gecikmeli.;Der Zug hat zehn Minuten Verspätung.
+Hangi perondan kalkıyor?;Von welchem Gleis fährt er ab?
+Münih'e bir bilet lütfen.;Eine Fahrkarte nach München, bitte.
+Sadece gidiş lütfen.;Nur hin, bitte.
+Burada inmem gerekiyor.;Ich muss hier aussteigen.
+Yolumu kaybettim.;Ich habe mich verlaufen.
+Şehir merkezinde oturuyorum.;Ich wohne im Stadtzentrum.
+Köyümüz çok sakin.;Unser Dorf ist sehr ruhig.
+Kütüphane bugün kapalı.;Die Bibliothek ist heute geschlossen.
+Sinemaya gidelim mi?;Gehen wir ins Kino?
+Müze pazartesileri kapalı.;Das Museum ist montags geschlossen.
+#A1 · Zaman ve buluşma
+Bugün günlerden ne?;Welcher Tag ist heute?
+Bugün salı.;Heute ist Dienstag.
+Doğum günün ne zaman?;Wann hast du Geburtstag?
+Doğum günüm mayısta.;Ich habe im Mai Geburtstag.
+Saat sekizde başlıyorum.;Ich fange um acht Uhr an.
+Saat beşte işim bitiyor.;Um fünf Uhr habe ich Feierabend.
+Saat tam iki.;Es ist genau zwei Uhr.
+Saat üçü çeyrek geçiyor.;Es ist Viertel nach drei.
+Saat dörde çeyrek var.;Es ist Viertel vor vier.
+Pazartesi vaktin var mı?;Hast du am Montag Zeit?
+Maalesef vaktim yok.;Leider habe ich keine Zeit.
+Tamam, cuma görüşürüz.;Okay, bis Freitag!
+Hafta sonu ailemi ziyaret ediyorum.;Am Wochenende besuche ich meine Familie.
+Kışın hava çok soğuk.;Im Winter ist es sehr kalt.
+Yazın denize gidiyoruz.;Im Sommer fahren wir ans Meer.
+Hemen geliyorum.;Ich komme gleich.
+Biraz geç geleceğim.;Ich komme etwas später.
+Her gün Almanca öğreniyorum.;Ich lerne jeden Tag Deutsch.
+#A1 · Hava
+Hava nasıl?;Wie ist das Wetter?
+Güneş parlıyor.;Die Sonne scheint.
+Yağmur yağıyor.;Es regnet.
+Bugün çok rüzgârlı.;Heute ist es sehr windig.
+Hava ılık, yirmi beş derece.;Es ist warm, fünfundzwanzig Grad.
+Hava soğuk ve bulutlu.;Es ist kalt und bewölkt.
+#A1 · Okul ve iş
+Bir Almanca kursuna gidiyorum.;Ich besuche einen Deutschkurs.
+Öğretmenimiz çok iyi.;Unsere Lehrerin ist sehr gut.
+Bu kelimeyi anlamıyorum.;Ich verstehe dieses Wort nicht.
+Bu nasıl yazılıyor?;Wie schreibt man das?
+Bir sorum var.;Ich habe eine Frage.
+Ödevimi yaptım.;Ich habe meine Hausaufgaben gemacht.
+Kalemini kullanabilir miyim?;Darf ich deinen Kuli benutzen?
+Bir ofiste çalışıyorum.;Ich arbeite in einem Büro.
+Patronum çok güler yüzlü.;Mein Chef ist sehr freundlich.
+Saat on ikide mola veriyoruz.;Um zwölf Uhr machen wir Pause.
+Haftada kırk saat çalışıyorum.;Ich arbeite vierzig Stunden pro Woche.
+Yarın çalışmıyorum.;Morgen arbeite ich nicht.
+İşim ilginç.;Meine Arbeit ist interessant.
+#A1 · Boş zaman
+Boş zamanlarında ne yaparsın?;Was machst du in deiner Freizeit?
+Müzik dinlemeyi severim.;Ich höre gern Musik.
+Hafta sonu yüzmeye gidiyorum.;Am Wochenende gehe ich schwimmen.
+Gitar çalıyor musun?;Spielst du Gitarre?
+Dans etmeyi sevmem.;Ich tanze nicht gern.
+Akşam bir film izliyoruz.;Am Abend sehen wir einen Film.
+Pazar günü parka gidiyoruz.;Am Sonntag gehen wir in den Park.
+Arkadaşlarla bir parti yapıyoruz.;Wir machen eine Party mit Freunden.
+Fotoğraf çekmeyi severim.;Ich fotografiere gern.
+Bisiklete binmeyi severim.;Ich fahre gern Fahrrad.
+Hobin ne?;Was ist dein Hobby?
+Benim hobim yemek pişirmek.;Mein Hobby ist Kochen.
+#A1 · Sağlık
+Kendimi iyi hissetmiyorum.;Ich fühle mich nicht gut.
+Karnım ağrıyor.;Ich habe Bauchschmerzen.
+Dişim ağrıyor.;Mein Zahn tut weh.
+Doktora gitmem gerekiyor.;Ich muss zum Arzt gehen.
+Soğuk algınlığım var.;Ich bin erkältet.
+Ne zaman gelebilirim?;Wann kann ich kommen?
+Yarın saat dokuzda gelebilir misiniz?;Können Sie morgen um neun Uhr kommen?
+#A1 · Kişisel bilgiler ve kibar ifadeler
+Adınızı harf harf söyleyebilir misiniz?;Können Sie Ihren Namen buchstabieren?
+Adresiniz nedir?;Wie ist Ihre Adresse?
+Hangi dilleri konuşuyorsun?;Welche Sprachen sprichst du?
+Türkçe ve biraz İngilizce konuşuyorum.;Ich spreche Türkisch und ein bisschen Englisch.
+Ne zamandır Almanya'da yaşıyorsun?;Wie lange wohnst du schon in Deutschland?
+İki yıldır burada yaşıyorum.;Ich wohne seit zwei Jahren hier.
+Çok teşekkür ederim!;Vielen Dank!
+Rica ederim.;Gern geschehen.
+Üzgünüm.;Es tut mir leid.
+Hoş geldiniz!;Herzlich willkommen!
+İyi günler!;Guten Tag!
+Günaydın!;Guten Morgen!
+İyi geceler!;Gute Nacht!
+Hoşça kalın!;Auf Wiedersehen!
 #A2 · Geçmiş zaman
 Dün sinemaya gittim.;Gestern bin ich ins Kino gegangen.
 Geçen yıl İtalya'daydım.;Letztes Jahr war ich in Italien.
@@ -333,6 +539,167 @@ Afiyet olsun!;Guten Appetit!
 Kendine iyi bak!;Pass auf dich auf!
 Haklısın.;Du hast recht.
 Hiç vaktim yok.;Ich habe gar keine Zeit.
+#A2 · Geçmiş ve deneyimler
+Dün akşam ne yaptın?;Was hast du gestern Abend gemacht?
+Bütün gün evdeydim.;Ich war den ganzen Tag zu Hause.
+Geçen hafta hastaydım.;Letzte Woche war ich krank.
+Tatilde çok yüzdük.;Im Urlaub sind wir viel geschwommen.
+Hiç Almanya'da bulundun mu?;Warst du schon einmal in Deutschland?
+Çocukken çok futbol oynardım.;Als Kind habe ich viel Fußball gespielt.
+Okulda İngilizce öğrendim.;In der Schule habe ich Englisch gelernt.
+Telefonumu evde unuttum.;Ich habe mein Handy zu Hause vergessen.
+Cüzdanımı kaybettim.;Ich habe meinen Geldbeutel verloren.
+Otobüsü kaçırdım, o yüzden geç kaldım.;Ich habe den Bus verpasst, deshalb bin ich zu spät gekommen.
+Dün gece iyi uyuyamadım.;Letzte Nacht konnte ich nicht gut schlafen.
+Hafta sonu bir arkadaşımla buluştum.;Am Wochenende habe ich mich mit einer Freundin getroffen.
+Yeni bir daire bulduk.;Wir haben eine neue Wohnung gefunden.
+Geçen ay taşındık.;Letzten Monat sind wir umgezogen.
+Bu filmi zaten izledim.;Diesen Film habe ich schon gesehen.
+Kitabı henüz okumadım.;Ich habe das Buch noch nicht gelesen.
+Eskiden sigara içerdim.;Früher habe ich geraucht.
+Çocukken bir köpeğimiz vardı.;Als ich ein Kind war, hatten wir einen Hund.
+Saat kaçta eve geldin?;Wann bist du nach Hause gekommen?
+#A2 · Doktorda
+Neyiniz var?;Was fehlt Ihnen?
+İki gündür ateşim var.;Ich habe seit zwei Tagen Fieber.
+Boğazım ağrıyor.;Mein Hals tut weh.
+Sırtım çok ağrıyor.;Ich habe starke Rückenschmerzen.
+Bu ilaca alerjim var.;Ich bin gegen dieses Medikament allergisch.
+Size bir reçete yazıyorum.;Ich schreibe Ihnen ein Rezept.
+Bu ilacı yemekten sonra alın.;Nehmen Sie das Medikament nach dem Essen.
+Bir hafta çalışmamalısınız.;Sie sollten eine Woche nicht arbeiten.
+En yakın eczane nerede?;Wo ist die nächste Apotheke?
+Sigorta kartınızı alabilir miyim?;Kann ich bitte Ihre Versichertenkarte haben?
+Daha fazla spor yapmalısın.;Du solltest mehr Sport machen.
+Ayağımı incittim.;Ich habe mir den Fuß verletzt.
+Ambulans çağırın!;Rufen Sie einen Krankenwagen!
+Daha iyi misin?;Geht es dir wieder besser?
+Evet, artık iyiyim.;Ja, mir geht es wieder gut.
+#A2 · Alışveriş ve hizmetler
+Bu ceketi iade etmek istiyorum.;Ich möchte diese Jacke zurückgeben.
+Fişiniz var mı?;Haben Sie die Quittung?
+Bunu başka bir renkle değiştirebilir miyim?;Kann ich das in einer anderen Farbe umtauschen?
+Bu gömlek bana biraz dar.;Das Hemd ist mir ein bisschen zu eng.
+Bu daha ucuz ama daha kötü.;Das ist billiger, aber schlechter.
+Hangisini daha çok beğeniyorsun?;Welches gefällt dir besser?
+Mavi olanı daha güzel buluyorum.;Ich finde das blaue schöner.
+Bu, mağazadaki en pahalı ürün.;Das ist das teuerste Produkt im Laden.
+İnternetten bir lamba sipariş ettim.;Ich habe im Internet eine Lampe bestellt.
+Paket hâlâ gelmedi.;Das Paket ist noch nicht angekommen.
+Bunu hediye paketi yapabilir misiniz?;Können Sie das als Geschenk einpacken?
+Bugün her şey yüzde yirmi daha ucuz.;Heute ist alles zwanzig Prozent billiger.
+Telefonum bozuldu, tamir edebilir misiniz?;Mein Handy ist kaputt. Können Sie es reparieren?
+Ne kadar sürer?;Wie lange dauert das?
+#A2 · Ev ve komşular
+Kalorifer çalışmıyor.;Die Heizung funktioniert nicht.
+Ev sahibini aradım.;Ich habe den Vermieter angerufen.
+Musluk damlıyor.;Der Wasserhahn tropft.
+Daire üçüncü katta ve asansör yok.;Die Wohnung liegt im dritten Stock und es gibt keinen Aufzug.
+Kira ne kadar?;Wie hoch ist die Miete?
+Yan giderlerle birlikte dokuz yüz avro.;Neunhundert Euro mit Nebenkosten.
+Ne zaman taşınabilirim?;Wann kann ich einziehen?
+Komşular çok gürültülü.;Die Nachbarn sind sehr laut.
+Saat ondan sonra sessiz olmak gerekiyor.;Ab zweiundzwanzig Uhr muss man leise sein.
+Çöpü ayırmamız gerekiyor.;Wir müssen den Müll trennen.
+Cumartesi günü daireyi temizliyoruz.;Am Samstag putzen wir die Wohnung.
+Bulaşıkları sen mi yıkıyorsun?;Spülst du das Geschirr?
+Çamaşır makinesi bodrumda.;Die Waschmaschine steht im Keller.
+Anahtarı komşuya bıraktım.;Ich habe den Schlüssel beim Nachbarn gelassen.
+#A2 · İş hayatı
+Ne iş yapıyorsunuz?;Was machen Sie beruflich?
+Bir hastanede hemşire olarak çalışıyorum.;Ich arbeite als Krankenschwester in einem Krankenhaus.
+Vardiyalı çalışıyorum.;Ich arbeite im Schichtdienst.
+Bu hafta gece vardiyasındayım.;Diese Woche habe ich Nachtschicht.
+Yarı zamanlı çalışmak istiyorum.;Ich möchte Teilzeit arbeiten.
+İş arkadaşlarım çok yardımsever.;Meine Kollegen sind sehr hilfsbereit.
+Toplantı saat üçte.;Die Besprechung ist um drei Uhr.
+Bugün fazla mesai yapmam gerekiyor.;Heute muss ich Überstunden machen.
+Bir hafta izin aldım.;Ich habe eine Woche Urlaub genommen.
+Özgeçmişimi gönderdim.;Ich habe meinen Lebenslauf geschickt.
+Maaşım yetmiyor.;Mein Gehalt reicht nicht.
+Şirketimiz yeni çalışanlar arıyor.;Unsere Firma sucht neue Mitarbeiter.
+Patronla konuşmam gerekiyor.;Ich muss mit dem Chef sprechen.
+Bilgisayarım yine çalışmıyor.;Mein Computer funktioniert schon wieder nicht.
+Bu e-postayı yazdırabilir misin?;Kannst du diese E-Mail ausdrucken?
+#A2 · Yolculuk ve tatil
+Tatile nereye gidiyorsun?;Wohin fährst du in den Urlaub?
+Ailemle Türkiye'ye uçuyorum.;Ich fliege mit meiner Familie in die Türkei.
+Çift kişilik bir oda ayırttım.;Ich habe ein Doppelzimmer gebucht.
+Kahvaltı dahil mi?;Ist das Frühstück inklusive?
+Odanın deniz manzarası var.;Das Zimmer hat Meerblick.
+Bavulumu henüz hazırlamadım.;Ich habe meinen Koffer noch nicht gepackt.
+Pasaportunu unutma!;Vergiss deinen Pass nicht!
+Uçak iki saat rötar yaptı.;Das Flugzeug hatte zwei Stunden Verspätung.
+Berlin'de aktarma yapmamız gerekiyor.;Wir müssen in Berlin umsteigen.
+Bir araba kiralamak istiyoruz.;Wir möchten ein Auto mieten.
+En yakın benzin istasyonu nerede?;Wo ist die nächste Tankstelle?
+Otoyolda trafik sıkışıklığı vardı.;Auf der Autobahn war Stau.
+Şehri gezmek istiyorum.;Ich möchte die Stadt besichtigen.
+Hava çok güzeldi, her gün plajdaydık.;Das Wetter war sehr schön, wir waren jeden Tag am Strand.
+Bir dahaki sefere dağlara gitmek istiyorum.;Nächstes Mal möchte ich in die Berge fahren.
+#A2 · Gerekçe, koşul ve karşılaştırma
+Hastayım, çünkü dün yağmurda kaldım.;Ich bin krank, weil ich gestern im Regen war.
+Bugün gelemem, çünkü çalışmam gerekiyor.;Ich kann heute nicht kommen, weil ich arbeiten muss.
+Almancanın önemli olduğunu düşünüyorum.;Ich finde, dass Deutsch wichtig ist.
+Onun yarın geleceğini biliyorum.;Ich weiß, dass er morgen kommt.
+Hava güzel olursa piknik yaparız.;Wenn das Wetter schön ist, machen wir ein Picknick.
+Vaktin olursa beni ara.;Wenn du Zeit hast, ruf mich an.
+Yorgun olduğum için erken yattım.;Weil ich müde war, bin ich früh ins Bett gegangen.
+Acele ediyorum, çünkü treni kaçırmak istemiyorum.;Ich beeile mich, weil ich den Zug nicht verpassen will.
+Bence bu film çok sıkıcı.;Ich finde den Film sehr langweilig.
+Ağabeyim benden iki yaş büyük.;Mein Bruder ist zwei Jahre älter als ich.
+Berlin Münih'ten daha büyük.;Berlin ist größer als München.
+Trenle arabadan daha hızlı.;Mit dem Zug ist es schneller als mit dem Auto.
+En çok kışı severim.;Am liebsten mag ich den Winter.
+Kahveyi çaya tercih ederim.;Ich trinke lieber Kaffee als Tee.
+Kar yağdığı için okul kapalı.;Die Schule ist geschlossen, weil es schneit.
+Yarın hava daha soğuk olacakmış.;Morgen soll es kälter werden.
+#A2 · Davet ve buluşma
+Cumartesi doğum günü partime gelir misin?;Kommst du am Samstag zu meiner Geburtstagsparty?
+Davetin için teşekkürler, memnuniyetle gelirim.;Danke für die Einladung, ich komme gern.
+Maalesef gelemiyorum, başka bir randevum var.;Leider kann ich nicht kommen, ich habe schon einen Termin.
+Ne getireyim?;Was soll ich mitbringen?
+Saat kaçta buluşalım?;Um wie viel Uhr treffen wir uns?
+Seni istasyondan alırım.;Ich hole dich vom Bahnhof ab.
+Biraz gecikeceğim, beni bekle.;Ich verspäte mich ein bisschen, warte auf mich.
+Buluşmayı yarına erteleyebilir miyiz?;Können wir das Treffen auf morgen verschieben?
+Yeni yılını kutlarım!;Ich wünsche dir ein frohes neues Jahr!
+Tebrikler!;Herzlichen Glückwunsch!
+İyi eğlenceler!;Viel Spaß!
+İyi yolculuklar!;Gute Reise!
+Bol şans!;Viel Glück!
+#A2 · Resmî işler ve banka
+Belediyede adres kaydı yaptırmam gerekiyor.;Ich muss mich beim Bürgeramt anmelden.
+Bir randevu almak istiyorum.;Ich möchte einen Termin vereinbaren.
+Hangi belgeleri getirmem gerekiyor?;Welche Unterlagen muss ich mitbringen?
+Kimlik kartınızı ve kira sözleşmenizi getirin.;Bringen Sie Ihren Ausweis und Ihren Mietvertrag mit.
+Lütfen burayı imzalayın.;Unterschreiben Sie bitte hier.
+Bir banka hesabı açmak istiyorum.;Ich möchte ein Konto eröffnen.
+Bankamatikten para çektim.;Ich habe Geld am Geldautomaten abgehoben.
+Kirayı havale ettim.;Ich habe die Miete überwiesen.
+Bu mektubu göndermek istiyorum.;Ich möchte diesen Brief schicken.
+Türkiye'ye bir mektup ne kadar?;Was kostet ein Brief in die Türkei?
+Oturma iznimin süresi gelecek ay doluyor.;Meine Aufenthaltserlaubnis läuft nächsten Monat ab.
+#A2 · Gündelik hayat
+Her sabah altıda kalkmak zorundayım.;Ich muss jeden Morgen um sechs Uhr aufstehen.
+Önce duş alıyorum, sonra kahvaltı yapıyorum.;Zuerst dusche ich, dann frühstücke ich.
+Çocukları okula götürüyorum.;Ich bringe die Kinder zur Schule.
+Akşamları genellikle yorgunum.;Abends bin ich meistens müde.
+Hafta sonları geç saate kadar uyurum.;Am Wochenende schlafe ich lange.
+Haftada iki kez spor salonuna gidiyorum.;Ich gehe zweimal pro Woche ins Fitnessstudio.
+Bugün televizyonda ne var?;Was kommt heute im Fernsehen?
+Her akşam haberleri izlerim.;Ich sehe jeden Abend die Nachrichten.
+Bu akşam dışarı çıkıyoruz.;Heute Abend gehen wir aus.
+Bana bir iyilik yapabilir misin?;Kannst du mir einen Gefallen tun?
+Bunu nasıl yapacağımı bilmiyorum.;Ich weiß nicht, wie ich das machen soll.
+Bana yardım ettiğin için teşekkürler.;Danke, dass du mir geholfen hast.
+Sana bir şey sormak istiyorum.;Ich möchte dich etwas fragen.
+Bununla ne demek istiyorsun?;Was meinst du damit?
+Bu benim için fark etmez.;Das ist mir egal.
+Merak etme, her şey yolunda.;Keine Sorge, alles ist in Ordnung.
+Sence ne yapmalıyım?;Was soll ich deiner Meinung nach machen?
+Daha önce hiç uçağa bindin mi?;Bist du schon einmal geflogen?
+Bu restoranı sana tavsiye edebilirim.;Ich kann dir dieses Restaurant empfehlen.
 #B1 · Günlük ifadeler
 Şu anda çok meşgulüm.;Ich habe im Moment viel zu tun.
 Bu duruma bağlı.;Das kommt darauf an.
@@ -437,7 +804,116 @@ Bugün izinliyim.;Ich habe heute frei.
 Tatildeyim.;Ich bin im Urlaub.
 İşte çok stresim var.;Ich habe viel Stress bei der Arbeit.
 Molaya ihtiyacım var.;Ich brauche eine Pause.
-Yorgun hissediyorum.;Ich fühle mich müde.`;
+Yorgun hissediyorum.;Ich fühle mich müde.
+#B1 · İş başvurusu ve kariyer
+Bu pozisyona başvurmak istiyorum.;Ich möchte mich auf diese Stelle bewerben.
+İlanınızı internette gördüm.;Ich habe Ihre Anzeige im Internet gesehen.
+Bu alanda beş yıllık deneyimim var.;Ich habe fünf Jahre Erfahrung in diesem Bereich.
+Neden bu şirkette çalışmak istiyorsunuz?;Warum möchten Sie in dieser Firma arbeiten?
+Ekip içinde çalışmayı severim ve strese dayanıklıyım.;Ich arbeite gern im Team und bin belastbar.
+Ne zamandan itibaren başlayabilirsiniz?;Ab wann können Sie anfangen?
+Deneme süresi altı ay sürüyor.;Die Probezeit dauert sechs Monate.
+Sözleşmem bir yıllık.;Mein Vertrag ist auf ein Jahr befristet.
+Maaş zammı istemeyi düşünüyorum.;Ich überlege, um eine Gehaltserhöhung zu bitten.
+Bu projeden ben sorumluyum.;Ich bin für dieses Projekt verantwortlich.
+Bu görevi üstlenebilirim.;Ich kann diese Aufgabe übernehmen.
+Müşteri ürün hakkında şikâyet etti.;Der Kunde hat sich über das Produkt beschwert.
+Sorunu mümkün olduğunca çabuk çözeceğiz.;Wir werden das Problem so schnell wie möglich lösen.
+İşten sonra mesleki bir eğitim alıyorum.;Nach der Arbeit mache ich eine Weiterbildung.
+Kendi işimi kurmak istiyorum.;Ich möchte mich selbstständig machen.
+İş arkadaşlarımla iyi anlaşıyorum.;Ich verstehe mich gut mit meinen Kollegen.
+Raporu cumaya kadar bitirmem gerekiyor.;Ich muss den Bericht bis Freitag fertig machen.
+#B1 · Görüş bildirme ve tartışma
+Bence bu kararın hem avantajları hem de dezavantajları var.;Meiner Meinung nach hat diese Entscheidung sowohl Vorteile als auch Nachteile.
+Bir yandan pahalı, öte yandan çok pratik.;Einerseits ist es teuer, andererseits sehr praktisch.
+Bu konuda tamamen seninle aynı fikirdeyim.;Da bin ich ganz deiner Meinung.
+Haklı olabilirsin ama bir şeyi unutmamak gerek.;Du hast vielleicht recht, aber man darf eines nicht vergessen.
+Benim için en önemli nokta fiyat.;Für mich ist der wichtigste Punkt der Preis.
+Bir uzlaşma bulmalıyız.;Wir sollten einen Kompromiss finden.
+Argümanı anlıyorum ama ikna olmadım.;Ich verstehe das Argument, aber ich bin nicht überzeugt.
+Bunun bir çözüm olup olmadığından emin değilim.;Ich bin nicht sicher, ob das eine Lösung ist.
+Açıkçası bu fikir pek hoşuma gitmiyor.;Ehrlich gesagt gefällt mir die Idee nicht besonders.
+Bir şey daha eklemek istiyorum.;Ich möchte noch etwas ergänzen.
+Sözünü kestiğim için özür dilerim.;Entschuldigung, dass ich dich unterbreche.
+Konuya geri dönelim.;Lass uns zum Thema zurückkommen.
+Özetle, kolay bir çözüm olmadığı söylenebilir.;Zusammenfassend lässt sich sagen, dass es keine einfache Lösung gibt.
+#B1 · Yan cümleler ve bağlaçlar
+Toplantı başlamadan önce kahve içtik.;Bevor die Besprechung anfing, haben wir Kaffee getrunken.
+Eve geldikten sonra hemen uyudum.;Nachdem ich nach Hause gekommen war, bin ich sofort eingeschlafen.
+Çocukken her yaz büyükannemi ziyaret ederdim.;Als ich ein Kind war, habe ich jeden Sommer meine Großmutter besucht.
+Trenin ne zaman kalktığını biliyor musunuz?;Wissen Sie, wann der Zug abfährt?
+Bana nerede oturduğunu söyleyebilir misin?;Kannst du mir sagen, wo du wohnst?
+Almancamı geliştirmek için her gün haber okuyorum.;Um mein Deutsch zu verbessern, lese ich jeden Tag Nachrichten.
+Herkes anlasın diye yavaş konuşuyorum.;Ich spreche langsam, damit alle mich verstehen.
+Arabayla gitmek yerine bisiklete biniyorum.;Statt mit dem Auto zu fahren, nehme ich das Fahrrad.
+Kahvaltı yapmadan evden çıktım.;Ich bin aus dem Haus gegangen, ohne zu frühstücken.
+Ne çay ne de kahve içerim.;Ich trinke weder Tee noch Kaffee.
+Ya bugün ya da yarın ararım.;Ich rufe entweder heute oder morgen an.
+Sadece İngilizce değil, Fransızca da konuşuyor.;Sie spricht nicht nur Englisch, sondern auch Französisch.
+Gerçi yorgunum ama yine de geliyorum.;Ich bin zwar müde, aber ich komme trotzdem.
+Kötü havaya rağmen yürüyüşe çıktık.;Trotz des schlechten Wetters sind wir spazieren gegangen.
+Hastalık yüzünden toplantıya katılamadım.;Wegen einer Krankheit konnte ich nicht an der Besprechung teilnehmen.
+Ne kadar erken başlarsan o kadar iyi.;Je früher du anfängst, desto besser.
+#B1 · Dilek ve kibar rica (Konjunktiv II)
+Keşke daha fazla vaktim olsa!;Wenn ich doch mehr Zeit hätte!
+Zengin olsaydım dünyayı gezerdim.;Wenn ich reich wäre, würde ich um die Welt reisen.
+Yerinde olsam doktora giderdim.;An deiner Stelle würde ich zum Arzt gehen.
+Bana yardım edebilir miydiniz?;Könnten Sie mir bitte helfen?
+Bir sorum olacaktı.;Ich hätte eine Frage.
+Daha erken gelseydin onu görürdün.;Wenn du früher gekommen wärst, hättest du ihn gesehen.
+#B1 · Edilgen yapı (Passiv)
+Bu ev 1900 yılında inşa edildi.;Dieses Haus wurde im Jahr 1900 gebaut.
+Paket yarın teslim ediliyor.;Das Paket wird morgen geliefert.
+Burada sigara içilmemeli.;Hier darf nicht geraucht werden.
+Ofis her akşam temizleniyor.;Das Büro wird jeden Abend geputzt.
+Toplantı iptal edildi.;Die Besprechung wurde abgesagt.
+Bu kitap birçok dile çevrildi.;Dieses Buch wurde in viele Sprachen übersetzt.
+Bir anket yapıldı.;Es wurde eine Umfrage durchgeführt.
+#B1 · Toplum ve çevre
+Çevreyi korumak için daha az araba kullanmalıyız.;Um die Umwelt zu schützen, sollten wir weniger Auto fahren.
+Her yıl daha fazla insan şehirlere taşınıyor.;Jedes Jahr ziehen mehr Menschen in die Städte.
+Birçok genç uygun fiyatlı bir daire bulamıyor.;Viele junge Leute finden keine günstige Wohnung.
+İklim değişikliği hepimizi ilgilendiriyor.;Der Klimawandel betrifft uns alle.
+Plastik atıkları azaltmamız gerekiyor.;Wir müssen den Plastikmüll reduzieren.
+Sosyal medya hayatımızı çok değiştirdi.;Die sozialen Medien haben unser Leben stark verändert.
+Çocuklar ekran başında çok fazla zaman geçiriyor.;Kinder verbringen zu viel Zeit vor dem Bildschirm.
+Yaşlı insanlar kendilerini sık sık yalnız hissediyor.;Ältere Menschen fühlen sich oft einsam.
+Uyum için dili öğrenmek çok önemli.;Für die Integration ist es sehr wichtig, die Sprache zu lernen.
+Bu sorunun birkaç nedeni var.;Dieses Problem hat mehrere Ursachen.
+Bu konuda farklı görüşler var.;Zu diesem Thema gibt es unterschiedliche Meinungen.
+Sonuçlar oldukça şaşırtıcıydı.;Die Ergebnisse waren ziemlich überraschend.
+#B1 · Duygular ve ilişkiler
+Seni hayal kırıklığına uğratmak istemedim.;Ich wollte dich nicht enttäuschen.
+Seninle gurur duyuyorum.;Ich bin stolz auf dich.
+Bu haber beni çok sevindirdi.;Diese Nachricht hat mich sehr gefreut.
+Onun davranışı beni sinirlendiriyor.;Sein Verhalten ärgert mich.
+Ona güvenebilirsin.;Du kannst dich auf ihn verlassen.
+Kavga ettik ama tekrar barıştık.;Wir haben uns gestritten, aber wir haben uns wieder versöhnt.
+Seni çok özledim.;Ich habe dich sehr vermisst.
+Bu durumdan hiç memnun değilim.;Mit dieser Situation bin ich überhaupt nicht zufrieden.
+Yardımın için sana minnettarım.;Ich bin dir für deine Hilfe dankbar.
+Bu kadar sinirlenme!;Reg dich nicht so auf!
+Buna alışmam uzun sürdü.;Es hat lange gedauert, bis ich mich daran gewöhnt habe.
+Geleceğim konusunda iyimserim.;Was meine Zukunft angeht, bin ich optimistisch.
+#B1 · Resmî ve günlük durumlar
+Sözleşmeyi feshetmek istiyorum.;Ich möchte den Vertrag kündigen.
+Fesih süresi üç ay.;Die Kündigungsfrist beträgt drei Monate.
+Faturada bir hata var.;In der Rechnung ist ein Fehler.
+Paramı geri istiyorum.;Ich möchte mein Geld zurückhaben.
+Başvurum hakkında bilgi almak istiyorum.;Ich möchte mich nach meinem Antrag erkundigen.
+Formu eksiksiz doldurmanız gerekiyor.;Sie müssen das Formular vollständig ausfüllen.
+Lütfen belgelerin asıllarını getirin.;Bringen Sie bitte die Originale der Dokumente mit.
+Vizemi uzattırmam gerekiyor.;Ich muss mein Visum verlängern lassen.
+Arabam bozulunca onu tamirciye götürdüm.;Als mein Auto kaputt war, habe ich es in die Werkstatt gebracht.
+Sigorta hasarı ödeyecek mi?;Zahlt die Versicherung den Schaden?
+#B1 · Dil öğrenmek
+Almancam her geçen gün daha iyi oluyor.;Mein Deutsch wird von Tag zu Tag besser.
+Kelimenin anlamına sözlükten baktım.;Ich habe die Bedeutung des Wortes im Wörterbuch nachgeschlagen.
+Telaffuzumu geliştirmek istiyorum.;Ich möchte meine Aussprache verbessern.
+Sınava iyi hazırlandım.;Ich habe mich gut auf die Prüfung vorbereitet.
+Hata yapmaktan korkmuyorum.;Ich habe keine Angst, Fehler zu machen.
+Ana dili Almanca olan insanlarla konuşmaya çalışıyorum.;Ich versuche, mit Muttersprachlern zu sprechen.
+Pratik yapmadan dil öğrenilmez.;Ohne Übung kann man keine Sprache lernen.`;
 
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
@@ -451,10 +927,3034 @@ const ICON = {
   play: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>',
   slow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg>',
   close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
   plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'
 };
 
 /* ---------- built-in sentences ---------- */
+/* ---------- word matching game ---------- */
+const WORD_DATA = `#A1 · İnsanlar ve ev
+der Mann;adam
+die Frau;kadın
+das Kind;çocuk
+die Mutter;anne
+der Vater;baba
+der Bruder;erkek kardeş
+die Schwester;kız kardeş
+der Freund;arkadaş
+das Haus;ev
+die Wohnung;daire
+die Stadt;şehir
+die Straße;cadde
+der Bahnhof;tren istasyonu
+die Schule;okul
+die Arbeit;iş
+der Tisch;masa
+der Stuhl;sandalye
+die Tür;kapı
+das Fenster;pencere
+das Buch;kitap
+#A1 · Yiyecek ve ulaşım
+das Wasser;su
+das Brot;ekmek
+der Kaffee;kahve
+der Tee;çay
+die Milch;süt
+der Apfel;elma
+das Auto;araba
+der Bus;otobüs
+der Zug;tren
+#A1 · Zaman
+der Tag;gün
+die Woche;hafta
+der Monat;ay
+das Jahr;yıl
+heute;bugün
+morgen;yarın
+gestern;dün
+#A1 · Sıfatlar ve fiiller
+groß;büyük
+klein;küçük
+gut;iyi
+schön;güzel
+neu;yeni
+teuer;pahalı
+billig;ucuz
+essen;yemek yemek
+trinken;içmek
+schlafen;uyumak
+arbeiten;çalışmak
+wohnen;oturmak (ikamet etmek)
+sprechen;konuşmak
+lernen;öğrenmek
+kaufen;satın almak
+#A1 · Tanışma
+der Name;isim
+der Vorname;ön ad
+der Familienname;soyadı
+die Adresse;adres
+die Telefonnummer;telefon numarası
+die E-Mail;e-posta
+das Alter;yaş
+das Land;ülke
+die Sprache;dil (lisan)
+der Beruf;meslek
+der Geburtsort;doğum yeri
+das Geburtsdatum;doğum tarihi
+die Postleitzahl;posta kodu
+die Hausnummer;kapı numarası
+der Herr;bay
+die Dame;hanımefendi
+ledig;bekâr
+verheiratet;evli
+geschieden;boşanmış
+heißen;adı ... olmak
+kommen;gelmek
+buchstabieren;harf harf söylemek
+Hallo;merhaba
+Tschüss;hoşça kal
+danke;teşekkürler
+bitte;lütfen
+ja;evet
+nein;hayır
+Entschuldigung;pardon
+willkommen;hoş geldiniz
+#A1 · Aile ve insanlar
+die Familie;aile
+die Eltern;anne baba
+der Sohn;oğul
+die Tochter;kız evlat
+die Großmutter;büyükanne
+der Großvater;büyükbaba
+die Oma;nine
+der Opa;dede
+die Geschwister;kardeşler
+der Onkel;amca, dayı
+die Tante;teyze, hala
+der Ehemann;eş (koca)
+die Ehefrau;eş (karı)
+die Freundin;kız arkadaş
+das Baby;bebek
+der Junge;erkek çocuk
+das Mädchen;kız çocuk
+die Leute;insanlar
+die Person;kişi
+der Nachbar;komşu
+der Gast;misafir
+#A1 · Vücut ve sağlık
+der Körper;vücut
+der Kopf;baş
+das Gesicht;yüz (surat)
+das Auge;göz
+das Ohr;kulak
+die Nase;burun
+der Mund;ağız
+der Zahn;diş
+das Haar;saç
+der Hals;boyun
+der Arm;kol
+die Hand;el
+der Finger;parmak
+der Bauch;karın
+der Rücken;sırt
+das Bein;bacak
+der Fuß;ayak
+das Knie;diz
+der Schmerz;ağrı
+die Erkältung;soğuk algınlığı
+der Husten;öksürük
+das Krankenhaus;hastane
+die Tablette;hap
+der Zahnarzt;diş hekimi
+#A1 · Ev ve eşyalar
+das Zimmer;oda
+die Küche;mutfak
+das Bad;banyo
+das Schlafzimmer;yatak odası
+das Wohnzimmer;oturma odası
+der Balkon;balkon
+der Garten;bahçe
+der Keller;bodrum
+die Treppe;merdiven
+der Aufzug;asansör
+der Stock;kat
+die Wand;duvar
+der Boden;zemin
+das Bett;yatak
+der Schrank;dolap
+das Sofa;kanepe
+die Lampe;lamba
+der Kühlschrank;buzdolabı
+der Herd;ocak (mutfak)
+der Fernseher;televizyon
+das Bild;resim
+die Uhr;saat (alet)
+das Handy;cep telefonu
+der Computer;bilgisayar
+das Telefon;telefon
+die Dusche;duş
+die Toilette;tuvalet
+das Licht;ışık
+der Müll;çöp
+die Möbel;mobilya
+#A1 · Yiyecek ve içecek
+das Essen;yemek
+das Frühstück;kahvaltı
+das Mittagessen;öğle yemeği
+das Abendessen;akşam yemeği
+das Fleisch;et
+der Fisch;balık
+die Wurst;sosis
+der Käse;peynir
+das Ei;yumurta
+die Butter;tereyağı
+der Reis;pirinç
+die Nudeln;makarna
+die Kartoffel;patates
+das Gemüse;sebze
+das Obst;meyve
+die Tomate;domates
+die Zwiebel;soğan
+der Salat;salata
+die Banane;muz
+die Orange;portakal
+die Birne;armut
+die Suppe;çorba
+der Kuchen;pasta
+die Schokolade;çikolata
+der Zucker;şeker
+das Salz;tuz
+der Pfeffer;karabiber
+das Öl;yağ
+das Brötchen;küçük ekmek
+der Saft;meyve suyu
+das Bier;bira
+der Wein;şarap
+das Getränk;içecek
+die Flasche;şişe
+das Glas;bardak
+die Tasse;fincan
+der Teller;tabak
+das Messer;bıçak
+die Gabel;çatal
+der Löffel;kaşık
+das Restaurant;restoran
+das Café;kafe
+die Speisekarte;menü
+der Kellner;garson
+der Hunger;açlık
+der Durst;susuzluk
+lecker;lezzetli
+kochen;yemek pişirmek
+#A1 · Alışveriş ve para
+das Geld;para
+der Euro;avro
+der Preis;fiyat
+der Supermarkt;süpermarket
+der Markt;pazar yeri
+die Bäckerei;fırın
+das Geschäft;dükkân
+der Laden;mağaza
+die Kasse;kasa
+das Kilo;kilo
+das Gramm;gram
+der Liter;litre
+das Stück;adet
+das Paket;paket
+die Kreditkarte;kredi kartı
+bar;nakit
+kosten;fiyatı ... olmak
+brauchen;ihtiyaç duymak
+nehmen;almak (eline)
+möchten;istemek (kibarca)
+suchen;aramak (bir şeyi)
+finden;bulmak
+verkaufen;satmak
+die Bank;banka
+#A1 · Şehir ve yerler
+das Dorf;köy
+das Zentrum;merkez
+der Platz;meydan
+der Park;park
+die Kirche;kilise
+das Museum;müze
+das Kino;sinema
+das Theater;tiyatro
+die Post;postane
+das Rathaus;belediye binası
+die Polizei;polis
+das Hotel;otel
+die Bibliothek;kütüphane
+der Kindergarten;anaokulu
+die Universität;üniversite
+das Büro;ofis
+die Firma;şirket
+die Haltestelle;durak
+die Ampel;trafik ışığı
+der Weg;yol
+die Ecke;köşe
+der Eingang;giriş
+der Ausgang;çıkış
+links;solda
+rechts;sağda
+geradeaus;dümdüz
+hier;burada
+dort;orada
+weit;uzak
+nah;yakın
+#A1 · Ulaşım ve seyahat
+das Fahrrad;bisiklet
+die U-Bahn;metro
+die S-Bahn;banliyö treni
+die Straßenbahn;tramvay
+das Taxi;taksi
+das Flugzeug;uçak
+der Bahnsteig;peron
+die Abfahrt;kalkış
+die Ankunft;varış
+der Koffer;bavul
+die Tasche;çanta
+der Pass;pasaport
+das Gepäck;bagaj
+abfahren;kalkmak (araç)
+ankommen;varmak
+einsteigen;binmek
+aussteigen;inmek
+fahren;gitmek (araçla)
+fliegen;uçmak
+gehen;gitmek (yürüyerek)
+laufen;koşmak
+reisen;seyahat etmek
+der Fahrer;şoför
+der Parkplatz;otopark
+die Karte;kart
+das Meer;deniz
+der Strand;plaj
+der Berg;dağ
+der See;göl
+der Wald;orman
+#A1 · Günler, aylar, saat
+die Zeit;zaman
+die Stunde;saat (süre)
+die Minute;dakika
+der Morgen;sabah
+der Vormittag;öğleden önce
+der Mittag;öğle
+der Nachmittag;öğleden sonra
+der Abend;akşam
+die Nacht;gece
+das Wochenende;hafta sonu
+der Montag;pazartesi
+der Dienstag;salı
+der Mittwoch;çarşamba
+der Donnerstag;perşembe
+der Freitag;cuma
+der Samstag;cumartesi
+der Sonntag;pazar
+der Januar;ocak
+der Februar;şubat
+der März;mart
+der April;nisan
+der Mai;mayıs
+der Juni;haziran
+der Juli;temmuz
+der August;ağustos
+der September;eylül
+der Oktober;ekim
+der November;kasım
+der Dezember;aralık
+der Frühling;ilkbahar
+der Sommer;yaz
+der Herbst;sonbahar
+der Winter;kış
+das Datum;tarih
+die Ferien;okul tatili
+jetzt;şimdi
+bald;yakında
+früh;erken
+spät;geç
+immer;her zaman
+oft;sık sık
+manchmal;bazen
+nie;asla
+schon;çoktan
+noch;hâlâ
+dann;sonra
+später;daha sonra
+vorher;önceden
+gleich;hemen
+halb;yarım
+täglich;her gün
+#A1 · Hava ve doğa
+die Sonne;güneş
+der Wind;rüzgâr
+die Wolke;bulut
+warm;ılık
+heiß;sıcak
+kalt;soğuk
+sonnig;güneşli
+der Baum;ağaç
+die Blume;çiçek
+das Tier;hayvan
+der Hund;köpek
+die Katze;kedi
+#A1 · Okul ve iş
+der Lehrer;öğretmen
+der Schüler;öğrenci
+der Student;üniversite öğrencisi
+der Kurs;kurs
+die Klasse;sınıf
+der Unterricht;ders
+die Hausaufgabe;ödev
+das Heft;defter
+der Kuli;tükenmez kalem
+der Bleistift;kurşun kalem
+das Papier;kâğıt
+das Wort;kelime
+der Satz;cümle
+die Frage;soru
+die Antwort;cevap
+der Fehler;hata
+das Beispiel;örnek
+die Seite;sayfa
+der Text;metin
+die Übung;alıştırma
+der Chef;patron
+der Arbeitsplatz;çalışma yeri
+der Mitarbeiter;çalışan
+die Pause;mola
+der Feierabend;mesai bitimi
+die Information;bilgi
+das Problem;sorun
+die Idee;fikir
+schreiben;yazmak
+lesen;okumak
+hören;duymak
+zuhören;dinlemek
+fragen;sormak
+antworten;cevap vermek
+verstehen;anlamak
+wiederholen;tekrar etmek
+studieren;üniversitede okumak
+üben;alıştırma yapmak
+#A1 · Boş zaman
+die Freizeit;boş zaman
+das Hobby;hobi
+der Sport;spor
+der Fußball;futbol
+das Schwimmbad;yüzme havuzu
+die Musik;müzik
+das Lied;şarkı
+das Konzert;konser
+der Film;film
+das Spiel;oyun
+die Party;parti
+das Fest;şenlik
+die Einladung;davet
+der Ausflug;gezi
+das Foto;fotoğraf
+die Zeitung;gazete
+das Internet;internet
+spielen;oynamak
+schwimmen;yüzmek
+tanzen;dans etmek
+singen;şarkı söylemek
+fotografieren;fotoğraf çekmek
+besuchen;ziyaret etmek
+treffen;buluşmak
+einladen;davet etmek
+feiern;kutlamak
+fernsehen;televizyon izlemek
+spazieren gehen;yürüyüşe çıkmak
+Rad fahren;bisiklete binmek
+#A1 · Giyim ve renkler
+die Hose;pantolon
+das Hemd;gömlek
+das T-Shirt;tişört
+der Pullover;kazak
+die Jacke;ceket
+der Mantel;palto
+das Kleid;elbise
+der Rock;etek
+die Schuhe;ayakkabılar
+die Socken;çoraplar
+die Brille;gözlük
+anziehen;giymek
+ausziehen;çıkarmak (giysi)
+tragen;taşımak
+passen;uymak (beden)
+die Farbe;renk
+rot;kırmızı
+blau;mavi
+grün;yeşil
+gelb;sarı
+schwarz;siyah
+weiß;beyaz
+grau;gri
+braun;kahverengi
+orange;turuncu
+rosa;pembe
+hell;açık (renk)
+dunkel;koyu
+#A1 · Sayılar
+null;sıfır
+eins;bir
+zwei;iki
+drei;üç
+vier;dört
+fünf;beş
+sechs;altı
+sieben;yedi
+acht;sekiz
+neun;dokuz
+zehn;on
+elf;on bir
+zwölf;on iki
+dreizehn;on üç
+zwanzig;yirmi
+dreißig;otuz
+vierzig;kırk
+fünfzig;elli
+sechzig;altmış
+siebzig;yetmiş
+achtzig;seksen
+neunzig;doksan
+hundert;yüz (100)
+tausend;bin
+erste;birinci
+zweite;ikinci
+dritte;üçüncü
+die Zahl;sayı
+#A1 · Fiiller
+sein;olmak
+haben;sahip olmak
+werden;olmak (dönüşmek)
+machen;yapmak
+tun;etmek
+können;-ebilmek
+müssen;zorunda olmak
+wollen;istemek
+dürfen;izni olmak
+sollen;-meli
+mögen;hoşlanmak
+lieben;sevmek
+geben;vermek
+bekommen;almak (elde etmek)
+bringen;getirmek
+holen;gidip almak
+legen;koymak (yatırarak)
+stellen;koymak (dikerek)
+liegen;yatmak (durmak)
+stehen;ayakta durmak
+sitzen;oturmak (sandalyede)
+öffnen;açmak
+schließen;kapatmak
+beginnen;başlamak
+aufhören;bırakmak (son vermek)
+warten;beklemek
+helfen;yardım etmek
+zeigen;göstermek
+sehen;görmek
+schauen;bakmak
+denken;düşünmek
+glauben;inanmak
+wissen;bilmek
+kennen;tanımak
+sagen;söylemek
+erzählen;anlatmak
+rufen;seslenmek
+telefonieren;telefonla konuşmak
+schicken;göndermek
+mitkommen;birlikte gelmek
+mitbringen;yanında getirmek
+aufstehen;kalkmak (yataktan)
+duschen;duş almak
+waschen;yıkamak
+putzen;temizlemek
+aufräumen;ortalığı toplamak
+leben;yaşamak
+mieten;kiralamak
+zahlen;ödeme yapmak
+benutzen;kullanmak
+bleiben;kalmak
+ändern;değiştirmek
+gewinnen;kazanmak (yarışma)
+verlieren;kaybetmek
+mitmachen;katılmak (etkinliğe)
+dauern;sürmek (zaman)
+passieren;meydana gelmek
+lachen;gülmek
+weinen;ağlamak
+grüßen;selamlamak
+buchen;rezervasyon yapmak
+reparieren;tamir etmek
+vorstellen;tanıtmak
+gehören;ait olmak
+#A1 · Sıfatlar
+alt;yaşlı
+jung;genç
+lang;uzun
+kurz;kısa
+hoch;yüksek
+dick;şişman
+schwer;ağır
+leicht;hafif
+einfach;basit
+richtig;doğru
+falsch;yanlış
+fertig;hazır
+frei;serbest
+besetzt;meşgul
+voll;dolu
+leer;boş
+offen;açık
+geschlossen;kapalı
+laut;gürültülü
+leise;sessiz
+ruhig;sakin
+glücklich;mutlu
+traurig;üzgün
+nett;nazik
+freundlich;güler yüzlü
+lustig;komik
+interessant;ilginç
+langweilig;sıkıcı
+toll;harika
+schlecht;kötü
+möglich;mümkün
+kaputt;bozuk
+sauber;temiz
+schmutzig;kirli
+allein;yalnız
+zusammen;beraber
+genau;tam olarak
+wenig;az
+viel;çok (miktar)
+mehr;daha fazla
+gern;seve seve
+verboten;yasak
+günstig;uygun fiyatlı
+bekannt;tanınmış
+andere;başka
+#A1 · Soru ve küçük kelimeler
+wer;kim
+was;ne
+wo;nerede
+wohin;nereye
+woher;nereden
+wann;ne zaman
+wie;nasıl
+warum;neden
+wie viel;ne kadar
+welcher;hangi
+und;ve
+oder;veya
+aber;ama
+weil;çünkü
+wenn;eğer
+dass;ki
+auch;de, da (dahi)
+nur;sadece
+sehr;çok (pek)
+zu;fazla (zu teuer)
+nicht;değil
+kein;hiç yok
+alle;hepsi
+jeder;her biri
+etwas;bir şey
+nichts;hiçbir şey
+jemand;birisi
+niemand;hiç kimse
+ich;ben
+du;sen
+er;o (erkek)
+sie;o (kadın)
+wir;biz
+ihr;siz (çoğul)
+Sie;siz (resmî)
+mein;benim
+dein;senin
+mit;ile
+ohne;-sız
+für;için
+in;içinde
+auf;üstünde
+unter;altında
+neben;yanında
+vor;önünde
+hinter;arkasında
+zwischen;arasında
+von;-den
+nach;-den sonra
+um;saat ...'de
+ab;-den itibaren
+bis;-e kadar
+seit;-den beri
+gegen;karşı
+über;hakkında
+zurück;geri
+wieder;yine
+vielleicht;belki
+natürlich;tabii ki
+leider;maalesef
+also;yani
+sofort;derhal
+zuerst;ilk önce
+danach;ondan sonra
+fast;neredeyse
+genug;yeterli
+wirklich;gerçekten
+#A2 · Sağlık ve resmi işler
+der Termin;randevu
+der Arzt;doktor
+die Apotheke;eczane
+das Medikament;ilaç
+das Fieber;ateş
+die Rechnung;fatura
+die Miete;kira
+die Heizung;kalorifer
+der Schlüssel;anahtar
+das Formular;form
+der Ausweis;kimlik kartı
+#A2 · Yolculuk ve alışveriş
+die Fahrkarte;bilet
+der Flughafen;havalimanı
+die Reise;seyahat
+der Urlaub;tatil
+das Wetter;hava durumu
+der Regen;yağmur
+der Schnee;kar
+das Geschenk;hediye
+der Geburtstag;doğum günü
+die Größe;beden
+die Kleidung;giysi
+der Kunde;müşteri
+#A2 · İş
+die Stelle;iş pozisyonu
+der Kollege;iş arkadaşı
+die Erfahrung;deneyim
+die Ausbildung;meslek eğitimi
+#A2 · Fiiller ve sıfatlar
+anrufen;telefon etmek
+bezahlen;ödemek
+bestellen;sipariş vermek
+umsteigen;aktarma yapmak
+verpassen;kaçırmak
+ausfüllen;doldurmak
+vergessen;unutmak
+erklären;açıklamak
+pünktlich;dakik
+krank;hasta
+müde;yorgun
+gesund;sağlıklı
+langsam;yavaş
+schnell;hızlı
+wichtig;önemli
+schwierig;zor
+#A2 · İnsanlar ve ilişkiler
+der Erwachsene;yetişkin
+der Jugendliche;ergen
+der Cousin;kuzen (erkek)
+die Cousine;kuzen (kız)
+die Verwandten;akrabalar
+der Enkel;torun (erkek)
+die Enkelin;torun (kız)
+der Bekannte;tanıdık
+der Rentner;emekli
+die Hochzeit;düğün
+heiraten;evlenmek
+die Ehe;evlilik
+die Beziehung;ilişki
+sich verlieben;âşık olmak
+sich trennen;ayrılmak
+schwanger;hamile
+die Geburt;doğum
+geboren;doğmuş
+der Tod;ölüm
+sterben;ölmek
+die Kindheit;çocukluk
+das Leben;hayat
+#A2 · Duygular ve karakter
+das Gefühl;duygu
+die Liebe;aşk
+die Angst;korku
+die Freude;sevinç
+der Ärger;öfke
+die Laune;keyif
+die Stimmung;ruh hâli
+froh;memnun
+böse;kızgın
+wütend;öfkeli
+nervös;gergin
+aufgeregt;heyecanlı
+zufrieden;hoşnut
+stolz;gururlu
+ehrlich;dürüst
+höflich;kibar
+faul;tembel
+fleißig;çalışkan
+klug;akıllı
+dumm;aptal
+sympathisch;sempatik
+ernst;ciddi
+neugierig;meraklı
+vorsichtig;dikkatli
+herzlich;içten
+#A2 · Sağlık ve vücut
+die Praxis;muayenehane
+wehtun;acımak
+die Krankheit;hastalık
+die Grippe;grip
+die Kopfschmerzen;baş ağrısı
+die Bauchschmerzen;karın ağrısı
+die Verletzung;yaralanma
+verletzt;yaralı
+sich verletzen;yaralanmak
+der Unfall;kaza
+der Notfall;acil durum
+der Krankenwagen;ambulans
+die Krankenkasse;sağlık sigortası
+das Rezept;reçete, tarif
+das Pflaster;yara bandı
+das Blut;kan
+das Herz;kalp
+untersuchen;muayene etmek
+sich fühlen;hissetmek
+sich erholen;toparlanmak
+husten;öksürmek
+frieren;üşümek
+#A2 · Kişisel bakım
+die Seife;sabun
+das Shampoo;şampuan
+die Zahnbürste;diş fırçası
+die Zahnpasta;diş macunu
+das Handtuch;havlu
+sich rasieren;tıraş olmak
+der Friseur;kuaför
+#A2 · Ev ve konut
+der Haushalt;ev işleri
+der Vermieter;ev sahibi
+der Mieter;kiracı
+die Nebenkosten;yan giderler
+der Umzug;taşınma
+umziehen;taşınmak
+der Hausmeister;kapıcı
+die Garage;garaj
+das Dach;çatı
+der Flur;koridor
+die Decke;battaniye
+das Kissen;yastık
+der Vorhang;perde
+der Spiegel;ayna
+die Steckdose;priz
+klingeln;zili çalmak
+der Briefkasten;posta kutusu
+der Teppich;halı
+das Regal;raf
+die Waschmaschine;çamaşır makinesi
+die Spülmaschine;bulaşık makinesi
+der Staubsauger;elektrikli süpürge
+staubsaugen;süpürge çekmek
+bügeln;ütülemek
+spülen;bulaşık yıkamak
+sauber machen;temizlik yapmak
+#A2 · Yemek ve mutfak
+das Hähnchen;tavuk eti
+das Gericht;yemek (tabak)
+das Hauptgericht;ana yemek
+die Sahne;krema
+der Joghurt;yoğurt
+die Marmelade;reçel
+die Erdbeere;çilek
+die Kirsche;kiraz
+die Zitrone;limon
+die Gurke;salatalık
+die Karotte;havuç
+der Pilz;mantar
+das Rindfleisch;sığır eti
+das Schweinefleisch;domuz eti
+die Pommes;patates kızartması
+die Pfanne;tava
+der Topf;tencere
+braten;kızartmak
+backen;fırında pişirmek
+schneiden;kesmek
+probieren;tadına bakmak
+schmecken;tadı güzel olmak
+satt;tok
+scharf;acı (baharatlı)
+süß;tatlı (tat)
+frisch;taze
+vegetarisch;vejetaryen
+das Trinkgeld;bahşiş
+reservieren;rezerve etmek
+#A2 · Alışveriş ve giyim
+das Angebot;indirimli ürün
+die Tüte;poşet
+das Kaufhaus;alışveriş merkezi
+die Quittung;fiş
+umtauschen;değiştirmek (ürün)
+zurückgeben;iade etmek
+anprobieren;denemek (giysi)
+der Rabatt;indirim
+die Marke;marka
+die Qualität;kalite
+die Auswahl;seçenek
+liefern;teslim etmek
+der Geldbeutel;cüzdan
+preiswert;hesaplı
+die Mode;moda
+die Bluse;bluz
+der Hut;şapka
+die Mütze;bere
+der Gürtel;kemer
+die Handschuhe;eldiven
+der Schal;atkı
+der Anzug;takım elbise
+der Ring;yüzük
+eng;dar
+bequem;rahat
+bunt;renkli
+lila;mor
+#A2 · Şehir ve yön
+der Kiosk;büfe
+die Kreuzung;kavşak
+die Brücke;köprü
+das Gebäude;bina
+die Mitte;orta
+der Stadtplan;şehir haritası
+die Gegend;bölge
+die Umgebung;çevre (yöre)
+die Lage;konum
+die Richtung;yön
+der Fußgänger;yaya
+überqueren;karşıya geçmek
+abbiegen;sapmak
+parken;park etmek
+halten;durmak (araç)
+der Verkehr;trafik
+der Stau;trafik sıkışıklığı
+#A2 · Yolculuk ve konaklama
+das Schiff;gemi
+die Fähre;feribot
+der Fahrplan;sefer tarifesi
+das Gleis;peron hattı
+die Autobahn;otoyol
+die Verspätung;gecikme
+die Fahrt;yolculuk
+der Führerschein;ehliyet
+die Tankstelle;benzin istasyonu
+tanken;benzin almak
+der Fahrgast;yolcu
+die Rückfahrkarte;gidiş-dönüş bileti
+die Hinfahrt;gidiş
+die Rückfahrt;dönüş
+der Flug;uçuş
+der Abflug;uçağın kalkışı
+landen;iniş yapmak
+die Durchsage;anons
+der Schalter;gişe
+die Unterkunft;konaklama yeri
+die Pension;pansiyon
+das Einzelzimmer;tek kişilik oda
+das Doppelzimmer;çift kişilik oda
+die Rezeption;resepsiyon
+die Übernachtung;geceleme
+übernachten;gecelemek
+der Reiseführer;rehber
+die Sehenswürdigkeit;görülecek yer
+besichtigen;gezip görmek
+die Grenze;sınır
+das Ausland;yurt dışı
+das Visum;vize
+der Rucksack;sırt çantası
+das Zelt;çadır
+der Campingplatz;kamp alanı
+die Landschaft;manzara (doğa)
+die Aussicht;manzara (seyir)
+der Hafen;liman
+die Insel;ada
+der Fluss;nehir
+packen;bavul hazırlamak
+verreisen;seyahate çıkmak
+#A2 · İş ve meslekler
+das Praktikum;staj
+der Lohn;ücret (saatlik)
+das Gehalt;maaş
+das Unternehmen;kuruluş
+die Abteilung;bölüm (şirket)
+die Besprechung;toplantı
+die Arbeitszeit;çalışma saati
+die Schicht;vardiya
+die Überstunde;fazla mesai
+die Teilzeit;yarı zamanlı
+arbeitslos;işsiz
+der Lebenslauf;özgeçmiş
+das Zeugnis;karne, belge
+die Anzeige;ilan
+der Handwerker;zanaatkâr
+der Mechaniker;tamirci
+der Verkäufer;satıcı
+der Koch;aşçı
+die Krankenschwester;hemşire
+der Polizist;polis memuru
+der Ingenieur;mühendis
+der Rechtsanwalt;avukat
+der Angestellte;memur (özel sektör)
+selbstständig;serbest çalışan
+kündigen;istifa etmek
+die Kündigung;fesih
+anfangen;başlamak (işe)
+#A2 · Bilgisayar ve iletişim
+der Drucker;yazıcı
+drucken;yazdırmak
+kopieren;kopyalamak
+ausdrucken;çıktı almak
+die Datei;dosya
+speichern;kaydetmek
+löschen;silmek
+das Passwort;şifre
+der Bildschirm;ekran
+die Tastatur;klavye
+der Akku;pil (şarjlı)
+die Nachricht;mesaj
+erreichen;ulaşmak
+zurückrufen;geri aramak
+die Verbindung;bağlantı
+herunterladen;indirmek
+klicken;tıklamak
+einschalten;açmak (cihaz)
+ausschalten;kapatmak (cihaz)
+anmachen;açmak (ışık)
+ausmachen;söndürmek (ışık)
+funktionieren;çalışmak (cihaz)
+kaputtgehen;bozulmak
+#A2 · Okul ve öğrenme
+das Fach;ders (branş)
+die Note;not
+die Grundschule;ilkokul
+bestehen;geçmek (sınav)
+durchfallen;kalmak (sınav)
+der Abschluss;mezuniyet
+das Studium;üniversite eğitimi
+das Wörterbuch;sözlük
+die Bedeutung;anlam
+die Grammatik;dilbilgisi
+die Aussprache;telaffuz
+aussprechen;telaffuz etmek
+korrigieren;düzeltmek
+sich merken;aklında tutmak
+die Erklärung;açıklama
+die Regel;kural
+der Test;test
+ankreuzen;çarpı ile işaretlemek
+ergänzen;tamamlamak
+zuordnen;eşleştirmek
+#A2 · Boş zaman ve kültür
+die Zeitschrift;dergi
+malen;resim yapmak
+Ski fahren;kayak yapmak
+wandern;doğa yürüyüşü yapmak
+die Ausstellung;sergi
+die Veranstaltung;etkinlik
+die Eintrittskarte;giriş bileti
+der Eintritt;giriş ücreti
+das Programm;program
+der Verein;dernek, kulüp
+die Mannschaft;takım
+das Training;antrenman
+trainieren;antrenman yapmak
+joggen;koşu yapmak
+der Spieler;oyuncu
+das Tor;gol, kale
+das Ergebnis;sonuç
+das Instrument;enstrüman
+die Gitarre;gitar
+das Klavier;piyano
+die Kunst;sanat
+der Künstler;sanatçı
+der Roman;roman
+die Geschichte;hikâye, tarih
+die Serie;dizi
+die Sendung;yayın
+die Nachrichten;haberler
+das Radio;radyo
+die Werbung;reklam
+die Kamera;kamera
+das Video;video
+sammeln;biriktirmek (koleksiyon)
+angeln;balık tutmak
+klettern;tırmanmak
+der Spaß;eğlence
+sich langweilen;sıkılmak
+sich interessieren für;ilgi duymak
+ausgehen;dışarı çıkmak
+grillen;mangal yapmak
+das Picknick;piknik
+#A2 · Resmi işler ve para
+das Amt;daire (resmî)
+die Behörde;resmî kurum
+die Ausländerbehörde;yabancılar dairesi
+die Anmeldung;kayıt
+sich anmelden;kaydolmak
+sich abmelden;kaydını sildirmek
+die Unterschrift;imza
+unterschreiben;imzalamak
+der Antrag;başvuru dilekçesi
+beantragen;başvuruda bulunmak
+das Konto;hesap (banka)
+überweisen;havale etmek
+die Überweisung;havale
+abheben;para çekmek
+der Geldautomat;bankamatik
+der Brief;mektup
+die Briefmarke;pul
+der Umschlag;zarf
+der Absender;gönderen
+der Empfänger;alıcı
+die Staatsangehörigkeit;vatandaşlık
+die Aufenthaltserlaubnis;oturma izni
+das Dokument;belge
+die Unterlagen;evraklar
+die Versicherung;sigorta
+die Steuer;vergi
+stehlen;çalmak (hırsızlık)
+der Dieb;hırsız
+das Fundbüro;kayıp eşya bürosu
+die Feuerwehr;itfaiye
+der Notruf;acil çağrı
+die Million;milyon
+das Prozent;yüzde
+die Hälfte;yarı
+#A2 · Doğa, hava ve çevre
+das Gewitter;gök gürültülü fırtına
+kühl;serin
+der Grad;derece
+der Himmel;gökyüzü
+das Pferd;at
+der Vogel;kuş
+die Natur;doğa
+die Luft;hava (soluk)
+das Klima;iklim
+die Temperatur;sıcaklık
+der Nebel;sis
+das Eis;buz, dondurma
+nass;ıslak
+trocken;kuru
+bewölkt;bulutlu
+regnen;yağmur yağmak
+schneien;kar yağmak
+scheinen;parlamak
+die Jahreszeit;mevsim
+die Erde;dünya, toprak
+der Mond;ay (gök)
+der Stern;yıldız
+die Pflanze;bitki
+das Gras;çim
+der Bauernhof;çiftlik
+die Kuh;inek
+das Schwein;domuz
+das Haustier;evcil hayvan
+füttern;beslemek
+die Energie;enerji
+der Strom;elektrik
+das Plastik;plastik
+schützen;korumak
+#A2 · Zaman ve sıklık
+die Sekunde;saniye
+der Kalender;takvim
+der Feiertag;resmî tatil günü
+das Viertel;çeyrek
+der Augenblick;an
+die Zukunft;gelecek
+die Vergangenheit;geçmiş
+vorgestern;evvelsi gün
+übermorgen;öbür gün
+morgens;sabahları
+mittags;öğlenleri
+abends;akşamları
+nachts;geceleri
+wöchentlich;haftalık
+monatlich;aylık
+jährlich;yıllık
+rechtzeitig;zamanında
+plötzlich;aniden
+endlich;nihayet
+zuletzt;en son
+inzwischen;bu arada
+damals;o zamanlar
+bisher;şimdiye kadar
+zurzeit;şu sıralar
+regelmäßig;düzenli olarak
+selten;nadiren
+meistens;çoğunlukla
+ab und zu;arada sırada
+einmal;bir kez
+#A2 · Zarflar ve bağlaçlar
+sonst;yoksa
+sogar;hatta
+besonders;özellikle
+ziemlich;oldukça
+total;tamamen
+etwa;aşağı yukarı
+mindestens;en az
+höchstens;en fazla
+wenigstens;hiç değilse
+insgesamt;toplamda
+irgendwo;bir yerde
+irgendwann;bir ara
+überall;her yerde
+draußen;dışarıda
+drinnen;içeride
+oben;yukarıda
+unten;aşağıda
+vorne;önde
+hinten;arkada
+unterwegs;yolda
+ob;-ip -mediğini
+als;-dığı zaman (geçmiş)
+damit;-sın diye
+bevor;-meden önce
+nachdem;-dıktan sonra
+während;-iken
+sondern;bilakis
+wegen;yüzünden
+statt;yerine
+durch;içinden geçerek
+gegenüber;karşısında
+außerhalb;dışında
+innerhalb;içinde (süre)
+#A2 · Fiiller
+sich beeilen;acele etmek
+sich bedanken;teşekkür etmek
+sich entschuldigen;özür dilemek
+sich setzen;oturmak (yerine)
+sich unterhalten;sohbet etmek
+sich beschweren;şikâyet etmek
+sich ärgern;kızmak
+sich verabreden;sözleşmek (buluşmak için)
+sich verabschieden;vedalaşmak
+erlauben;izin vermek
+verbieten;yasaklamak
+empfehlen;tavsiye etmek
+versprechen;söz vermek
+vorschlagen;önermek
+raten;tavsiyede bulunmak
+meinen;kastetmek
+hoffen;ummak
+wünschen;dilemek
+träumen;hayal kurmak
+planen;planlamak
+organisieren;düzenlemek
+vorbereiten;hazırlamak
+teilnehmen;katılmak (bir şeye)
+absagen;iptal etmek
+zusagen;kabul etmek (davet)
+ausfallen;iptal olmak
+stattfinden;gerçekleşmek
+gratulieren;tebrik etmek
+schenken;hediye etmek
+leihen;ödünç vermek
+ausleihen;ödünç almak
+abholen;gidip almak (birini)
+mitnehmen;yanına almak
+vergleichen;karşılaştırmak
+wählen;seçmek
+bemerken;fark etmek
+erkennen;tanımak (görünce)
+beschreiben;tarif etmek
+berichten;bildirmek
+diskutieren;tartışmak
+streiten;kavga etmek
+lügen;yalan söylemek
+schreien;bağırmak
+lächeln;gülümsemek
+küssen;öpmek
+umarmen;sarılmak
+riechen;koklamak
+fühlen;dokunarak hissetmek
+wachsen;büyümek
+steigen;yükselmek
+fallen;düşmek
+springen;zıplamak
+werfen;atmak
+fangen;yakalamak
+ziehen;çekmek
+drücken;itmek, basmak
+hängen;asmak
+stecken;sokmak
+wecken;uyandırmak
+aufwachen;uyanmak
+einschlafen;uykuya dalmak
+verschlafen;uyuyakalmak
+sich verspäten;gecikmek
+aufpassen;dikkat etmek
+folgen;takip etmek
+besitzen;sahip olmak (mülk)
+ausgeben;harcamak
+verbrauchen;tüketmek
+mischen;karıştırmak
+gießen;sulamak
+füllen;doldurmak (kap)
+wiegen;tartmak
+messen;ölçmek
+zählen;saymak
+rechnen;hesaplamak
+prüfen;kontrol etmek
+versuchen;denemek (girişim)
+schaffen;başarmak
+klappen;yolunda gitmek
+erledigen;halletmek
+besorgen;temin etmek
+aussehen;görünmek
+fehlen;eksik olmak
+wechseln;değiştirmek (para)
+tauschen;takas etmek
+verbessern;iyileştirmek
+beenden;sona erdirmek
+eröffnen;açılış yapmak
+anbieten;sunmak
+annehmen;kabul etmek
+loben;övmek
+kritisieren;eleştirmek
+warnen;uyarmak
+bitten;rica etmek
+begrüßen;karşılamak
+einkaufen;alışveriş yapmak
+stören;rahatsız etmek
+kontrollieren;denetlemek
+#A2 · Sıfatlar
+dünn;ince
+privat;özel
+fremd;yabancı
+praktisch;pratik
+nützlich;faydalı
+gefährlich;tehlikeli
+sicher;güvenli
+still;sessiz (durgun)
+modern;modern
+altmodisch;eski moda
+typisch;tipik
+normal;normal
+wunderbar;muhteşem
+schrecklich;korkunç
+furchtbar;berbat
+prima;süper
+perfekt;mükemmel
+unbedingt;mutlaka
+nötig;gerekli
+egal;fark etmez
+bereit;hazır (istekli)
+beliebt;sevilen
+berühmt;ünlü
+ausländisch;yabancı (yurt dışından)
+international;uluslararası
+öffentlich;kamuya açık
+kostenlos;ücretsiz
+reich;zengin
+arm;fakir
+stark;güçlü
+schwach;zayıf
+hart;sert
+weich;yumuşak
+breit;geniş
+tief;derin
+rund;yuvarlak
+hübsch;hoş
+hässlich;çirkin
+sportlich;sportif
+schlank;zayıf (ince yapılı)
+blond;sarışın
+gemütlich;rahat (sıcak ortam)
+ordentlich;düzenli
+wach;uyanık
+persönlich;kişisel
+offiziell;resmî
+aktuell;güncel
+nächste;sonraki
+letzte;son
+einzige;tek
+verschieden;farklı
+ähnlich;benzer
+doppelt;çift
+#B1 · İsimler
+die Meinung;görüş
+der Vorschlag;öneri
+die Lösung;çözüm
+die Entscheidung;karar
+der Grund;sebep
+der Zweifel;şüphe
+die Gesellschaft;toplum
+die Umwelt;çevre
+die Gesundheit;sağlık
+die Bewerbung;iş başvurusu
+das Vorstellungsgespräch;iş görüşmesi
+der Vertrag;sözleşme
+die Prüfung;sınav
+die Voraussetzung;ön koşul
+der Unterschied;fark
+die Sorge;endişe
+der Erfolg;başarı
+die Möglichkeit;imkân
+#B1 · Fiiller
+sich kümmern um;ilgilenmek, bakmak
+sich bewerben;başvurmak
+sich erinnern an;hatırlamak
+sich freuen auf;dört gözle beklemek
+sich gewöhnen an;alışmak
+überzeugen;ikna etmek
+unterstützen;desteklemek
+ablehnen;reddetmek
+verschieben;ertelemek
+sparen;biriktirmek
+verdienen;para kazanmak
+zustimmen;katılmak (bir fikre)
+entscheiden;karar vermek
+vermeiden;kaçınmak
+#B1 · Bağlaçlar ve sıfatlar
+obwohl;-e rağmen
+deshalb;bu yüzden
+trotzdem;yine de
+außerdem;ayrıca
+sobald;-ır -maz
+ungefähr;yaklaşık
+zuverlässig;güvenilir
+gemeinsam;birlikte
+notwendig;gerekli
+#B1 · Toplum ve politika
+die Politik;siyaset
+der Politiker;siyasetçi
+die Regierung;hükümet
+der Staat;devlet
+die Partei;parti (siyasi)
+die Wahl;seçim
+wählen gehen;oy vermeye gitmek
+der Bürger;vatandaş
+die Demokratie;demokrasi
+das Gesetz;kanun
+das Recht;hak, hukuk
+die Pflicht;görev
+die Freiheit;özgürlük
+der Frieden;barış
+der Krieg;savaş
+die Bevölkerung;nüfus
+der Einwohner;sakin (oturan)
+die Gemeinde;belediye (topluluk)
+die Integration;uyum
+die Kultur;kültür
+die Religion;din
+die Tradition;gelenek
+die Sitte;adet
+die Herkunft;köken
+die Heimat;memleket
+der Ausländer;yabancı uyruklu
+der Flüchtling;mülteci
+die Armut;yoksulluk
+der Reichtum;zenginlik
+die Gleichberechtigung;eşit haklar
+die Mehrheit;çoğunluk
+die Minderheit;azınlık
+die Öffentlichkeit;kamuoyu
+die Diskussion;tartışma
+die Debatte;münazara
+das Thema;konu
+das Ziel;hedef
+die Entwicklung;gelişme
+die Veränderung;değişim
+die Zukunftsangst;gelecek kaygısı
+die Gefahr;tehlike
+die Sicherheit;güvenlik
+die Kriminalität;suç oranı
+das Verbrechen;suç
+der Täter;fail
+das Opfer;kurban
+die Strafe;ceza
+der Richter;hakim
+der Zeuge;tanık
+die Polizeikontrolle;polis kontrolü
+der Protest;protesto
+die Demonstration;gösteri yürüyüşü
+streiken;grev yapmak
+der Streik;grev
+die Gewerkschaft;sendika
+die Organisation;kuruluş (örgüt)
+das Mitglied;üye
+die Gruppe;grup
+#B1 · Çalışma hayatı
+der Arbeitnehmer;işçi (çalışan)
+der Arbeitgeber;işveren
+die Arbeitsstelle;iş yeri (pozisyon)
+der Arbeitsvertrag;iş sözleşmesi
+die Probezeit;deneme süresi
+die Karriere;kariyer
+die Beförderung;terfi
+die Leistung;performans
+die Aufgabe;görev (iş)
+die Verantwortung;sorumluluk
+das Projekt;proje
+die Sitzung;oturum (toplantı)
+die Konferenz;konferans
+der Termindruck;zaman baskısı
+der Stress;stres
+die Belastung;yük (zihinsel)
+die Kenntnisse;bilgi birikimi
+die Fähigkeit;yetenek
+die Qualifikation;nitelik
+die Weiterbildung;mesleki gelişim
+die Fortbildung;hizmet içi eğitim
+das Seminar;seminer
+das Zertifikat;sertifika
+die Branche;sektör
+die Industrie;sanayi
+die Produktion;üretim
+das Produkt;ürün
+der Kundenservice;müşteri hizmetleri
+die Dienstleistung;hizmet
+der Auftrag;sipariş (iş)
+die Reklamation;şikâyet (ürün)
+der Gewinn;kâr
+der Verlust;zarar
+der Umsatz;ciro
+die Konkurrenz;rekabet
+der Vorgesetzte;amir
+das Team;ekip
+die Zusammenarbeit;iş birliği
+zusammenarbeiten;birlikte çalışmak
+die Geschäftsreise;iş seyahati
+der Urlaubsantrag;izin dilekçesi
+krankgeschrieben;raporlu
+die Krankmeldung;hastalık bildirimi
+die Arbeitslosigkeit;işsizlik
+die Agentur für Arbeit;iş ajansı
+der Lebensunterhalt;geçim
+befristet;süreli
+unbefristet;süresiz
+hauptberuflich;asıl meslek olarak
+nebenbei;yan iş olarak
+erfahren;deneyimli
+qualifiziert;nitelikli
+kreativ;yaratıcı
+flexibel;esnek
+belastbar;strese dayanıklı
+#B1 · Eğitim
+die Bildung;eğitim (genel)
+die Erziehung;terbiye
+das Schulsystem;okul sistemi
+die Realschule;ortaokul (Realschule)
+die Hochschule;yüksekokul
+der Studiengang;bölüm (üniversite)
+das Semester;dönem
+die Vorlesung;ders (üniversite)
+der Professor;profesör
+die Abschlussprüfung;bitirme sınavı
+die Hausarbeit;dönem ödevi
+das Referat;sunum (ödev)
+die Präsentation;sunum
+das Stipendium;burs
+die Sprachkenntnisse;dil bilgisi
+der Muttersprachler;ana dili konuşan
+die Fremdsprache;yabancı dil
+das Lernziel;öğrenme hedefi
+die Methode;yöntem
+der Fortschritt;ilerleme
+die Teilnahme;katılım
+das Wissen;bilgi (birikim)
+die Ausbildungsstelle;çıraklık yeri
+der Auszubildende;çırak
+die Berufsschule;meslek okulu
+das Abitur;lise bitirme sınavı
+#B1 · Medya ve teknoloji
+die Medien;medya
+die Presse;basın
+der Artikel;makale
+der Bericht;rapor
+die Reportage;röportaj
+der Journalist;gazeteci
+das Interview;mülakat
+die Schlagzeile;manşet
+die Meldung;haber (kısa)
+das Fernsehprogramm;televizyon programı
+der Sender;kanal
+die Zuschauer;izleyiciler
+der Leser;okur
+die Technik;teknik
+die Technologie;teknoloji
+das Gerät;cihaz
+die Anwendung;uygulama
+die App;uygulama (telefon)
+das Netz;ağ
+die Website;web sitesi
+das soziale Netzwerk;sosyal ağ
+der Beitrag;gönderi
+posten;paylaşmak (internette)
+teilen;paylaşmak
+der Kommentar;yorum
+kommentieren;yorum yapmak
+die Daten;veriler
+der Datenschutz;veri koruma
+das Virus;virüs
+der Zugang;erişim
+digital;dijital
+elektronisch;elektronik
+#B1 · Sağlık ve yaşam tarzı
+die Ernährung;beslenme
+die Bewegung;hareket
+die Fitness;form (fitness)
+das Gewicht;kilo (ağırlık)
+abnehmen;kilo vermek
+zunehmen;kilo almak
+die Diät;diyet
+das Übergewicht;fazla kilo
+die Vitamine;vitaminler
+die Ruhe;huzur
+der Schlaf;uyku
+die Entspannung;rahatlama
+sich entspannen;gevşemek
+die Behandlung;tedavi
+behandeln;tedavi etmek
+die Therapie;terapi
+die Operation;ameliyat
+operieren;ameliyat etmek
+die Wunde;yara
+der Patient;hasta (kişi)
+der Facharzt;uzman doktor
+die Untersuchung;muayene
+die Spritze;iğne
+die Impfung;aşı
+die Nebenwirkung;yan etki
+die Wirkung;etki
+wirken;etki etmek
+die Krankenversicherung;hastalık sigortası
+die Pflege;bakım
+pflegen;bakmak (hastaya)
+der Pfleger;bakıcı
+die Behinderung;engel (sağlık)
+behindert;engelli
+das Risiko;risk
+rauchen;sigara içmek
+der Alkohol;alkol
+die Sucht;bağımlılık
+süchtig;bağımlı
+erschöpft;bitkin
+schwindlig;başı dönen
+übel;midesi bulanan
+#B1 · Çevre ve doğa
+der Umweltschutz;çevre koruma
+die Verschmutzung;kirlilik
+das Abgas;egzoz gazı
+der Klimawandel;iklim değişikliği
+die Erwärmung;ısınma
+die Katastrophe;felaket
+die Überschwemmung;sel
+die Trockenheit;kuraklık
+der Sturm;fırtına
+die Hitze;sıcak hava dalgası
+die Kälte;soğukluk
+die Umweltverschmutzung;çevre kirliliği
+der Abfall;atık
+die Mülltrennung;çöp ayrıştırma
+das Recycling;geri dönüşüm
+die Verpackung;ambalaj
+die Ressource;kaynak (doğal)
+die Sonnenenergie;güneş enerjisi
+die Windenergie;rüzgâr enerjisi
+erneuerbar;yenilenebilir
+der Verbrauch;tüketim
+umweltfreundlich;çevre dostu
+schädlich;zararlı
+die Tierart;hayvan türü
+aussterben;nesli tükenmek
+die Landwirtschaft;tarım
+die Ernte;hasat
+biologisch;organik
+#B1 · Ekonomi ve para
+die Wirtschaft;ekonomi
+die Kosten;masraflar
+die Ausgaben;harcamalar
+die Einnahmen;gelirler
+das Einkommen;gelir
+der Kredit;kredi
+die Schulden;borçlar
+der Zins;faiz
+die Inflation;enflasyon
+der Wert;değer
+wert sein;değmek
+der Haushaltsplan;bütçe
+das Budget;bütçe planı
+die Finanzen;mali durum
+die Bankverbindung;banka bilgileri
+der Kontoauszug;hesap dökümü
+die Gebühren;ücretler
+die Rate;taksit
+in Raten zahlen;taksitle ödemek
+der Vertragspartner;sözleşme tarafı
+die Garantie;garanti
+die Reparatur;tamir
+die Bestellung;sipariş
+der Versand;gönderim (kargo)
+die Lieferzeit;teslimat süresi
+der Verbraucher;tüketici
+der Händler;tüccar
+sich leisten;-e gücü yetmek
+#B1 · Hukuk ve resmî işler
+die Vorschrift;yönetmelik
+die Regelung;düzenleme
+die Erlaubnis;izin
+die Genehmigung;ruhsat
+die Bescheinigung;belge (onaylı)
+die Bestätigung;onay
+bestätigen;onaylamak
+das Original;asıl (belge)
+die Kopie;kopya
+beglaubigen;onaylatmak (noter)
+die Frist;süre (son tarih)
+der Ablauf;süreç
+das Verfahren;prosedür
+die Einbürgerung;vatandaşlığa geçiş
+der Aufenthalt;kalış
+die Arbeitserlaubnis;çalışma izni
+der Wohnsitz;ikamet adresi
+der Mietvertrag;kira sözleşmesi
+die Wohnungssuche;ev arama
+die Hausordnung;bina kuralları
+der Schaden;hasar
+der Ersatz;tazminat (yerine koyma)
+die Haftpflichtversicherung;sorumluluk sigortası
+melden;bildirmek (resmî)
+abgeben;teslim etmek (evrak)
+einreichen;sunmak (evrak)
+verlängern;uzatmak
+gültig;geçerli
+ungültig;geçersiz
+#B1 · Ev ve gündelik hayat
+die Rente;emekli maaşı
+die Kaution;depozito
+einziehen;eve yerleşmek
+das Erdgeschoss;zemin kat
+die Klingel;zil
+möbliert;eşyalı
+renovieren;tadilat yapmak
+das Werkzeug;alet
+die Einrichtung;döşeme
+die Heizkosten;ısınma gideri
+der Lärm;gürültü
+die Ordnung;düzen
+die Sauberkeit;temizlik
+der Alltag;gündelik hayat
+die Gewohnheit;alışkanlık
+der Tagesablauf;günlük program
+der Einkauf;alışveriş (yapılan)
+die Vorräte;erzak
+das Lebensmittel;gıda
+die Zutat;malzeme (yemek)
+das Mehl;un
+der Honig;bal
+der Schinken;jambon
+der Senf;hardal
+das Gewürz;baharat
+die Schüssel;kâse
+sauer;ekşi
+salzig;tuzlu
+die Vorspeise;başlangıç yemeği
+die Nachspeise;tatlı (yemek sonu)
+die Portion;porsiyon
+die Bedienung;servis
+das Sonderangebot;kampanya
+die Umkleidekabine;deneme kabini
+die Ware;mal
+die Lieferung;teslimat
+der Stiefel;çizme
+die Krawatte;kravat
+die Kette;kolye
+kariert;kareli
+gestreift;çizgili
+der Kamm;tarak
+sich kämmen;taranmak
+sich schminken;makyaj yapmak
+der Magen;mide
+die Haut;cilt
+die Allergie;alerji
+die Salbe;merhem
+sich ausruhen;dinlenmek
+schwitzen;terlemek
+#B1 · Seyahat ve trafik
+die Umleitung;güzergâh değişikliği
+die Baustelle;inşaat alanı
+gesperrt;kapalı (yol)
+der Automat;otomat
+die Halbpension;yarım pansiyon
+die Jugendherberge;gençlik hosteli
+der Zoll;gümrük
+die Küste;kıyı
+auspacken;bavulu boşaltmak
+die Verkehrsmittel;ulaşım araçları
+der öffentliche Verkehr;toplu taşıma
+der Anschluss;aktarma
+die Strecke;güzergâh
+die Entfernung;mesafe
+die Geschwindigkeit;hız
+das Tempolimit;hız sınırı
+der Unfallort;kaza yeri
+die Versicherungskarte;sigorta kartı
+die Buchung;rezervasyon
+die Pauschalreise;paket tur
+der Reiseveranstalter;tur şirketi
+die Rundreise;tur (gezi)
+die Kreuzfahrt;gemi turu
+der Aufenthaltsort;bulunduğu yer
+das Reiseziel;gidilecek yer
+die Erholung;dinlenme
+erholsam;dinlendirici
+#B1 · Kültür, sanat ve spor
+das Festival;festival
+die Aufführung;gösteri
+der Schauspieler;oyuncu (aktör)
+die Bühne;sahne
+das Publikum;seyirci
+der Applaus;alkış
+die Oper;opera
+das Orchester;orkestra
+der Sänger;şarkıcı
+der Autor;yazar
+das Werk;eser
+die Literatur;edebiyat
+das Gedicht;şiir
+die Malerei;resim sanatı
+die Galerie;galeri
+die Sportart;spor dalı
+der Wettkampf;yarışma
+die Meisterschaft;şampiyona
+der Sieger;galip
+die Niederlage;yenilgi
+der Sieg;zafer
+der Trainer;antrenör
+der Fan;taraftar
+das Stadion;stadyum
+der Krimi;polisiye
+basteln;el işi yapmak
+segeln;yelken yapmak
+die Kneipe;meyhane
+#B1 · Duygular ve ilişkiler
+die Jugend;gençlik
+der Charakter;karakter
+lieb;tatlı (sevimli)
+hilfsbereit;yardımsever
+geduldig;sabırlı
+unhöflich;kaba
+tot;ölü
+die Persönlichkeit;kişilik
+das Verhalten;davranış
+sich verhalten;davranmak
+die Eigenschaft;özellik
+das Vertrauen;güven
+vertrauen;güvenmek
+die Enttäuschung;hayal kırıklığı
+enttäuscht;hayal kırıklığına uğramış
+die Eifersucht;kıskançlık
+eifersüchtig;kıskanç
+die Einsamkeit;yalnızlık
+einsam;yalnız (kimsesiz)
+der Streit;kavga
+der Konflikt;çatışma
+die Versöhnung;barışma
+sich versöhnen;barışmak
+die Freundschaft;arkadaşlık
+die Partnerschaft;birliktelik
+der Respekt;saygı
+die Toleranz;hoşgörü
+tolerant;hoşgörülü
+das Mitleid;acıma
+die Hoffnung;umut
+die Überraschung;sürpriz
+überrascht;şaşırmış
+die Wut;hiddet
+die Scham;utanç
+sich schämen;utanmak
+die Geduld;sabır
+die Dankbarkeit;minnettarlık
+dankbar;minnettar
+optimistisch;iyimser
+pessimistisch;kötümser
+selbstbewusst;özgüvenli
+schüchtern;utangaç
+humorvoll;esprili
+ehrgeizig;hırslı
+großzügig;cömert
+geizig;cimri
+eitel;kendini beğenmiş
+#B1 · Düşünce ve iletişim
+die Ansicht;bakış açısı
+der Standpunkt;tutum
+das Argument;argüman
+die Begründung;gerekçe
+begründen;gerekçelendirmek
+die Behauptung;iddia
+behaupten;iddia etmek
+der Beweis;kanıt
+beweisen;kanıtlamak
+die Kritik;eleştiri
+der Rat;tavsiye
+die Empfehlung;öneri (tavsiye)
+die Bitte;rica
+die Beschwerde;şikâyet
+die Entschuldigung;özür
+die Absicht;niyet
+der Zweck;amaç
+die Ursache;neden (kök)
+die Folge;sonuç (etki)
+der Zusammenhang;bağlam
+die Bedingung;şart
+der Vorteil;avantaj
+der Nachteil;dezavantaj
+die Alternative;alternatif
+der Kompromiss;uzlaşma
+die Einigung;anlaşma (uzlaşma)
+sich einigen;anlaşmaya varmak
+die Mitteilung;bildirim
+die Auskunft;bilgi (danışma)
+die Anfrage;talep (bilgi)
+die Rückmeldung;geri bildirim
+das Missverständnis;yanlış anlama
+missverstehen;yanlış anlamak
+die Aussage;ifade
+äußern;dile getirmek
+erwähnen;bahsetmek
+betonen;vurgulamak
+zusammenfassen;özetlemek
+die Zusammenfassung;özet
+übersetzen;çevirmek (dil)
+die Übersetzung;çeviri
+#B1 · Fiiller
+akzeptieren;kabullenmek
+anerkennen;tanımak (resmen)
+anpassen;uyarlamak
+sich anpassen;uyum sağlamak
+ansehen;izlemek (bakmak)
+aufgeben;vazgeçmek
+aufnehmen;kaydetmek (ses)
+auswählen;seçip ayırmak
+bedeuten;anlamına gelmek
+befürchten;endişe etmek
+begleiten;eşlik etmek
+beherrschen;hâkim olmak
+beitragen;katkıda bulunmak
+bekämpfen;mücadele etmek
+belohnen;ödüllendirmek
+beraten;danışmanlık yapmak
+berücksichtigen;dikkate almak
+beruhigen;sakinleştirmek
+beschäftigen;meşgul etmek
+sich beschäftigen;uğraşmak
+bestimmen;belirlemek
+beteiligen;dahil etmek
+betreuen;ilgilenmek (bakım)
+bewerten;değerlendirmek
+bezeichnen;adlandırmak
+darstellen;tasvir etmek
+durchführen;uygulamak
+einführen;tanıtmak (yeni şey)
+einhalten;uymak (kurala)
+einrichten;döşemek
+einsetzen;kullanmak (devreye sokmak)
+empfangen;karşılamak (misafir)
+entdecken;keşfetmek
+entfernen;uzaklaştırmak
+entlassen;işten çıkarmak
+entstehen;ortaya çıkmak
+entwickeln;geliştirmek
+erfinden;icat etmek
+erfüllen;yerine getirmek
+erhalten;almak (resmî)
+erhöhen;artırmak
+erleben;yaşamak (deneyim)
+ermöglichen;mümkün kılmak
+ersetzen;yerine koymak
+erwarten;beklemek (umut)
+erziehen;yetiştirmek (çocuk)
+festlegen;belirlemek (kesinleştirmek)
+feststellen;tespit etmek
+fördern;teşvik etmek
+gelten;geçerli olmak
+genießen;keyfini çıkarmak
+gestalten;şekillendirmek
+gewährleisten;güvence altına almak
+herstellen;üretmek
+hinweisen;dikkat çekmek
+informieren;bilgilendirmek
+sich informieren;bilgi edinmek
+interessieren;ilgisini çekmek
+kennenlernen;tanışmak
+klären;açıklığa kavuşturmak
+leiden;acı çekmek
+leiten;yönetmek
+lösen;çözmek
+nachdenken;düşünüp taşınmak
+nutzen;yararlanmak
+produzieren;üretim yapmak
+reagieren;tepki vermek
+reduzieren;azaltmak
+regeln;düzenlemek (kurala bağlamak)
+schätzen;takdir etmek
+senken;düşürmek
+sorgen;ilgilenmek (sağlamak)
+steigern;yükseltmek
+überlegen;düşünmek (karar için)
+übernehmen;üstlenmek
+überraschen;şaşırtmak
+umgehen mit;başa çıkmak
+unterbrechen;sözünü kesmek
+unterscheiden;ayırt etmek
+verabreden;kararlaştırmak (buluşma)
+veranstalten;düzenlemek (etkinlik)
+verbinden;birleştirmek
+verfügen;sahip olmak (elinde bulunmak)
+vergrößern;büyütmek
+verhindern;önlemek
+verlassen;terk etmek
+verlangen;talep etmek
+vermieten;kiraya vermek
+vermissen;özlemek
+veröffentlichen;yayımlamak
+verpflichten;yükümlü kılmak
+versorgen;sağlamak (ihtiyaç)
+verteilen;dağıtmak
+vertreten;temsil etmek
+verursachen;neden olmak
+verwenden;kullanmak (faydalanmak)
+verzichten;vazgeçmek (-den)
+vorhaben;niyetinde olmak
+wahrnehmen;algılamak
+zurechtkommen;idare etmek
+zweifeln;şüphe etmek
+#B1 · Edatlı fiiller
+achten auf;dikkat etmek (-e)
+ankommen auf;bağlı olmak (-e)
+antworten auf;cevap vermek (-e)
+sich bedanken für;teşekkür etmek (için)
+sich beschweren über;şikâyet etmek (hakkında)
+bestehen aus;oluşmak (-den)
+sich bewerben um;başvurmak (-e)
+bitten um;rica etmek (-i)
+denken an;düşünmek (-i)
+diskutieren über;tartışmak (hakkında)
+sich entscheiden für;karar vermek (-de)
+sich entschuldigen für;özür dilemek (için)
+sich erkundigen nach;sormak (bilgi)
+fragen nach;sormak (-i)
+gehören zu;ait olmak (-e)
+sich handeln um;söz konusu olmak
+hoffen auf;ummak (-i)
+sich konzentrieren auf;odaklanmak (-e)
+leiden unter;acı çekmek (-den)
+nachdenken über;düşünmek (üzerine)
+rechnen mit;beklemek (hesaba katmak)
+sich sorgen um;endişelenmek (için)
+sprechen über;konuşmak (hakkında)
+teilnehmen an;katılmak (-e)
+träumen von;hayal etmek (-i)
+sich unterhalten über;sohbet etmek (hakkında)
+sich verlassen auf;güvenmek (-e)
+sich vorbereiten auf;hazırlanmak (-e)
+warten auf;beklemek (-i)
+sich wundern über;şaşırmak (-e)
+zweifeln an;şüphe etmek (-den)
+#B1 · Sıfatlar
+schmal;ensiz
+absolut;kesinlikle
+abhängig;bağımlı (-e)
+unabhängig;bağımsız
+angenehm;hoş (keyifli)
+unangenehm;nahoş
+anstrengend;yorucu
+aufmerksam;dikkatli (ilgili)
+ausgezeichnet;mükemmel derecede
+ausreichend;yeterli derecede
+bedeutend;önemli (anlamlı)
+begeistert;hevesli
+beruflich;mesleki
+bestimmt;belirli
+deutlich;açık (net)
+direkt;doğrudan
+dringend;acil
+durchschnittlich;ortalama
+echt;gerçek (sahte değil)
+eigen;kendi
+eindeutig;açıkça belli
+einheitlich;tek tip
+entfernt;uzakta
+entspannt;rahat (gevşek)
+erfolgreich;başarılı
+erforderlich;gerekli (zorunlu)
+erlaubt;izin verilmiş
+fair;adil
+fest;sağlam
+frühzeitig;erkenden
+gesetzlich;yasal
+gewöhnlich;olağan
+gleichzeitig;aynı anda
+grundsätzlich;prensip olarak
+häufig;sık
+hilflos;çaresiz
+kompliziert;karmaşık
+körperlich;fiziksel
+kulturell;kültürel
+künstlich;yapay
+lebendig;canlı
+menschlich;insani
+mündlich;sözlü
+schriftlich;yazılı
+negativ;olumsuz
+positiv;olumlu
+neutral;tarafsız
+ökologisch;ekolojik
+politisch;siyasi
+regional;bölgesel
+sozial;sosyal
+spannend;heyecan verici
+ständig;sürekli
+streng;sıkı (katı)
+technisch;teknik (sıfat)
+überflüssig;gereksiz
+üblich;alışılmış
+unterschiedlich;çeşitli
+vergleichbar;karşılaştırılabilir
+verständlich;anlaşılır
+voraussichtlich;muhtemelen
+vorhanden;mevcut
+wahrscheinlich;büyük ihtimalle
+weltweit;dünya çapında
+wesentlich;temel (esaslı)
+wirksam;etkili
+wirtschaftlich;ekonomik
+zahlreich;çok sayıda
+zufällig;tesadüfen
+zuständig;yetkili
+#B1 · Zarflar ve bağlaçlar
+allerdings;ancak
+andererseits;öte yandan
+einerseits;bir yandan
+anschließend;ardından
+dagegen;buna karşılık
+daher;bu nedenle
+dabei;bu sırada
+darum;bundan dolayı
+ebenfalls;aynı şekilde
+eher;daha ziyade
+falls;olur da
+folglich;dolayısıyla
+indem;-erek
+infolgedessen;bunun sonucunda
+jedoch;fakat
+je … desto;ne kadar … o kadar
+nämlich;çünkü (açıklama)
+schließlich;sonunda
+seitdem;o zamandan beri
+so dass;öyle ki
+solange;-dığı sürece
+sowohl … als auch;hem … hem de
+statt dass;-ceğine
+trotz;-e rağmen (edat)
+übrigens;bu arada (söz arası)
+um … zu;-mek için
+weder … noch;ne … ne de
+zwar … aber;gerçi … ama
+entweder … oder;ya … ya da
+nicht nur … sondern auch;sadece … değil … aynı zamanda
+vor allem;özellikle (her şeyden önce)
+zum Glück;neyse ki
+im Gegenteil;aksine
+auf jeden Fall;her halükârda
+auf keinen Fall;hiçbir şekilde
+#B1 · Soyut isimler
+die Ausnahme;istisna
+die Beschreibung;tarif (anlatım)
+der Eindruck;izlenim
+die Einstellung;tutum (yaklaşım)
+das Ereignis;olay
+die Erfindung;icat
+die Erinnerung;anı
+die Erwartung;beklenti
+das Erlebnis;yaşantı
+die Forschung;araştırma
+die Gelegenheit;fırsat
+das Gleichgewicht;denge
+die Grundlage;temel
+das Interesse;ilgi
+der Inhalt;içerik
+der Kontakt;iletişim (temas)
+die Kenntnis;bilgi (haberdar olma)
+die Leistungsfähigkeit;verimlilik
+die Menge;miktar
+der Mangel;eksiklik
+die Nachfrage;talep
+der Nutzen;yarar
+die Rolle;rol
+die Situation;durum (vaziyet)
+die Statistik;istatistik
+die Struktur;yapı
+die Tatsache;gerçek (olgu)
+der Teil;parça
+die Umfrage;anket
+der Umgang;davranış (ilişki)
+der Verlauf;seyir
+das Verständnis;anlayış
+die Verwendung;kullanım
+der Vorgang;süreç (olay)
+die Wahrheit;gerçek (doğruluk)
+der Wunsch;dilek
+der Zustand;hâl
+#B1 · Günlük hayat ve hizmetler
+die Abholung;teslim alma
+die Anzahlung;kapora
+die Anleitung;kullanım kılavuzu
+die Bedienungsanleitung;kullanma talimatı
+der Ausverkauf;tasfiyeli satış
+die Beratung;danışmanlık
+der Berater;danışman
+der Besitzer;mal sahibi
+der Bewohner;oturan kişi
+die Ermäßigung;indirim (belgeli)
+das Ersatzteil;yedek parça
+die Fahrbahn;şerit
+das Fahrzeug;taşıt
+der Fahrradweg;bisiklet yolu
+der Feuerlöscher;yangın söndürücü
+der Fleck;leke
+das Fundstück;bulunan eşya
+der Gutschein;hediye çeki
+der Hinweis;ipucu
+das Kleingeld;bozuk para
+die Kundenkarte;müşteri kartı
+der Kundendienst;teknik servis
+die Leistungen;hizmetler (kapsam)
+die Mahnung;ihtar
+die Nachbarschaft;mahalle
+die Öffnungszeiten;açılış saatleri
+das Schild;tabela
+der Sitzplatz;oturacak yer
+die Sprechstunde;görüşme saati
+der Stadtteil;semt
+die Störung;arıza
+die Unterhaltung;eğlence (sohbet)
+die Warteschlange;kuyruk
+das Wartezimmer;bekleme odası
+der Wohnort;oturduğu yer
+die Zustellung;dağıtım (posta)
+der Zuschlag;ek ücret
+#B1 · Ev ve yaşam alanı
+der Altbau;eski bina
+der Neubau;yeni bina
+die Etage;kat (bina)
+das Hochhaus;gökdelen
+die Immobilie;emlak
+der Makler;emlakçı
+die Mietwohnung;kiralık daire
+die Eigentumswohnung;mülk daire
+das Reihenhaus;sıra ev
+die Wohngemeinschaft;paylaşımlı ev
+der Mitbewohner;ev arkadaşı
+das Stockwerk;bina katı
+der Quadratmeter;metrekare
+die Fläche;alan
+die Renovierung;tadilat
+das Grundstück;arsa
+die Terrasse;teras
+der Dachboden;tavan arası
+der Abstellraum;depo odası
+der Wasserhahn;musluk
+die Leitung;boru (hat)
+das Waschbecken;lavabo
+die Badewanne;küvet
+#B1 · Teknik ve eşyalar
+die Batterie;pil
+das Kabel;kablo
+der Stecker;fiş
+das Display;ekran (cihaz)
+die Fernbedienung;uzaktan kumanda
+der Lautsprecher;hoparlör
+das Mikrofon;mikrofon
+der Kopfhörer;kulaklık
+die Software;yazılım
+das Update;güncelleme
+der Speicher;bellek
+der Bildschirmschoner;ekran koruyucu
+der Ausdruck;çıktı
+der Anhang;ek (e-posta)
+die Benutzeroberfläche;kullanıcı arayüzü
+das Betriebssystem;işletim sistemi
+der Nutzer;kullanıcı
+#B1 · İş ve kariyer (devam)
+die Abteilungsleiterin;bölüm müdürü
+die Anforderung;gereklilik
+die Arbeitsbedingungen;çalışma koşulları
+die Ausschreibung;ihale ilanı
+der Bewerber;aday
+die Bewerbungsunterlagen;başvuru evrakı
+die Bezahlung;ödeme (ücret)
+die Firmenleitung;şirket yönetimi
+die Gehaltserhöhung;maaş zammı
+die Geschäftsführung;yönetim kurulu
+die Kantine;yemekhane
+die Mitarbeiterin;kadın çalışan
+der Personalchef;personel müdürü
+die Personalabteilung;insan kaynakları
+die Stellenanzeige;iş ilanı
+die Tätigkeit;faaliyet
+der Unternehmer;girişimci
+die Verhandlung;müzakere
+verhandeln;pazarlık etmek
+die Verwaltung;idare
+die Werkstatt;atölye
+die Zuständigkeit;yetki alanı
+#B1 · Fiiller (devam)
+abhängen;bağlı olmak
+abschließen;kilitlemek, bitirmek
+abstimmen;oylamak
+ansprechen;hitap etmek
+anstellen;işe almak
+anwenden;uygulamak (kullanmak)
+aufbauen;kurmak
+auffallen;göze çarpmak
+auffordern;davet etmek (talep)
+aufklären;aydınlatmak
+aufregen;sinirlendirmek
+sich aufregen;sinirlenmek
+aufteilen;bölüştürmek
+ausdrücken;ifade etmek
+auseinandersetzen;ele almak
+ausgleichen;dengelemek
+auskommen;geçinmek
+ausrichten;iletmek (mesaj)
+ausreichen;yetmek
+ausrufen;anons etmek
+ausschließen;dışlamak
+aussuchen;seçmek (beğenerek)
+auswandern;göç etmek
+auswirken;etkilemek
+bauen;inşa etmek
+beantworten;yanıtlamak
+bearbeiten;işlemek (dosya)
+bedienen;hizmet etmek
+beeinflussen;etkilemek (yönlendirmek)
+befragen;sorgulamak
+begeistern;heyecanlandırmak
+begreifen;kavramak
+behalten;saklamak (tutmak)
+beibringen;öğretmek
+beleidigen;hakaret etmek
+benötigen;gerek duymak
+beobachten;gözlemlemek
+bereuen;pişman olmak
+beschließen;karar almak
+beschränken;kısıtlamak
+besprechen;görüşmek
+bestrafen;cezalandırmak
+betrachten;incelemek
+betreten;girmek (bir yere)
+betrügen;dolandırmak
+bewegen;hareket ettirmek
+sich bewegen;hareket etmek
+bewundern;hayran olmak
+bilden;oluşturmak
+blockieren;engellemek
+brennen;yanmak
+decken;örtmek
+dienen;hizmet etmek (amaç)
+drohen;tehdit etmek
+einschränken;sınırlamak
+eintreten;içeri girmek
+einwandern;göçmen olarak gelmek
+empfinden;duymak (his)
+enthalten;içermek
+entlasten;yükünü hafifletmek
+entspannen;rahatlatmak
+erleichtern;kolaylaştırmak
+ernähren;beslemek (gıda)
+erneuern;yenilemek
+erschrecken;korkmak (irkilmek)
+erstellen;hazırlamak (belge)
+ertragen;katlanmak
+fliehen;kaçmak
+fordern;talep etmek (ısrarla)
+fortsetzen;devam ettirmek
+garantieren;garanti etmek
+gestatten;müsaade etmek
+gewöhnen;alıştırmak
+handeln;ticaret yapmak, davranmak
+herausfinden;bulup çıkarmak
+hervorheben;öne çıkarmak
+hinzufügen;eklemek
+investieren;yatırım yapmak
+kämpfen;savaşmak
+kombinieren;birleştirmek (kombine)
+kommunizieren;iletişim kurmak
+lehren;ders vermek
+mitteilen;bildirmek (haber)
+motivieren;motive etmek
+nachfragen;soruşturmak
+nachschlagen;sözlüğe bakmak
+nachweisen;ispatlamak
+pflanzen;dikmek (bitki)
+präsentieren;sunmak (sunum)
+protestieren;protesto etmek
+recherchieren;araştırmak
+retten;kurtarmak
+schaden;zarar vermek
+schonen;korumak (özen)
+schützen vor;-den korumak
+sichern;güvenceye almak
+stammen;kökenli olmak
+starten;başlatmak
+steuern;yönlendirmek
+stimmen;doğru olmak
+überprüfen;denetlemek (kontrol)
+übertragen;aktarmak
+umsetzen;hayata geçirmek
+unterhalten;eğlendirmek
+unterrichten;öğretmenlik yapmak
+verändern;dönüştürmek
+verbreiten;yaymak
+verbringen;geçirmek (zaman)
+vereinbaren;kararlaştırmak
+verfolgen;izlemek (takip)
+vergeben;affetmek
+verkleinern;küçültmek
+vermitteln;aracılık etmek
+vernichten;yok etmek
+verraten;ele vermek
+versichern;sigortalamak
+verstecken;saklamak (gizlemek)
+vertragen;kaldırmak (tahammül)
+verwalten;yönetmek (idare)
+verwechseln;karıştırmak (birbirine)
+verzeihen;bağışlamak
+vorkommen;rastlanmak
+vorlesen;sesli okumak
+vorziehen;tercih etmek
+wagen;cesaret etmek
+wehren;karşı koymak
+widersprechen;itiraz etmek
+zerstören;tahrip etmek
+zugeben;itiraf etmek
+zulassen;izin vermek (onaylamak)
+zurückkehren;geri dönmek
+zusammenstoßen;çarpışmak
+#B1 · Sıfatlar (devam)
+ängstlich;ürkek
+ärgerlich;can sıkıcı
+ausführlich;ayrıntılı
+äußerst;son derece
+beliebig;herhangi
+bewusst;bilinçli
+dauerhaft;kalıcı
+einverstanden;hemfikir
+empfindlich;hassas
+fähig;yetenekli
+fremdsprachig;yabancı dilde
+gelegentlich;ara sıra
+gerecht;adaletli
+ungerecht;adaletsiz
+gesamt;bütün
+gewaltig;muazzam
+gleichberechtigt;eşit haklara sahip
+großartig;harikulade
+hervorragend;olağanüstü
+höchstwahrscheinlich;büyük olasılıkla
+intensiv;yoğun
+kritisch;eleştirel
+lächerlich;gülünç
+mangelhaft;yetersiz
+merkwürdig;tuhaf
+nachhaltig;sürdürülebilir
+offensichtlich;belli ki
+peinlich;utandırıcı
+riesig;kocaman
+sachlich;nesnel
+seltsam;garip
+sinnvoll;anlamlı
+sorgfältig;özenli
+sparsam;tutumlu
+spontan;kendiliğinden
+umfangreich;kapsamlı
+umstritten;tartışmalı
+unglaublich;inanılmaz
+unvorstellbar;hayal edilemez
+verantwortlich;sorumlu
+vergeblich;boşuna
+verlässlich;itimat edilir
+vernünftig;mantıklı
+verrückt;deli
+verwandt;akraba
+vollständig;eksiksiz
+wertvoll;değerli
+winzig;minicik
+witzig;eğlenceli
+zukünftig;gelecekteki
+zusätzlich;ek olarak
+#B1 · Soyut isimler (devam)
+die Gewalt;şiddet
+die Ehre;onur
+der Stolz;gurur
+die Neugier;merak
+das Selbstbewusstsein;özgüven
+die Angewohnheit;huy
+die Anstrengung;çaba
+der Aufwand;zahmet
+die Belohnung;ödül
+die Herausforderung;zorlu görev
+das Vorurteil;önyargı
+die Wirklichkeit;gerçeklik
+die Zufriedenheit;memnuniyet`;
+const WORDS = [];
+(function parseWords() {
+  let deck = 'Genel';
+  for (const raw of WORD_DATA.split('\n')) {
+    const line = raw.trim(); if (!line) continue;
+    if (line.startsWith('#')) { deck = line.slice(1).trim(); continue; }
+    const i = line.indexOf(';'); if (i < 0) continue;
+    const de = line.slice(0, i).trim(), tr = line.slice(i + 1).trim();
+    WORDS.push({ id: 'w' + hash(de), de, tr, deck });
+  }
+})();
+const PAIRS = 6;
+let game = null, gameTick = null;
+function wordStat(id) { return (S.words || {})[id] || null; }
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+// Weighted random pick: words you got wrong (and words never seen) come up more often.
+function pickWords(n) {
+  const pool = WORDS.filter(w => inLevel(w.deck)).map(w => {
+    const s = wordStat(w.id); const wr = s ? s.w : 0, ok = s ? s.k : 0;
+    const weight = 1 + 4 * wr / (wr + ok + 1) + (s ? 0 : 0.8);
+    return { w, key: Math.pow(Math.random(), 1 / weight) };
+  }).sort((a, b) => b.key - a.key);
+  const out = [], seenTr = new Set();
+  for (const { w } of pool) { const t = normTok(w.tr.replace(/\s+/g, ''), 'tr'); if (seenTr.has(t)) continue; seenTr.add(t); out.push(w); if (out.length === n) break; }
+  return out;
+}
+function artHtml(de) {
+  const m = /^(der|die|das) (.+)$/.exec(de);
+  return m ? `<span class="art art-${m[1]}">${m[1]}</span> <span>${esc(m[2])}</span>` : esc(de);
+}
+function fmtSecs(s) { s = Math.round(s); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+function startGame() {
+  const words = pickWords(PAIRS);
+  if (words.length < 3) { toast('Bu seviyede kelime yok. Başka bir seviye seç.'); return; }
+  const ids = words.map(w => w.id);
+  game = { words, left: shuffle(ids.slice()), right: shuffle(ids.slice()), selDe: null, selTr: null, done: new Set(), wrong: 0, missed: new Set(), start: Date.now(), end: 0 };
+  clearInterval(gameTick);
+  gameTick = setInterval(() => { const el = $('#gTime'); if (el && game && !game.end) el.textContent = fmtSecs((Date.now() - game.start) / 1000); }, 500);
+  render();
+}
+function gameWord(id) { return game.words.find(w => w.id === id); }
+function gameTap(el) {
+  if (!game || game.end || el.classList.contains('done')) return;
+  const side = el.dataset.gde ? 'de' : 'tr'; const id = el.dataset.gde || el.dataset.gtr;
+  const key = side === 'de' ? 'selDe' : 'selTr';
+  if (side === 'de' && canSpeak() && S.settings.autoSpeak) speak(gameWord(id).de);
+  document.querySelectorAll(`[data-g${side}].sel`).forEach(x => x.classList.remove('sel'));
+  if (game[key] === id) { game[key] = null; return; }
+  game[key] = id; el.classList.add('sel');
+  if (!(game.selDe && game.selTr)) return;
+  const a = game.selDe, b = game.selTr; game.selDe = game.selTr = null;
+  const ea = document.querySelector(`[data-gde="${a}"]`), eb = document.querySelector(`[data-gtr="${b}"]`);
+  ea.classList.remove('sel'); eb.classList.remove('sel');
+  if (a === b) {
+    ea.classList.add('done'); eb.classList.add('done'); ea.disabled = eb.disabled = true;
+    game.done.add(a);
+    $('#gLeft').textContent = game.words.length - game.done.size;
+    if (game.done.size === game.words.length) setTimeout(finishGame, 350);
+  } else {
+    game.wrong++; game.missed.add(a); game.missed.add(b);
+    $('#gWrong').textContent = game.wrong;
+    ea.classList.add('bad'); eb.classList.add('bad');
+    setTimeout(() => { ea.classList.remove('bad'); eb.classList.remove('bad'); }, 600);
+  }
+}
+function finishGame() {
+  if (!game || game.end) return;
+  game.end = Date.now(); clearInterval(gameTick);
+  S.words = S.words || {};
+  for (const w of game.words) {
+    const s = S.words[w.id] || { w: 0, k: 0 };
+    if (game.missed.has(w.id)) s.w++; else s.k++;
+    s.ls = game.end; S.words[w.id] = s;
+  }
+  const secs = Math.round((game.end - game.start) / 1000), lvl = S.settings.level || 'all';
+  S.game = S.game || { best: {}, rounds: 0 }; S.game.rounds++;
+  if (!game.wrong && (!S.game.best[lvl] || secs < S.game.best[lvl])) { S.game.best[lvl] = secs; game.newBest = true; }
+  today().g = (today().g || 0) + 1;
+  save(); render();
+}
+function hardWords(n) {
+  const out = [];
+  for (const w of WORDS) { const s = wordStat(w.id); if (s && s.w) out.push({ w, s }); }
+  return out.sort((a, b) => (b.s.w / (b.s.w + b.s.k)) - (a.s.w / (a.s.w + a.s.k)) || b.s.w - a.s.w).slice(0, n);
+}
+function viewGame() {
+  const lvl = S.settings.level || 'all';
+  const best = (S.game && S.game.best[lvl]) || 0;
+  if (game && !game.end) {
+    const tile = (id, side) => { const w = gameWord(id); const done = game.done.has(id);
+      return `<button class="gtile ${side}${done ? ' done' : ''}" data-g${side}="${id}" ${done ? 'disabled' : ''} ${side === 'de' ? 'lang="de"' : ''}>${side === 'de' ? artHtml(w.de) : esc(w.tr)}</button>`; };
+    return `<div class="gbar">
+        <button class="iconbtn" data-act="gquit" aria-label="Oyunu bitir">${ICON.close}</button>
+        <span class="gstat">Süre <b id="gTime">${fmtSecs((Date.now() - game.start) / 1000)}</b></span>
+        <span class="gstat">Hata <b id="gWrong">${game.wrong}</b></span>
+        <span class="gstat"><b id="gLeft">${game.words.length - game.done.size}</b> çift</span>
+      </div>
+      <div class="board">
+        <div class="gcol" aria-label="Almanca">${game.left.map(id => tile(id, 'de')).join('')}</div>
+        <div class="gcol" aria-label="Türkçe">${game.right.map(id => tile(id, 'tr')).join('')}</div>
+      </div>
+      <p class="muted small">Bir Almanca kelimeye, sonra Türkçe karşılığına dokun. Artikeller: <span class="art art-der">der</span> · <span class="art art-die">die</span> · <span class="art art-das">das</span></p>`;
+  }
+  if (game && game.end) {
+    const secs = Math.round((game.end - game.start) / 1000);
+    const missed = game.words.filter(w => game.missed.has(w.id));
+    return `<section class="sheet stack">
+      <h3>${game.wrong ? 'Tur bitti' : 'Hatasız tur!'}${game.newBest ? ' Yeni rekor.' : ''}</h3>
+      <div class="today">
+        <div><strong>${fmtSecs(secs)}</strong><span>süre</span></div>
+        <div class="${game.wrong ? 'n-learn' : 'n-rev'}"><strong>${game.wrong}</strong><span>hata</span></div>
+        <div><strong>${best ? fmtSecs(best) : '–'}</strong><span>en iyi (hatasız)</span></div>
+      </div>
+      ${missed.length ? `<div><h2>Karıştırdığın kelimeler</h2><ul class="weaklist">${missed.map(w => `<li><span class="de" lang="de">${artHtml(w.de)}</span><span class="tr">${esc(w.tr)}</span>${canSpeak() ? `<button class="iconbtn" data-say="${esc(w.de)}" aria-label="Dinle" style="grid-column:2;grid-row:1 / span 2">${ICON.play}</button>` : ''}</li>`).join('')}</ul><p class="muted small" style="margin-top:6px">Bunlar sonraki turlarda daha sık çıkacak.</p></div>` : ''}
+      <div class="row"><button class="btn primary" data-act="gstart" style="flex:1">Yeni tur</button><button class="btn" data-act="gquit">Bitir</button></div>
+    </section>`;
+  }
+  const hard = hardWords(8);
+  return `
+  <section class="sheet stack">
+    <div><h3>Kelime eşleştir</h3><p class="muted small">Her turda ${PAIRS} Almanca kelime ve Türkçe karşılıkları karışık gelir. Doğru çiftleri olabildiğince hızlı eşleştir. Yanlış yaptığın kelimeler sonraki turlarda daha sık çıkar.</p></div>
+    <div class="row small muted">${S.game && S.game.rounds ? `<span>${S.game.rounds} tur oynandı</span>` : ''}${best ? `<span>· Bu seviyede en iyi süre: <b>${fmtSecs(best)}</b></span>` : ''}</div>
+    <button class="btn primary wide" data-act="gstart">Oyunu başlat</button>
+  </section>
+  <section class="stack plain">
+    <h2 style="margin:0">Seviye</h2>
+    ${levelButtons(WORDS)}
+  </section>
+  <section class="sheet">
+    <h2>Zorlandığın kelimeler</h2>
+    ${hard.length ? `<ul class="weaklist">${hard.map(x => `<li><span class="de" lang="de">${artHtml(x.w.de)}</span><span class="tr">${esc(x.w.tr)}</span><span class="errn">${x.s.w} hata / ${x.s.w + x.s.k}</span></li>`).join('')}</ul>` : `<p class="muted">Henüz yok. Eşleştirirken karıştırdığın kelimeler burada listelenir.</p>`}
+  </section>`;
+}
+
+/* ---------- graded stories ---------- */
+const STORY_DATA = `=A1|Ein Tag mit Tom|Tom'la bir gün
+Tom wohnt in Köln.|Tom Köln'de oturuyor.
+Er ist dreißig Jahre alt und arbeitet in einem Büro.|Otuz yaşında ve bir ofiste çalışıyor.
+Jeden Morgen steht er um sechs Uhr auf.|Her sabah saat altıda kalkıyor.
+Er duscht und trinkt einen Kaffee.|Duş alıyor ve bir kahve içiyor.
+Zum Frühstück isst er Brot mit Käse.|Kahvaltıda peynirli ekmek yiyor.
+Um sieben Uhr fährt er mit dem Bus zur Arbeit.|Saat yedide otobüsle işe gidiyor.
+Die Arbeit beginnt um acht Uhr.|İş saat sekizde başlıyor.
+Mittags isst Tom mit seinen Kollegen in der Kantine.|Öğlenleri Tom iş arkadaşlarıyla yemekhanede yemek yiyor.
+Um fünf Uhr hat er Feierabend.|Saat beşte mesaisi bitiyor.
+Dann geht er in den Park und spielt Fußball.|Sonra parka gidiyor ve futbol oynuyor.
+Am Abend kocht er Nudeln und sieht fern.|Akşam makarna pişiriyor ve televizyon izliyor.
+Um elf Uhr geht er ins Bett.|Saat on birde yatıyor.
+Tom ist müde, aber zufrieden.|Tom yorgun ama memnun.
+?Tom nerede oturuyor?|Berlin'de|*Köln'de|Münih'te
+?Tom işe nasıl gidiyor?|Bisikletle|Arabayla|*Otobüsle
+?Tom işten sonra ne yapıyor?|*Parka gidip futbol oynuyor|Alışverişe gidiyor|Hemen uyuyor
+~wohnt=oturuyor;arbeitet=çalışıyor;steht auf=kalkıyor;steht=kalkıyor (aufstehen);duscht=duş alıyor;trinkt=içiyor;isst=yiyor;fährt=gidiyor (araçla);beginnt=başlıyor;hat=var (sahip);geht=gidiyor;spielt=oynuyor;kocht=pişiriyor;sieht fern=televizyon izliyor;sieht=görüyor;kollegen=iş arkadaşları;kantine=yemekhane;zufrieden=memnun
+=A1|Im Café|Kafede
+Maria und Ali sind Freunde.|Maria ile Ali arkadaş.
+Am Samstag gehen sie zusammen ins Café.|Cumartesi günü birlikte kafeye gidiyorlar.
+Das Café ist klein und gemütlich.|Kafe küçük ve rahat.
+Der Kellner kommt und fragt: „Was möchten Sie?“|Garson geliyor ve soruyor: "Ne istersiniz?"
+Maria möchte einen Tee mit Zitrone.|Maria limonlu bir çay istiyor.
+Ali nimmt einen Kaffee und ein Stück Kuchen.|Ali bir kahve ve bir dilim pasta alıyor.
+Der Kuchen ist sehr lecker.|Pasta çok lezzetli.
+Maria erzählt von ihrem Deutschkurs.|Maria Almanca kursunu anlatıyor.
+Ali hört zu und lacht.|Ali dinliyor ve gülüyor.
+Nach einer Stunde fragt Ali: „Die Rechnung, bitte!“|Bir saat sonra Ali "Hesap lütfen!" diyor.
+Alles zusammen kostet elf Euro.|Hepsi birlikte on bir avro tutuyor.
+Ali bezahlt heute, und Maria bezahlt nächstes Mal.|Bugün Ali ödüyor, bir dahaki sefere Maria ödeyecek.
+?Maria ne içiyor?|Kahve|*Limonlu çay|Portakal suyu
+?Ali ne yiyor?|*Bir dilim pasta|Bir sandviç|Hiçbir şey
+?Hesap ne kadar tutuyor?|Sekiz avro|*On bir avro|On beş avro
+~gehen=gidiyorlar;gemütlich=rahat, samimi;kommt=geliyor;fragt=soruyor;möchte=istiyor;möchten=isterdiniz;nimmt=alıyor;stück=dilim;erzählt=anlatıyor;ihrem=onun (kadın);hört zu=dinliyor;hört=duyuyor;lacht=gülüyor;kostet=tutuyor (fiyat);bezahlt=ödüyor;nächstes=gelecek;mal=sefer
+=A1|Meine neue Wohnung|Yeni dairem
+Ich heiße Elif und ich habe eine neue Wohnung.|Adım Elif ve yeni bir dairem var.
+Die Wohnung ist in der Stadtmitte.|Daire şehir merkezinde.
+Sie hat zwei Zimmer, eine Küche und ein Bad.|İki odası, bir mutfağı ve bir banyosu var.
+Das Wohnzimmer ist groß und hell.|Oturma odası büyük ve aydınlık.
+Dort stehen ein Sofa, ein Tisch und vier Stühle.|Orada bir kanepe, bir masa ve dört sandalye duruyor.
+Das Schlafzimmer ist klein, aber ruhig.|Yatak odası küçük ama sakin.
+Die Küche ist neu.|Mutfak yeni.
+Leider gibt es keinen Balkon.|Maalesef balkon yok.
+Die Miete ist nicht billig, aber die Lage ist super.|Kira ucuz değil ama konumu harika.
+Der Supermarkt und die Haltestelle sind ganz nah.|Süpermarket ve durak çok yakın.
+Meine Nachbarn sind sehr nett.|Komşularım çok nazik.
+Am Sonntag mache ich eine kleine Party.|Pazar günü küçük bir parti yapıyorum.
+Alle meine Freunde kommen.|Bütün arkadaşlarım geliyor.
+?Daire nerede?|*Şehir merkezinde|Bir köyde|Havalimanının yanında
+?Dairede ne yok?|Mutfak|*Balkon|Banyo
+?Elif pazar günü ne yapıyor?|Taşınıyor|*Küçük bir parti veriyor|Tatile gidiyor
+~heiße=adım ... (heißen);hell=aydınlık;stehen=duruyor;stühle=sandalyeler;ruhig=sakin;leider=maalesef;gibt es=var;keinen=hiç;lage=konum;ganz=çok, tamamen;nachbarn=komşular;mache=yapıyorum;alle=bütün;freunde=arkadaşlar
+=A1|Einkaufen am Samstag|Cumartesi alışverişi
+Am Samstag geht Herr Becker auf den Markt.|Cumartesi Bay Becker pazara gidiyor.
+Er hat eine Liste.|Bir listesi var.
+Er braucht Äpfel, Tomaten, Kartoffeln und Eier.|Elma, domates, patates ve yumurtaya ihtiyacı var.
+Auf dem Markt ist es sehr voll.|Pazar çok kalabalık.
+Er kauft ein Kilo Äpfel und zwei Kilo Kartoffeln.|Bir kilo elma ve iki kilo patates alıyor.
+Die Tomaten sind heute sehr teuer.|Domatesler bugün çok pahalı.
+Herr Becker nimmt nur ein halbes Kilo.|Bay Becker sadece yarım kilo alıyor.
+Dann geht er in die Bäckerei.|Sonra fırına gidiyor.
+Dort kauft er ein Brot und sechs Brötchen.|Orada bir ekmek ve altı küçük ekmek alıyor.
+Zu Hause sieht er die Liste noch einmal an.|Evde listeye bir kez daha bakıyor.
+Oh nein, er hat die Eier vergessen!|Ah hayır, yumurtaları unutmuş!
+Er lacht und geht noch einmal los.|Gülüyor ve bir kez daha yola çıkıyor.
+?Bay Becker cumartesi nereye gidiyor?|*Pazara|Doktora|İşe
+?Bay Becker neyi unutuyor?|Ekmeği|Elmaları|*Yumurtaları
+?Domatesler bugün nasıl?|Ucuz|*Çok pahalı|Kötü
+~braucht=ihtiyacı var;voll=kalabalık (dolu);kauft=satın alıyor;eier=yumurtalar;äpfel=elmalar;kartoffeln=patatesler;tomaten=domatesler;halbes=yarım;sieht an=bakıyor;sieht=bakıyor;vergessen=unutmuş;geht los=yola çıkıyor;los=yola
+=A1|Der Hund von Frau Weber|Bayan Weber'in köpeği
+Frau Weber ist meine Nachbarin.|Bayan Weber benim komşum.
+Sie ist achtzig Jahre alt und hat einen Hund.|Seksen yaşında ve bir köpeği var.
+Der Hund heißt Bruno.|Köpeğin adı Bruno.
+Bruno ist groß und braun.|Bruno büyük ve kahverengi.
+Frau Weber hat heute Rückenschmerzen.|Bayan Weber'in bugün sırtı ağrıyor.
+Sie kann nicht spazieren gehen.|Yürüyüşe çıkamıyor.
+Ich helfe gern.|Seve seve yardım ediyorum.
+Ich gehe mit Bruno in den Park.|Bruno ile parka gidiyorum.
+Bruno spielt mit einem Ball und läuft schnell.|Bruno bir topla oynuyor ve hızlı koşuyor.
+Nach einer Stunde sind wir wieder zu Hause.|Bir saat sonra tekrar evdeyiz.
+Frau Weber ist sehr froh.|Bayan Weber çok memnun.
+Sie sagt: „Vielen Dank! Möchten Sie einen Tee?“|"Çok teşekkürler! Bir çay ister misiniz?" diyor.
+Wir trinken zusammen Tee und essen Kekse.|Birlikte çay içiyor ve kurabiye yiyoruz.
+?Bruno kim?|Komşunun kedisi|*Komşunun köpeği|Komşunun torunu
+?Bayan Weber neden yürüyüşe çıkamıyor?|*Sırtı ağrıyor|Yağmur yağıyor|Çok meşgul
+?Sonunda ne yapıyorlar?|Futbol oynuyorlar|*Birlikte çay içiyorlar|Alışverişe gidiyorlar
+~nachbarin=komşu (kadın);heißt=adı ... (heißen);rückenschmerzen=sırt ağrısı;kann=-ebilir;helfe=yardım ediyorum;spielt=oynuyor;ball=top;läuft=koşuyor;wieder=tekrar;froh=memnun;sagt=diyor;kekse=kurabiyeler
+=A2|Der verpasste Zug|Kaçırılan tren
+Letzten Freitag wollte Jonas seine Eltern in Hamburg besuchen.|Geçen cuma Jonas Hamburg'daki ailesini ziyaret etmek istiyordu.
+Sein Zug sollte um 17:30 Uhr abfahren.|Treninin saat 17:30'da kalkması gerekiyordu.
+Aber an diesem Tag gab es viel Arbeit im Büro.|Ama o gün ofiste çok iş vardı.
+Jonas hat erst um 17 Uhr Feierabend gemacht.|Jonas ancak saat 17'de işten çıktı.
+Er ist schnell zur U-Bahn gelaufen.|Hızla metroya koştu.
+Leider hatte die U-Bahn zehn Minuten Verspätung.|Maalesef metro on dakika rötar yaptı.
+Als Jonas am Bahnhof ankam, war es schon 17:35 Uhr.|Jonas istasyona vardığında saat 17:35 olmuştu bile.
+Der Zug war weg!|Tren gitmişti!
+Jonas war sehr ärgerlich, weil er sich so auf das Wochenende gefreut hatte.|Jonas çok sinirliydi, çünkü hafta sonunu çok dört gözle bekliyordu.
+Er ist zum Schalter gegangen und hat gefragt, wann der nächste Zug fährt.|Gişeye gitti ve bir sonraki trenin ne zaman kalktığını sordu.
+Die Frau am Schalter war sehr freundlich.|Gişedeki kadın çok güler yüzlüydü.
+Sie hat gesagt, dass um 18:15 Uhr noch ein Zug fährt.|Saat 18:15'te bir tren daha olduğunu söyledi.
+Jonas musste nicht einmal eine neue Fahrkarte kaufen.|Jonas'ın yeni bir bilet alması bile gerekmedi.
+Er hat seine Mutter angerufen und ihr alles erzählt.|Annesini aradı ve ona her şeyi anlattı.
+Dann hat er einen Kaffee getrunken und ein Buch gelesen.|Sonra bir kahve içti ve kitap okudu.
+Um 21 Uhr ist er in Hamburg angekommen.|Saat 21'de Hamburg'a vardı.
+Seine Eltern haben ihn mit einem warmen Abendessen begrüßt.|Ailesi onu sıcak bir akşam yemeğiyle karşıladı.
+?Jonas neden treni kaçırdı?|Uyuyakaldı|*İşten geç çıktı ve metro rötar yaptı|Bileti unuttu
+?Gişedeki kadın ne söyledi?|*18:15'te bir tren daha var|Bugün başka tren yok|Yeni bilet alması gerekiyor
+?Jonas Hamburg'a saat kaçta vardı?|17:30'da|19:00'da|*21:00'de
+~wollte=istiyordu;besuchen=ziyaret etmek;sollte=gerekiyordu;gab es=vardı;gab=vardı;erst=ancak;gelaufen=koştu;hatte=vardı (sahipti);ankam=vardı (ulaştı);war=idi;weg=gitmiş;ärgerlich=sinirli;gefreut=sevinmiş, dört gözle beklemiş;gegangen=gitti;gefragt=sordu;gesagt=söyledi;musste=zorunda kaldı;angerufen=aradı (telefon);erzählt=anlattı;getrunken=içti;gelesen=okudu;angekommen=vardı;begrüßt=karşıladı
+=A2|Beim Arzt|Doktorda
+Seit drei Tagen fühlt sich Selin nicht gut.|Selin üç gündür kendini iyi hissetmiyor.
+Sie hat Kopfschmerzen und Halsschmerzen, und gestern Abend hatte sie auch Fieber.|Başı ve boğazı ağrıyor, dün akşam ateşi de vardı.
+Am Montagmorgen hat sie in der Praxis angerufen.|Pazartesi sabahı muayenehaneyi aradı.
+Sie hat einen Termin für zehn Uhr bekommen.|Saat on için bir randevu aldı.
+Im Wartezimmer saßen schon viele Leute.|Bekleme odasında zaten birçok kişi oturuyordu.
+Selin musste fast eine Stunde warten.|Selin neredeyse bir saat beklemek zorunda kaldı.
+Dann hat die Ärztin sie aufgerufen.|Sonra doktor onu çağırdı.
+„Was fehlt Ihnen?“, hat die Ärztin gefragt.|"Neyiniz var?" diye sordu doktor.
+Selin hat ihre Probleme erklärt.|Selin şikâyetlerini anlattı.
+Die Ärztin hat sie untersucht und gesagt, dass sie eine Grippe hat.|Doktor onu muayene etti ve grip olduğunu söyledi.
+Sie hat ihr ein Medikament gegen das Fieber verschrieben.|Ateş için ona bir ilaç yazdı.
+„Sie sollten viel Tee trinken und im Bett bleiben“, hat sie gesagt.|"Bol çay içmeli ve yatakta kalmalısınız" dedi.
+Selin hat außerdem eine Krankmeldung für ihren Arbeitgeber bekommen.|Selin ayrıca işvereni için hastalık raporu aldı.
+Auf dem Weg nach Hause ist sie zur Apotheke gegangen.|Eve giderken eczaneye uğradı.
+Eine Woche später war sie wieder gesund und konnte arbeiten.|Bir hafta sonra yeniden sağlıklıydı ve çalışabildi.
+?Selin'in hangi şikâyeti yoktu?|Baş ağrısı|Ateş|*Karın ağrısı
+?Doktor ne teşhis koydu?|*Grip|Alerji|Kırık
+?Selin bekleme odasında ne kadar bekledi?|Beş dakika|*Neredeyse bir saat|Üç saat
+~fühlt sich=hissediyor;fühlt=hissediyor;halsschmerzen=boğaz ağrısı;angerufen=aradı;bekommen=aldı;saßen=oturuyordu;musste=zorunda kaldı;aufgerufen=çağırdı;fehlt=eksik (neyiniz var);ärztin=doktor (kadın);erklärt=açıkladı;untersucht=muayene etti;verschrieben=reçete etti;sollten=-meli;bleiben=kalmak;krankmeldung=hastalık raporu;konnte=-ebildi
+=A2|Ein Wochenende in Hamburg|Hamburg'da bir hafta sonu
+Im Mai haben Lisa und ihr Freund Can ein Wochenende in Hamburg verbracht.|Mayısta Lisa ve erkek arkadaşı Can Hamburg'da bir hafta sonu geçirdi.
+Sie sind am Freitagabend mit dem Bus gefahren, weil das billiger als der Zug war.|Cuma akşamı otobüsle gittiler, çünkü trenden daha ucuzdu.
+Ihr Hotel war klein, aber sehr zentral.|Otelleri küçüktü ama çok merkezîydi.
+Am Samstagmorgen hat es leider geregnet.|Cumartesi sabahı maalesef yağmur yağdı.
+Deshalb haben sie zuerst ein Museum besucht.|Bu yüzden önce bir müzeyi ziyaret ettiler.
+Am Nachmittag kam endlich die Sonne.|Öğleden sonra nihayet güneş çıktı.
+Sie haben eine Hafenrundfahrt mit dem Schiff gemacht.|Gemiyle bir liman turu yaptılar.
+Can hat sehr viele Fotos gemacht.|Can çok fazla fotoğraf çekti.
+Am Abend haben sie in einem kleinen Restaurant Fisch gegessen.|Akşam küçük bir restoranda balık yediler.
+Das Essen war frisch und nicht zu teuer.|Yemek tazeydi ve çok pahalı değildi.
+Am Sonntag sind sie früh aufgestanden und auf den Fischmarkt gegangen.|Pazar günü erken kalkıp balık pazarına gittiler.
+Dort war es laut und bunt.|Orası gürültülü ve renkliydi.
+Lisa hat für ihre Mutter ein kleines Geschenk gekauft.|Lisa annesi için küçük bir hediye aldı.
+Am Nachmittag mussten sie leider schon zurückfahren.|Öğleden sonra maalesef geri dönmeleri gerekti.
+Im Bus haben sie beschlossen: Nächstes Jahr kommen wir wieder!|Otobüste karar verdiler: Seneye yine geleceğiz!
+?Neden otobüsle gittiler?|Daha hızlıydı|*Trenden daha ucuzdu|Tren yoktu
+?Cumartesi sabahı neden müzeye gittiler?|*Yağmur yağıyordu|Müze ücretsizdi|Can müzeleri çok sever
+?Lisa annesi için ne aldı?|Balık|Fotoğraf|*Küçük bir hediye
+~verbracht=geçirdi;gefahren=gitti (araçla);billiger=daha ucuz;zentral=merkezî;geregnet=yağmur yağdı;deshalb=bu yüzden;besucht=ziyaret etti;kam=geldi;hafenrundfahrt=liman turu;gemacht=yaptı;gegessen=yedi;aufgestanden=kalktı;fischmarkt=balık pazarı;gekauft=aldı;mussten=zorunda kaldılar;zurückfahren=geri dönmek;beschlossen=karar verdi
+=A2|Die Geburtstagsparty|Doğum günü partisi
+Nächsten Samstag hat Murat Geburtstag.|Gelecek cumartesi Murat'ın doğum günü.
+Seine Frau Ayşe möchte ihm eine Überraschung machen.|Eşi Ayşe ona bir sürpriz yapmak istiyor.
+Sie hat heimlich alle Freunde eingeladen.|Gizlice bütün arkadaşları davet etti.
+Murat darf natürlich nichts wissen.|Murat'ın tabii ki hiçbir şey bilmemesi gerekiyor.
+Am Samstagmorgen schickt Ayşe ihn zum Einkaufen.|Cumartesi sabahı Ayşe onu alışverişe gönderiyor.
+Sie gibt ihm eine lange Liste, damit er lange unterwegs ist.|Uzun süre dışarıda kalsın diye ona uzun bir liste veriyor.
+Inzwischen kommen die Gäste.|Bu arada misafirler geliyor.
+Sie hängen Luftballons auf und stellen einen großen Kuchen auf den Tisch.|Balonları asıyorlar ve masaya büyük bir pasta koyuyorlar.
+Um zwölf Uhr hört Ayşe den Schlüssel in der Tür.|Saat on ikide Ayşe kapıda anahtarın sesini duyuyor.
+Alle sind ganz still.|Herkes çok sessiz.
+Murat öffnet die Tür und alle rufen: „Überraschung!“|Murat kapıyı açıyor ve herkes bağırıyor: "Sürpriz!"
+Murat ist so überrascht, dass er die Einkaufstasche fallen lässt.|Murat o kadar şaşırıyor ki alışveriş çantasını düşürüyor.
+Zum Glück waren keine Eier darin!|Neyse ki içinde yumurta yoktu!
+Alle lachen und singen „Zum Geburtstag viel Glück“.|Herkes gülüyor ve "İyi ki doğdun" şarkısını söylüyor.
+Später sagt Murat: „Das war der schönste Geburtstag meines Lebens.“|Daha sonra Murat diyor ki: "Bu hayatımın en güzel doğum günüydü."
+?Ayşe neden Murat'a uzun bir liste veriyor?|Çok şey lazım|*Murat uzun süre dışarıda kalsın diye|Misafirler aç
+?Murat kapıyı açınca ne oluyor?|*Herkes "Sürpriz!" diye bağırıyor|Kimse yok|Pasta yere düşüyor
+?Murat neyi düşürüyor?|Pastayı|Anahtarı|*Alışveriş çantasını
+~überraschung=sürpriz;heimlich=gizlice;eingeladen=davet etti;darf=-meli (izinli);wissen=bilmek;schickt=gönderiyor;gibt=veriyor;damit=-sın diye;unterwegs=yolda, dışarıda;inzwischen=bu arada;gäste=misafirler;hängen auf=asıyorlar;hängen=asıyorlar;luftballons=balonlar;stellen=koyuyorlar;hört=duyuyor;still=sessiz;öffnet=açıyor;rufen=bağırıyorlar;überrascht=şaşırmış;einkaufstasche=alışveriş çantası;fallen lässt=düşürüyor;zum glück=neyse ki;schönste=en güzel
+=A2|Der erste Arbeitstag|İlk iş günü
+Gestern war Daniels erster Arbeitstag in einer neuen Firma.|Dün Daniel'in yeni bir şirketteki ilk iş günüydü.
+Er war sehr nervös und konnte in der Nacht kaum schlafen.|Çok gergindi ve gece neredeyse hiç uyuyamadı.
+Er ist eine halbe Stunde zu früh losgefahren, weil er auf keinen Fall zu spät kommen wollte.|Kesinlikle geç kalmak istemediği için yarım saat erken yola çıktı.
+Am Empfang hat ihn seine neue Chefin, Frau Schmidt, begrüßt.|Resepsiyonda yeni şefi Bayan Schmidt onu karşıladı.
+Sie hat ihm das Büro gezeigt und ihn den Kollegen vorgestellt.|Ona ofisi gösterdi ve onu iş arkadaşlarıyla tanıştırdı.
+Alle waren sehr freundlich.|Herkes çok güler yüzlüydü.
+Ein Kollege, Herr Lang, hat ihm den Computer erklärt.|Bir iş arkadaşı, Bay Lang, ona bilgisayarı anlattı.
+Daniel musste viele Passwörter und Programme lernen.|Daniel birçok şifre ve program öğrenmek zorunda kaldı.
+In der Mittagspause sind sie zusammen in die Kantine gegangen.|Öğle arasında birlikte yemekhaneye gittiler.
+Das Essen war besser, als Daniel gedacht hatte.|Yemek Daniel'in düşündüğünden daha iyiydi.
+Am Nachmittag hatte er seine erste Besprechung.|Öğleden sonra ilk toplantısı vardı.
+Er hat nicht alles verstanden, aber er hat viele Notizen gemacht.|Her şeyi anlamadı ama çok not aldı.
+Um fünf Uhr hat Frau Schmidt gefragt: „Na, wie war Ihr erster Tag?“|Saat beşte Bayan Schmidt sordu: "Eee, ilk gününüz nasıldı?"
+Daniel hat geantwortet: „Anstrengend, aber sehr schön.“|Daniel cevap verdi: "Yorucu ama çok güzel."
+Zu Hause ist er sofort eingeschlafen.|Evde hemen uyuyakaldı.
+?Daniel neden erken yola çıktı?|*Kesinlikle geç kalmak istemediği için|Trafik vardı|Patronu istedi
+?Bilgisayarı Daniel'e kim anlattı?|Bayan Schmidt|*Bay Lang|Kimse
+?Daniel ilk günü nasıl buldu?|Sıkıcı|*Yorucu ama çok güzel|Çok kolay
+~erster=ilk;nervös=gergin;konnte=-ebildi;kaum=neredeyse hiç;losgefahren=yola çıktı;auf keinen fall=asla, kesinlikle;wollte=istiyordu;empfang=resepsiyon;chefin=şef (kadın);begrüßt=karşıladı;gezeigt=gösterdi;vorgestellt=tanıttı;erklärt=açıkladı;passwörter=şifreler;mittagspause=öğle arası;gedacht=düşünmüştü;verstanden=anladı;notizen=notlar;geantwortet=cevap verdi;anstrengend=yorucu;eingeschlafen=uyuyakaldı
+=B1|Die Bewerbung|İş başvurusu
+Nach ihrem Studium suchte Leyla fast ein halbes Jahr lang eine Stelle als Grafikdesignerin.|Leyla üniversiteden sonra neredeyse yarım yıl boyunca grafik tasarımcı olarak iş aradı.
+Sie hatte schon über zwanzig Bewerbungen geschrieben, aber meistens bekam sie nicht einmal eine Antwort.|Yirmiden fazla başvuru yazmıştı, ama çoğu zaman bir cevap bile alamadı.
+Allmählich verlor sie die Hoffnung.|Yavaş yavaş umudunu kaybetti.
+Eines Tages entdeckte sie im Internet eine Anzeige, die perfekt zu ihr passte.|Bir gün internette tam ona göre bir ilan keşfetti.
+Eine kleine Werbeagentur in Leipzig suchte jemanden, der kreativ ist und gut im Team arbeiten kann.|Leipzig'de küçük bir reklam ajansı yaratıcı olan ve ekip içinde iyi çalışabilen birini arıyordu.
+Diesmal wollte Leyla alles anders machen.|Leyla bu sefer her şeyi farklı yapmak istedi.
+Statt eines Standardbriefs schrieb sie ein persönliches Anschreiben und schickte einige ihrer besten Arbeiten mit.|Standart bir mektup yerine kişisel bir ön yazı yazdı ve en iyi işlerinden bazılarını da gönderdi.
+Schon nach drei Tagen wurde sie zu einem Vorstellungsgespräch eingeladen.|Daha üç gün sonra iş görüşmesine davet edildi.
+Am Abend vorher bereitete sie sich gründlich vor.|Önceki akşam iyice hazırlandı.
+Sie informierte sich über die Firma und überlegte, welche Fragen man ihr stellen könnte.|Şirket hakkında bilgi topladı ve kendisine hangi soruların sorulabileceğini düşündü.
+Das Gespräch begann etwas steif, doch bald entstand eine angenehme Atmosphäre.|Görüşme biraz resmî başladı, ama kısa sürede hoş bir hava oluştu.
+Der Geschäftsführer wollte wissen, warum sie sich gerade bei ihnen beworben hatte.|Genel müdür neden özellikle onlara başvurduğunu öğrenmek istedi.
+Leyla antwortete ehrlich, dass ihr die Projekte der Agentur schon lange gefielen.|Leyla ajansın projelerini uzun zamandır beğendiğini dürüstçe söyledi.
+Am Ende fragte man sie nach ihren Gehaltsvorstellungen.|Sonunda ona maaş beklentisi soruldu.
+Darauf war sie zum Glück vorbereitet.|Neyse ki buna hazırlıklıydı.
+Eine Woche später klingelte ihr Handy.|Bir hafta sonra telefonu çaldı.
+Man bot ihr die Stelle an, zunächst befristet auf ein Jahr.|Ona iş teklif edildi, önce bir yıllık süreyle.
+Leyla war überglücklich und nahm das Angebot sofort an.|Leyla çok mutlu oldu ve teklifi hemen kabul etti.
+Heute sagt sie: „Die vielen Absagen haben mir geholfen, mich besser zu präsentieren.“|Bugün şöyle diyor: "Gelen birçok ret cevabı kendimi daha iyi tanıtmama yardım etti."
+?Leyla bu sefer neyi farklı yaptı?|Daha fazla şirkete başvurdu|*Kişisel bir ön yazı yazdı ve işlerini gönderdi|Ajansı telefonla aradı
+?Genel müdür ne öğrenmek istedi?|*Neden özellikle onlara başvurduğunu|Kaç yaşında olduğunu|Nerede oturduğunu
+?Leyla'ya nasıl bir sözleşme teklif edildi?|Süresiz|Yarı zamanlı|*Bir yıl süreli
+~suchte=aradı;geschrieben=yazmıştı;bekam=aldı;allmählich=yavaş yavaş;verlor=kaybetti;entdeckte=keşfetti;passte=uyuyordu;werbeagentur=reklam ajansı;diesmal=bu sefer;anschreiben=ön yazı (başvuru mektubu);schickte mit=yanında gönderdi;schickte=gönderdi;wurde eingeladen=davet edildi;wurde=edildi;eingeladen=davet edilmiş;bereitete vor=hazırladı;gründlich=iyice;informierte sich=bilgi topladı;überlegte=düşündü;könnte=-ebilirdi;steif=resmî, gergin;entstand=oluştu;geschäftsführer=genel müdür;beworben=başvurmuş;gefielen=hoşuna gidiyordu;gehaltsvorstellungen=maaş beklentisi;klingelte=çaldı;bot an=teklif etti;bot=teklif etti;zunächst=önce;überglücklich=çok mutlu;nahm an=kabul etti;nahm=aldı;absagen=ret cevapları
+=B1|Ärger mit dem Vermieter|Ev sahibiyle sorun
+Im Januar, mitten im kältesten Monat des Jahres, fiel in Peters Wohnung die Heizung aus.|Ocakta, yılın en soğuk ayının ortasında, Peter'in dairesinde kalorifer bozuldu.
+Zuerst dachte er, das Problem würde sich von selbst lösen.|Önce sorunun kendiliğinden çözüleceğini düşündü.
+Doch nach zwei Tagen war es in der Wohnung nur noch vierzehn Grad warm.|Ama iki gün sonra dairede sıcaklık sadece on dört dereceydi.
+Peter rief seinen Vermieter an, erreichte ihn aber nicht.|Peter ev sahibini aradı ama ona ulaşamadı.
+Er schrieb ihm eine E-Mail und bat ihn, so schnell wie möglich einen Handwerker zu schicken.|Ona bir e-posta yazdı ve en kısa zamanda bir usta göndermesini rica etti.
+Eine Antwort kam nicht.|Cevap gelmedi.
+Inzwischen schlief Peter mit zwei Decken und einem dicken Pullover.|Bu arada Peter iki battaniye ve kalın bir kazakla uyuyordu.
+Eine Nachbarin, die schon lange im Haus wohnte, gab ihm einen wichtigen Tipp.|Uzun süredir binada oturan bir komşu ona önemli bir tavsiye verdi.
+Sie erklärte ihm, dass der Vermieter verpflichtet sei, die Heizung reparieren zu lassen.|Ona ev sahibinin kaloriferi tamir ettirmekle yükümlü olduğunu açıkladı.
+Außerdem habe er als Mieter das Recht, die Miete zu mindern, solange die Wohnung kalt bleibe.|Ayrıca kiracı olarak daire soğuk kaldığı sürece kirayı düşürme hakkı olduğunu söyledi.
+Peter schrieb daraufhin einen offiziellen Brief, in dem er eine Frist von drei Tagen setzte.|Bunun üzerine Peter üç günlük süre verdiği resmî bir mektup yazdı.
+Diesmal reagierte der Vermieter sofort.|Bu sefer ev sahibi hemen tepki verdi.
+Er entschuldigte sich und erklärte, dass er im Urlaub gewesen sei.|Özür diledi ve tatilde olduğunu açıkladı.
+Schon am nächsten Morgen kam ein Techniker und reparierte die Heizung.|Daha ertesi sabah bir teknisyen geldi ve kaloriferi tamir etti.
+Für die kalten Tage bekam Peter eine kleine Mietminderung.|Soğuk günler için Peter kirada küçük bir indirim aldı.
+Seitdem weiß er, wie wichtig es ist, seine Rechte zu kennen.|O zamandan beri haklarını bilmenin ne kadar önemli olduğunu biliyor.
+Und er hat sich vorgenommen, seine Nachbarin bald zum Essen einzuladen.|Ve komşusunu yakında yemeğe davet etmeye karar verdi.
+?Peter'in dairesinde ne oldu?|Su borusu patladı|*Kalorifer bozuldu|Elektrik kesildi
+?Komşu Peter'e ne tavsiye etti?|Taşınmasını|*Haklarını ve kirayı düşürme hakkını|Kaloriferi kendisinin tamir etmesini
+?Ev sahibi ilk e-postaya neden cevap vermedi?|Hastaydı|*Tatildeydi|Taşınmıştı
+~mitten=ortasında;kältesten=en soğuk;fiel aus=bozuldu;fiel=düştü;dachte=düşündü;würde=-ecekti;lösen=çözmek;rief an=aradı;rief=seslendi;erreichte=ulaştı;bat=rica etti;handwerker=usta;schlief=uyuyordu;decken=battaniyeler;dicken=kalın;tipp=tavsiye;erklärte=açıkladı;verpflichtet=yükümlü;sei=olduğu (dolaylı anlatım);reparieren lassen=tamir ettirmek;mieter=kiracı;habe=olduğu (dolaylı anlatım);mindern=düşürmek;solange=-dığı sürece;bleibe=kaldığı (dolaylı anlatım);daraufhin=bunun üzerine;frist=süre;setzte=koydu;reagierte=tepki verdi;entschuldigte sich=özür diledi;gewesen=olmuş;techniker=teknisyen;reparierte=tamir etti;mietminderung=kira indirimi;seitdem=o zamandan beri;rechte=haklar;vorgenommen=niyet etti
+=B1|Eine Woche ohne Handy|Telefonsuz bir hafta
+Als Sarah merkte, dass sie täglich fast fünf Stunden auf ihr Handy schaute, erschrak sie.|Sarah günde neredeyse beş saat telefonuna baktığını fark edince irkildi.
+Sie beschloss, ein Experiment zu machen: eine ganze Woche ohne Smartphone.|Bir deney yapmaya karar verdi: koca bir hafta akıllı telefon olmadan.
+Ihre Freunde lachten und meinten, sie würde keine zwei Tage durchhalten.|Arkadaşları güldüler ve onun iki gün bile dayanamayacağını söylediler.
+Die ersten Tage waren tatsächlich schwierig.|İlk günler gerçekten zordu.
+Immer wieder griff sie automatisch in ihre Tasche, obwohl das Handy zu Hause in der Schublade lag.|Telefon evde çekmecede durmasına rağmen sürekli otomatik olarak cebine uzanıyordu.
+Ohne Navigation verlief sie sich in einem Stadtteil, den sie nicht kannte.|Navigasyon olmadan bilmediği bir semtte yolunu kaybetti.
+Also musste sie Passanten nach dem Weg fragen, was sie seit Jahren nicht mehr getan hatte.|Bu yüzden yoldan geçenlere yol sormak zorunda kaldı, ki bunu yıllardır yapmamıştı.
+Doch nach und nach veränderte sich etwas.|Ama yavaş yavaş bir şeyler değişti.
+Sarah schlief besser, weil sie abends nicht mehr im Bett Videos ansah.|Sarah daha iyi uyudu, çünkü akşamları artık yatakta video izlemiyordu.
+In der Straßenbahn beobachtete sie die Menschen oder las ein Buch.|Tramvayda insanları izledi ya da kitap okudu.
+Sie rief ihre Großmutter vom Festnetz an und unterhielt sich eine Stunde mit ihr.|Büyükannesini sabit hattan aradı ve onunla bir saat sohbet etti.
+Am meisten überraschte sie, wie viel Zeit sie plötzlich hatte.|Onu en çok şaşırtan, birden ne kadar çok vakti olduğuydu.
+Natürlich hatte das Experiment auch Nachteile.|Tabii ki deneyin dezavantajları da vardı.
+Sie verpasste eine Einladung, weil die Nachricht nur in einer Gruppe geschickt worden war.|Bir daveti kaçırdı, çünkü mesaj sadece bir grupta gönderilmişti.
+Nach sieben Tagen schaltete sie das Handy wieder ein.|Yedi gün sonra telefonu yeniden açtı.
+Sie hatte über hundert ungelesene Nachrichten, aber kaum eine davon war wirklich wichtig.|Yüzden fazla okunmamış mesajı vardı, ama neredeyse hiçbiri gerçekten önemli değildi.
+Heute benutzt Sarah ihr Smartphone bewusster.|Bugün Sarah akıllı telefonunu daha bilinçli kullanıyor.
+Abends bleibt es in der Küche, und am Sonntag macht sie regelmäßig einen handyfreien Tag.|Akşamları telefon mutfakta kalıyor ve pazar günleri düzenli olarak telefonsuz bir gün geçiriyor.
+?Sarah deneye neden başladı?|Telefonu bozuldu|*Günde neredeyse beş saat telefona baktığını fark etti|Arkadaşları önerdi
+?Deneyin dezavantajı neydi?|Daha kötü uyudu|*Bir grup mesajındaki daveti kaçırdı|İşini kaybetti
+?Sarah bugün telefonunu nasıl kullanıyor?|Hiç kullanmıyor|Eskisi gibi|*Daha bilinçli
+~merkte=fark etti;täglich=günlük, her gün;schaute=baktı;erschrak=irkildi;beschloss=karar verdi;experiment=deney;lachten=güldüler;meinten=düşündüler, söylediler;würde=-ecekti;durchhalten=dayanmak;tatsächlich=gerçekten;griff=uzandı;schublade=çekmece;lag=duruyordu;verlief sich=yolunu kaybetti;verlief=yolunu kaybetti;kannte=tanıyordu;passanten=yoldan geçenler;getan=yapmış;nach und nach=yavaş yavaş;veränderte sich=değişti;veränderte=değiştirdi;schlief=uyudu;ansah=izledi;beobachtete=gözlemledi;las=okudu;festnetz=sabit hat;unterhielt sich=sohbet etti;überraschte=şaşırttı;nachteile=dezavantajlar;verpasste=kaçırdı;geschickt worden war=gönderilmişti;schaltete ein=açtı;ungelesene=okunmamış;kaum=neredeyse hiç;bewusster=daha bilinçli;handyfreien=telefonsuz
+=B1|Das gestohlene Fahrrad|Çalınan bisiklet
+Jeden Morgen fährt Herr Yılmaz mit dem Fahrrad zur Arbeit, egal ob es regnet oder schneit.|Bay Yılmaz yağmur da yağsa kar da yağsa her sabah bisikletle işe gidiyor.
+Das Fahrrad hatte er sich vor zwei Jahren gekauft und es war ziemlich teuer gewesen.|Bisikleti iki yıl önce almıştı ve oldukça pahalıydı.
+Eines Abends, als er aus dem Büro kam, war der Fahrradständer leer.|Bir akşam ofisten çıktığında bisiklet park yeri boştu.
+Nur das aufgeschnittene Schloss lag noch auf dem Boden.|Yerde sadece kesilmiş kilit duruyordu.
+Herr Yılmaz konnte es kaum glauben.|Bay Yılmaz buna neredeyse inanamadı.
+Er ging sofort zur Polizei, um den Diebstahl anzuzeigen.|Hırsızlığı bildirmek için hemen polise gitti.
+Dort wurden seine Daten aufgenommen und er wurde gefragt, ob er die Rahmennummer kenne.|Orada bilgileri alındı ve kendisine şasi numarasını bilip bilmediği soruldu.
+Zum Glück hatte er ein Foto vom Kaufvertrag auf seinem Handy gespeichert.|Neyse ki telefonunda satış sözleşmesinin fotoğrafını kaydetmişti.
+Der Polizist erklärte ihm jedoch, dass gestohlene Fahrräder nur selten gefunden würden.|Ancak polis ona çalınan bisikletlerin çok nadiren bulunduğunu açıkladı.
+Auch die Versicherung machte ihm wenig Hoffnung.|Sigorta da ona pek umut vermedi.
+Da sein Fahrrad nicht extra versichert war, würde er nur einen Teil des Wertes zurückbekommen.|Bisikleti ayrıca sigortalı olmadığı için değerinin sadece bir kısmını geri alacaktı.
+Drei Wochen später stellte eine Kollegin ihm eine Anzeige auf einer Verkaufsplattform vor.|Üç hafta sonra bir iş arkadaşı ona bir satış platformundaki ilanı gösterdi.
+Das Fahrrad auf dem Foto sah genauso aus wie seins, sogar der kleine Aufkleber am Rahmen war zu sehen.|Fotoğraftaki bisiklet tıpkı onunkine benziyordu, çerçevedeki küçük çıkartma bile görünüyordu.
+Herr Yılmaz informierte sofort die Polizei, statt selbst etwas zu unternehmen.|Bay Yılmaz kendisi bir şey yapmak yerine hemen polise haber verdi.
+Die Beamten vereinbarten mit dem Verkäufer einen Termin, angeblich um das Fahrrad zu kaufen.|Memurlar güya bisikleti satın almak için satıcıyla bir randevu ayarladı.
+Als der Mann erschien, wurde er festgenommen.|Adam geldiğinde gözaltına alındı.
+Einige Tage später konnte Herr Yılmaz sein Fahrrad bei der Polizei abholen.|Birkaç gün sonra Bay Yılmaz bisikletini polisten alabildi.
+Seitdem benutzt er zwei Schlösser und hat sein Rad richtig versichern lassen.|O zamandan beri iki kilit kullanıyor ve bisikletini düzgünce sigortalattı.
+?Bay Yılmaz bisikletin çalındığını nasıl anladı?|Polis aradı|*Park yeri boştu, yerde kesilmiş kilit vardı|Bir komşu söyledi
+?Bisikleti tanımasını ne sağladı?|Rengi|*Çerçevedeki küçük çıkartma|Zil
+?Polis hırsızı nasıl yakaladı?|*Satıcıyla alıcı gibi randevu ayarladı|Kamerada gördü|Hırsız kendi teslim oldu
+~gestohlene=çalınmış;egal ob=-sa da -masa da;gekauft=satın almış;gewesen=olmuştu;fahrradständer=bisiklet park yeri;leer=boş;aufgeschnittene=kesilmiş;schloss=kilit;lag=duruyordu;glauben=inanmak;diebstahl=hırsızlık;anzuzeigen=bildirmek (şikâyet);wurden aufgenommen=alındı;wurde gefragt=soruldu;rahmennummer=şasi numarası;kenne=bildiğini (dolaylı);kaufvertrag=satış sözleşmesi;gespeichert=kaydetmiş;jedoch=ancak;selten=nadiren;gefunden würden=bulunduğu;versichert=sigortalı;wertes=değerinin;zurückbekommen=geri almak;stellte vor=gösterdi, tanıttı;verkaufsplattform=satış platformu;sah aus=görünüyordu;genauso=tıpkı;seins=onunki;aufkleber=çıkartma;rahmen=çerçeve;unternehmen=girişimde bulunmak;beamten=memurlar;angeblich=güya;erschien=ortaya çıktı;festgenommen=gözaltına alındı;abholen=gidip almak;schlösser=kilitler;versichern lassen=sigortalatmak
+=B1|Zwei Städte, ein Zuhause|İki şehir, tek yuva
+Vor acht Jahren ist Emre von Izmir nach Stuttgart gezogen, um dort als Ingenieur zu arbeiten.|Emre sekiz yıl önce mühendis olarak çalışmak için İzmir'den Stuttgart'a taşındı.
+Am Anfang war vieles fremd für ihn.|Başta pek çok şey ona yabancıydı.
+Die Menschen wirkten distanziert, das Wetter war grau, und das Essen schmeckte ihm nicht besonders.|İnsanlar mesafeli görünüyordu, hava griydi ve yemekleri pek beğenmiyordu.
+Besonders schwer war die Sprache.|Özellikle dil zordu.
+Obwohl er in der Türkei einen Deutschkurs gemacht hatte, verstand er seine Kollegen kaum, weil sie Schwäbisch sprachen.|Türkiye'de Almanca kursuna gitmiş olmasına rağmen iş arkadaşlarını neredeyse anlamıyordu, çünkü Şvabya lehçesi konuşuyorlardı.
+Manchmal dachte er: Wenn ich doch nur in Izmir geblieben wäre!|Bazen şöyle düşünüyordu: Keşke İzmir'de kalsaydım!
+Doch mit der Zeit änderte sich seine Einstellung.|Ama zamanla tutumu değişti.
+Er trat einem Fußballverein bei und fand dort schnell Freunde.|Bir futbol kulübüne katıldı ve orada çabucak arkadaş buldu.
+Er lernte, dass hinter der Distanz oft Höflichkeit steckt und dass Freundschaften hier langsamer entstehen, aber dafür lange halten.|Mesafenin ardında çoğu zaman nezaket yattığını ve arkadaşlıkların burada daha yavaş kurulduğunu ama buna karşılık uzun sürdüğünü öğrendi.
+Heute fühlt sich Emre in Stuttgart zu Hause.|Bugün Emre kendini Stuttgart'ta evinde hissediyor.
+Er schätzt die Pünktlichkeit, die gut organisierten Verkehrsmittel und die Wälder rund um die Stadt.|Dakikliği, iyi düzenlenmiş toplu taşımayı ve şehrin çevresindeki ormanları takdir ediyor.
+Trotzdem vermisst er manches aus der Türkei: das Meer, das Frühstück am Sonntag mit der ganzen Familie und die Spontaneität der Menschen.|Yine de Türkiye'den bazı şeyleri özlüyor: denizi, bütün aileyle pazar kahvaltısını ve insanların doğallığını.
+Wenn er im Sommer in Izmir ist, merkt er, dass er sich auch dort verändert hat.|Yazın İzmir'deyken orada da değişmiş olduğunu fark ediyor.
+Seine Freunde sagen, er sei „ein bisschen deutsch“ geworden, weil er immer pünktlich ist.|Arkadaşları her zaman dakik olduğu için onun "biraz Alman" olduğunu söylüyor.
+Emre lacht darüber.|Emre buna gülüyor.
+Er findet, dass man nicht zwischen zwei Ländern wählen muss.|Kişinin iki ülke arasında seçim yapmak zorunda olmadığını düşünüyor.
+„Ich habe nicht eine Heimat verloren“, sagt er, „sondern eine zweite gewonnen.“|"Bir memleketi kaybetmedim" diyor, "ikincisini kazandım."
+?Emre başta neyi en zor buldu?|Havayı|*Dili|Yemeği
+?Emre Stuttgart'ta nasıl arkadaş buldu?|İş yerinde|*Bir futbol kulübüne katılarak|Komşuları sayesinde
+?Emre sonunda ne düşünüyor?|Türkiye'ye geri dönmesi gerektiğini|*İki ülke arasında seçim yapmak gerekmediğini|Stuttgart'ın daha iyi olduğunu
+~gezogen=taşındı;anfang=başlangıç;wirkten=görünüyordu;distanziert=mesafeli;schmeckte=tadı ... geldi;verstand=anladı;schwäbisch=Şvabya lehçesi;sprachen=konuşuyorlardı;dachte=düşündü;geblieben wäre=kalsaydım;änderte sich=değişti;einstellung=tutum;trat bei=katıldı;fußballverein=futbol kulübü;fand=buldu;lernte=öğrendi;höflichkeit=nezaket;steckt=yatıyor (saklı);freundschaften=arkadaşlıklar;entstehen=oluşuyor;dafür=buna karşılık;halten=sürüyor (dayanıyor);fühlt sich=hissediyor;schätzt=takdir ediyor;pünktlichkeit=dakiklik;organisierten=düzenlenmiş;wäldern=ormanlar;wälder=ormanlar;manches=bazı şeyler;spontaneität=doğallık;merkt=fark ediyor;verändert=değişmiş;sei=olduğunu (dolaylı);geworden=olmuş;darüber=buna;heimat=memleket;verloren=kaybettim;gewonnen=kazandım`;
+const STORIES = [];
+(function parseStories() {
+  let st = null;
+  for (const raw of STORY_DATA.split('\n')) {
+    const line = raw.trim(); if (!line) continue;
+    if (line.startsWith('=')) {
+      const [level, title, titleTr] = line.slice(1).split('|');
+      st = { id: 's' + hash(title), level, deck: level, title, titleTr, sents: [], qs: [], gloss: {}, phrases: [] };
+      STORIES.push(st); continue;
+    }
+    if (!st) continue;
+    if (line.startsWith('?')) {
+      const parts = line.slice(1).split('|');
+      const opts = parts.slice(1).map(o => o.replace(/^\*/, ''));
+      st.qs.push({ q: parts[0], opts, ok: parts.slice(1).findIndex(o => o.startsWith('*')) });
+    } else if (line.startsWith('~')) {
+      for (const pair of line.slice(1).split(';')) {
+        const i = pair.indexOf('='); if (i < 0) continue;
+        const k = pair.slice(0, i).trim().toLowerCase(), v = pair.slice(i + 1).trim();
+        if (k.includes(' ')) st.phrases.push([k.split(' '), v, k]); else st.gloss[k] = v;
+      }
+    } else {
+      const i = line.indexOf('|'); st.sents.push([line.slice(0, i).trim(), line.slice(i + 1).trim()]);
+    }
+  }
+  for (const s of STORIES) s.words = s.sents.reduce((n, x) => n + x[0].split(/\s+/).length, 0);
+})();
+const WORD_INDEX = (() => {
+  const m = new Map();
+  for (const w of WORDS) { const k = w.de.replace(/^(der|die|das) /, '').replace(/^sich /, '').toLowerCase(); if (!k.includes(' ') && !m.has(k)) m.set(k, w.tr); }
+  for (const pair of 'ein=bir;eine=bir;einen=bir;einem=bir;einer=bir;eines=bir;der=belirli artikel (der);die=belirli artikel (die);das=belirli artikel (das), bu;den=belirli artikel (den);dem=belirli artikel (dem);des=belirli artikel (des);sich=kendini, kendine;es=o (nötr), bu;ihn=onu (erkek);ihm=ona (erkek);ihr=onun (kadın), ona;ihre=onun (kadın), onların;ihren=onun, onların;ihrem=onun, onların;ihrer=onun, onların;sein=onun (erkek), olmak;seine=onun (erkek);seinen=onun (erkek);seinem=onun (erkek);seiner=onun (erkek);meine=benim;meinen=benim;meinem=benim;meiner=benim;deine=senin;uns=bizi, bize;unser=bizim;unsere=bizim;mich=beni;mir=bana;dich=seni;dir=sana;man=insan (genel özne);im=-de, içinde (in dem);am=-de (an dem);zum=-e (zu dem);zur=-e (zu der);ins=-e, içine (in das);vom=-den (von dem);beim=-de, yanında (bei dem);an=-de, -e;zu=-e, çok;so=öyle, böyle;wie=gibi, nasıl;als=-dığında, -den (daha);dass=-dığını, ki;ob=-ip -mediğini;noch=daha, hâlâ;schon=zaten, bile;nur=sadece;sehr=çok;nicht=değil;kein=hiç;keine=hiç;keinen=hiç;ist=-dir (olmak);sind=-dirler (olmak);war=idi;waren=idiler;hat=var (sahip);haben=sahip olmak;hatte=vardı;hatten=vardı;wird=olacak, -ecek;wurde=oldu, edildi;wurden=oldular, edildiler;kann=-ebilir;können=-ebilmek;muss=zorunda;doch=ama, yine de;denn=çünkü;dort=orada;da=orada, çünkü;dann=sonra;alles=her şey;viele=birçok;vielen=birçok;einige=birkaç;einmal=bir kez;immer=her zaman;wieder=yine;sofort=hemen;jeden=her;jede=her;jedes=her;ganz=bütün, çok;ganze=bütün;ganzen=bütün;gemacht=yaptı;gefragt=sordu;gesagt=söyledi;gegangen=gitti;besser=daha iyi;besten=en iyi;welche=hangi;gespräch=görüşme;begann=başladı;schrieb=yazdı;kam=geldi;gab=verdi, vardı;bekam=aldı;konnte=-ebildi;rief=aradı, seslendi;menschen=insanlar;aus=-den;ende=son;selbst=kendisi;glück=şans;geholfen=yardım etti;gerade=tam, özellikle;darauf=buna;davon=bundan;diesem=bu;diesmal=bu sefer;nimmt=alıyor;liste=liste;dank=teşekkür;super=süper;spazieren=gezmek;oh=ah;na=eee;darin=içinde;eier=yumurtalar;meisten=en çok;automatisch=otomatik;smartphone=akıllı telefon;navigation=navigasyon;agentur=ajans;atmosphäre=atmosfer;vierzehn=on dört;einzuladen=davet etmek'.split(';')) { const i = pair.indexOf('='); const k = pair.slice(0, i); if (!m.has(k)) m.set(k, pair.slice(i + 1)); }
+  return m;
+})();
+function cleanWord(raw) { return raw.toLowerCase().replace(/[^\p{L}\-]/gu, ''); }
+function lookupWord(raw, story, sentence) {
+  const w = cleanWord(raw); if (!w) return null;
+  const toks = sentence.split(/\s+/).map(cleanWord);
+  for (const [parts, v, k] of story.phrases) if (parts.includes(w) && parts.every(p => toks.includes(p))) return { head: k, tr: v };
+  if (story.gloss[w]) return { head: w, tr: story.gloss[w] };
+  if (WORD_INDEX.has(w)) return { head: w, tr: WORD_INDEX.get(w) };
+  const tries = [];
+  for (const suf of ['en', 'e', 'n', 's', 't', 'st', 'te', 'ten', 'er', 'es', 'em']) if (w.endsWith(suf) && w.length - suf.length >= 3) { const st = w.slice(0, -suf.length); tries.push(st, st + 'en', st + 'n', st + 'e'); }
+  tries.push(w + 'en', w + 'n');
+  for (const t of tries) if (WORD_INDEX.has(t)) return { head: t, tr: WORD_INDEX.get(t), base: true };
+  return null;
+}
+let reader = null; // {id, open:Set, all, ans:{}, checked, playing}
+function storyStat(id) { return (S.stories || {})[id] || null; }
+function openStory(id) { reader = { id, open: new Set(), all: false, ans: {}, checked: false }; hideWord(); render(); $('#main').scrollTop = 0; }
+function curStory() { return reader && STORIES.find(s => s.id === reader.id); }
+function showWord(btn) {
+  const st = curStory(); if (!st) return;
+  const si = +btn.closest('[data-si]').dataset.si; const sent = st.sents[si][0];
+  const r = lookupWord(btn.textContent, st, sent);
+  document.querySelectorAll('.w.on').forEach(x => x.classList.remove('on')); btn.classList.add('on');
+  const bar = $('#wordbar');
+  bar.innerHTML = `<div style="min-width:0"><b lang="de">${esc(r ? r.head : cleanWord(btn.textContent))}</b> <span>${r ? esc(r.tr) + (r.base ? ' <span class="muted small">(temel biçim)</span>' : '') : (/^\p{Lu}/u.test(btn.textContent) ? '<span class="muted">Sözlükte yok, bir isim olabilir. Cümlenin çevirisine bak.</span>' : '<span class="muted">Sözlükte yok. Cümlenin çevirisine bak.</span>')}</span></div>
+    ${canSpeak() ? `<button class="iconbtn" data-say="${esc(btn.textContent)}" aria-label="Dinle">${ICON.play}</button>` : ''}<button class="iconbtn" data-act="wclose" aria-label="Kapat">${ICON.close}</button>`;
+  bar.hidden = false; document.body.classList.add('wb');
+}
+function hideWord() { const bar = $('#wordbar'); if (bar) bar.hidden = true; document.body.classList.remove('wb'); document.querySelectorAll('.w.on').forEach(x => x.classList.remove('on')); }
+function playStory() {
+  const st = curStory(); if (!st) return;
+  if (speech.synth) {
+    speech.synth.cancel();
+    st.sents.forEach(([de], i) => {
+      const u = new SpeechSynthesisUtterance(de); u.lang = 'de-DE'; if (speech.voice) u.voice = speech.voice; u.rate = S.settings.rate || 0.9;
+      u.onstart = () => { document.querySelectorAll('.sent.cur').forEach(x => x.classList.remove('cur')); const el = document.querySelector(`[data-si="${i}"]`); if (el) { el.classList.add('cur'); el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } };
+      u.onend = () => { if (i === st.sents.length - 1) document.querySelectorAll('.sent.cur').forEach(x => x.classList.remove('cur')); };
+      speech.synth.speak(u);
+    });
+  } else speak(st.sents.map(x => x[0]).join(' '));
+}
+function stopStory() { if (speech.synth) speech.synth.cancel(); if (speech.tts) try { speech.tts.stop(); } catch (e) {} document.querySelectorAll('.sent.cur').forEach(x => x.classList.remove('cur')); }
+function wordsHtml(de) { return de.split(/(\s+)/).map(t => /\p{L}/u.test(t) ? `<button class="w">${esc(t)}</button>` : t).join(''); }
+function viewStories() {
+  const st = curStory();
+  if (st) {
+    const stat = storyStat(st.id);
+    const sents = st.sents.map(([de, tr], i) => {
+      const open = reader.all || reader.open.has(i);
+      return `<div class="sent" data-si="${i}"><p class="de" lang="de">${wordsHtml(de)} <button class="tbtn" data-st="${i}" aria-expanded="${open}" aria-label="Çeviri">TR</button></p>
+        ${open ? `<div class="trow"><p class="tr">${esc(tr)}</p><div class="row">${canSpeak() ? `<button class="mini" data-say="${esc(de)}">${ICON.play} Dinle</button>` : ''}<button class="mini" data-sadd="${i}">${ICON.plus} Kartlarıma ekle</button></div></div>` : ''}</div>`;
+    }).join('');
+    const qs = st.qs.map((q, qi) => `<div class="q"><p><b>${qi + 1}.</b> ${esc(q.q)}</p><div class="opts">${q.opts.map((o, oi) => {
+      let cls = reader.ans[qi] === oi ? ' sel' : '';
+      if (reader.checked) cls = oi === q.ok ? ' right' : (reader.ans[qi] === oi ? ' wrong' : '');
+      return `<button class="opt${cls}" data-sq="${qi}:${oi}" ${reader.checked ? 'disabled' : ''}>${esc(o)}</button>`;
+    }).join('')}</div></div>`).join('');
+    const score = st.qs.reduce((n, q, i) => n + (reader.ans[i] === q.ok ? 1 : 0), 0);
+    return `<div class="row"><button class="iconbtn" data-act="sback" aria-label="Hikaye listesine dön">${ICON.back}</button><span class="chip">${st.level}</span><span class="muted small">${st.words} kelime · ${st.sents.length} cümle</span></div>
+      <div><h3 class="stitle" lang="de">${esc(st.title)}</h3><p class="muted">${esc(st.titleTr)}</p></div>
+      <div class="row">${canSpeak() ? `<button class="btn" data-act="splay">${ICON.play} Tamamını dinle</button><button class="btn" data-act="sstop">Durdur</button>` : ''}<button class="btn" data-act="strall">${reader.all ? 'Çevirileri gizle' : 'Tüm çevirileri göster'}</button></div>
+      <p class="muted small">Bilmediğin kelimeye dokun, anlamı altta çıkar. Önce kendin anlamaya çalış, sonra cümlenin yanındaki <b>TR</b>'ye dokun.</p>
+      <section class="sheet story">${sents}</section>
+      <section class="sheet stack"><h2 style="margin:0">Anladın mı?</h2>${qs}
+        ${reader.checked ? `<p class="score ${score === st.qs.length ? 'good' : score ? 'mid' : 'bad'}" style="align-self:flex-start">${score} / ${st.qs.length} doğru</p><div class="row"><button class="btn" data-act="sretry">Tekrar dene</button><button class="btn primary" data-act="sback">Hikayelere dön</button></div>`
+          : `<button class="btn primary wide" data-act="scheck" ${Object.keys(reader.ans).length < st.qs.length ? 'disabled' : ''}>Cevapları kontrol et</button>`}
+        ${stat && stat.read && !reader.checked ? `<p class="muted small">Daha önce okudun: ${stat.score}/${stat.total} doğru.</p>` : ''}
+      </section>`;
+  }
+  const list = STORIES.filter(s => inLevel(s.deck));
+  const readN = STORIES.filter(s => storyStat(s.id) && storyStat(s.id).read).length;
+  return `<div><h3>Hikayeler</h3><p class="muted small">Seviyene göre kısa hikayeler. ${readN} / ${STORIES.length} okundu.</p></div>
+    ${levelButtons(STORIES)}
+    ${list.length ? `<ul class="slist">${list.map(s => { const stt = storyStat(s.id);
+      return `<li><button data-story="${s.id}"><span class="de" lang="de">${esc(s.title)}</span><span class="tr">${esc(s.titleTr)} · ${s.words} kelime</span>
+        <span class="meta"><span class="chip">${s.level}</span>${stt && stt.read ? `<span class="chip mature">Okundu ${stt.score}/${stt.total}</span>` : '<span class="chip new">Yeni</span>'}</span></button></li>`; }).join('')}</ul>`
+      : `<div class="sheet empty">Bu seviyede hikaye yok. Başka bir seviye seç.</div>`}`;
+}
+
 const BUILTIN = []; const DECK_ORDER = [];
 (function parse() {
   let deck = 'Genel';
@@ -471,7 +3971,7 @@ const BUILTIN = []; const DECK_ORDER = [];
 const LS_KEY = 'satzheft.v1';
 function defaultState() {
   return { v: 1, updatedAt: 0, cards: {}, custom: [], edits: {}, hidden: {}, days: {},
-    settings: { newPerDay: 10, dir: 'tr-de', autoSpeak: true, rate: 0.9, decks: null } };
+    settings: { newPerDay: 10, dir: 'tr-de', autoSpeak: true, rate: 0.9, skipDecks: [], level: 'all' } };
 }
 let S = defaultState();
 function loadLocal() {
@@ -481,7 +3981,11 @@ function loadLocal() {
 function normalize(o) {
   const d = defaultState();
   if (!o || typeof o !== 'object') return d;
-  return { ...d, ...o, settings: { ...d.settings, ...(o.settings || {}) }, cards: o.cards || {}, custom: o.custom || [], edits: o.edits || {}, hidden: o.hidden || {}, days: o.days || {} };
+  const st = { ...d.settings, ...(o.settings || {}) };
+  // Old versions kept a list of *included* decks that the level filter could empty by mistake; start over with all decks on.
+  if ('decks' in st) { delete st.decks; st.skipDecks = []; }
+  if (!Array.isArray(st.skipDecks)) st.skipDecks = [];
+  return { ...d, ...o, settings: st, cards: o.cards || {}, custom: o.custom || [], edits: o.edits || {}, hidden: o.hidden || {}, days: o.days || {}, words: o.words || {}, stories: o.stories || {}, game: { best: {}, rounds: 0, ...(o.game || {}) } };
 }
 const cloud = { db: null, ref: null, status: 'local', writing: Promise.resolve(), timer: null };
 function save() {
@@ -537,7 +4041,18 @@ function deckNames() {
   const custom = []; for (const c of S.custom) if (!DECK_ORDER.includes(c.deck) && !custom.includes(c.deck)) custom.push(c.deck);
   return [...custom, ...DECK_ORDER];
 }
-function activeDeck(deck) { return !S.settings.decks || S.settings.decks.includes(deck); }
+function levelOfDeck(deck) { const m = /^(A1|A2|B1|B2|C1|C2)\b/i.exec(deck || ''); return m ? m[1].toUpperCase() : 'mine'; }
+function inLevel(deck) { const l = S.settings.level || 'all'; return l === 'all' || levelOfDeck(deck) === l; }
+function deckOn(deck) { return !(S.settings.skipDecks || []).includes(deck); }
+function activeDeck(deck) { return inLevel(deck) && deckOn(deck); }
+const LEVEL_LABEL = { all: 'Tümü', A1: 'A1', A2: 'A2', B1: 'B1', B2: 'B2', C1: 'C1', C2: 'C2', mine: 'Benim' };
+function levelButtons(items) {
+  const per = { all: 0 };
+  for (const s of (items || allSentences())) { const l = levelOfDeck(s.deck); per[l] = (per[l] || 0) + 1; per.all++; }
+  const order = ['all', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'mine'].filter(l => l === 'all' || per[l]);
+  const cur = S.settings.level || 'all';
+  return `<div class="seg" role="group" aria-label="Seviye" style="grid-template-columns:repeat(${order.length},1fr)">${order.map(l => `<button data-level="${l}" aria-pressed="${cur === l}">${LEVEL_LABEL[l]}<br><span class="small muted">${per[l]}</span></button>`).join('')}</div>`;
+}
 function findSentence(id) { return allSentences().find(s => s.id === id); }
 
 /* ---------- scheduling (SM-2 style with learning steps) ---------- */
@@ -736,6 +4251,8 @@ function render() {
   const v = $('#view');
   if (tab === 'study') v.innerHTML = sess ? viewSession() : viewHome();
   else if (tab === 'list') v.innerHTML = viewList();
+  else if (tab === 'game') v.innerHTML = viewGame();
+  else if (tab === 'read') v.innerHTML = viewStories();
   else if (tab === 'stats') v.innerHTML = viewStats();
   else v.innerHTML = viewSettings();
   afterRender();
@@ -757,7 +4274,7 @@ function viewHome() {
   const tomorrow = (() => { const end = startOfDay() + 2 * DAY; let n = 0; for (const s of allSentences()) { const cc = cardOf(s.id); if (cc && cc.s === 2 && cc.d > Date.now() && cc.d < end && activeDeck(s.deck)) n++; } return n; })();
   return `
   <section class="sheet">
-    <h2>Bugün</h2>
+    <h2>Bugün${(S.settings.level || 'all') !== 'all' ? ' · ' + LEVEL_LABEL[S.settings.level] : ''}</h2>
     <div class="today">
       <div class="n-learn"><strong>${c.learn}</strong><span>öğreniliyor</span></div>
       <div class="n-rev"><strong>${c.rev}</strong><span>tekrar</span></div>
@@ -765,9 +4282,13 @@ function viewHome() {
     </div>
     ${done ? `<div class="stack">
         <p><b>Bugünkü tekrarlar bitti.</b> <span class="muted">${t.n ? `Bugün ${t.n} kart çalıştın, %${Math.round(100 * t.ok / t.n)} doğru. ` : ''}Yarın ${tomorrow} cümle seni bekliyor.</span></p>
-        ${c.freshTotal ? `<button class="btn wide" data-act="morenew">${ICON.plus} Bugün 5 yeni cümle daha</button>` : ''}
+        ${c.freshTotal ? `<p class="muted small">Günlük yeni cümle sınırına (${S.settings.newPerDay}) ulaştın. Sınırı Ayarlar'dan değiştirebilirsin.</p><button class="btn wide" data-act="morenew">${ICON.plus} Bugün 5 yeni cümle daha</button>` : `<p class="muted small">${(S.settings.level || 'all') === 'all' ? 'Seçili destelerde' : LEVEL_LABEL[S.settings.level] + ' seviyesinde'} yeni cümle kalmadı. Başka bir seviye seçebilir ya da cümle ekleyebilirsin.</p>`}
       </div>`
       : `<button class="btn primary wide" data-act="start">Çalışmaya başla</button>`}
+  </section>
+  <section class="stack plain">
+    <h2 style="margin:0">Seviye</h2>
+    ${levelButtons()}
   </section>
   <section class="stack plain">
     <h2 style="margin:0">Yön</h2>
@@ -788,7 +4309,7 @@ function viewHome() {
     <ol class="method">
       <li><span>Türkçe cümleyi oku. Almancasını <b>önce sesli söyle</b>, istersen yaz. Tanımak yetmez, kendin üretmelisin.</span></li>
       <li><span>Cevabı aç, dinle ve cümleyi konuşmacıyla birlikte <b>yüksek sesle tekrar et</b> (gölgeleme).</span></li>
-      <li><span>Dürüstçe puanla. <b>Tekrar</b> dediğin cümle birkaç dakika sonra yine gelir, bildiğin cümleler giderek seyrekleşir.</span></li>
+      <li><span>Dürüstçe puanla. <b>Bilemedim</b> dediğin cümle birkaç dakika sonra yine gelir, bildiğin cümleler giderek seyrekleşir.</span></li>
     </ol>
   </section>`;
 }
@@ -840,7 +4361,7 @@ function viewSession() {
     if (sess.mode === 'weak') return '';
     const n = schedule(card, g, Date.now()); return fmtIvl(n.d - Date.now());
   });
-  const names = ['Tekrar', 'Zor', 'İyi', 'Kolay'];
+  const names = ['Bilemedim', 'Zor', 'İyi', 'Kolay'];
   const other = dir === 'tr-de' ? '' : `<div class="muted">${esc(dir === 'listen' ? s.tr : s.de)}</div>`;
   return bar + `<section class="sheet card">${chips}${dir === 'listen' ? `<div class="lang">Duyduğun cümle</div>` : promptHtml}
     <div class="answer">
@@ -850,10 +4371,11 @@ function viewSession() {
       ${cmp ? `<div class="typed">Senin cevabın: ${cmp.typedHtml}</div>` : ''}
       ${canSpeak() ? `<div class="row"><button class="btn" data-act="say">${ICON.play} Dinle</button><button class="btn" data-act="sayslow">${ICON.slow} Yavaş</button><span class="muted small">Dinle, sonra sesli tekrar et.</span></div>` : ''}
     </div>
-    <p class="rate-hint">Ne kadar iyi bildin? Seçince sonraki cümle gelir.</p>
+    <p class="rate-hint">Ne kadar iyi bildin? Birine dokun, sonraki cümle gelir.</p>
     <div class="rate" role="group" aria-label="Ne kadar iyi bildin?">
       ${[1, 2, 3, 4].map(g => `<button class="g${g}${sugg === g ? ' sugg' : ''}" data-rate="${g}"><b>${names[g - 1]}</b><span>${prevs[g - 1] || '&nbsp;'}</span></button>`).join('')}
     </div>
+    <button class="btn primary wide" data-rate="${sugg || 3}">Sonraki cümle → <span style="font-weight:400;opacity:.85">(${names[(sugg || 3) - 1]})</span></button>
     <p class="kbd">${sess.mode === 'weak' ? 'Alıştırma modu: puanın tekrar takvimini değiştirmez, hataların sayılır.' : 'Altındaki süre, cümlenin bir sonraki gelişine kadar geçecek zaman.'}</p>
   </section>`;
 }
@@ -952,8 +4474,16 @@ function viewStats() {
     </div>
   </section>
   <section class="sheet">
+    <h2>Hikayeler</h2>
+    <p>${STORIES.filter(s => storyStat(s.id) && storyStat(s.id).read).length} / ${STORIES.length} hikaye okundu.${(() => { const r = Object.values(S.stories || {}); const a = r.reduce((n, x) => n + x.score, 0), b = r.reduce((n, x) => n + x.total, 0); return b ? ` Anlama sorularında ${a}/${b} doğru.` : ''; })()}</p>
+  </section>
+  <section class="sheet">
+    <h2>Kelime oyunu</h2>
+    ${S.game && S.game.rounds ? `<p>${S.game.rounds} tur oynandı. ${Object.keys(S.game.best).length ? 'En iyi hatasız süreler: ' + Object.entries(S.game.best).map(([l, s]) => `${LEVEL_LABEL[l]} <b>${fmtSecs(s)}</b>`).join(', ') + '.' : ''}</p>${hardWords(1).length ? `<p class="muted small">En çok karıştırılan: ${hardWords(3).map(x => esc(x.w.de)).join(', ')}</p>` : ''}` : `<p class="muted">Henüz oynanmadı. Alttaki <b>Oyun</b> sekmesinden başlayabilirsin.</p>`}
+  </section>
+  <section class="sheet">
     <div class="row" style="justify-content:space-between;margin-bottom:6px"><h2 style="margin:0">En çok yanlış yapılanlar</h2>${weak.length ? `<button class="btn" data-act="weak">Bunları çalış</button>` : ''}</div>
-    ${weak.length ? `<ul class="weaklist">${weak.map(x => `<li><span class="de" lang="de">${esc(x.s.de)}</span><span class="tr">${esc(x.s.tr)}</span><span class="errn">${x.c.w} hata / ${x.c.w + x.c.k}</span></li>`).join('')}</ul>` : `<p class="muted">Henüz yanlış yok. “Tekrar” dediğin cümleler burada listelenir.</p>`}
+    ${weak.length ? `<ul class="weaklist">${weak.map(x => `<li><span class="de" lang="de">${esc(x.s.de)}</span><span class="tr">${esc(x.s.tr)}</span><span class="errn">${x.c.w} hata / ${x.c.w + x.c.k}</span></li>`).join('')}</ul>` : `<p class="muted">Henüz yanlış yok. “Bilemedim” dediğin cümleler burada listelenir.</p>`}
   </section>`;
 }
 
@@ -967,15 +4497,15 @@ function viewSettings() {
   return `
   <section class="sheet">
     <h2>Çalışma</h2>
-    <div class="setrow"><div><b>Günlük yeni cümle</b><p class="muted small">Her gün kaç yeni cümle gelsin.</p></div>
-      <select id="setNew" class="toolbar" style="border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--sheet)">${[5, 10, 15, 20, 30, 50].map(n => `<option ${n === st.newPerDay ? 'selected' : ''}>${n}</option>`).join('')}</select></div>
+    <div class="setrow"><div><b>Günlük yeni cümle</b><p class="muted small">Her gün kaç yeni cümle gelsin. Tekrarların sınırı yok, zamanı gelen her cümle sorulur.</p></div>
+      <select id="setNew" class="toolbar" style="border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--sheet)">${[5, 10, 15, 20, 30, 50, 100, 9999].map(n => `<option value="${n}" ${n === st.newPerDay ? 'selected' : ''}>${n === 9999 ? 'Sınırsız' : n}</option>`).join('')}</select></div>
     <div class="setrow"><div><b>Cevapta otomatik seslendir</b><p class="muted small">Cevabı açınca Almanca cümle okunur.</p></div><input type="checkbox" class="switch" id="setSpeak" ${st.autoSpeak ? 'checked' : ''} aria-label="Otomatik seslendirme"></div>
     <div class="setrow"><div><b>Konuşma hızı</b><p class="muted small"><span id="rateVal">${st.rate.toFixed(2)}</span>× ${canSpeak() ? '' : '· bu cihazda seslendirme bulunamadı'}</p></div>
       <div class="row"><input type="range" id="setRate" min="0.6" max="1.2" step="0.05" value="${st.rate}" aria-label="Konuşma hızı"><button class="iconbtn" data-act="testsay" aria-label="Dene">${ICON.play}</button></div></div>
   </section>
   <section class="sheet">
     <h2>Çalışılacak desteler</h2>
-    <div class="decklist">${deckNames().map(d => `<label><input type="checkbox" data-deck="${esc(d)}" ${activeDeck(d) ? 'checked' : ''}>${esc(d)}<span class="c">${per[d] || 0}</span></label>`).join('')}</div>
+    <div class="decklist">${deckNames().map(d => `<label><input type="checkbox" data-deck="${esc(d)}" ${deckOn(d) ? 'checked' : ''}>${esc(d)}<span class="c">${per[d] || 0}</span></label>`).join('')}</div>
   </section>
   <section class="sheet stack">
     <h2 style="margin:0">Kayıt ve yedek</h2>
@@ -1021,7 +4551,7 @@ function addSentences(pairs, deck) {
     S.custom.push({ id: 'u' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), tr, de, deck: deck || 'Benim cümlelerim', added: Date.now() });
     added++;
   }
-  if (S.settings.decks && deck && !S.settings.decks.includes(deck)) S.settings.decks.push(deck);
+  if (deck) S.settings.skipDecks = (S.settings.skipDecks || []).filter(x => x !== deck);
   save();
   return { added, dup };
 }
@@ -1071,9 +4601,17 @@ function openImport() {
 
 /* ---------- events ---------- */
 document.addEventListener('click', e => {
+  if (!e.target.closest('#wordbar') && !e.target.closest('.w') && !$('#wordbar').hidden) hideWord();
   const t = e.target.closest('button,[data-edit]'); if (!t) return;
-  if (t.dataset.tab) { tab = t.dataset.tab; render(); $('#main').scrollTop = 0; return; }
+  if (t.dataset.gde || t.dataset.gtr) { gameTap(t); return; }
+  if (t.classList.contains('w')) { showWord(t); return; }
+  if (t.dataset.story) { openStory(t.dataset.story); return; }
+  if (t.dataset.st) { const i = +t.dataset.st; reader.open.has(i) ? reader.open.delete(i) : reader.open.add(i); if (reader.all) { reader.all = false; curStory().sents.forEach((_, k) => k !== i && reader.open.add(k)); reader.open.delete(i); } render(); return; }
+  if (t.dataset.sadd) { const st = curStory(); const [de, tr] = st.sents[+t.dataset.sadd]; const r = addSentences([[tr, de]], st.level + ' · Hikaye cümleleri'); toast(r.added ? 'Kartlarına eklendi' : 'Bu cümle zaten kartlarında'); return; }
+  if (t.dataset.sq) { const [qi, oi] = t.dataset.sq.split(':').map(Number); reader.ans[qi] = oi; render(); return; }
+  if (t.dataset.tab) { tab = t.dataset.tab; hideWord(); stopStory(); if (tab === 'read') reader = null; render(); $('#main').scrollTop = 0; return; }
   if (t.dataset.dir) { S.settings.dir = t.dataset.dir; save(); render(); return; }
+  if (t.dataset.level) { S.settings.level = t.dataset.level; save(); render(); toast(t.dataset.level === 'all' ? 'Tüm seviyeler seçildi' : 'Seviye: ' + LEVEL_LABEL[t.dataset.level]); return; }
   if (t.dataset.rate) { rate(+t.dataset.rate); return; }
   if (t.dataset.f) { listState.f = t.dataset.f; listState.limit = 150; render(); return; }
   if (t.dataset.edit) { openEdit(t.dataset.edit); return; }
@@ -1087,12 +4625,21 @@ document.addEventListener('click', e => {
   else if (a === 'say' || a === 'sayslow') { const s = findSentence(sess && sess.cur); if (s) speak(s.de, a === 'sayslow'); }
   else if (a === 'morenew') { today().x = (today().x || 0) + 5; save(); startSession('srs'); }
   else if (a === 'add') openAdd();
+  else if (a === 'sback') { stopStory(); hideWord(); reader = null; render(); $('#main').scrollTop = 0; }
+  else if (a === 'splay') playStory();
+  else if (a === 'sstop') stopStory();
+  else if (a === 'wclose') hideWord();
+  else if (a === 'strall') { reader.all = !reader.all; reader.open.clear(); render(); }
+  else if (a === 'sretry') { reader.ans = {}; reader.checked = false; render(); }
+  else if (a === 'scheck') { const st = curStory(); reader.checked = true; const sc = st.qs.reduce((n, q, i) => n + (reader.ans[i] === q.ok ? 1 : 0), 0); S.stories = S.stories || {}; S.stories[st.id] = { read: 1, score: sc, total: st.qs.length, at: Date.now() }; save(); render(); }
+  else if (a === 'gstart') startGame();
+  else if (a === 'gquit') { game = null; clearInterval(gameTick); render(); }
   else if (a === 'more') { listState.limit += 150; render(); }
   else if (a === 'close') closeModal();
   else if (a === 'export') openExport();
   else if (a === 'import') openImport();
   else if (a === 'testsay') speak('Ich lerne jeden Tag ein bisschen Deutsch.');
-  else if (a === 'reset') confirmBox('İlerlemeyi sıfırla', 'Tüm tekrar geçmişi ve istatistikler silinecek. Eklediğin cümleler kalacak. Bu geri alınamaz.', 'Sıfırla', () => { S.cards = {}; S.days = {}; save(); render(); toast('İlerleme sıfırlandı'); });
+  else if (a === 'reset') confirmBox('İlerlemeyi sıfırla', 'Tüm tekrar geçmişi ve istatistikler silinecek. Eklediğin cümleler kalacak. Bu geri alınamaz.', 'Sıfırla', () => { S.cards = {}; S.days = {}; S.stories = {}; S.words = {}; S.game = { best: {}, rounds: 0 }; save(); render(); toast('İlerleme sıfırlandı'); });
   else if (a === 'resetcard') { const id = $('#editForm').dataset.id; delete S.cards[id]; save(); closeModal(); render(); toast('Cümle yeniden “yeni” oldu'); }
   else if (a === 'delcard') {
     const id = $('#editForm').dataset.id; const s = findSentence(id);
@@ -1135,9 +4682,9 @@ document.addEventListener('change', e => {
   else if (t.id === 'setSpeak') { S.settings.autoSpeak = t.checked; save(); }
   else if (t.id === 'setRate') { save(); }
   else if (t.dataset.deck !== undefined) {
-    const sel = [...document.querySelectorAll('[data-deck]')].filter(x => x.checked).map(x => x.dataset.deck);
-    if (!sel.length) { t.checked = true; toast('En az bir deste seçili olmalı'); return; }
-    S.settings.decks = sel.length === deckNames().length ? null : sel; save();
+    const boxes = [...document.querySelectorAll('[data-deck]')];
+    if (!boxes.some(x => x.checked)) { t.checked = true; toast('En az bir deste seçili olmalı'); return; }
+    S.settings.skipDecks = boxes.filter(x => !x.checked).map(x => x.dataset.deck); save();
   }
 });
 document.addEventListener('keydown', e => {

@@ -2,11 +2,14 @@
 
 Almanca cümle ezber programı (Anki tarzı aralıklı tekrar). Tek dosya: `index.html` — tarayıcıda açmanız yeterli.
 
-- ~200 hazır cümle (A1, A2, B1), destelere ayrılmış
+- 600 hazır cümle (A1, A2 ve B1 için her biri 200), konulara göre destelere ayrılmış
 - Aralıklı tekrar: Tekrar / Zor / İyi / Kolay puanlaması; yanlış cümleler dakikalar içinde yeniden gelir, aralıkları kısalır
 - Üç yön: Türkçe → Almanca, Almanca → Türkçe, Dinle → Yaz
 - Yazılan cevabı kelime kelime karşılaştırma, Almanca seslendirme (normal ve yavaş)
 - "Zayıf cümleler" alıştırması: en çok yanlış yapılanlar
+- Okuma: 15 kısa hikaye (A1, A2, B1 için 5'er); kelimeye dokununca anlamı, cümle çevirisi, sesli dinleme, anlama soruları, cümleyi kartlara ekleme
+- Kelime eşleştirme oyunu: 2400 kelime (A1: 650, A2: 650, B1: 1100), renkli artikeller (der/die/das), karıştırılan kelimeler daha sık gelir
+- Seviye seçimi: Tümü / A1 / A2 / B1 / Benim
 - Tek tek veya toplu (`Türkçe;Almanca`) cümle ekleme, düzenleme, silme
 - İstatistik: seri, doğruluk, 30 günlük grafik, 7 günlük tekrar tahmini, en çok yanlış yapılanlar
 - İlerleme tarayıcıda saklanır; yedeği dışa/içe aktarma
