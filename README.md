@@ -15,6 +15,19 @@ Almanca cümle ezber programı (Anki tarzı aralıklı tekrar). Tek dosya: `inde
 - İstatistik: seri, doğruluk, 30 günlük grafik, 7 günlük tekrar tahmini, en çok yanlış yapılanlar
 - İlerleme tarayıcıda saklanır; yedeği dışa/içe aktarma
 
+## Wegweiser · Almanca rehber (`rehber.html`)
+
+Satzheft'in üst kısmındaki **Rehber** düğmesiyle açılır. A1–B1, B2, C1 ve Kartlar olmak üzere dört sekmesi var:
+
+- **A1–B1:** Alltagsdeutsch (20 konu, 219 cümle), Bildbeschreibungen (kalıplar + 15 resim, resimli/resimsiz), Gemeinsam etwas planen (kalıplar + 14 diyalog), B1 wichtige Verben (222 fiil, edat/hâl bilgisi ve örnek), B1 starke Verben (+ test), B1 Wortschatz (A1/A2/B1 kelimeleri), B1 Briefe (kalıplar + 14 örnek mektup), Unregelmäßige Verben (124 fiil), Zeitformen (+ her fiil için çekim aracı), Relativsätze, Konjunktionen (+ alıştırma)
+- **B2:** edatlı fiiller (+ alıştırma), Nomen-Verb-Verbindungen, Konnektoren, Redemittel, Passiv, Konjunktiv II, sıfat çekimi
+- **C1:** Nominalisierung, Partizipialattribute, subjektif modal fiiller, Redewendungen, Modalpartikeln, Redemittel, Konnektoren
+- **Kartlar:** yıldızlanan her cümle/kelime/fiil bir kart olur; aralıklı tekrarla ve hazır destelerle çalışılır
+- Her fiil sayfasında Präsens, Präteritum, Perfekt, Plusquamperfekt, Futur I, Konjunktiv II ve Imperativ çekimleri (`rehber/engine.js` üretir)
+- Almanca seslendirme, Türkçeyi gizleyip kendini sınama, tüm bölümlerde arama
+
+İçerik `rehber/` klasöründeki veri dosyalarındadır (düz metin satırları; yeni cümle eklemek için ilgili dosyaya satır eklemek yeterli).
+
 `linguaflash-eski.html` önceki sürümdür (ilerleme kaydetmiyordu).
 
 ## Telefona uygulama olarak kurma

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10231f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Wegweiser">
+<title>Wegweiser</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
+<style>
+/* Wegweiser: Almanca rehber. Koyu yeşil başlık, açık kâğıt zemin, bölümler için renkli kutucuklar. */
+:root{
+  --bg:#eef2f0; --surface:#ffffff; --surface2:#f5f8f6; --ink:#12211d; --soft:#56655f; --line:#d8e1dd;
+  --head:#10231f; --head-ink:#f1f6f4; --head-soft:#9fb8b0;
+  --accent:#0f766e; --accent-ink:#ffffff; --accent-bg:#d9efeb;
+  --gold:#a46512; --gold-bg:#fbefd9; --ok:#15803d; --ok-bg:#dcf2e3; --bad:#b42318; --bad-bg:#fbe4e1;
+  --der:#1d5fbf; --die:#c0264b; --das:#1b7f4a;
+  --shadow:0 1px 2px rgba(16,35,31,.06),0 8px 24px rgba(16,35,31,.07);
+  --f-ui:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --f-de:'Newsreader',Georgia,'Times New Roman',serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c1412; --surface:#141f1c; --surface2:#192622; --ink:#e4eeea; --soft:#9ab0a8; --line:#25352f;
+  --head:#08110f; --head-ink:#e9f2ee; --head-soft:#86a39a;
+  --accent:#4fd1c0; --accent-ink:#04201c; --accent-bg:#113a35;
+  --gold:#f0b45a; --gold-bg:#33270f; --ok:#5fd28c; --ok-bg:#12301f; --bad:#ff8a80; --bad-bg:#3a1c19;
+  --der:#86b3ff; --die:#ff8fab; --das:#6fdc9c;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1412; --surface:#141f1c; --surface2:#192622; --ink:#e4eeea; --soft:#9ab0a8; --line:#25352f;
+  --head:#08110f; --head-ink:#e9f2ee; --head-soft:#86a39a;
+  --accent:#4fd1c0; --accent-ink:#04201c; --accent-bg:#113a35;
+  --gold:#f0b45a; --gold-bg:#33270f; --ok:#5fd28c; --ok-bg:#12301f; --bad:#ff8a80; --bad-bg:#3a1c19;
+  --der:#86b3ff; --die:#ff8fab; --das:#6fdc9c;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:16px;line-height:1.45;min-height:100vh}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;touch-action:manipulation}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+
+/* Kopf */
+.head{background:var(--head);color:var(--head-ink);padding-top:env(safe-area-inset-top)}
+.head .wrap{display:flex;align-items:center;gap:12px;min-height:60px}
+.brand{flex:1;min-width:0}
+.brand h1{margin:0;font-size:22px;font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.brand h1 .flag{display:inline-flex;flex-direction:column;width:6px;height:20px;border-radius:2px;overflow:hidden}
+.brand h1 .flag i{flex:1}
+.brand p{margin:0;font-size:13px;color:var(--head-soft)}
+.hbtn{width:40px;height:40px;border-radius:12px;border:1px solid color-mix(in srgb,var(--head-ink) 18%,transparent);background:transparent;color:var(--head-ink);display:grid;place-items:center;flex:none}
+.hbtn svg{width:20px;height:20px}
+.levels{background:var(--head);padding-bottom:14px;position:sticky;top:0;z-index:5}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:color-mix(in srgb,var(--head-ink) 9%,transparent);padding:4px;border-radius:14px}
+.seg button{border:0;background:transparent;color:var(--head-soft);border-radius:10px;padding:9px 4px;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;gap:5px}
+.seg button[aria-current="true"]{background:var(--head-ink);color:var(--head)}
+.seg svg{width:15px;height:15px;flex:none}
+.seg button{white-space:nowrap;min-width:0}
+.seg .cnt{font-size:11px;line-height:1;padding:3px 5px;border-radius:999px;background:var(--gold);color:var(--head)}
+
+/* Innenseiten-Leiste */
+.bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top)}
+.bar .wrap{display:flex;align-items:center;gap:8px;min-height:56px}
+.bar h2{flex:1;min-width:0;margin:0;font-size:17px;font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar h2 small{display:block;font-size:12px;font-weight:500;color:var(--soft)}
+.ibtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;flex:none;color:var(--ink)}
+.ibtn svg{width:20px;height:20px}
+.ibtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.trbtn{width:auto;padding:0 10px;font-size:13px;font-weight:700}
+
+main{padding-block:16px 40px}
+.stack{display:flex;flex-direction:column;gap:14px}
+
+/* Startseite */
+.hero{margin:6px 0 4px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.hero h3{margin:0;font-size:26px;letter-spacing:-.02em}
+.hero p{margin:2px 0 0;color:var(--soft);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:560px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.tile{display:flex;flex-direction:column;gap:10px;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);min-height:132px;transition:transform .12s}
+.tile:active{transform:scale(.98)}
+.tile .ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:color-mix(in srgb,var(--hue) 16%,var(--surface));border:1px solid color-mix(in srgb,var(--hue) 30%,transparent)}
+.tile b{font-size:15px;line-height:1.2;font-weight:700;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+.tile span{font-size:13px;color:var(--soft);line-height:1.25}
+.tile em{margin-top:auto;font-style:normal;font-size:12px;font-weight:600;color:color-mix(in srgb,var(--hue) 75%,var(--ink))}
+.searchlink{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);color:var(--soft)}
+.searchlink svg{width:18px;height:18px}
+
+/* Listen */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.pad{padding:16px}
+.list{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.list>li+li{border-top:1px solid var(--line)}
+.row{display:flex;align-items:center;gap:12px;padding:13px 14px;width:100%;text-align:left;background:none;border:0}
+.row .t{flex:1;min-width:0}
+.row .t b{display:block;font-weight:600;font-size:16px;overflow-wrap:anywhere}
+.row .t span{display:block;color:var(--soft);font-size:14px}
+.row .em{font-size:22px;width:34px;text-align:center;flex:none}
+.row .n{font-size:12px;color:var(--soft);font-weight:600;flex:none}
+.row svg.chev{width:18px;height:18px;color:var(--soft);flex:none}
+.grp{margin:8px 2px 0;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);display:flex;justify-content:space-between;gap:8px}
+.grp span{text-transform:none;letter-spacing:0;font-weight:500}
+
+/* Satz-Zeilen */
+.ph{display:flex;gap:6px;padding:12px 8px 12px 14px;align-items:flex-start}
+.ph .t{flex:1;min-width:0;cursor:pointer}
+.de{font-family:var(--f-de);font-size:18px;line-height:1.35;margin:0;overflow-wrap:anywhere}
+.tr{margin:3px 0 0;font-size:14px;color:var(--soft)}
+.ex{margin:6px 0 0;font-family:var(--f-de);font-style:italic;font-size:16px}
+.ex+.tr{margin-top:1px}
+body.hide-tr .ph:not(.open) .tr{visibility:hidden;height:0;margin:0}
+body.hide-tr .ph:not(.open) .t::after{content:'Türkçesi için dokun';display:block;font-size:12px;color:var(--soft);opacity:.7;margin-top:2px}
+.acts{display:flex;flex:none}
+.act{width:38px;height:38px;border:0;background:none;border-radius:10px;display:grid;place-items:center;color:var(--soft)}
+.act svg{width:20px;height:20px}
+.act.on{color:var(--gold)}
+.act:active{background:var(--surface2)}
+.term{font-weight:700;font-size:17px;margin:0;overflow-wrap:anywhere}
+.art-der{color:var(--der)} .art-die{color:var(--die)} .art-das{color:var(--das)}
+
+/* Banner & Optionen */
+.banner{display:flex;align-items:center;gap:12px;padding:16px;border-radius:var(--r);background:var(--accent);color:var(--accent-ink);font-weight:700;box-shadow:var(--shadow)}
+.banner span{flex:1}
+.banner small{display:block;font-weight:500;opacity:.85}
+.banner svg{width:20px;height:20px}
+.opts3{display:grid;gap:10px}
+.opt{display:flex;gap:14px;align-items:center;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.opt .em{font-size:28px}
+.opt b{display:block;font-size:17px}
+.opt span{color:var(--soft);font-size:14px}
+
+/* Suche */
+.sbox{position:relative}
+.sbox input{width:100%;padding:13px 44px 13px 42px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-size:16px}
+.sbox svg.s{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--soft)}
+.sbox button{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;width:34px;height:34px;display:grid;place-items:center;color:var(--soft)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:600}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--surface2);border:1px solid var(--line);color:var(--soft)}
+.tag.gold{background:var(--gold-bg);color:var(--gold);border-color:transparent}
+.tag.acc{background:var(--accent-bg);color:var(--accent);border-color:transparent}
+.muted{color:var(--soft)} .small{font-size:13px}
+.empty{padding:28px 16px;text-align:center;color:var(--soft)}
+
+/* Verb-Seite */
+.vhead{padding:18px 16px}
+.vhead h3{margin:0;font-family:var(--f-de);font-size:32px;font-weight:500;line-height:1.1;overflow-wrap:anywhere}
+.vhead h3 .sep{color:var(--accent)}
+.vhead .tr{font-size:16px;margin-top:6px}
+.vhead .chips{margin-top:10px}
+.stamm{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line)}
+.stamm div{padding:12px 10px;text-align:center}
+.stamm div+div{border-left:1px solid var(--line)}
+.stamm small{display:block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}
+.stamm b{font-family:var(--f-de);font-weight:500;font-size:17px;overflow-wrap:anywhere}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:2px;scrollbar-width:none;margin:0 -2px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 13px;font-size:14px;font-weight:600;white-space:nowrap}
+.tabs button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.ctab{width:100%;border-collapse:collapse}
+.ctab td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:middle}
+.ctab tr:first-child td{border-top:0}
+.ctab td.p{width:1%;white-space:nowrap;color:var(--soft);font-size:14px;font-weight:600}
+.ctab td.f{font-family:var(--f-de);font-size:18px}
+.ctab td.a{width:1%;padding:0 6px}
+.note{padding:12px 14px;border-radius:12px;background:var(--gold-bg);color:var(--ink);font-size:14px}
+.note b{color:var(--gold)}
+
+/* Lektion */
+.lesson h4{margin:8px 0 0;font-size:19px;letter-spacing:-.01em}
+.lesson p{margin:0}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.tbl table{border-collapse:collapse;width:100%;font-size:14px}
+.tbl th,.tbl td{padding:9px 10px;text-align:left;border-top:1px solid var(--line);vertical-align:top}
+.tbl thead th{border-top:0;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--soft);background:var(--surface2)}
+.tbl td:first-child{font-weight:600}
+.tbl b{color:var(--accent)}
+.tip{padding:12px 14px;border-left:4px solid var(--gold);background:var(--gold-bg);border-radius:0 12px 12px 0;font-size:15px}
+.tip b{color:var(--gold)}
+.q{padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.q p{margin:0 0 10px;font-family:var(--f-de);font-size:18px}
+.qopts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.qopts button{padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);font-family:var(--f-de);font-size:16px;text-align:center;overflow-wrap:anywhere}
+.qopts button.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);font-weight:600}
+.qopts button.no{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.score{font-weight:700;text-align:center;padding:10px;border-radius:12px;background:var(--accent-bg);color:var(--accent)}
+
+/* Bild & Dialog & Brief */
+.scene{aspect-ratio:16/9;border-radius:var(--r);display:grid;place-items:center;font-size:clamp(44px,13vw,78px);letter-spacing:.06em;background:linear-gradient(160deg,color-mix(in srgb,var(--hue) 24%,var(--surface)),color-mix(in srgb,var(--hue) 8%,var(--surface)));border:1px solid var(--line);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.scene::after{content:'';position:absolute;inset:10px;border:2px dashed color-mix(in srgb,var(--hue) 35%,transparent);border-radius:10px;pointer-events:none}
+.thumb{width:52px;height:40px;border-radius:9px;display:grid;place-items:center;font-size:17px;background:color-mix(in srgb,var(--hue) 16%,var(--surface));flex:none;letter-spacing:-.1em}
+.task{padding:14px 16px;border-radius:var(--r);background:var(--accent-bg);color:var(--ink);font-size:15px}
+.task b{display:block;color:var(--accent);font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.dlg{display:flex;flex-direction:column;gap:10px}
+.bub,.bub.ph{display:block;max-width:88%;padding:10px 6px 10px 12px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.bub.b{align-self:flex-end;background:var(--accent-bg);border-color:transparent}
+.bub .who{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--soft)}
+.bub .row2{display:flex;gap:4px;align-items:flex-start}
+.bub .row2 .t{flex:1;cursor:pointer}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow);padding:22px 18px;position:relative}
+.paper .ln{padding:6px 0;cursor:pointer}
+.paper .ln .de{font-size:17px}
+.paper .ln.sig .de{font-style:italic}
+
+/* Karten */
+.fc{min-height:260px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;padding:26px 18px;cursor:pointer}
+.fc .front{font-family:var(--f-de);font-size:26px;line-height:1.25;overflow-wrap:anywhere}
+.fc .back{font-size:18px;color:var(--soft);border-top:1px dashed var(--line);padding-top:12px;width:100%}
+.fc .hint{font-size:13px;color:var(--soft)}
+.fcbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn.pri{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.bad{background:var(--bad-bg);color:var(--bad);border-color:transparent}
+.btn.good{background:var(--ok-bg);color:var(--ok);border-color:transparent}
+.btn svg{width:18px;height:18px}
+.prog{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);border-radius:inherit}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.stat{padding:12px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.stat b{display:block;font-size:24px;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--soft)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,30px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;transition:.2s;pointer-events:none;z-index:20;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.foot{text-align:center;font-size:13px;color:var(--soft);margin-top:18px}
+.foot a{color:var(--accent);font-weight:600}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="rehber/verben.js"></script>
+<script src="rehber/engine.js"></script>
+<script src="rehber/alltag.js"></script>
+<script src="rehber/bild.js"></script>
+<script src="rehber/planen.js"></script>
+<script src="rehber/briefe.js"></script>
+<script src="rehber/grammatik.js"></script>
+<script src="rehber/b2.js"></script>
+<script src="rehber/c1.js"></script>
+<script src="rehber/woerter.js"></script>
+<script>
+'use strict';
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\*(.+?)\*/g, '<i>$1</i>');
+function hash(s) { let h = 5381; for (const ch of s) h = ((h << 5) + h + ch.codePointAt(0)) | 0; return (h >>> 0).toString(36); }
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('wg.' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('wg.' + k, JSON.stringify(v)); } catch (e) {} },
+};
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2200); }
+const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ß/g, 'ss').replace(/ı/g, 'i');
+
+const I = {
+  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
+  home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>',
+  search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+  star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>',
+  starOn: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>',
+  play: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 010 7"/><path d="M19 6a8.5 8.5 0 010 12"/></svg>',
+  chev: '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
+  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  cards: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="6" width="13" height="15" rx="2"/><path d="M8 3h11a2 2 0 012 2v13"/></svg>',
+  book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 19V5"/></svg>',
+};
+
+/* ---------- Veri ayrıştırma ---------- */
+function parseGroups(str, cols) {
+  const out = []; let g = null;
+  for (const raw of str.split('\n')) {
+    const line = raw.trim(); if (!line) continue;
+    if (line[0] === '#') { const p = line.slice(1).split('|'); g = { title: p[0], tr: p[1] || '', emoji: p[2] || '', items: [] }; out.push(g); continue; }
+    const p = line.split('|'); if (p.length < cols) continue; g.items.push(p);
+  }
+  return out;
+}
+function parseEntries(str) { // "=başlık|…" + "~bölüm" / "?noktalar" + satırlar
+  const out = []; let e = null, sec = null;
+  for (const raw of str.split('\n')) {
+    const line = raw.trim(); if (!line) continue;
+    if (line[0] === '=') { const p = line.slice(1).split('|'); e = { title: p[0], tr: p[1], a: p[2], b: p[3], secs: [], points: '' }; sec = { name: '', lines: [] }; e.secs.push(sec); out.push(e); continue; }
+    if (line[0] === '~') { sec = { name: line.slice(1), lines: [] }; e.secs.push(sec); continue; }
+    if (line[0] === '?') { e.points = line.slice(1); continue; }
+    const i = line.indexOf('|'); sec.lines.push([line.slice(0, i), line.slice(i + 1)]);
+  }
+  for (const x of out) x.secs = x.secs.filter(s => s.lines.length);
+  return out;
+}
+const D = {
+  alltag: parseGroups(ALLTAG, 2), bildThemes: parseGroups(BILD_THEMES, 2), bild: parseEntries(BILD),
+  planRed: parseGroups(PLANEN_REDEMITTEL, 2), planen: parseEntries(PLANEN), briefRed: parseGroups(BRIEF_REDEMITTEL, 2), briefe: parseEntries(BRIEFE),
+  konj: parseGroups(KONJ, 4), b2praep: parseGroups(B2_PRAEP, 4), b2nvv: parseGroups(B2_NVV, 4), b2konn: parseGroups(B2_KONN, 4), b2red: parseGroups(B2_REDEMITTEL, 2),
+  nominal: parseGroups(C1_NOMINAL, 4), redew: parseGroups(C1_REDEWENDUNGEN, 4), c1red: parseGroups(C1_REDEMITTEL, 2), partikeln: parseGroups(C1_PARTIKELN, 4), c1konn: parseGroups(C1_KONN, 4),
+};
+D.words = (() => {
+  const out = []; let g = null;
+  for (const raw of WOERTER.split('\n')) {
+    const line = raw.trim(); if (!line) continue;
+    if (line[0] === '#') { const [lvl, topic] = line.slice(1).split(' · '); g = { lvl: lvl.trim(), title: (topic || '').trim(), items: [] }; out.push(g); continue; }
+    const i = line.indexOf(';'); if (i > 0 && g) g.items.push([line.slice(0, i).trim(), line.slice(i + 1).trim()]);
+  }
+  return out;
+})();
+const E = VERB_ENGINE;
+const VMAP = new Map();
+for (const raw of WICHTIG.split('\n')) {
+  const p = raw.trim().split('|'); if (p.length < 5) continue;
+  VMAP.set(p[0], { spec: p[0], tr: p[1], rek: p[2], ex: p[3], extr: p[4], wichtig: true });
+}
+const WICHTIG_LIST = [...VMAP.values()];
+for (const [inf, e] of E.IRRMAP) if (!VMAP.has(inf)) VMAP.set(inf, { spec: inf, tr: e.tr, rek: '', ex: '', extr: '' });
+const IRR_LIST = [...E.IRRMAP.values()];
+
+/* ---------- Kartlar (yıldızlananlar) ---------- */
+let CARDS = store.get('cards', {});
+const REG = new Map(); // id → {de, tr}
+function reg(de, tr) { const id = hash(de + '|' + tr); REG.set(id, { de, tr }); return id; }
+function starBtn(id) { const on = !!CARDS[id]; return `<button class="act${on ? ' on' : ''}" data-star="${id}" aria-label="${on ? 'Kartlardan çıkar' : 'Kartlara ekle'}" aria-pressed="${on}">${on ? I.starOn : I.star}</button>`; }
+function toggleStar(id, btn) {
+  if (CARDS[id]) { delete CARDS[id]; toast('Kartlardan çıkarıldı'); }
+  else { const c = REG.get(id); if (!c) return; CARDS[id] = { de: c.de, tr: c.tr, box: 0, due: 0, t: Date.now() }; toast('Kartlara eklendi ★'); }
+  store.set('cards', CARDS);
+  document.querySelectorAll(`[data-star="${id}"]`).forEach(b => { const on = !!CARDS[id]; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); b.innerHTML = on ? I.starOn : I.star; });
+}
+
+/* ---------- Seslendirme ---------- */
+const speech = { voice: null };
+const canSpeak = () => 'speechSynthesis' in window;
+function pickVoice() { if (!canSpeak()) return; const vs = speechSynthesis.getVoices(); speech.voice = vs.find(v => /^de[-_]DE/i.test(v.lang) && /google|natural|premium|enhanced/i.test(v.name)) || vs.find(v => /^de[-_]DE/i.test(v.lang)) || vs.find(v => /^de/i.test(v.lang)) || null; }
+if (canSpeak()) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function say(text) {
+  if (!canSpeak()) { toast('Bu cihazda seslendirme yok'); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text.replace(/…/g, '').replace(/\s\/\s/g, ', ').replace(/\(.*?\)/g, ''));
+  u.lang = 'de-DE'; if (speech.voice) u.voice = speech.voice; u.rate = 0.92; speechSynthesis.speak(u);
+}
+const sayBtn = de => canSpeak() ? `<button class="act" data-say="${esc(de)}" aria-label="Dinle">${I.play}</button>` : '';
+
+/* ---------- Ortak parçalar ---------- */
+let showTr = store.get('showTr', true);
+function applyTr() { document.body.classList.toggle('hide-tr', !showTr); }
+function bar(title, sub, { tr = false } = {}) {
+  return `<header class="bar"><div class="wrap">
+    <button class="ibtn" data-back aria-label="Geri">${I.back}</button>
+    <h2>${esc(title)}${sub ? `<small>${esc(sub)}</small>` : ''}</h2>
+    ${tr ? `<button class="ibtn trbtn" data-trtoggle aria-pressed="${!showTr}" title="Türkçeyi gizle / göster">${showTr ? 'TR' : 'TR ✕'}</button>` : ''}
+    <a class="ibtn" href="#/" aria-label="Ana sayfa">${I.home}</a>
+  </div></header>`;
+}
+function artClass(de) { const m = /^(der|die|das) /.exec(de); return m ? 'art-' + m[1] : ''; }
+function phrase(de, tr, { ex, extr, term = false, art = false } = {}) {
+  const id = reg(de, tr);
+  const main = term ? `<p class="term ${art ? artClass(de) : ''}" lang="de">${esc(de)}</p>` : `<p class="de ${art ? artClass(de) : ''}" lang="de">${esc(de)}</p>`;
+  return `<li class="ph"><div class="t" data-reveal>${main}<p class="tr">${esc(tr)}</p>${ex ? `<p class="ex" lang="de">${esc(ex)}</p><p class="tr">${esc(extr)}</p>` : ''}</div>
+    <div class="acts">${sayBtn(ex ? de + '. ' + ex : de)}${starBtn(id)}</div></li>`;
+}
+function phraseGroups(groups, opts = {}) {
+  return groups.map(g => `<div class="grp">${esc(g.title)}${g.tr && g.tr !== g.title ? `<span>${esc(g.tr)}</span>` : ''}</div>
+    <ul class="list">${g.items.map(p => opts.gloss ? phrase(p[0], p[1], { ex: p[2], extr: p[3], term: true }) : phrase(p[0], p[1], opts)).join('')}</ul>`).join('');
+}
+function searchBox(ph, val = '') { return `<div class="sbox"><svg class="s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="${esc(ph)}" value="${esc(val)}" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search"><button type="button" data-clear aria-label="Temizle">${I.x}</button></div>`; }
+const rowLink = (href, title, sub, { em = '', n = '', thumb = '' } = {}) => `<li><a class="row" href="${href}">${thumb}${em ? `<span class="em">${em}</span>` : ''}<span class="t"><b>${esc(title)}</b>${sub ? `<span>${esc(sub)}</span>` : ''}</span>${n !== '' ? `<span class="n">${n}</span>` : ''}${I.chev}</a></li>`;
+
+/* ---------- Bölümler ---------- */
+const LEVELS = [{ id: 'a', label: 'A1 – B1', sub: 'Temel ve orta seviye' }, { id: 'b2', label: 'B2', sub: 'İleri orta seviye' }, { id: 'c1', label: 'C1', sub: 'İleri seviye' }];
+const SECTIONS = [
+  { id: 'alltag', lvl: 'a', de: 'Alltagsdeutsch', tr: 'Günlük hayatta Almanca', icon: '💬', hue: '#0f766e', n: () => D.alltag.reduce((n, g) => n + g.items.length, 0) + ' cümle' },
+  { id: 'bild', lvl: 'a', de: 'Bildbeschreibungen', tr: 'Resim anlatma', icon: '🖼️', hue: '#7c3aed', n: () => D.bild.length + ' resim' },
+  { id: 'planen', lvl: 'a', de: 'Gemeinsam etwas planen', tr: 'Birlikte plan yapma', icon: '🗓️', hue: '#0369a1', n: () => D.planen.length + ' konu' },
+  { id: 'wichtig', lvl: 'a', de: 'B1 wichtige Verben', tr: 'Önemli fiiller ve çekimleri', icon: '⚙️', hue: '#b45309', n: () => WICHTIG_LIST.length + ' fiil' },
+  { id: 'stark', lvl: 'a', de: 'B1 starke Verben', tr: 'Güçlü fiiller + test', icon: '💪', hue: '#be123c', n: () => IRR_LIST.filter(v => v.star).length + ' fiil' },
+  { id: 'wortschatz', lvl: 'a', de: 'B1 Wortschatz', tr: 'Konulara göre kelimeler', icon: '📖', hue: '#15803d', n: () => D.words.filter(g => g.lvl === 'B1').reduce((n, g) => n + g.items.length, 0) + ' kelime' },
+  { id: 'briefe', lvl: 'a', de: 'B1 Briefe', tr: 'Mektup ve e-posta', icon: '✉️', hue: '#a16207', n: () => D.briefe.length + ' mektup' },
+  { id: 'unreg', lvl: 'a', de: 'Unregelmäßige Verben', tr: 'Düzensiz fiiller listesi', icon: '🔀', hue: '#9333ea', n: () => IRR_LIST.length + ' fiil' },
+  { id: 'zeitformen', lvl: 'a', de: 'Zeitformen', tr: 'Zamanlar + fiil çekimi', icon: '⏳', hue: '#0e7490', n: () => '6 zaman' },
+  { id: 'relativ', lvl: 'a', de: 'Relativsätze', tr: 'İlgi cümleleri', icon: '🔗', hue: '#4d7c0f', n: () => 'ders + test' },
+  { id: 'konj', lvl: 'a', de: 'Konjunktionen', tr: 'Bağlaçlar ve cümle yapısı', icon: '➕', hue: '#c2410c', n: () => D.konj.reduce((n, g) => n + g.items.length, 0) + ' bağlaç' },
+  { id: 'b2praep', lvl: 'b2', de: 'Verben mit Präpositionen', tr: 'Edatlı fiiller + alıştırma', icon: '🧩', hue: '#0f766e', n: () => D.b2praep.reduce((n, g) => n + g.items.length, 0) + ' fiil' },
+  { id: 'b2nvv', lvl: 'b2', de: 'Nomen-Verb-Verbindungen', tr: 'İsim-fiil kalıpları', icon: '🧱', hue: '#b45309', n: () => D.b2nvv.reduce((n, g) => n + g.items.length, 0) + ' kalıp' },
+  { id: 'b2konn', lvl: 'b2', de: 'Konnektoren B2', tr: 'Bağlaçlar', icon: '🔗', hue: '#4d7c0f', n: () => D.b2konn.reduce((n, g) => n + g.items.length, 0) + ' bağlaç' },
+  { id: 'b2red', lvl: 'b2', de: 'Redemittel B2', tr: 'Tartışma, sunum, grafik, şikâyet', icon: '🎤', hue: '#0369a1', n: () => D.b2red.reduce((n, g) => n + g.items.length, 0) + ' kalıp' },
+  { id: 'passiv', lvl: 'b2', de: 'Passiv', tr: 'Edilgen yapı', icon: '🔄', hue: '#7c3aed', n: () => 'ders + test' },
+  { id: 'konj2', lvl: 'b2', de: 'Konjunktiv II', tr: 'Dilek, rica, varsayım', icon: '💭', hue: '#be123c', n: () => 'ders + test' },
+  { id: 'adj', lvl: 'b2', de: 'Adjektivdeklination', tr: 'Sıfat çekimi', icon: '🎨', hue: '#c2410c', n: () => '3 tablo + test' },
+  { id: 'nominal', lvl: 'c1', de: 'Nominalisierung', tr: 'İsimleştirme ve dönüşümler', icon: '🏷️', hue: '#0e7490', n: () => D.nominal.reduce((n, g) => n + g.items.length, 0) + ' dönüşüm' },
+  { id: 'partizip', lvl: 'c1', de: 'Partizipialattribute', tr: 'Sıfat fiiller', icon: '🧬', hue: '#7c3aed', n: () => 'ders + test' },
+  { id: 'modalsubj', lvl: 'c1', de: 'Modalverben (subjektiv)', tr: 'Tahmin ve iddia', icon: '🔮', hue: '#9333ea', n: () => 'ders' },
+  { id: 'redew', lvl: 'c1', de: 'Redewendungen', tr: 'Deyimler', icon: '🎭', hue: '#be123c', n: () => D.redew.reduce((n, g) => n + g.items.length, 0) + ' deyim' },
+  { id: 'partikeln', lvl: 'c1', de: 'Modalpartikeln', tr: 'doch, ja, mal, halt …', icon: '✨', hue: '#a16207', n: () => D.partikeln.reduce((n, g) => n + g.items.length, 0) + ' edat' },
+  { id: 'c1red', lvl: 'c1', de: 'Redemittel C1', tr: 'Tartışma yazısı ve özet', icon: '🖋️', hue: '#0369a1', n: () => D.c1red.reduce((n, g) => n + g.items.length, 0) + ' kalıp' },
+  { id: 'c1konn', lvl: 'c1', de: 'Konnektoren C1', tr: 'İleri bağlaçlar', icon: '🔗', hue: '#15803d', n: () => D.c1konn.reduce((n, g) => n + g.items.length, 0) + ' bağlaç' },
+];
+const SEC = Object.fromEntries(SECTIONS.map(s => [s.id, s]));
+
+/* ---------- Ana sayfa ---------- */
+function renderHome(lvl) {
+  if (lvl === 'karten') return renderKarten();
+  const L = LEVELS.find(l => l.id === lvl) || LEVELS[0];
+  const secs = SECTIONS.filter(s => s.lvl === L.id);
+  return `<header class="head"><div class="wrap">
+      <div class="brand"><h1><span class="flag" aria-hidden="true"><i style="background:#1a1a1a"></i><i style="background:#dd0000"></i><i style="background:#ffce00"></i></span>Wegweiser</h1><p>Almanca rehber · A1 – C1</p></div>
+      <a class="hbtn" href="index.html" aria-label="Satzheft cümle kartları" title="Satzheft">${I.book}</a>
+      <a class="hbtn" href="#/suche" aria-label="Ara">${I.search}</a>
+    </div></header>
+    ${levelSeg(L.id)}
+    <main class="wrap stack">
+      <div class="hero"><div><h3>${L.label}</h3><p>${L.sub} · ${secs.length} bölüm</p></div></div>
+      <div class="grid">${secs.map(s => `<a class="tile" href="#/s/${s.id}" style="--hue:${s.hue}"><span class="ico" aria-hidden="true">${s.icon}</span><b lang="de">${esc(s.de)}</b><span>${esc(s.tr)}</span><em>${esc(s.n())}</em></a>`).join('')}</div>
+      <a class="searchlink" href="#/suche">${I.search}<span>Tüm bölümlerde ara: kelime, fiil, cümle …</span></a>
+      <p class="foot">Kaydettiğin cümleler <a href="#/karten">Kartlar</a> sekmesinde · Aralıklı tekrar için <a href="index.html">Satzheft</a></p>
+    </main>`;
+}
+function levelSeg(cur) {
+  const n = Object.keys(CARDS).length;
+  return `<nav class="levels" aria-label="Seviye"><div class="wrap"><div class="seg">
+    ${LEVELS.map(l => `<button data-lvl="${l.id}" aria-current="${cur === l.id}">${l.label}</button>`).join('')}
+    <button data-lvl="karten" aria-current="${cur === 'karten'}">${n ? '' : I.star}Kartlar${n ? ` <span class="cnt">${n}</span>` : ''}</button>
+  </div></div></nav>`;
+}
+
+/* ---------- Bölüm sayfaları ---------- */
+function renderSection(id, sub, sub2) {
+  const s = SEC[id]; if (!s) return renderHome('a');
+  const R = RENDER[id]; return R(s, sub, sub2);
+}
+const RENDER = {
+  alltag(s, sub) {
+    if (sub != null && D.alltag[sub]) { const g = D.alltag[sub]; return bar(g.title, g.tr, { tr: true }) + `<main class="wrap stack"><ul class="list">${g.items.map(p => phrase(p[0], p[1])).join('')}</ul>${nextPrev('alltag', +sub, D.alltag.length, i => D.alltag[i].title)}</main>`; }
+    return bar(s.de, s.tr) + `<main class="wrap stack"><ul class="list">${D.alltag.map((g, i) => rowLink(`#/s/alltag/${i}`, g.title, g.tr, { em: g.emoji, n: g.items.length })).join('')}</ul></main>`;
+  },
+  bild(s, sub, sub2) {
+    if (sub === 'themes') return bar('Themes', 'Resim anlatma kalıpları', { tr: true }) + `<main class="wrap stack">${phraseGroups(D.bildThemes)}</main>`;
+    if ((sub === 'mit' || sub === 'ohne') && sub2 != null && D.bild[sub2]) return bildDetail(D.bild[sub2], sub === 'mit', +sub2, sub);
+    if (sub === 'mit' || sub === 'ohne') {
+      const mit = sub === 'mit';
+      return bar(mit ? 'Bildbeschreibungen (resimli)' : 'Bildbeschreibungen (resimsiz)', D.bild.length + ' konu') + `<main class="wrap stack"><ul class="list">${D.bild.map((b, i) => rowLink(`#/s/bild/${sub}/${i}`, b.title, b.tr + ' · ' + b.b, { thumb: mit ? `<span class="thumb" style="--hue:${s.hue}" aria-hidden="true">${esc([...segs(b.a)].slice(0, 2).join(''))}</span>` : '' })).join('')}</ul></main>`;
+    }
+    return bar(s.de, s.tr) + `<main class="wrap stack"><div class="opts3">
+      <a class="opt" href="#/s/bild/themes"><span class="em">🗂️</span><span><b>Themes</b><span>Resim anlatırken kullanılan kalıplar</span></span></a>
+      <a class="opt" href="#/s/bild/mit"><span class="em">🖼️</span><span><b lang="de">Bildbeschreibungen</b><span>Resimli: önce sahneye bak, sonra anlat</span></span></a>
+      <a class="opt" href="#/s/bild/ohne"><span class="em">📝</span><span><b lang="de">Bildbeschreibungen</b><span>Resimsiz: sadece örnek metinler</span></span></a>
+    </div><div class="tip">Sınavda (DTZ / B1) önce resmi anlat, sonra kendi deneyimini ve ülkendeki durumu anlat. Her konuda bu üç bölüm var.</div></main>`;
+  },
+  planen(s, sub) {
+    if (sub === 'kalip') return bar('Planen kalıpları', 'Birlikte plan yaparken', { tr: true }) + `<main class="wrap stack">${phraseGroups(D.planRed)}</main>`;
+    if (sub != null && D.planen[sub]) return planenDetail(D.planen[sub], +sub);
+    return bar(s.de, s.tr) + `<main class="wrap stack"><a class="banner" href="#/s/planen/kalip"><span>B1 Planen kalıpları<small>Öneri, kabul, ret, görev paylaşımı</small></span>${I.chev}</a>
+      <ul class="list">${D.planen.map((p, i) => rowLink(`#/s/planen/${i}`, p.title, p.tr, { em: p.a })).join('')}</ul></main>`;
+  },
+  briefe(s, sub) {
+    if (sub === 'kalip') return bar('Brief kalıp cümleleri', 'Hitap, giriş, rica, kapanış', { tr: true }) + `<main class="wrap stack">${phraseGroups(D.briefRed)}</main>`;
+    if (sub != null && D.briefe[sub]) return briefDetail(D.briefe[sub], +sub);
+    return bar(s.de, s.tr) + `<main class="wrap stack"><a class="banner" href="#/s/briefe/kalip"><span>B1 Brief kalıp cümleleri<small>Her mektupta kullanabileceğin ifadeler</small></span>${I.chev}</a>
+      <ul class="list">${D.briefe.map((b, i) => rowLink(`#/s/briefe/${i}`, b.title, b.tr + (b.a === 'formell' ? ' · resmî' : ' · samimi'))).join('')}</ul></main>`;
+  },
+  wichtig(s) {
+    return bar(s.de, s.tr) + `<main class="wrap stack">${searchBox('Verb suchen… / Fiil ara…', UI.q)}<ul class="list" id="vlist"></ul></main>`;
+  },
+  stark(s, sub) {
+    if (sub === 'test') return stammTest();
+    return bar(s.de, s.tr) + `<main class="wrap stack"><a class="banner" href="#/s/stark/test"><span>Stammformen testi<small>Präteritum ve Perfekt biçimini seç</small></span>${I.chev}</a>
+      ${searchBox('Verb suchen… / Fiil ara…', UI.q)}<ul class="list" id="vlist"></ul></main>`;
+  },
+  unreg(s) {
+    return bar(s.de, s.tr) + `<main class="wrap stack"><div class="note">Sıra: <b>mastar</b> · er/sie/es (Präsens) · Präteritum · Perfekt. Bir fiile dokun, tüm zamanlarda çekimini gör.</div>
+      ${searchBox('Verb suchen… / Fiil ara…', UI.q)}<ul class="list" id="vlist"></ul></main>`;
+  },
+  wortschatz(s) {
+    const lv = UI.wl || 'B1';
+    return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">
+      <div class="chips" role="group" aria-label="Seviye">${['A1', 'A2', 'B1'].map(l => `<button class="chip" data-wl="${l}" aria-pressed="${lv === l}">${l}</button>`).join('')}</div>
+      ${searchBox('Wort suchen… / Kelime ara…', UI.q)}<div id="wlist" class="stack"></div></main>`;
+  },
+  zeitformen(s) {
+    return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.zeitformen)}
+      <h4>Fiil çekimi</h4><p class="muted small">Bir fiil yaz (ör. <i>abholen, sich freuen, gehen</i>). Listede yoksa düzenli fiil kuralıyla çekilir.</p>
+      ${searchBox('Verb eingeben… / Fiil yaz…', UI.q)}<ul class="list" id="vlist"></ul></main>`;
+  },
+  relativ(s) { return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.relativ)}</main>`; },
+  konj(s, sub) {
+    if (sub === 'test') return konnTest(D.konj, 'konj', 'Bağlaç alıştırması');
+    return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.konjunktionen)}
+      <a class="banner" href="#/s/konj/test"><span>Alıştırma<small>Boşluğa doğru bağlacı koy</small></span>${I.chev}</a>
+      ${phraseGroups(D.konj, { gloss: true })}</main>`;
+  },
+  b2praep(s, sub) {
+    if (sub === 'test') return praepTest();
+    return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><a class="banner" href="#/s/b2praep/test"><span>Edat alıştırması<small>Fiile uygun edatı seç</small></span>${I.chev}</a>${phraseGroups(D.b2praep, { gloss: true })}</main>`;
+  },
+  b2nvv(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><div class="tip">Resmî dilde ve B2 sınavında fiil yerine <b>isim + fiil</b> kalıbı kullanılır: <i>entscheiden → eine Entscheidung treffen</i>.</div>${phraseGroups(D.b2nvv, { gloss: true })}</main>`; },
+  b2konn(s, sub) {
+    if (sub === 'test') return konnTest(D.b2konn, 'b2konn', 'B2 bağlaç alıştırması');
+    return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><a class="banner" href="#/s/b2konn/test"><span>Alıştırma<small>Boşluğa doğru bağlacı koy</small></span>${I.chev}</a>${phraseGroups(D.b2konn, { gloss: true })}</main>`;
+  },
+  b2red(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${phraseGroups(D.b2red)}</main>`; },
+  passiv(s) { return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.passiv)}</main>`; },
+  konj2(s) { return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.konjunktiv2)}</main>`; },
+  adj(s) { return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.adjdekl)}</main>`; },
+  nominal(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><div class="tip">C1 yazılı dilde yan cümleler sık sık <b>isim grubuna</b> dönüştürülür. Bu dönüşümleri iki yönlü çalış.</div>${phraseGroups(D.nominal, { gloss: true })}</main>`; },
+  partizip(s) { return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.partizip)}</main>`; },
+  modalsubj(s) { return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.modalsubj)}</main>`; },
+  redew(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${phraseGroups(D.redew, { gloss: true })}</main>`; },
+  partikeln(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><div class="tip">Kip edatları cümleye duygu katar; tam çevirisi yoktur. Örneklerdeki tonu sesli dinleyerek öğren.</div>${phraseGroups(D.partikeln, { gloss: true })}</main>`; },
+  c1red(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${phraseGroups(D.c1red)}</main>`; },
+  c1konn(s, sub) {
+    if (sub === 'test') return konnTest(D.c1konn, 'c1konn', 'C1 bağlaç alıştırması');
+    return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><a class="banner" href="#/s/c1konn/test"><span>Alıştırma<small>Boşluğa doğru bağlacı koy</small></span>${I.chev}</a>${phraseGroups(D.c1konn, { gloss: true })}</main>`;
+  },
+};
+function segs(str) { try { return Array.from(new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(str), x => x.segment); } catch (e) { return Array.from(str); } }
+function nextPrev(id, i, n, name) {
+  const p = i > 0 ? `<a class="btn" href="#/s/${id}/${i - 1}" style="justify-content:flex-start">${I.back}<span>${esc(name(i - 1))}</span></a>` : '<span></span>';
+  const nx = i < n - 1 ? `<a class="btn" href="#/s/${id}/${i + 1}" style="justify-content:flex-end"><span>${esc(name(i + 1))}</span>${I.chev}</a>` : '<span></span>';
+  return `<div class="fcbtns">${p}${nx}</div>`;
+}
+
+/* Bild */
+const BILD_SEC = { bild: ['Resmi anlat', '1'], erfahrung: ['Kendi deneyimin', '2'], heimat: ['Kendi ülkenle karşılaştır', '3'], fragen: ['Sınavda sorulabilecek sorular', '?'] };
+function bildDetail(b, mit, i, mode) {
+  const hue = SEC.bild.hue;
+  return bar(b.title, b.tr + ' · ' + b.b, { tr: true }) + `<main class="wrap stack">
+    ${mit ? `<div class="scene" style="--hue:${hue}" role="img" aria-label="${esc(b.tr)}">${esc(b.a)}</div><p class="muted small" style="margin:-6px 2px 0">Önce sahneye bakıp kendin anlatmayı dene, sonra örnek metni oku.</p>` : ''}
+    ${b.secs.map(sc => { const [t] = BILD_SEC[sc.name] || [sc.name]; return `<div class="grp">${esc(t)}</div><ul class="list">${sc.lines.map(([de, tr]) => phrase(de, tr)).join('')}</ul>`; }).join('')}
+    <button class="btn" data-sayall="${i}">${I.play} Tüm metni dinle</button>
+    ${nextPrevBild(mode, i)}
+  </main>`;
+}
+function nextPrevBild(mode, i) {
+  const n = D.bild.length;
+  const p = i > 0 ? `<a class="btn" href="#/s/bild/${mode}/${i - 1}" style="justify-content:flex-start">${I.back}<span>${esc(D.bild[i - 1].title)}</span></a>` : '<span></span>';
+  const nx = i < n - 1 ? `<a class="btn" href="#/s/bild/${mode}/${i + 1}" style="justify-content:flex-end"><span>${esc(D.bild[i + 1].title)}</span>${I.chev}</a>` : '<span></span>';
+  return `<div class="fcbtns">${p}${nx}</div>`;
+}
+/* Planen */
+function planenDetail(p, i) {
+  return bar(p.title, p.tr, { tr: true }) + `<main class="wrap stack">
+    <div class="task"><b>Görev</b>${esc(p.b)}</div>
+    ${p.points ? `<div class="chips">${p.points.split('·').map(x => `<span class="tag acc" lang="de">${esc(x.trim())}</span>`).join('')}</div>` : ''}
+    <div class="dlg">${p.secs.flatMap(s => s.lines).map(([de, tr]) => {
+      const m = /^([AB]):\s*(.*)$/.exec(de); const who = m ? m[1] : 'A', text = m ? m[2] : de; const id = reg(text, tr);
+      return `<div class="bub ${who === 'B' ? 'b' : ''} ph"><div class="who">${who === 'A' ? 'Person A' : 'Person B'}</div><div class="row2"><div class="t" data-reveal><p class="de" lang="de">${esc(text)}</p><p class="tr">${esc(tr)}</p></div><div class="acts">${sayBtn(text)}${starBtn(id)}</div></div></div>`;
+    }).join('')}</div>
+    <button class="btn" data-sayplan="${i}">${I.play} Diyaloğu dinle</button>
+    ${nextPrev('planen', i, D.planen.length, k => D.planen[k].title)}
+  </main>`;
+}
+/* Brief */
+function briefDetail(b, i) {
+  const lines = b.secs.flatMap(s => s.lines);
+  return bar(b.title, b.tr + (b.a === 'formell' ? ' · resmî' : ' · samimi'), { tr: true }) + `<main class="wrap stack">
+    <div class="task"><b>Görev</b>${esc(b.b)}</div>
+    <div class="paper">${lines.map(([de, tr], k) => { const sig = k === lines.length - 1 || k === lines.length - 2 && /Grüß|Gruß|Grüße/.test(de); const id = reg(de, tr);
+      return `<div class="ln ph${sig ? ' sig' : ''}" style="padding-inline:0"><div class="t" data-reveal><p class="de" lang="de">${esc(de)}</p><p class="tr">${esc(tr)}</p></div><div class="acts">${starBtn(id)}</div></div>`; }).join('')}</div>
+    <button class="btn" data-saybrief="${i}">${I.play} Mektubu dinle</button>
+    ${nextPrev('briefe', i, D.briefe.length, k => D.briefe[k].title)}
+  </main>`;
+}
+
+/* Fiil listeleri */
+function verbRowHtml(spec, tr, forms) {
+  const c = E.conjugate(spec);
+  return `<li><a class="row" href="#/verb/${encodeURIComponent(spec)}"><span class="t"><b lang="de">${esc(c.label)}</b><span>${esc(tr)}${forms ? ` · <span lang="de">${esc(c.stamm.join(' · '))}</span>` : ''}</span></span>${I.chev}</a></li>`;
+}
+function fillVerbList() {
+  const el = $('#vlist'); if (!el) return;
+  const q = norm(UI.q || ''), id = ROUTE.id;
+  let items;
+  if (id === 'wichtig') items = WICHTIG_LIST.map(v => ({ spec: v.spec, tr: v.tr }));
+  else if (id === 'stark') items = IRR_LIST.filter(v => v.star).map(v => ({ spec: v.inf, tr: v.tr }));
+  else if (id === 'unreg') items = IRR_LIST.map(v => ({ spec: v.inf, tr: v.tr }));
+  else if (id === 'zeitformen') {
+    if (!q) { el.innerHTML = ''; el.hidden = true; return; }
+    items = [...VMAP.values()].map(v => ({ spec: v.spec, tr: v.tr }));
+  }
+  const match = items.filter(v => !q || norm(E.parseSpec(v.spec).label).includes(q) || norm(v.tr).includes(q));
+  let html = match.slice(0, 400).map(v => verbRowHtml(v.spec, v.tr, id !== 'wichtig')).join('');
+  if (id === 'zeitformen' && q && /^[a-zäöüß·|\s]+$/i.test(UI.q.trim()) && !VMAP.has(UI.q.trim().toLowerCase())) {
+    const raw = UI.q.trim().toLowerCase().replace('|', '·');
+    if (/(e?n)$/.test(raw.replace(/^sich /, ''))) html += `<li><a class="row" href="#/verb/${encodeURIComponent(raw)}"><span class="t"><b lang="de">${esc(raw.replace('·', ''))}</b><span>Otomatik çekim (düzenli kural)</span></span>${I.chev}</a></li>`;
+  }
+  el.hidden = false;
+  el.innerHTML = html || '<li class="empty">Sonuç yok.</li>';
+}
+
+/* Fiil sayfası */
+const TENSE_TR = { 'Präsens': 'şimdiki / geniş zaman', 'Präteritum': 'geçmiş (yazı dili)', 'Perfekt': 'geçmiş (konuşma dili)', 'Plusquamperfekt': '-mıştı', 'Futur I': 'gelecek zaman', 'Konjunktiv II': 'dilek / varsayım (-erdi)', 'Imperativ': 'emir: du · ihr · Sie' };
+function renderVerb(spec) {
+  const v = VMAP.get(spec) || { spec, tr: '', rek: '', ex: '', extr: '', auto: true };
+  let c; try { c = E.conjugate(v.spec); } catch (e) { return bar('Fiil', '') + '<main class="wrap"><p class="empty">Bu fiil çekilemedi.</p></main>'; }
+  const irr = E.IRRMAP.get(c.base) || (c.forms.root && E.IRRMAP.get(c.forms.root));
+  const tense = UI.tense && c.tenses[UI.tense] ? UI.tense : 'Präsens';
+  const labelHtml = (c.refl ? '<span class="muted">sich </span>' : '') + (c.sep ? `<span class="sep">${esc(c.sep)}</span>` : '') + esc(c.base);
+  const chips = [c.forms.strong ? '<span class="tag gold">güçlü (düzensiz)</span>' : '<span class="tag">zayıf (düzenli)</span>', c.sep ? `<span class="tag acc">ayrılabilen: ${esc(c.sep)}-</span>` : '', c.refl ? `<span class="tag acc">dönüşlü (${c.refl === 'D' ? 'Dativ' : 'Akkusativ'})</span>` : '', `<span class="tag">Perfekt: ${c.aux === 's' ? 'sein' : 'haben'}${c.both ? ' / haben' : ''}</span>`].join('');
+  const cardId = reg(c.label + ' – ' + c.stamm.join(', '), v.tr || (irr ? irr.tr : ''));
+  const rows = c.tenses[tense];
+  const pron = tense === 'Imperativ' ? ['du', 'ihr', 'Sie'] : c.pron;
+  return bar(c.label, v.tr || (irr ? irr.tr : '')) + `<main class="wrap stack">
+    <section class="card"><div class="vhead"><div style="display:flex;gap:8px;align-items:flex-start"><h3 lang="de" style="flex:1">${labelHtml}</h3><div class="acts">${sayBtn(c.label)}${starBtn(cardId)}</div></div>
+      <p class="tr">${esc(v.tr || (irr ? irr.tr : ''))}</p><div class="chips">${chips}</div></div>
+      <div class="stamm"><div><small>Präsens</small><b lang="de">${esc(c.stamm[0])}</b></div><div><small>Präteritum</small><b lang="de">${esc(c.stamm[1])}</b></div><div><small>Perfekt</small><b lang="de">${esc(c.stamm[2])}</b></div></div></section>
+    ${v.rek ? `<div class="note"><b>Kullanım:</b> <span lang="de">${esc(v.rek)}</span></div>` : ''}
+    ${v.ex ? `<ul class="list">${phrase(v.ex, v.extr)}</ul>` : ''}
+    ${v.auto ? '<div class="note"><b>Not:</b> Bu fiil listede yok; çekim düzenli fiil kurallarıyla üretildi.</div>' : ''}
+    <div class="tabs" role="group" aria-label="Zaman">${Object.keys(c.tenses).map(t => `<button data-tense="${t}" aria-pressed="${t === tense}">${t}</button>`).join('')}</div>
+    <p class="muted small" style="margin:-6px 2px 0">${esc(TENSE_TR[tense] || '')}</p>
+    <section class="card"><table class="ctab">${rows.map((f, i) => { const line = tense === 'Imperativ' ? f : `${pron[i].split('/')[0]} ${f}`; return `<tr><td class="p">${esc(pron[i])}</td><td class="f" lang="de">${esc(f)}</td><td class="a">${sayBtn(line)}</td></tr>`; }).join('')}</table></section>
+    ${c.both ? `<div class="note"><b>sein / haben:</b> Yer değiştirme anlamında <i>sein</i> (ich bin gefahren), nesneyle kullanıldığında <i>haben</i> (ich habe das Auto gefahren).</div>` : ''}
+  </main>`;
+}
+
+/* Wortschatz */
+function fillWords() {
+  const el = $('#wlist'); if (!el) return;
+  const lv = UI.wl || 'B1', q = norm(UI.q || '');
+  const groups = D.words.filter(g => g.lvl === lv).map(g => ({ ...g, items: g.items.filter(([de, tr]) => !q || norm(de).includes(q) || norm(tr).includes(q)) })).filter(g => g.items.length);
+  el.innerHTML = groups.length ? groups.map(g => `<div class="grp">${esc(g.title)}<span>${g.items.length}</span></div><ul class="list">${g.items.map(([de, tr]) => phrase(de, tr, { art: true })).join('')}</ul>`).join('') : '<p class="empty">Sonuç yok.</p>';
+}
+
+/* Ders */
+function lessonHtml(blocks) {
+  let qi = 0;
+  return blocks.map(b => {
+    if (b.h) return `<h4>${esc(b.h)}</h4>`;
+    if (b.p) return `<p>${md(b.p)}</p>`;
+    if (b.tip) return `<div class="tip">${md(b.tip)}</div>`;
+    if (b.table) return `<div class="tbl"><table><thead><tr>${b.table.head.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${b.table.rows.map(r => `<tr>${r.map(c => `<td>${md(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    if (b.ex) return `<ul class="list">${b.ex.map(([de, tr]) => phrase(de, tr)).join('')}</ul>`;
+    if (b.quiz) return `<div class="stack" data-quiz>${b.quiz.map(q => quizQ(q, qi++)).join('')}<div class="score" hidden></div></div>`;
+    return '';
+  }).join('');
+}
+function quizQ(q, i) { return `<div class="q" data-ok="${q.ok}"><p lang="de">${i + 1}. ${esc(q.q)}</p><div class="qopts">${q.opts.map((o, k) => `<button data-qa="${k}" lang="de">${esc(o)}</button>`).join('')}</div></div>`; }
+function answerQuiz(btn) {
+  const q = btn.closest('.q'); if (q.dataset.done) return; q.dataset.done = '1';
+  const ok = +q.dataset.ok, k = +btn.dataset.qa;
+  q.querySelectorAll('[data-qa]').forEach(b => { if (+b.dataset.qa === ok) b.classList.add('ok'); });
+  if (k !== ok) btn.classList.add('no');
+  q.dataset.right = k === ok ? '1' : '0';
+  const box = q.closest('[data-quiz]'); const all = box.querySelectorAll('.q'), done = box.querySelectorAll('.q[data-done]');
+  if (all.length === done.length) { const r = box.querySelectorAll('.q[data-right="1"]').length; const sc = box.querySelector('.score'); sc.hidden = false; sc.innerHTML = `${r} / ${all.length} doğru ${r === all.length ? '🎉' : ''} <button class="btn" data-retry style="margin:10px auto 0">Tekrar dene</button>`; }
+}
+
+/* Alıştırmalar */
+// Aynı boşluğa doğru olarak girebilecek bağlaçlar birbirinin yanlış şıkkı olmaz.
+const KONN_SYN = [['trotzdem', 'dennoch', 'gleichwohl', 'nichtsdestotrotz'], ['deshalb', 'also', 'folglich', 'infolgedessen', 'demzufolge', 'mithin'], ['weil', 'da', 'zumal'], ['wenn', 'falls', 'sofern', 'solange'], ['seit', 'seitdem'], ['obwohl', 'wenngleich', 'auch', 'selbst'], ['wahrend', 'wohingegen', 'indes'], ['dann', 'danach'], ['inzwischen', 'mittlerweile'], ['damit', 'um'], ['nachdem', 'sobald']];
+function konnTest(groups, id, title) {
+  // Her bağlacın örnek cümlesinde bağlacı boşluk yapar; şıklar aynı listedeki diğer bağlaçlardan gelir.
+  const items = groups.flatMap(g => g.items).filter(([t]) => !t.includes('…'));
+  const heads = items.map(([t]) => t.split(/\s*\/\s*|\s+\+|,/)[0].trim());
+  const qs = [];
+  items.forEach(([, , ex], i) => {
+    const h = heads[i];
+    const m = new RegExp(`(^|[\\s,])(${h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})(?=[\\s,.!?])`, 'i').exec(ex); if (!m) return;
+    const at = m.index + m[1].length, start = at === 0;
+    const fix = w => start ? w[0].toUpperCase() + w.slice(1) : w;
+    const ans = fix(m[2]);
+    const syn = KONN_SYN.find(g => g.includes(norm(h))) || [norm(h)];
+    const others = shuffle([...new Set(heads.filter(x => !syn.includes(norm(x))))]).slice(0, 3).map(fix);
+    const opts = shuffle([ans, ...others]);
+    qs.push({ q: ex.slice(0, at) + '___' + ex.slice(at + m[2].length), opts, ok: opts.indexOf(ans) });
+  });
+  return bar(title, '10 rastgele soru') + `<main class="wrap stack lesson"><div class="stack" data-quiz>${shuffle(qs).slice(0, 10).map((q, i) => quizQ(q, i)).join('')}<div class="score" hidden></div></div><a class="btn pri" href="#/s/${id}/test" data-newtest>Yeni sorular</a></main>`;
+}
+function praepTest() {
+  const PREPS = ['an', 'auf', 'für', 'über', 'um', 'von', 'mit', 'nach', 'zu', 'aus', 'vor', 'bei', 'in'];
+  const qs = [];
+  for (const [t, tr] of D.b2praep.flatMap(g => g.items)) {
+    const m = /^(.+?) (an|auf|für|über|um|von|mit|nach|zu|aus|vor|bei|in) \+ (A|D)$/.exec(t); if (!m) continue;
+    const opts = shuffle([m[2], ...shuffle(PREPS.filter(p => p !== m[2])).slice(0, 3)]);
+    qs.push({ q: `${m[1]} ___ (${tr})`, opts, ok: opts.indexOf(m[2]) });
+  }
+  return bar('Edat alıştırması', '10 rastgele soru') + `<main class="wrap stack lesson"><div class="stack" data-quiz>${shuffle(qs).slice(0, 10).map((q, i) => quizQ(q, i)).join('')}<div class="score" hidden></div></div><a class="btn pri" href="#/s/b2praep/test" data-newtest>Yeni sorular</a></main>`;
+}
+function stammTest() {
+  const pool = IRR_LIST.filter(v => v.star && !['sein', 'haben', 'werden'].includes(v.inf));
+  const qs = shuffle(pool.slice()).slice(0, 10).map(v => {
+    const c = E.conjugate(v.inf); const right = `${v.praet} – ${c.stamm[2]}`;
+    const st = v.inf.replace(/en$/, '').replace(/n$/, '');
+    const wrong = new Set([`${st}te – hat ge${st}t`, `${v.praet}te – ${c.aux === 's' ? 'hat' : 'ist'} ${v.pp}`, `${v.praet} – ${c.aux === 's' ? 'ist' : 'hat'} ge${st}t`, `${st}te – ${c.stamm[2]}`]);
+    wrong.delete(right);
+    const opts = shuffle([right, ...shuffle([...wrong]).slice(0, 3)]);
+    return { q: `${v.inf} (${v.tr})`, opts, ok: opts.indexOf(right) };
+  });
+  return bar('Stammformen testi', 'Präteritum – Perfekt') + `<main class="wrap stack lesson"><div class="stack" data-quiz>${qs.map((q, i) => quizQ(q, i)).join('')}<div class="score" hidden></div></div><a class="btn pri" href="#/s/stark/test" data-newtest>Yeni sorular</a></main>`;
+}
+
+/* ---------- Kartlar ---------- */
+const DAY = 86400000, STEPS = [0, 1, 3, 7, 16, 35];
+function decks() {
+  return [
+    { id: 'mine', de: 'Kartlarım', tr: 'Yıldızladığın her şey', cards: () => Object.entries(CARDS).map(([id, c]) => ({ id, de: c.de, tr: c.tr })) },
+    { id: 'w-B1', de: 'B1 Wortschatz', tr: 'B1 kelimeleri', cards: () => D.words.filter(g => g.lvl === 'B1').flatMap(g => g.items).map(([de, tr]) => ({ de, tr })) },
+    { id: 'w-A2', de: 'A2 Wortschatz', tr: 'A2 kelimeleri', cards: () => D.words.filter(g => g.lvl === 'A2').flatMap(g => g.items).map(([de, tr]) => ({ de, tr })) },
+    { id: 'w-A1', de: 'A1 Wortschatz', tr: 'A1 kelimeleri', cards: () => D.words.filter(g => g.lvl === 'A1').flatMap(g => g.items).map(([de, tr]) => ({ de, tr })) },
+    { id: 'verbs', de: 'Wichtige Verben', tr: 'Fiil + kullanım', cards: () => WICHTIG_LIST.map(v => ({ de: E.parseSpec(v.spec).label + (v.rek ? ` (${v.rek})` : ''), tr: v.tr })) },
+    { id: 'stamm', de: 'Stammformen', tr: 'Düzensiz fiil biçimleri', cards: () => IRR_LIST.map(v => ({ de: v.inf, tr: `${E.conjugate(v.inf).stamm.join(' · ')} — ${v.tr}` })) },
+    { id: 'alltag', de: 'Alltagsdeutsch', tr: 'Günlük cümleler', cards: () => D.alltag.flatMap(g => g.items).map(([de, tr]) => ({ de, tr })) },
+    { id: 'nvv', de: 'Nomen-Verb-Verbindungen', tr: 'B2 kalıpları', cards: () => D.b2nvv.flatMap(g => g.items).map(([de, tr]) => ({ de, tr })) },
+    { id: 'redew', de: 'Redewendungen', tr: 'C1 deyimleri', cards: () => D.redew.flatMap(g => g.items).map(([de, tr]) => ({ de, tr })) },
+  ];
+}
+let SESSION = null;
+function renderKarten() {
+  const all = Object.entries(CARDS), now = Date.now();
+  const due = all.filter(([, c]) => (c.due || 0) <= now).length, learned = all.filter(([, c]) => (c.box || 0) >= 3).length;
+  const dir = store.get('dir', 'de');
+  return `<header class="head"><div class="wrap"><div class="brand"><h1><span class="flag" aria-hidden="true"><i style="background:#1a1a1a"></i><i style="background:#dd0000"></i><i style="background:#ffce00"></i></span>Wegweiser</h1><p>Kartlar ve tekrar</p></div><a class="hbtn" href="#/suche" aria-label="Ara">${I.search}</a></div></header>
+  ${levelSeg('karten')}
+  <main class="wrap stack">
+    <div class="stats"><div class="stat"><b>${all.length}</b><span>kartım</span></div><div class="stat"><b>${due}</b><span>tekrar zamanı</span></div><div class="stat"><b>${learned}</b><span>öğrenildi</span></div></div>
+    <div class="chips" role="group" aria-label="Yön"><button class="chip" data-dir="de" aria-pressed="${dir === 'de'}">Almanca → Türkçe</button><button class="chip" data-dir="tr" aria-pressed="${dir === 'tr'}">Türkçe → Almanca</button></div>
+    ${all.length ? `<button class="btn pri" data-study="mine">${I.cards} ${due ? `Tekrar et (${due})` : 'Kartlarımı çalış'}</button>` : `<div class="card pad"><b>Henüz kartın yok.</b><p class="muted" style="margin:6px 0 0">Herhangi bir cümlenin, kelimenin veya fiilin yanındaki ${I.star.replace('<svg', '<svg style="width:16px;height:16px;vertical-align:-3px"')} işaretine dokun; burada kartın olur ve aralıklı tekrarla çalışırsın.</p></div>`}
+    <div class="grp">Hazır desteler<span>20 rastgele kart</span></div>
+    <ul class="list">${decks().slice(1).map(d => `<li><button class="row" data-study="${d.id}"><span class="t"><b lang="de">${esc(d.de)}</b><span>${esc(d.tr)} · ${d.cards().length}</span></span>${I.chev}</button></li>`).join('')}</ul>
+    ${all.length ? `<div class="grp">Kartlarım<span>${all.length}</span></div><ul class="list">${all.sort((a, b) => (b[1].t || 0) - (a[1].t || 0)).map(([id, c]) => { REG.set(id, { de: c.de, tr: c.tr }); return `<li class="ph"><div class="t"><p class="de" lang="de">${esc(c.de)}</p><p class="tr">${esc(c.tr)}</p></div><div class="acts">${sayBtn(c.de)}${starBtn(id)}</div></li>`; }).join('')}</ul>` : ''}
+  </main>`;
+}
+function startStudy(deckId) {
+  const d = decks().find(x => x.id === deckId); if (!d) return;
+  let cards = d.cards();
+  if (deckId === 'mine') { const now = Date.now(); const due = cards.filter(c => (CARDS[c.id].due || 0) <= now); cards = (due.length ? shuffle(due) : shuffle(cards)).slice(0, 30); }
+  else cards = shuffle(cards).slice(0, 20);
+  if (!cards.length) { toast('Bu destede kart yok'); return; }
+  SESSION = { deck: d, cards, i: 0, flip: false, ok: 0, bad: 0, dir: store.get('dir', 'de') };
+  location.hash = '#/karten/lernen';
+}
+function renderStudy() {
+  const S = SESSION; if (!S) { return renderKarten(); }
+  if (S.i >= S.cards.length) return bar(S.deck.de, 'Bitti') + `<main class="wrap stack"><div class="card pad" style="text-align:center"><p style="font-size:40px;margin:0">🎉</p><h3 style="margin:6px 0">Tur bitti</h3><p class="muted">${S.ok} bildin · ${S.bad} tekrar</p></div>
+    <button class="btn pri" data-study="${S.deck.id}">Yeni tur</button><a class="btn" href="#/karten">Kartlara dön</a></main>`;
+  const c = S.cards[S.i], front = S.dir === 'de' ? c.de : c.tr, back = S.dir === 'de' ? c.tr : c.de;
+  return bar(S.deck.de, `${S.i + 1} / ${S.cards.length}`) + `<main class="wrap stack">
+    <div class="prog"><i style="width:${(S.i / S.cards.length) * 100}%"></i></div>
+    <section class="card fc" data-flip><div class="front" ${S.dir === 'de' ? 'lang="de"' : ''}>${esc(front)}</div>${S.flip ? `<div class="back" ${S.dir === 'tr' ? 'lang="de"' : ''}>${esc(back)}</div>` : '<div class="hint">Cevabı görmek için dokun</div>'}</section>
+    ${S.flip ? `<div class="fcbtns"><button class="btn bad" data-grade="0">Bilmedim</button><button class="btn good" data-grade="1">Bildim</button></div>` : `<button class="btn pri" data-flip>Cevabı göster</button>`}
+    <button class="btn" data-say="${esc(c.de)}">${I.play} Almancasını dinle</button>
+    ${S.deck.id !== 'mine' ? '<p class="muted small" style="text-align:center;margin:0">"Bilmedim" dediğin kartlar otomatik olarak Kartlarım\'a eklenir.</p>' : ''}
+  </main>`;
+}
+function grade(ok) {
+  const S = SESSION; const c = S.cards[S.i];
+  if (S.deck.id === 'mine') { const k = CARDS[c.id]; if (k) { k.box = ok ? Math.min((k.box || 0) + 1, STEPS.length - 1) : 0; k.due = Date.now() + (ok ? STEPS[k.box] * DAY : 0); } }
+  else if (!ok) { const id = hash(c.de + '|' + c.tr); if (!CARDS[id]) CARDS[id] = { de: c.de, tr: c.tr, box: 0, due: 0, t: Date.now() }; }
+  store.set('cards', CARDS);
+  if (ok) S.ok++; else S.bad++;
+  S.i++; S.flip = false; render();
+}
+
+/* ---------- Arama ---------- */
+let SEARCH_INDEX = null;
+function buildIndex() {
+  const out = [];
+  const add = (de, tr, where, href) => out.push({ de, tr, where, href, k: norm(de + ' ' + tr) });
+  D.alltag.forEach((g, i) => g.items.forEach(([de, tr]) => add(de, tr, 'Alltagsdeutsch · ' + g.title, `#/s/alltag/${i}`)));
+  const grp = (gs, name, href) => gs.forEach(g => g.items.forEach(p => add(p[0], p[1], name, href)));
+  grp(D.bildThemes, 'Bild · Themes', '#/s/bild/themes'); grp(D.planRed, 'Planen kalıpları', '#/s/planen/kalip'); grp(D.briefRed, 'Brief kalıpları', '#/s/briefe/kalip');
+  grp(D.konj, 'Konjunktionen', '#/s/konj'); grp(D.b2praep, 'Verben mit Präpositionen', '#/s/b2praep'); grp(D.b2nvv, 'Nomen-Verb-Verbindungen', '#/s/b2nvv'); grp(D.b2konn, 'Konnektoren B2', '#/s/b2konn'); grp(D.b2red, 'Redemittel B2', '#/s/b2red');
+  grp(D.nominal, 'Nominalisierung', '#/s/nominal'); grp(D.redew, 'Redewendungen', '#/s/redew'); grp(D.partikeln, 'Modalpartikeln', '#/s/partikeln'); grp(D.c1red, 'Redemittel C1', '#/s/c1red'); grp(D.c1konn, 'Konnektoren C1', '#/s/c1konn');
+  D.bild.forEach((b, i) => { add(b.title, b.tr, 'Bildbeschreibung', `#/s/bild/mit/${i}`); b.secs.forEach(s => s.lines.forEach(([de, tr]) => add(de, tr, 'Bild · ' + b.title, `#/s/bild/mit/${i}`))); });
+  D.planen.forEach((p, i) => { add(p.title, p.tr, 'Gemeinsam planen', `#/s/planen/${i}`); p.secs.forEach(s => s.lines.forEach(([de, tr]) => add(de.replace(/^[AB]:\s*/, ''), tr, 'Planen · ' + p.title, `#/s/planen/${i}`))); });
+  D.briefe.forEach((b, i) => { add(b.title, b.tr, 'B1 Brief', `#/s/briefe/${i}`); b.secs.forEach(s => s.lines.forEach(([de, tr]) => add(de, tr, 'Brief · ' + b.title, `#/s/briefe/${i}`))); });
+  for (const v of VMAP.values()) add(E.parseSpec(v.spec).label, v.tr, 'Fiil', `#/verb/${encodeURIComponent(v.spec)}`);
+  D.words.forEach(g => g.items.forEach(([de, tr]) => add(de, tr, `Wortschatz ${g.lvl} · ${g.title}`, '')));
+  return out;
+}
+function renderSearch() { return bar('Ara', 'Tüm bölümlerde') + `<main class="wrap stack">${searchBox('Almanca veya Türkçe yaz…', UI.sq || '')}<div id="sres" class="stack"></div></main>`; }
+function fillSearch() {
+  const el = $('#sres'); if (!el) return;
+  const q = norm((UI.sq || '').trim());
+  if (q.length < 2) { el.innerHTML = '<p class="empty">En az 2 harf yaz. Örnek: <i>Termin</i>, <i>kira</i>, <i>abholen</i>.</p>'; return; }
+  SEARCH_INDEX = SEARCH_INDEX || buildIndex();
+  const hits = SEARCH_INDEX.filter(x => x.k.includes(q));
+  const rank = x => (norm(x.de).startsWith(q) ? 0 : 1) + (x.where === 'Fiil' ? -1 : 0);
+  hits.sort((a, b) => rank(a) - rank(b));
+  el.innerHTML = hits.length ? `<p class="muted small" style="margin:0 2px">${hits.length} sonuç${hits.length > 80 ? ' · ilk 80' : ''}</p><ul class="list">${hits.slice(0, 80).map(h => h.href
+    ? `<li><a class="row" href="${h.href}"><span class="t"><b lang="de" style="font-family:var(--f-de);font-weight:500">${esc(h.de)}</b><span>${esc(h.tr)}</span><span class="small" style="color:var(--accent)">${esc(h.where)}</span></span>${I.chev}</a></li>`
+    : `<li class="ph"><div class="t"><p class="de ${artClass(h.de)}" lang="de">${esc(h.de)}</p><p class="tr">${esc(h.tr)}</p><p class="small" style="margin:2px 0 0;color:var(--accent)">${esc(h.where)}</p></div><div class="acts">${sayBtn(h.de)}${starBtn(reg(h.de, h.tr))}</div></li>`).join('')}</ul>` : '<p class="empty">Sonuç yok.</p>';
+}
+
+/* ---------- Yönlendirme ---------- */
+const UI = { q: '', sq: '', wl: store.get('wl', 'B1'), tense: 'Präsens' };
+let ROUTE = {};
+const scrollMem = new Map(); let navStack = [];
+function parseHash() {
+  const h = decodeURIComponent(location.hash.replace(/^#\/?/, ''));
+  const p = h.split('/');
+  if (!h) return { v: 'home', lvl: store.get('lvl', 'a') };
+  if (p[0] === 'lvl') return { v: 'home', lvl: p[1] };
+  if (p[0] === 's') return { v: 'sec', id: p[1], sub: p[2], sub2: p[3] };
+  if (p[0] === 'verb') return { v: 'verb', spec: p.slice(1).join('/') };
+  if (p[0] === 'karten') return { v: p[1] === 'lernen' ? 'study' : 'home', lvl: 'karten' };
+  if (p[0] === 'suche') return { v: 'search' };
+  return { v: 'home', lvl: 'a' };
+}
+function render() {
+  ROUTE = parseHash();
+  const app = $('#app'); let html;
+  if (ROUTE.v === 'home') html = renderHome(ROUTE.lvl);
+  else if (ROUTE.v === 'sec') html = renderSection(ROUTE.id, ROUTE.sub, ROUTE.sub2);
+  else if (ROUTE.v === 'verb') html = renderVerb(ROUTE.spec);
+  else if (ROUTE.v === 'study') html = renderStudy();
+  else if (ROUTE.v === 'search') html = renderSearch();
+  app.innerHTML = html;
+  fillVerbList(); fillWords(); fillSearch();
+  applyTr();
+  const t = { home: 'Wegweiser', search: 'Ara · Wegweiser', study: 'Kartlar · Wegweiser' }[ROUTE.v] || ((ROUTE.v === 'sec' && SEC[ROUTE.id] ? SEC[ROUTE.id].de : 'Fiil') + ' · Wegweiser');
+  document.title = t;
+}
+let lastHash = location.hash;
+window.addEventListener('hashchange', () => {
+  scrollMem.set(lastHash, window.scrollY);
+  const back = navStack.length > 1 && navStack[navStack.length - 2] === location.hash;
+  if (back) navStack.pop(); else navStack.push(location.hash);
+  const prev = parseHash();
+  if (!back && prev.v !== 'verb') UI.q = '';
+  if (prev.v === 'verb' && !back) UI.tense = 'Präsens';
+  lastHash = location.hash;
+  render();
+  window.scrollTo(0, back ? (scrollMem.get(location.hash) || 0) : 0);
+});
+navStack.push(location.hash);
+function parentOf(r) {
+  if (r.v === 'sec') return r.sub2 != null ? `#/s/${r.id}/${r.sub}` : r.sub != null ? `#/s/${r.id}` : `#/lvl/${SEC[r.id] ? SEC[r.id].lvl : 'a'}`;
+  if (r.v === 'study') return '#/karten';
+  return '#/';
+}
+function goBack() { if (navStack.length > 1) history.back(); else location.hash = parentOf(ROUTE); }
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('button, a, [data-reveal], [data-flip]'); if (!t) return;
+  const d = t.dataset;
+  if (d.back !== undefined) return goBack();
+  if (d.star) { e.preventDefault(); return toggleStar(d.star, t); }
+  if (d.say) { e.preventDefault(); return say(d.say); }
+  if (d.lvl) { store.set('lvl', d.lvl); location.hash = d.lvl === 'karten' ? '#/karten' : '#/lvl/' + d.lvl; return; }
+  if (d.trtoggle !== undefined) { showTr = !showTr; store.set('showTr', showTr); t.setAttribute('aria-pressed', !showTr); t.textContent = showTr ? 'TR' : 'TR ✕'; applyTr(); document.querySelectorAll('.ph.open').forEach(x => x.classList.remove('open')); return; }
+  if (d.reveal !== undefined) { if (!showTr) t.closest('.ph').classList.toggle('open'); return; }
+  if (d.clear !== undefined) { const i = $('#q'); i.value = ''; i.dispatchEvent(new Event('input')); i.focus(); return; }
+  if (d.wl) { UI.wl = d.wl; store.set('wl', d.wl); document.querySelectorAll('[data-wl]').forEach(b => b.setAttribute('aria-pressed', b.dataset.wl === d.wl)); fillWords(); return; }
+  if (d.tense) { UI.tense = d.tense; const y = window.scrollY; render(); window.scrollTo(0, y); return; }
+  if (d.qa) return answerQuiz(t);
+  if (d.retry !== undefined) { const box = t.closest('[data-quiz]'); box.querySelectorAll('.q').forEach(q => { delete q.dataset.done; delete q.dataset.right; q.querySelectorAll('button').forEach(b => b.classList.remove('ok', 'no')); }); box.querySelector('.score').hidden = true; return; }
+  if (d.newtest !== undefined) { e.preventDefault(); render(); window.scrollTo(0, 0); return; }
+  if (d.dir) { store.set('dir', d.dir); document.querySelectorAll('[data-dir]').forEach(b => b.setAttribute('aria-pressed', b.dataset.dir === d.dir)); return; }
+  if (d.study) { e.preventDefault(); return startStudy(d.study); }
+  if (d.flip !== undefined) { if (SESSION && !SESSION.flip) { SESSION.flip = true; render(); } return; }
+  if (d.grade) return grade(d.grade === '1');
+  if (d.sayall) { const b = D.bild[+d.sayall]; return say(b.secs.flatMap(s => s.name === 'fragen' ? [] : s.lines.map(l => l[0])).join(' ')); }
+  if (d.sayplan) { const p = D.planen[+d.sayplan]; return say(p.secs.flatMap(s => s.lines.map(l => l[0].replace(/^[AB]:\s*/, ''))).join(' ')); }
+  if (d.saybrief) { const b = D.briefe[+d.saybrief]; return say(b.secs.flatMap(s => s.lines.map(l => l[0])).join(' ')); }
+});
+document.addEventListener('input', e => {
+  if (e.target.id !== 'q') return;
+  if (ROUTE.v === 'search') { UI.sq = e.target.value; fillSearch(); }
+  else { UI.q = e.target.value; fillVerbList(); fillWords(); }
+});
+
+try { const t = store.get('theme', null); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+render();
+
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && !(window.claude && window.claude.use)) {
+  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(() => {});
+}
+</script>
+</body>
+</html>

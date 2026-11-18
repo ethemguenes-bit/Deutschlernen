@@ -1,7 +1,9 @@
 // Satzheft service worker: works offline after the first visit.
 // Bump VERSION whenever app files change so phones pick up the new version.
-const VERSION = 'satzheft-v13';
-const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
+const VERSION = 'satzheft-v14';
+const SHELL = ['./', './index.html', './rehber.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png',
+  './rehber/verben.js', './rehber/engine.js', './rehber/alltag.js', './rehber/bild.js', './rehber/planen.js', './rehber/briefe.js',
+  './rehber/grammatik.js', './rehber/b2.js', './rehber/c1.js', './rehber/woerter.js'];
 
 self.addEventListener('install', e => {
   // cache: 'reload' skips the phone's HTTP cache so a new version never stores an old copy of the page.
@@ -16,8 +18,16 @@ self.addEventListener('fetch', e => {
   // The page itself: ask the server every time (no-cache revalidates instead of trusting GitHub Pages' 10-minute cache),
   // fall back to the cached copy offline.
   if (req.mode === 'navigate') {
-    e.respondWith(fetch(req.url, { cache: 'no-cache' }).then(res => { const copy = res.clone(); caches.open(VERSION).then(c => c.put('./index.html', copy)); return res; })
-      .catch(() => caches.match('./index.html')));
+    // Each page (index.html, rehber.html) is cached under its own address.
+    const page = /rehber\.html$/.test(new URL(req.url).pathname) ? './rehber.html' : './index.html';
+    e.respondWith(fetch(req.url, { cache: 'no-cache' }).then(res => { const copy = res.clone(); caches.open(VERSION).then(c => c.put(page, copy)); return res; })
+      .catch(() => caches.match(page)));
+    return;
+  }
+  // Rehber data files: network first (no-cache revalidates), cached copy offline.
+  if (/\/rehber\/[^/]+\.js$/.test(new URL(req.url).pathname)) {
+    e.respondWith(fetch(req.url, { cache: 'no-cache' }).then(res => { if (res.ok) { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); } return res; })
+      .catch(() => caches.match(req, { ignoreSearch: true })));
     return;
   }
   // Everything else (icons, fonts): cache first, then network, keeping a copy.
