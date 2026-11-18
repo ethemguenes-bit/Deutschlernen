@@ -5213,7 +5213,17 @@ render();
 initCloud();
 // Installed app: work offline and ask the browser not to clear saved progress.
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && !(window.claude && window.claude.use)) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
+  // updateViaCache 'none': always fetch sw.js itself fresh; check again whenever the app comes back to the foreground.
+  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(reg => {
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') reg.update().catch(() => {}); });
+  }).catch(() => {});
+  // When a new version takes over, reload once so it shows right away (not in the middle of a study session).
+  const hadController = !!navigator.serviceWorker.controller; let swReloading = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController || swReloading) return;
+    if (sess) { toast('Yeni sürüm hazır. Oturumu bitirince uygulamayı yeniden aç.'); return; }
+    swReloading = true; location.reload();
+  });
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
 }
 if (window.claude && window.claude.use) window.claude.use('tts').then(t => { if (t) { speech.tts = t; if (!speech.synth) render(); } }).catch(() => {});
