@@ -50,6 +50,7 @@ kennen|kennt|kannte|gekannt|h|tanımak, bilmek|*
 klingen|klingt|klang|geklungen|h|kulağa … gelmek; çınlamak
 kommen|kommt|kam|gekommen|s|gelmek|*
 können|kann|konnte|gekonnt|h|-ebilmek|*
+möchten|möchte|wollte|gewollt|h|istemek (kibar), -mek istemek
 kriechen|kriecht|kroch|gekrochen|s|sürünmek
 laden|lädt|lud|geladen|h|yüklemek; şarj etmek
 lassen|lässt|ließ|gelassen|h|bırakmak; -tırmak|*
@@ -349,4 +350,85 @@ zu·hören|dinlemek (birini)|jdm. (D) zuhören|Hör mir bitte zu!|Beni dinle lü
 zu·machen|kapatmak|etw. (A) zumachen|Mach bitte die Tür zu.|Kapıyı kapat lütfen.
 zurück·geben|geri vermek|jdm. (D) etw. (A) zurückgeben|Ich gebe dir das Buch morgen zurück.|Kitabı sana yarın geri veriyorum.
 zurück·kommen[s]|geri gelmek|aus + D / von + D|Wann kommst du aus dem Urlaub zurück?|Tatilden ne zaman dönüyorsun?
-zu·stimmen|katılmak, onaylamak|jdm. (D) / etw. (D) zustimmen|Da stimme ich Ihnen zu.|Bu konuda size katılıyorum.`;
+zu·stimmen|katılmak, onaylamak|jdm. (D) / etw. (D) zustimmen|Da stimme ich Ihnen zu.|Bu konuda size katılıyorum.
+aus·schalten|kapatmak (cihaz)|etw. (A) ausschalten|Bitte schalten Sie Ihr Handy aus.|Lütfen telefonunuzu kapatın.
+aus·fallen[s]|iptal olmak; (saç) dökülmek||Der Unterricht fällt heute aus.|Ders bugün iptal.
+bieten|sunmak, teklif etmek|jdm. (D) etw. (A) bieten|Die Stadt bietet viele Freizeitmöglichkeiten.|Şehir birçok boş zaman imkânı sunuyor.
+beschreiben|tarif etmek, anlatmak|jdm. (D) etw. (A) beschreiben|Können Sie mir den Weg beschreiben?|Bana yolu tarif edebilir misiniz?
+begrüßen|selamlamak, karşılamak|jdn. (A) begrüßen|Der Lehrer begrüßt die neuen Schüler.|Öğretmen yeni öğrencileri karşılıyor.
+bedeuten|anlamına gelmek||Was bedeutet dieses Wort?|Bu kelime ne anlama geliyor?
+beantworten|cevaplamak|etw. (A) beantworten|Bitte beantworten Sie alle Fragen.|Lütfen tüm soruları cevaplayın.
+biegen[s]|(bir yöne) dönmek; bükmek|um die Ecke biegen|Das Auto biegt um die Ecke.|Araba köşeyi dönüyor.
+buchstabieren|harf harf söylemek|etw. (A) buchstabieren|Können Sie Ihren Namen bitte buchstabieren?|Adınızı harf harf söyler misiniz lütfen?
+baden|banyo yapmak; yüzmek|(sich) baden|Die Kinder baden im See.|Çocuklar gölde yüzüyor.
+drucken|yazdırmak, basmak|etw. (A) drucken|Ich muss noch die Fahrkarte drucken.|Bir de bileti yazdırmam lazım.
+dabei·haben|yanında bulundurmak|etw. (A) dabeihaben|Hast du deinen Ausweis dabei?|Kimliğin yanında mı?
+sich an·ziehen|giyinmek||Ich ziehe mich schnell an.|Hemen giyiniyorum.
+an·schauen|bakmak, izlemek|sich(D) etw. (A) anschauen|Wir schauen uns die Fotos an.|Fotoğraflara bakıyoruz.
+an·kreuzen|işaretlemek (çarpı ile)|etw. (A) ankreuzen|Kreuzen Sie die richtige Antwort an.|Doğru cevabı işaretleyin.
+an·klicken|tıklamak|etw. (A) anklicken|Klicken Sie auf den Link an.|Bağlantıya tıklayın.
+erreichen|ulaşmak; yetişmek|jdn./etw. (A) erreichen|Ich habe den Zug gerade noch erreicht.|Trene son anda yetiştim.
+erlauben|izin vermek|jdm. (D) etw. (A) erlauben|Meine Eltern erlauben mir das nicht.|Ailem buna izin vermiyor.
+ergänzen|tamamlamak|etw. (A) ergänzen|Ergänzen Sie die Sätze.|Cümleleri tamamlayın.
+erziehen|yetiştirmek, eğitmek|jdn. (A) erziehen|Sie erziehen ihre Kinder zweisprachig.|Çocuklarını iki dilli yetiştiriyorlar.
+steigen|çıkmak; yükselmek|auf + A / in + A|Die Preise steigen jedes Jahr.|Fiyatlar her yıl yükseliyor.
+sich fragen|merak etmek, kendine sormak|sich fragen, ob …|Ich frage mich, ob er recht hat.|Haklı olup olmadığını merak ediyorum.
+fotografieren|fotoğraf çekmek|jdn./etw. (A) fotografieren|Darf man hier fotografieren?|Burada fotoğraf çekilebilir mi?
+Fußball ·spielen|futbol oynamak||Am Samstag spielen wir Fußball.|Cumartesi futbol oynuyoruz.
+füttern|beslemek (hayvan, bebek)|jdn./etw. (A) füttern|Bitte die Tiere nicht füttern!|Lütfen hayvanları beslemeyin!
+grillen|mangal yapmak|etw. (A) grillen|Im Sommer grillen wir oft im Garten.|Yazın sık sık bahçede mangal yaparız.
+gießen|(çiçek) sulamak; dökmek|etw. (A) gießen|Kannst du im Urlaub meine Blumen gießen?|Tatildeyken çiçeklerimi sulayabilir misin?
+Gitarre ·spielen|gitar çalmak||Mein Bruder spielt sehr gut Gitarre.|Kardeşim çok iyi gitar çalıyor.
+Hunger ·haben|acıkmak, aç olmak||Ich habe großen Hunger.|Çok açım.
+holen|getirmek, gidip almak|etw. (A) holen|Ich hole schnell Brot vom Bäcker.|Fırından hemen ekmek alıp geleyim.
+hoch·tragen|yukarı taşımak|etw. (A) hochtragen|Hilfst du mir, den Koffer hochzutragen?|Bavulu yukarı taşımama yardım eder misin?
+hin·fallen[s]|düşmek, yere düşmek||Das Kind ist auf dem Spielplatz hingefallen.|Çocuk oyun parkında düştü.
+hin·gehen[s]|oraya gitmek||Gehst du morgen auch zur Party hin?|Yarın sen de partiye gidiyor musun?
+hin·fliegen[s]|oraya uçmak||Wir fliegen hin und fahren mit dem Zug zurück.|Gidişte uçacağız, dönüşte trenle geleceğiz.
+lächeln|gülümsemek|über + A|Sie lächelt immer freundlich.|Her zaman güler yüzle gülümsüyor.
+landen[s]|iniş yapmak||Das Flugzeug landet um 14 Uhr.|Uçak saat 14'te iniyor.
+lieben|sevmek, âşık olmak|jdn./etw. (A) lieben|Ich liebe dich.|Seni seviyorum.
+malen|resim yapmak, boyamak|etw. (A) malen|Die Kinder malen ein Bild für Oma.|Çocuklar büyükanneleri için resim yapıyor.
+Musik ·hören|müzik dinlemek||Beim Kochen höre ich gern Musik.|Yemek yaparken müzik dinlemeyi severim.
+möchten|istemek (kibar)|etw. (A) möchten|Ich möchte einen Kaffee, bitte.|Bir kahve istiyorum, lütfen.
+mit·nehmen|yanına almak, götürmek|jdn./etw. (A) mitnehmen|Nimm einen Regenschirm mit!|Yanına şemsiye al!
+mit·fahren[s]|birlikte (araçla) gitmek|mit + D|Kann ich bei dir mitfahren?|Seninle gelebilir miyim (arabayla)?
+markieren|işaretlemek|etw. (A) markieren|Markieren Sie die wichtigen Wörter.|Önemli kelimeleri işaretleyin.
+notieren|not almak|sich(D) etw. (A) notieren|Ich notiere mir Ihre Telefonnummer.|Telefon numaranızı not alıyorum.
+ordnen|düzenlemek, sıralamak|etw. (A) ordnen|Ordnen Sie die Sätze in die richtige Reihenfolge.|Cümleleri doğru sıraya koyun.
+organisieren|düzenlemek, organize etmek|etw. (A) organisieren|Wer organisiert die Feier?|Kutlamayı kim düzenliyor?
+Rad ·fahren[s]|bisiklete binmek||Ich fahre jeden Tag Rad zur Arbeit.|Her gün işe bisikletle gidiyorum.
+Radio ·hören|radyo dinlemek||Morgens hört mein Vater immer Radio.|Babam sabahları hep radyo dinler.
+riechen|kokmak; koklamak|nach + D|Hier riecht es nach Kaffee.|Burası kahve kokuyor.
+kontrollieren|kontrol etmek|etw. (A) kontrollieren|Im Zug werden die Fahrkarten kontrolliert.|Trende biletler kontrol ediliyor.
+krank ·sein|hasta olmak||Ich bin seit Montag krank.|Pazartesiden beri hastayım.
+Sport ·treiben|spor yapmak||Treibst du regelmäßig Sport?|Düzenli spor yapıyor musun?
+schneien|kar yağmak||Im Winter schneit es oft in den Bergen.|Kışın dağlarda sık sık kar yağar.
+scheinen|(güneş) parlamak; gibi görünmek||Heute scheint die Sonne.|Bugün güneş parlıyor.
+schneiden|kesmek|etw. (A) schneiden|Schneid bitte die Tomaten klein.|Domatesleri küçük doğra lütfen.
+sich waschen|yıkanmak||Die Kinder waschen sich vor dem Essen die Hände.|Çocuklar yemekten önce ellerini yıkıyor.
+sich aus·ziehen|soyunmak||Er zieht sich aus und geht ins Bett.|Soyunup yatağa giriyor.
+sich treffen|buluşmak|sich mit + D treffen|Wir treffen uns um acht vor dem Kino.|Saat sekizde sinemanın önünde buluşuyoruz.
+sich an·melden|kaydolmak; kendini bildirmek|sich für + A / bei + D anmelden|Ich melde mich für den Kurs an.|Kursa kaydoluyorum.
+üben|alıştırma yapmak, çalışmak|etw. (A) üben|Ich übe jeden Tag Deutsch.|Her gün Almanca çalışıyorum.
+vor·lesen|sesli okumak|jdm. (D) etw. (A) vorlesen|Abends lese ich meiner Tochter vor.|Akşamları kızıma kitap okurum.
+vertrauen|güvenmek|jdm. (D) vertrauen|Ich vertraue dir.|Sana güveniyorum.
+wiederholen|tekrarlamak|etw. (A) wiederholen|Können Sie das bitte wiederholen?|Bunu tekrar edebilir misiniz lütfen?
+weg·gehen[s]|gitmek, ayrılmak||Geh nicht weg, ich bin gleich zurück!|Gitme, hemen dönüyorum!
+wandern[s]|yürüyüş yapmak (doğada)||Am Wochenende wandern wir in den Bergen.|Hafta sonu dağlarda yürüyüş yapıyoruz.
+weiter·gehen[s]|devam etmek, yürümeye devam etmek||So kann es nicht weitergehen.|Böyle devam edemez.
+weiter·lesen|okumaya devam etmek||Morgen lese ich das Buch weiter.|Yarın kitabı okumaya devam edeceğim.
+weiter·fahren[s]|yola devam etmek||Nach der Pause fahren wir weiter.|Moladan sonra yola devam ediyoruz.
+wieder·kommen[s]|tekrar gelmek||Kommen Sie bitte morgen wieder.|Lütfen yarın tekrar gelin.
+Ski ·fahren[s]|kayak yapmak||Im Winter fahren wir in Österreich Ski.|Kışın Avusturya'da kayak yapıyoruz.
+sammeln|toplamak, biriktirmek|etw. (A) sammeln|Mein Sohn sammelt Briefmarken.|Oğlum pul topluyor.
+surfen|sörf yapmak; internette gezinmek|im Internet surfen|Abends surfe ich ein bisschen im Internet.|Akşamları biraz internette geziniyorum.
+springen|zıplamak, atlamak||Die Kinder springen ins Wasser.|Çocuklar suya atlıyor.
+stimmen|doğru olmak; oy vermek|für / gegen + A|Das stimmt nicht!|Bu doğru değil!
+tun|yapmak, etmek|etw. (A) tun|Was kann ich für Sie tun?|Sizin için ne yapabilirim?
+weh·tun|acıtmak, ağrımak|jdm. (D) wehtun|Mir tut der Rücken weh.|Sırtım ağrıyor.
+wenden|çevirmek; (sich) başvurmak|sich an + A wenden|Bitte wenden Sie sich an die Information.|Lütfen danışmaya başvurun.
+zurück·fahren[s]|geri dönmek (araçla)||Wann fahrt ihr nach Hause zurück?|Eve ne zaman dönüyorsunuz?
+zu ·sein|kapalı olmak||Die Apotheke ist am Sonntag zu.|Eczane pazar günü kapalı.
+zurück·fliegen[s]|uçakla geri dönmek||Wir fliegen am Freitag zurück.|Cuma günü uçakla geri dönüyoruz.
+`;

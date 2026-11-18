@@ -339,7 +339,7 @@ for (const raw of WICHTIG.split('\n')) {
   const p = raw.trim().split('|'); if (p.length < 5) continue;
   VMAP.set(p[0], { spec: p[0], tr: p[1], rek: p[2], ex: p[3], extr: p[4], wichtig: true });
 }
-const WICHTIG_LIST = [...VMAP.values()];
+const WICHTIG_LIST = [...VMAP.values()].sort((a, b) => { const k = v => E.parseSpec(v.spec).label.replace(/^sich /, ''); return k(a).localeCompare(k(b), 'de') || a.spec.length - b.spec.length; });
 for (const [inf, e] of E.IRRMAP) if (!VMAP.has(inf)) VMAP.set(inf, { spec: inf, tr: e.tr, rek: '', ex: '', extr: '' });
 const IRR_LIST = [...E.IRRMAP.values()];
 
