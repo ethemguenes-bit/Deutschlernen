@@ -1,9 +1,9 @@
 // Satzheft service worker: works offline after the first visit.
 // Bump VERSION whenever app files change so phones pick up the new version.
-const VERSION = 'satzheft-v16';
+const VERSION = 'satzheft-v17';
 const SHELL = ['./', './index.html', './rehber.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png',
   './rehber/verben.js', './rehber/engine.js', './rehber/alltag.js', './rehber/bild.js', './rehber/planen.js', './rehber/briefe.js',
-  './rehber/grammatik.js', './rehber/b2.js', './rehber/b2briefe.js', './rehber/b2sprechen.js', './rehber/b2extra.js', './rehber/c1.js', './rehber/c1texte.js', './rehber/c1extra.js', './rehber/woerter.js'];
+  './rehber/grammatik.js', './rehber/b2.js', './rehber/b2briefe.js', './rehber/b2sprechen.js', './rehber/b2extra.js', './rehber/c1.js', './rehber/c1texte.js', './rehber/c1extra.js', './rehber/c1wort2.js', './rehber/c1wort3.js', './rehber/woerter.js'];
 
 self.addEventListener('install', e => {
   // cache: 'reload' skips the phone's HTTP cache so a new version never stores an old copy of the page.
