@@ -259,6 +259,7 @@ body.hide-tr .ph:not(.open) .t::after{content:'Türkçesi için dokun';display:b
 <script src="rehber/c1extra.js"></script>
 <script src="rehber/c1wort2.js"></script>
 <script src="rehber/c1wort3.js"></script>
+<script src="rehber/c1nominal.js"></script>
 <script src="rehber/woerter.js"></script>
 <script>
 'use strict';
@@ -322,7 +323,7 @@ const D = {
   b2wort: parseGroups(B2_WORT, 2), genitiv: parseGroups(B2_GENITIV, 4),
   c1zitate: parseEntries(C1_ZITATE), c1praes: parseEntries(C1_PRAES), c1briefe: parseEntries(C1_BRIEFE), c1themen: parseGroups(C1_THEMEN, 2),
   c1wort: mergeGroups(parseGroups(C1_WORT, 4)), idiom: parseGroups(C1_IDIOM, 4), passers: parseGroups(C1_PASSERS, 4), grafik: parseGroups(C1_GRAFIK, 2), c1nvv: parseGroups(C1_NVV, 4), sprich: parseGroups(C1_SPRICH, 2),
-  nominal: parseGroups(C1_NOMINAL, 4), redew: parseGroups(C1_REDEWENDUNGEN, 4), c1red: parseGroups(C1_REDEMITTEL, 2), partikeln: parseGroups(C1_PARTIKELN, 4), c1konn: parseGroups(C1_KONN, 4),
+  nominal: mergeGroups(parseGroups(C1_NOMINAL, 4)), redew: parseGroups(C1_REDEWENDUNGEN, 4), c1red: parseGroups(C1_REDEMITTEL, 2), partikeln: parseGroups(C1_PARTIKELN, 4), c1konn: parseGroups(C1_KONN, 4),
 };
 D.words = (() => {
   const out = []; let g = null;
@@ -581,7 +582,7 @@ const RENDER = {
   grafik(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><div class="tip">Sıra: <b>Giriş ve kaynak</b> → <b>en önemli değerler ve eğilim</b> → <b>karşılaştırma ve nedenler</b> → <b>sonuç</b>. Verileri tek tek saymak yerine eğilimleri yorumla.</div>${phraseGroups(D.grafik)}</main>`; },
   c1nvv(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${searchBox('Nomen-Verb suchen… / Kalıp ara…', UI.q)}<div id="glist" class="stack" data-gl="c1nvv" data-gloss="1"></div></main>`; },
   sprich(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${searchBox('Sprichwort suchen… / Atasözü ara…', UI.q)}<div id="glist" class="stack" data-gl="sprich" data-plain="1"></div></main>`; },
-  nominal(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><div class="tip">C1 yazılı dilde yan cümleler sık sık <b>isim grubuna</b> dönüştürülür. Bu dönüşümleri iki yönlü çalış.</div>${phraseGroups(D.nominal, { gloss: true })}</main>`; },
+  nominal(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><div class="tip">C1 yazılı dilde fiiller, sıfatlar ve yan cümleler sık sık <b>isim grubuna</b> dönüştürülür (Nominalstil). Dönüşümleri iki yönlü çalış.</div>${searchBox('Fiil, isim, edat veya anlam ara…', UI.q)}<div id="glist" class="stack" data-gl="nominal" data-gloss="1"></div></main>`; },
   partizip(s) { return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.partizip)}</main>`; },
   modalsubj(s) { return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.modalsubj)}</main>`; },
   redew(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${searchBox('Redewendung suchen… / Deyim ara…', UI.q)}<div id="glist" class="stack" data-gl="redew" data-gloss="1"></div></main>`; },
