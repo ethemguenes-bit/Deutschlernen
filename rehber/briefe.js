@@ -42,7 +42,7 @@ Liebe Grüße / Herzliche Grüße|Sevgiler / İçten selamlar
 Bis bald!|Yakında görüşmek üzere!`;
 
 // Mektuplar: "=Başlık|Türkçe|formell/informell|görev" ardından satırlar "Almanca|Türkçe"
-window.BRIEFE = `=Bewerbung als Verkäufer|Tezgâhtar iş başvurusu|formell|Gazetede bir süpermarketin tezgâhtar ilanını okudunuz. Başvurun: kendinizi tanıtın, deneyiminizi ve ne zaman başlayabileceğinizi yazın.
+window.BRIEFE = `=Bewerbung als Verkäufer|Tezgâhtar iş başvurusu|formell|Gazetede bir süpermarketin tezgâhtar ilanını okudunuz. Başvurun: kendinizi tanıtın, deneyiminizi ve ne zaman başlayabileceğinizi yazın.|Anfrage
 Sehr geehrte Damen und Herren,|Sayın yetkililer,
 mit großem Interesse habe ich Ihre Anzeige in der Stadtzeitung gelesen. Hiermit bewerbe ich mich um die Stelle als Verkäufer.|Şehir gazetesindeki ilanınızı büyük bir ilgiyle okudum. Bu yazıyla tezgâhtar pozisyonuna başvuruyorum.
 Mein Name ist Kemal Arslan, ich bin 32 Jahre alt und lebe seit drei Jahren in Deutschland.|Adım Kemal Arslan, 32 yaşındayım ve üç yıldır Almanya'da yaşıyorum.
@@ -54,7 +54,7 @@ Ich könnte ab dem 1. Juni bei Ihnen anfangen.|1 Haziran'dan itibaren sizde baş
 Mit freundlichen Grüßen|Saygılarımla
 Kemal Arslan|Kemal Arslan
 
-=Bewerbung auf eine Wohnungsanzeige|Ev ilanına başvuru|formell|İnternette bir daire ilanı gördünüz. Ev sahibine yazın: kendinizi tanıtın, daire hakkında soru sorun ve bir görme randevusu isteyin.
+=Bewerbung auf eine Wohnungsanzeige|Ev ilanına başvuru|formell|İnternette bir daire ilanı gördünüz. Ev sahibine yazın: kendinizi tanıtın, daire hakkında soru sorun ve bir görme randevusu isteyin.|Anfrage
 Sehr geehrter Herr Schulz,|Sayın Bay Schulz,
 ich habe Ihre Anzeige für die 3-Zimmer-Wohnung in der Gartenstraße im Internet gesehen und interessiere mich sehr dafür.|Gartenstraße'deki 3 odalı daire ilanınızı internette gördüm ve çok ilgileniyorum.
 Ich bin 29 Jahre alt, verheiratet und habe eine kleine Tochter. Ich arbeite als Pflegefachkraft im Klinikum, meine Frau ist Erzieherin.|29 yaşındayım, evliyim ve küçük bir kızım var. Hastanede hemşire olarak çalışıyorum, eşim çocuk eğitmeni.
@@ -67,7 +67,7 @@ Ich freue mich auf Ihre Antwort.|Cevabınızı bekliyorum.
 Mit freundlichen Grüßen|Saygılarımla
 Deniz Çelik|Deniz Çelik
 
-=Einladung zur Einweihungsparty|Yeni ev partisi davetiyesi|informell|Yeni bir eve taşındınız. Bir arkadaşınızı ev partisine davet edin: ne zaman, nerede, ne getirmeli, nasıl gelinir.
+=Einladung zur Einweihungsparty|Yeni ev partisi davetiyesi|informell|Yeni bir eve taşındınız. Bir arkadaşınızı ev partisine davet edin: ne zaman, nerede, ne getirmeli, nasıl gelinir.|Einladung
 Liebe Sarah,|Sevgili Sarah,
 wie geht es dir? Ich habe tolle Neuigkeiten: Wir sind endlich in unsere neue Wohnung umgezogen!|Nasılsın? Harika haberlerim var: Sonunda yeni evimize taşındık!
 Die Wohnung ist hell, hat einen großen Balkon und liegt direkt neben einem Park.|Daire aydınlık, büyük bir balkonu var ve bir parkın hemen yanında.
@@ -80,7 +80,7 @@ Ich freue mich sehr auf dich!|Seni görmeyi çok istiyorum!
 Liebe Grüße|Sevgiler
 Elif|Elif
 
-=Einladung zum Geburtstag|Doğum günü davetiyesi|informell|Bir arkadaşınızı doğum gününüze davet edin: tarih, yer, program ve bir rica.
+=Einladung zum Geburtstag|Doğum günü davetiyesi|informell|Bir arkadaşınızı doğum gününüze davet edin: tarih, yer, program ve bir rica.|Einladung
 Lieber Tim,|Sevgili Tim,
 nächsten Monat werde ich 40 – und das möchte ich mit meinen Freunden feiern!|Gelecek ay 40 yaşına giriyorum ve bunu arkadaşlarımla kutlamak istiyorum!
 Ich lade dich herzlich zu meiner Geburtstagsfeier ein.|Seni doğum günü kutlamama içtenlikle davet ediyorum.
@@ -92,7 +92,7 @@ Ich hoffe sehr, dass du dabei bist!|Umarım sen de orada olursun!
 Viele Grüße|Selamlar
 Serkan|Serkan
 
-=Auf eine Einladung antworten|Davete cevap vermek|informell|Bir arkadaşınız sizi düğününe davet etti. Teşekkür edin, gelemeyeceğinizi açıklayın ve bir öneride bulunun.
+=Auf eine Einladung antworten|Davete cevap vermek|informell|Bir arkadaşınız sizi düğününe davet etti. Teşekkür edin, gelemeyeceğinizi açıklayın ve bir öneride bulunun.|Einladung
 Liebe Julia, lieber Max,|Sevgili Julia, sevgili Max,
 vielen herzlichen Dank für eure schöne Einladung zu eurer Hochzeit! Ich habe mich sehr darüber gefreut.|Düğününüze yaptığınız güzel davet için çok teşekkürler! Çok sevindim.
 Leider kann ich nicht kommen, denn genau an diesem Wochenende heiratet mein Bruder in Istanbul.|Maalesef gelemiyorum, çünkü tam o hafta sonu ağabeyim İstanbul'da evleniyor.
@@ -102,7 +102,7 @@ Ich wünsche euch einen wunderschönen Tag und alles Gute für eure gemeinsame Z
 Herzliche Grüße|İçten selamlar
 Zeynep|Zeynep
 
-=Entschuldigung für die Schule|Okul için mazeret yazısı|formell|Çocuğunuz hasta ve okula gidemiyor. Öğretmene yazın: neden, ne kadar süre, ödevler hakkında soru.
+=Entschuldigung für die Schule|Okul için mazeret yazısı|formell|Çocuğunuz hasta ve okula gidemiyor. Öğretmene yazın: neden, ne kadar süre, ödevler hakkında soru.|Entschuldigung
 Sehr geehrte Frau Hoffmann,|Sayın Bayan Hoffmann,
 leider kann mein Sohn Can heute und morgen nicht zur Schule kommen.|Maalesef oğlum Can bugün ve yarın okula gelemiyor.
 Er hat seit gestern Abend hohes Fieber und Halsschmerzen. Wir waren heute Morgen beim Kinderarzt.|Dün akşamdan beri yüksek ateşi ve boğaz ağrısı var. Bu sabah çocuk doktorundaydık.
@@ -112,7 +112,7 @@ Vielen Dank für Ihr Verständnis.|Anlayışınız için çok teşekkürler.
 Mit freundlichen Grüßen|Saygılarımla
 Ayla Demir|Ayla Demir
 
-=Entschuldigung für den Sprachkurs|Kurs için mazeret yazısı|formell|Gelecek hafta kursa gelemiyorsunuz. Öğretmeninize yazın: neden, ne kadar süre ve bir rica.
+=Entschuldigung für den Sprachkurs|Kurs için mazeret yazısı|formell|Gelecek hafta kursa gelemiyorsunuz. Öğretmeninize yazın: neden, ne kadar süre ve bir rica.|Entschuldigung
 Sehr geehrter Herr Krause,|Sayın Bay Krause,
 leider kann ich nächste Woche von Montag bis Mittwoch nicht am Deutschkurs teilnehmen.|Maalesef gelecek hafta pazartesiden çarşambaya kadar Almanca kursuna katılamıyorum.
 Mein Vater ist krank und ich muss für ein paar Tage in die Türkei fliegen.|Babam hasta ve birkaç günlüğüne Türkiye'ye uçmam gerekiyor.
@@ -122,7 +122,7 @@ Dann kann ich den Stoff nachholen.|Böylece konuları telafi edebilirim.
 Vielen Dank und viele Grüße|Çok teşekkürler, selamlar
 Hasan Öztürk|Hasan Öztürk
 
-=Mitteilung: Heizung kaputt|Kalorifer arızası bildirimi|formell|Dairenizdeki kalorifer çalışmıyor. Ev sahibine yazın: sorun nedir, ne zamandan beri, ne yapmasını istiyorsunuz.
+=Mitteilung: Heizung kaputt|Kalorifer arızası bildirimi|formell|Dairenizdeki kalorifer çalışmıyor. Ev sahibine yazın: sorun nedir, ne zamandan beri, ne yapmasını istiyorsunuz.|Mitteilung
 Sehr geehrte Frau Neumann,|Sayın Bayan Neumann,
 ich schreibe Ihnen, weil die Heizung in meiner Wohnung seit drei Tagen nicht mehr funktioniert.|Size yazıyorum, çünkü dairemdeki kalorifer üç gündür çalışmıyor.
 Die Heizkörper im Wohnzimmer und im Kinderzimmer bleiben kalt, und auch das Wasser ist nur lauwarm.|Oturma odasındaki ve çocuk odasındaki radyatörler soğuk kalıyor, su da sadece ılık.
@@ -134,7 +134,7 @@ Vielen Dank im Voraus.|Şimdiden çok teşekkürler.
 Mit freundlichen Grüßen|Saygılarımla
 Mustafa Kılıç|Mustafa Kılıç
 
-=Reklamieren|Bozuk ürün reklamasyonu|formell|İnternetten bir kahve makinesi aldınız ama bozuk. Firmaya yazın: ne aldınız, sorun ne, ne istiyorsunuz.
+=Reklamieren|Bozuk ürün reklamasyonu|formell|İnternetten bir kahve makinesi aldınız ama bozuk. Firmaya yazın: ne aldınız, sorun ne, ne istiyorsunuz.|Beschwerde
 Sehr geehrte Damen und Herren,|Sayın yetkililer,
 am 3. Mai habe ich in Ihrem Onlineshop eine Kaffeemaschine (Bestellnummer 45821) gekauft.|3 Mayıs'ta online mağazanızdan bir kahve makinesi (sipariş numarası 45821) satın aldım.
 Leider funktioniert das Gerät nicht richtig. Schon nach zwei Tagen kam kein Wasser mehr aus der Maschine.|Maalesef cihaz düzgün çalışmıyor. Daha iki gün sonra makineden su gelmez oldu.
@@ -146,7 +146,7 @@ Ich freue mich auf eine schnelle Antwort.|Hızlı bir cevap bekliyorum.
 Mit freundlichen Grüßen|Saygılarımla
 Fatma Şahin|Fatma Şahin
 
-=Informationen anfordern: Sprachkurs|Bilgi isteme: dil kursu|formell|Bir dil okulunun ilanını gördünüz. Fiyat, saatler, sınav ve çocuk bakımı hakkında bilgi isteyin.
+=Informationen anfordern: Sprachkurs|Bilgi isteme: dil kursu|formell|Bir dil okulunun ilanını gördünüz. Fiyat, saatler, sınav ve çocuk bakımı hakkında bilgi isteyin.|Anfrage
 Sehr geehrte Damen und Herren,|Sayın yetkililer,
 ich habe Ihre Anzeige im Internet gelesen und interessiere mich für einen B1-Kurs.|İnternetteki ilanınızı okudum ve bir B1 kursuyla ilgileniyorum.
 Ich habe einige Fragen:|Birkaç sorum var:
@@ -159,7 +159,7 @@ Gibt es eine Kinderbetreuung während des Unterrichts?|Ders sırasında çocuk b
 Mit freundlichen Grüßen|Saygılarımla
 Leyla Yıldız|Leyla Yıldız
 
-=Termin verschieben|Randevuyu ertelemek|formell|Doktor randevunuza gidemiyorsunuz. Muayenehaneye yazın: özür dileyin, nedenini açıklayın ve yeni bir randevu önerin.
+=Termin verschieben|Randevuyu ertelemek|formell|Doktor randevunuza gidemiyorsunuz. Muayenehaneye yazın: özür dileyin, nedenini açıklayın ve yeni bir randevu önerin.|Entschuldigung
 Sehr geehrte Damen und Herren,|Sayın yetkililer,
 ich habe am Dienstag, den 12. November, um 9:30 Uhr einen Termin bei Dr. Lang.|12 Kasım salı günü saat 9:30'da Dr. Lang'da randevum var.
 Leider kann ich an diesem Tag nicht kommen, weil ich kurzfristig eine Schulung bei meiner Arbeit habe.|Maalesef o gün gelemiyorum, çünkü iş yerimde kısa süre önce belirlenen bir eğitim var.
@@ -170,7 +170,7 @@ Vielen Dank für Ihr Verständnis.|Anlayışınız için çok teşekkürler.
 Mit freundlichen Grüßen|Saygılarımla
 Ömer Aksoy|Ömer Aksoy
 
-=Beschwerde: Lärm im Haus|Şikâyet: apartmanda gürültü|formell|Üst kattaki komşular her gece gürültü yapıyor. Ev idaresine yazın: sorun, sonuçları ve ne istediğiniz.
+=Beschwerde: Lärm im Haus|Şikâyet: apartmanda gürültü|formell|Üst kattaki komşular her gece gürültü yapıyor. Ev idaresine yazın: sorun, sonuçları ve ne istediğiniz.|Beschwerde
 Sehr geehrte Damen und Herren,|Sayın yetkililer,
 ich wohne seit zwei Jahren in der Wohnung im 1. Stock links in der Bergstraße 12.|İki yıldır Bergstraße 12'de 1. kat soldaki dairede oturuyorum.
 Leider muss ich mich über die Nachbarn in der Wohnung über uns beschweren.|Maalesef üstümüzdeki dairede oturan komşulardan şikâyet etmek zorundayım.
@@ -181,7 +181,7 @@ Ich bitte Sie, mit den Nachbarn zu sprechen und sie an die Hausordnung zu erinne
 Mit freundlichen Grüßen|Saygılarımla
 Selin Koç|Selin Koç
 
-=Kündigung: Fitnessstudio|Fesih: spor salonu üyeliği|formell|Spor salonu üyeliğinizi iptal etmek istiyorsunuz. Yazın: üye numarası, iptal tarihi, neden ve bir onay talebi.
+=Kündigung: Fitnessstudio|Fesih: spor salonu üyeliği|formell|Spor salonu üyeliğinizi iptal etmek istiyorsunuz. Yazın: üye numarası, iptal tarihi, neden ve bir onay talebi.|Kündigung
 Sehr geehrte Damen und Herren,|Sayın yetkililer,
 hiermit kündige ich meine Mitgliedschaft in Ihrem Fitnessstudio (Mitgliedsnummer 3307) zum 31. Dezember.|Bu yazıyla spor salonunuzdaki üyeliğimi (üye numarası 3307) 31 Aralık itibarıyla feshediyorum.
 Ich ziehe im Januar beruflich nach Stuttgart und kann das Studio dann nicht mehr besuchen.|Ocakta iş nedeniyle Stuttgart'a taşınıyorum ve salona artık gidemeyeceğim.
@@ -190,7 +190,7 @@ Ich bitte Sie, mir die Kündigung schriftlich zu bestätigen.|Feshi bana yazıl�
 Mit freundlichen Grüßen|Saygılarımla
 Ahmet Polat|Ahmet Polat
 
-=Danke für die Hilfe|Yardım için teşekkür|informell|Bir arkadaşınız taşınmanızda size yardım etti. Teşekkür edin, yeni evinizi anlatın ve onu davet edin.
+=Danke für die Hilfe|Yardım için teşekkür|informell|Bir arkadaşınız taşınmanızda size yardım etti. Teşekkür edin, yeni evinizi anlatın ve onu davet edin.|Bitte
 Liebe Nina,|Sevgili Nina,
 ich möchte mich noch einmal ganz herzlich für deine Hilfe beim Umzug bedanken!|Taşınmamda yaptığın yardım için sana bir kez daha içtenlikle teşekkür etmek istiyorum!
 Ohne dich hätten wir das nie an einem Tag geschafft.|Sen olmasan bunu asla bir günde başaramazdık.
@@ -201,7 +201,7 @@ Ich koche dein Lieblingsessen: Mantı!|En sevdiğin yemeği yapacağım: Mantı!
 Liebe Grüße|Sevgiler
 Hülya|Hülya
 
-=Krankmeldung beim Arbeitgeber|İşverene hastalık bildirimi|formell|Hastasınız ve işe gidemiyorsunuz. Şefinize yazın: neden, ne kadar süre, rapor ve açık işler.
+=Krankmeldung beim Arbeitgeber|İşverene hastalık bildirimi|formell|Hastasınız ve işe gidemiyorsunuz. Şefinize yazın: neden, ne kadar süre, rapor ve açık işler.|Entschuldigung
 Sehr geehrter Herr Fischer,|Sayın Bay Fischer,
 leider muss ich mich heute krankmelden.|Maalesef bugün hastalık bildirmek zorundayım.
 Ich habe eine starke Grippe mit Fieber und war heute Morgen beim Arzt.|Ateşli ağır bir gribim var ve bu sabah doktordaydım.
