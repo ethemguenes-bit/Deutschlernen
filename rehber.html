@@ -220,7 +220,9 @@ body.hide-tr .ph:not(.open) .t::after{content:'Türkçesi için dokun';display:b
 .fc .front{font-family:var(--f-de);font-size:26px;line-height:1.25;overflow-wrap:anywhere}
 .fc .back{font-size:18px;color:var(--soft);border-top:1px dashed var(--line);padding-top:12px;width:100%}
 .fc .hint{font-size:13px;color:var(--soft)}
-.fcbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fcbtns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.fcbtns .btn span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fcbtns .btn svg{flex:none}
 .btn{padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px}
 .btn.pri{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .btn.bad{background:var(--bad-bg);color:var(--bad);border-color:transparent}
@@ -253,6 +255,8 @@ body.hide-tr .ph:not(.open) .t::after{content:'Türkçesi için dokun';display:b
 <script src="rehber/b2sprechen.js"></script>
 <script src="rehber/b2extra.js"></script>
 <script src="rehber/c1.js"></script>
+<script src="rehber/c1texte.js"></script>
+<script src="rehber/c1extra.js"></script>
 <script src="rehber/woerter.js"></script>
 <script>
 'use strict';
@@ -309,6 +313,8 @@ const D = {
   konj: parseGroups(KONJ, 4), b2praep: parseGroups(B2_PRAEP, 4), b2nvv: parseGroups(B2_NVV, 4), b2konn: parseGroups(B2_KONN, 4), b2red: parseGroups(B2_REDEMITTEL, 2),
   b2briefe: parseEntries(B2_BRIEFE), beruf: parseEntries(BERUF_BRIEFE), b2praes: parseEntries(B2_PRAES), b2problem: parseEntries(B2_PROBLEM), b2disk: parseEntries(B2_DISKUSSION),
   b2wort: parseGroups(B2_WORT, 2), genitiv: parseGroups(B2_GENITIV, 4),
+  c1zitate: parseEntries(C1_ZITATE), c1praes: parseEntries(C1_PRAES), c1briefe: parseEntries(C1_BRIEFE), c1themen: parseGroups(C1_THEMEN, 2),
+  c1wort: parseGroups(C1_WORT, 4), idiom: parseGroups(C1_IDIOM, 4), passers: parseGroups(C1_PASSERS, 4), grafik: parseGroups(C1_GRAFIK, 2), c1nvv: parseGroups(C1_NVV, 4), sprich: parseGroups(C1_SPRICH, 2),
   nominal: parseGroups(C1_NOMINAL, 4), redew: parseGroups(C1_REDEWENDUNGEN, 4), c1red: parseGroups(C1_REDEMITTEL, 2), partikeln: parseGroups(C1_PARTIKELN, 4), c1konn: parseGroups(C1_KONN, 4),
 };
 D.words = (() => {
@@ -412,13 +418,23 @@ const SECTIONS = [
   { id: 'b2red', lvl: 'b2', de: 'Redemittel B2', tr: 'Tartışma, sunum, grafik, şikâyet', icon: '💬', hue: '#0369a1', n: () => D.b2red.reduce((n, g) => n + g.items.length, 0) + ' kalıp' },
   { id: 'passiv', lvl: 'b2', de: 'Passiv', tr: 'Edilgen yapı', icon: '🔄', hue: '#7c3aed', n: () => 'ders + test' },
   { id: 'adj', lvl: 'b2', de: 'Adjektivdeklination', tr: 'Sıfat çekimi', icon: '🎨', hue: '#c2410c', n: () => '3 tablo + test' },
-  { id: 'nominal', lvl: 'c1', de: 'Nominalisierung', tr: 'İsimleştirme ve dönüşümler', icon: '🏷️', hue: '#0e7490', n: () => D.nominal.reduce((n, g) => n + g.items.length, 0) + ' dönüşüm' },
-  { id: 'partizip', lvl: 'c1', de: 'Partizipialattribute', tr: 'Sıfat fiiller', icon: '🧬', hue: '#7c3aed', n: () => 'ders + test' },
-  { id: 'modalsubj', lvl: 'c1', de: 'Modalverben (subjektiv)', tr: 'Tahmin ve iddia', icon: '🔮', hue: '#9333ea', n: () => 'ders' },
+  { id: 'c1zitate', lvl: 'c1', de: 'C1 Zitate', tr: 'Tartışma konuları ve örnek görüşler', icon: '💭', hue: '#7c3aed', n: () => D.c1zitate.length + ' tema' },
+  { id: 'c1praes', lvl: 'c1', de: 'C1 Präsentationen', tr: 'Örnek sunumlar', icon: '🎤', hue: '#0369a1', n: () => D.c1praes.length + ' sunum' },
+  { id: 'c1themen', lvl: 'c1', de: 'C1 wichtige Themen', tr: 'Konulara göre ifadeler', icon: '🗂️', hue: '#b45309', n: () => D.c1themen.length + ' tema' },
+  { id: 'c1wort', lvl: 'c1', de: 'C1 Wortschatz', tr: 'Akademik kelimeler + örnek', icon: '📖', hue: '#15803d', n: () => D.c1wort.reduce((n, g) => n + g.items.length, 0) + ' kelime' },
+  { id: 'c1briefe', lvl: 'c1', de: 'C1 Briefe', tr: 'Şikâyet, okur mektubu, resmî', icon: '✉️', hue: '#a16207', n: () => D.c1briefe.length + ' mektup' },
+  { id: 'idiom', lvl: 'c1', de: 'C1 Idiomatische Verben', tr: 'Deyimsel edatlı fiiller', icon: '🧩', hue: '#0f766e', n: () => D.idiom.reduce((n, g) => n + g.items.length, 0) + ' fiil' },
+  { id: 'partikeln', lvl: 'c1', de: 'C1 Modalpartikeln', tr: 'doch, ja, mal, halt …', icon: '✨', hue: '#a16207', n: () => D.partikeln.reduce((n, g) => n + g.items.length, 0) + ' edat' },
+  { id: 'c1konn', lvl: 'c1', de: 'C1 Konnektoren', tr: 'Konulara göre bağlaçlar', icon: '🔗', hue: '#4d7c0f', n: () => D.c1konn.reduce((n, g) => n + g.items.length, 0) + ' bağlaç' },
+  { id: 'passers', lvl: 'c1', de: 'C1 Passiv-Ersatzformen', tr: 'sich lassen, sein + zu, -bar', icon: '🔄', hue: '#9333ea', n: () => D.passers.reduce((n, g) => n + g.items.length, 0) + ' örnek' },
+  { id: 'grafik', lvl: 'c1', de: 'C1 Grafikbeschreibung', tr: '12 adımda grafik anlatma', icon: '📈', hue: '#0e7490', n: () => D.grafik.reduce((n, g) => n + g.items.length, 0) + ' kalıp' },
+  { id: 'c1nvv', lvl: 'c1', de: 'Nomen-Verb-Verbindungen', tr: 'C1 isim-fiil kalıpları', icon: '🧱', hue: '#c2410c', n: () => D.c1nvv.reduce((n, g) => n + g.items.length, 0) + ' kalıp' },
+  { id: 'sprich', lvl: 'c1', de: 'Sprichwörter', tr: 'Atasözleri', icon: '📜', hue: '#be123c', n: () => D.sprich.reduce((n, g) => n + g.items.length, 0) + ' atasözü' },
   { id: 'redew', lvl: 'c1', de: 'Redewendungen', tr: 'Deyimler', icon: '🎭', hue: '#be123c', n: () => D.redew.reduce((n, g) => n + g.items.length, 0) + ' deyim' },
-  { id: 'partikeln', lvl: 'c1', de: 'Modalpartikeln', tr: 'doch, ja, mal, halt …', icon: '✨', hue: '#a16207', n: () => D.partikeln.reduce((n, g) => n + g.items.length, 0) + ' edat' },
-  { id: 'c1red', lvl: 'c1', de: 'Redemittel C1', tr: 'Tartışma yazısı ve özet', icon: '🖋️', hue: '#0369a1', n: () => D.c1red.reduce((n, g) => n + g.items.length, 0) + ' kalıp' },
-  { id: 'c1konn', lvl: 'c1', de: 'Konnektoren C1', tr: 'İleri bağlaçlar', icon: '🔗', hue: '#15803d', n: () => D.c1konn.reduce((n, g) => n + g.items.length, 0) + ' bağlaç' },
+  { id: 'nominal', lvl: 'c1', de: 'Nominalisierung', tr: 'İsimleştirme ve dönüşümler', icon: '🏷️', hue: '#0e7490', n: () => D.nominal.reduce((n, g) => n + g.items.length, 0) + ' dönüşüm' },
+  { id: 'c1red', lvl: 'c1', de: 'C1 Redemittel', tr: 'Görüş, argüman, yapı', icon: '🖋️', hue: '#0369a1', n: () => D.c1red.reduce((n, g) => n + g.items.length, 0) + ' kalıp' },
+  { id: 'partizip', lvl: 'c1', de: 'C1 Partizipialkonstruktionen', tr: 'Sıfat fiiller', icon: '🧬', hue: '#7c3aed', n: () => 'ders + test' },
+  { id: 'modalsubj', lvl: 'c1', de: 'Modalverben (subjektiv)', tr: 'Tahmin ve iddia', icon: '🔮', hue: '#9333ea', n: () => 'ders' },
 ];
 const SEC = Object.fromEntries(SECTIONS.map(s => [s.id, s]));
 
@@ -540,10 +556,23 @@ const RENDER = {
   passiv(s) { return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.passiv)}</main>`; },
   konj2(s) { return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.konjunktiv2)}</main>`; },
   adj(s) { return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.adjdekl)}</main>`; },
+  c1zitate(s, sub) { return entrySection(s, sub, 'c1zitate', 'Görüş kalıpları için C1 Redemittel', '#/s/c1red'); },
+  c1praes(s, sub) { return entrySection(s, sub, 'c1praes', 'Sunum ve yapı kalıpları (C1 Redemittel)', '#/s/c1red'); },
+  c1themen(s, sub) {
+    if (sub != null && D.c1themen[sub]) { const g = D.c1themen[sub]; return bar(g.title, g.tr, { tr: true }) + `<main class="wrap stack"><ul class="list">${g.items.map(p => phrase(p[0], p[1])).join('')}</ul>${nextPrev('c1themen', +sub, D.c1themen.length, i => D.c1themen[i].title)}</main>`; }
+    return bar(s.de, s.tr) + `<main class="wrap stack"><ul class="list">${D.c1themen.map((g, i) => rowLink(`#/s/c1themen/${i}`, g.title, g.tr, { em: g.emoji, n: g.items.length })).join('')}</ul></main>`;
+  },
+  c1wort(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${searchBox('Kelime, anlam veya örnek ara…', UI.q)}<div id="glist" class="stack" data-gl="c1wort" data-gloss="1"></div></main>`; },
+  c1briefe(s, sub) { return letterSection(s, sub, 'c1briefe', '#/s/c1red', 'C1 Redemittel'); },
+  idiom(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><div class="tip">C1'de edatlı fiiller sözlük anlamlarının ötesinde <b>mecazi</b> anlamlar kazanır. Örnek cümlelerle öğren.</div>${searchBox('Fiil veya anlam ara…', UI.q)}<div id="glist" class="stack" data-gl="idiom" data-gloss="1"></div></main>`; },
+  passers(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.passers)}${searchBox('Yapı veya cümle ara…', UI.q)}<div id="glist" class="stack" data-gl="passers" data-gloss="1"></div></main>`; },
+  grafik(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><div class="tip">Sıra: <b>Giriş ve kaynak</b> → <b>en önemli değerler ve eğilim</b> → <b>karşılaştırma ve nedenler</b> → <b>sonuç</b>. Verileri tek tek saymak yerine eğilimleri yorumla.</div>${phraseGroups(D.grafik)}</main>`; },
+  c1nvv(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${searchBox('Nomen-Verb suchen… / Kalıp ara…', UI.q)}<div id="glist" class="stack" data-gl="c1nvv" data-gloss="1"></div></main>`; },
+  sprich(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${searchBox('Sprichwort suchen… / Atasözü ara…', UI.q)}<div id="glist" class="stack" data-gl="sprich" data-plain="1"></div></main>`; },
   nominal(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><div class="tip">C1 yazılı dilde yan cümleler sık sık <b>isim grubuna</b> dönüştürülür. Bu dönüşümleri iki yönlü çalış.</div>${phraseGroups(D.nominal, { gloss: true })}</main>`; },
   partizip(s) { return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.partizip)}</main>`; },
   modalsubj(s) { return bar(s.de, s.tr) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.modalsubj)}</main>`; },
-  redew(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${phraseGroups(D.redew, { gloss: true })}</main>`; },
+  redew(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${searchBox('Redewendung suchen… / Deyim ara…', UI.q)}<div id="glist" class="stack" data-gl="redew" data-gloss="1"></div></main>`; },
   partikeln(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><div class="tip">Kip edatları cümleye duygu katar; tam çevirisi yoktur. Örneklerdeki tonu sesli dinleyerek öğren.</div>${phraseGroups(D.partikeln, { gloss: true })}</main>`; },
   c1red(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${phraseGroups(D.c1red)}</main>`; },
   c1konn(s, sub) {
@@ -589,11 +618,12 @@ function planenDetail(p, i) {
   </main>`;
 }
 /* Mektup ve konuşma bölümleri (B2) */
-function letterSection(s, sub, key) {
+const kindLabel = a => a === 'formell' ? ' · resmî' : a === 'informell' ? ' · samimi' : ' · ' + a;
+function letterSection(s, sub, key, redHref = '#/s/b2red', redName = 'B2 Redemittel') {
   const list = D[key];
   if (sub != null && list[sub]) return briefDetail(list[sub], +sub, key);
-  return bar(s.de, s.tr) + `<main class="wrap stack"><a class="banner" href="#/s/b2red"><span>Mektup kalıpları<small>Resmî mektup ve şikâyet ifadeleri (B2 Redemittel)</small></span>${I.chev}</a>
-    <ul class="list">${list.map((b, i) => rowLink(`#/s/${key}/${i}`, b.title, b.tr + (b.a === 'formell' ? ' · resmî' : ' · samimi'))).join('')}</ul></main>`;
+  return bar(s.de, s.tr) + `<main class="wrap stack"><a class="banner" href="${redHref}"><span>Mektup kalıpları<small>Resmî yazı ve görüş ifadeleri (${redName})</small></span>${I.chev}</a>
+    <ul class="list">${list.map((b, i) => rowLink(`#/s/${key}/${i}`, b.title, b.tr + kindLabel(b.a))).join('')}</ul></main>`;
 }
 const ENTRY_SEC = { einleitung: 'Giriş', hauptteil: 'Ana bölüm', erfahrung: 'Kendi deneyimin', vorteile: 'Avantajlar', nachteile: 'Dezavantajlar / eleştiri', heimat: 'Kendi ülkenle karşılaştırma', meinung: 'Kendi görüşün', schluss: 'Sonuç', pro: 'Lehte argümanlar (pro)', contra: 'Aleyhte argümanlar (contra)', dialog: 'Örnek tartışma' };
 function entrySection(s, sub, key, bannerText, bannerHref) {
@@ -623,15 +653,15 @@ function entryDetail(e, i, key) {
 }
 function fillGloss() {
   const el = $('#glist'); if (!el) return;
-  const key = el.dataset.gl, gloss = !!el.dataset.gloss, q = norm(UI.q || '');
+  const key = el.dataset.gl, gloss = !!el.dataset.gloss, art = !el.dataset.plain, q = norm(UI.q || '');
   const groups = D[key].map(g => ({ ...g, items: g.items.filter(p => !q || norm(p[0]).includes(q) || norm(p[1]).includes(q)) })).filter(g => g.items.length);
-  el.innerHTML = groups.length ? (gloss ? phraseGroups(groups, { gloss: true }) : groups.map(g => `<div class="grp">${esc(g.title)}<span>${esc(g.tr)} · ${g.items.length}</span></div><ul class="list">${g.items.map(([de, tr]) => phrase(de, tr, { art: true })).join('')}</ul>`).join('')) : '<p class="empty">Sonuç yok.</p>';
+  el.innerHTML = groups.length ? (gloss ? phraseGroups(groups, { gloss: true }) : groups.map(g => `<div class="grp">${esc(g.title)}<span>${esc(g.tr)} · ${g.items.length}</span></div><ul class="list">${g.items.map(([de, tr]) => phrase(de, tr, { art })).join('')}</ul>`).join('')) : '<p class="empty">Sonuç yok.</p>';
 }
 
 /* Brief */
 function briefDetail(b, i, key = 'briefe') {
   const lines = b.secs.flatMap(s => s.lines);
-  return bar(b.title, b.tr + (b.a === 'formell' ? ' · resmî' : ' · samimi'), { tr: true }) + `<main class="wrap stack">
+  return bar(b.title, b.tr + kindLabel(b.a), { tr: true }) + `<main class="wrap stack">
     <div class="task"><b>Görev</b>${esc(b.b)}</div>
     <div class="paper">${lines.map(([de, tr], k) => { const sig = k === lines.length - 1 || k === lines.length - 2 && /Grüß|Gruß|Grüße/.test(de); const id = reg(de, tr);
       return `<div class="ln ph${sig ? ' sig' : ''}" style="padding-inline:0"><div class="t" data-reveal><p class="de" lang="de">${esc(de)}</p><p class="tr">${esc(tr)}</p></div><div class="acts">${starBtn(id)}</div></div>`; }).join('')}</div>
@@ -726,7 +756,7 @@ function answerQuiz(btn) {
 
 /* Alıştırmalar */
 // Aynı boşluğa doğru olarak girebilecek bağlaçlar birbirinin yanlış şıkkı olmaz.
-const KONN_SYN = [['trotzdem', 'dennoch', 'gleichwohl', 'nichtsdestotrotz'], ['deshalb', 'also', 'folglich', 'infolgedessen', 'demzufolge', 'mithin'], ['weil', 'da', 'zumal'], ['wenn', 'falls', 'sofern', 'solange'], ['seit', 'seitdem'], ['obwohl', 'wenngleich', 'auch', 'selbst'], ['wahrend', 'wohingegen', 'indes'], ['dann', 'danach'], ['inzwischen', 'mittlerweile'], ['damit', 'um'], ['nachdem', 'sobald'], ['wegen', 'aufgrund', 'infolge', 'angesichts', 'dank'], ['statt', 'anstelle'], ['bezuglich', 'hinsichtlich'], ['anhand', 'mithilfe'], ['innerhalb', 'ausserhalb', 'oberhalb', 'unterhalb', 'wahrend', 'entlang'], ['trotz', 'ungeachtet']];
+const KONN_SYN = [['trotzdem', 'dennoch', 'gleichwohl', 'nichtsdestotrotz'], ['deshalb', 'also', 'folglich', 'infolgedessen', 'demzufolge', 'mithin'], ['weil', 'da', 'zumal'], ['wenn', 'falls', 'sofern', 'solange'], ['seit', 'seitdem'], ['obwohl', 'wenngleich', 'auch', 'selbst'], ['wahrend', 'wohingegen', 'indes'], ['dann', 'danach'], ['inzwischen', 'mittlerweile'], ['damit', 'um'], ['nachdem', 'sobald'], ['wegen', 'aufgrund', 'infolge', 'angesichts', 'dank'], ['statt', 'anstelle'], ['bezuglich', 'hinsichtlich'], ['anhand', 'mithilfe'], ['innerhalb', 'ausserhalb', 'oberhalb', 'unterhalb', 'wahrend', 'entlang'], ['trotz', 'ungeachtet'], ['hingegen', 'dagegen', 'demgegenuber', 'wohingegen'], ['aufgrund dessen', 'infolgedessen', 'demzufolge', 'folglich', 'mithin', 'sodass'], ['daruber hinaus', 'uberdies', 'zudem', 'nicht zuletzt'], ['damit', 'zwecks', 'zu diesem zweck'], ['sofern', 'vorausgesetzt', 'im falle', 'es sei denn'], ['wenngleich', 'gleichwohl', 'nichtsdestotrotz', 'ungeachtet']];
 function konnTest(groups, id, title) {
   // Her bağlacın örnek cümlesinde bağlacı boşluk yapar; şıklar aynı listedeki diğer bağlaçlardan gelir.
   const items = groups.flatMap(g => g.items).filter(([t]) => !t.includes('…'));
@@ -782,6 +812,8 @@ function decks() {
     { id: 'b2wort', de: 'B2 Wortschatz', tr: 'B2 kelimeleri', cards: () => D.b2wort.flatMap(g => g.items).map(([de, tr]) => ({ de, tr })) },
     { id: 'b2praep', de: 'Verben mit Präpositionen', tr: 'B2 edatlı fiiller', cards: () => D.b2praep.flatMap(g => g.items).map(([de, tr]) => ({ de, tr })) },
     { id: 'nvv', de: 'Nomen-Verb-Verbindungen', tr: 'B2 kalıpları', cards: () => D.b2nvv.flatMap(g => g.items).map(([de, tr]) => ({ de, tr })) },
+    { id: 'c1wort', de: 'C1 Wortschatz', tr: 'Akademik kelimeler', cards: () => D.c1wort.flatMap(g => g.items).map(([de, tr]) => ({ de, tr })) },
+    { id: 'sprich', de: 'Sprichwörter', tr: 'Atasözleri', cards: () => D.sprich.flatMap(g => g.items).map(([de, tr]) => ({ de, tr })) },
     { id: 'redew', de: 'Redewendungen', tr: 'C1 deyimleri', cards: () => D.redew.flatMap(g => g.items).map(([de, tr]) => ({ de, tr })) },
   ];
 }
@@ -844,6 +876,11 @@ function buildIndex() {
   grp(D.b2wort, 'B2 Wortschatz', '#/s/b2wort'); grp(D.genitiv, 'Präpositionen mit Genitiv', '#/s/genitiv');
   for (const [key, name] of [['b2briefe', 'B2 Brief'], ['beruf', 'Beruf Brief'], ['b2praes', 'Präsentation'], ['b2problem', 'Problemlösung'], ['b2disk', 'Diskussion']])
     D[key].forEach((e, i) => { add(e.title, e.tr, name, `#/s/${key}/${i}`); e.secs.forEach(s => s.lines.forEach(([de, tr]) => add(de.replace(/^[AB]:\s*/, ''), tr, name + ' · ' + e.title, `#/s/${key}/${i}`))); });
+  grp(D.c1wort, 'C1 Wortschatz', '#/s/c1wort'); grp(D.idiom, 'Idiomatische Verben', '#/s/idiom'); grp(D.passers, 'Passiv-Ersatzformen', '#/s/passers');
+  grp(D.grafik, 'Grafikbeschreibung', '#/s/grafik'); grp(D.c1nvv, 'C1 Nomen-Verb', '#/s/c1nvv'); grp(D.sprich, 'Sprichwörter', '#/s/sprich');
+  D.c1themen.forEach((g, i) => g.items.forEach(([de, tr]) => add(de, tr, 'C1 Thema · ' + g.title, `#/s/c1themen/${i}`)));
+  for (const [key, name] of [['c1zitate', 'C1 Zitat'], ['c1praes', 'C1 Präsentation'], ['c1briefe', 'C1 Brief']])
+    D[key].forEach((e, i) => { add(e.title, e.tr, name, `#/s/${key}/${i}`); e.secs.forEach(s => s.lines.forEach(([de, tr]) => add(de, tr, name + ' · ' + e.title, `#/s/${key}/${i}`))); });
   grp(D.nominal, 'Nominalisierung', '#/s/nominal'); grp(D.redew, 'Redewendungen', '#/s/redew'); grp(D.partikeln, 'Modalpartikeln', '#/s/partikeln'); grp(D.c1red, 'Redemittel C1', '#/s/c1red'); grp(D.c1konn, 'Konnektoren C1', '#/s/c1konn');
   D.bild.forEach((b, i) => { add(b.title, b.tr, 'Bildbeschreibung', `#/s/bild/mit/${i}`); b.secs.forEach(s => s.lines.forEach(([de, tr]) => add(de, tr, 'Bild · ' + b.title, `#/s/bild/mit/${i}`))); });
   D.planen.forEach((p, i) => { add(p.title, p.tr, 'Gemeinsam planen', `#/s/planen/${i}`); p.secs.forEach(s => s.lines.forEach(([de, tr]) => add(de.replace(/^[AB]:\s*/, ''), tr, 'Planen · ' + p.title, `#/s/planen/${i}`))); });
