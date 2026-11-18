@@ -5,7 +5,7 @@
     const p = raw.trim().split('|'); if (p.length < 6) continue;
     IRRMAP.set(p[0], { inf: p[0], er: p[1], praet: p[2], pp: p[3], aux: p[4], tr: p[5], star: p[6] === '*' });
   }
-  const INSEP = ['miss', 'emp', 'ent', 'zer', 'ver', 'über', 'unter', 'hinter', 'wider', 'be', 'er', 'ge'];
+  const INSEP = ['miss', 'emp', 'ent', 'zer', 'ver', 'über', 'unter', 'hinter', 'wieder', 'wider', 'be', 'er', 'ge'];
   const NOT_PREFIX = new Set(['beten', 'bellen', 'betteln', 'erben', 'ernten', 'gerben']);
   const NOT_DERIVED = new Set(['bereiten']); // be + reiten değil
   const PRON = ['ich', 'du', 'er/sie/es', 'wir', 'ihr', 'sie/Sie'];
@@ -13,14 +13,14 @@
   const PRAES_OVR = {
     sein: ['bin', 'bist', 'ist', 'sind', 'seid', 'sind'], haben: ['habe', 'hast', 'hat', 'haben', 'habt', 'haben'],
     werden: ['werde', 'wirst', 'wird', 'werden', 'werdet', 'werden'], wissen: ['weiß', 'weißt', 'weiß', 'wissen', 'wisst', 'wissen'],
-    können: ['kann', 'kannst', 'kann', 'können', 'könnt', 'können'], dürfen: ['darf', 'darfst', 'darf', 'dürfen', 'dürft', 'dürfen'],
+    können: ['kann', 'kannst', 'kann', 'können', 'könnt', 'können'], möchten: ['möchte', 'möchtest', 'möchte', 'möchten', 'möchtet', 'möchten'], dürfen: ['darf', 'darfst', 'darf', 'dürfen', 'dürft', 'dürfen'],
     müssen: ['muss', 'musst', 'muss', 'müssen', 'müsst', 'müssen'], sollen: ['soll', 'sollst', 'soll', 'sollen', 'sollt', 'sollen'],
     wollen: ['will', 'willst', 'will', 'wollen', 'wollt', 'wollen'], mögen: ['mag', 'magst', 'mag', 'mögen', 'mögt', 'mögen'],
   };
   const DU_OVR = { laden: 'lädst' };
-  const KONJ2 = { sein: 'wäre', haben: 'hätte', werden: 'würde', können: 'könnte', dürfen: 'dürfte', müssen: 'müsste', sollen: 'sollte', wollen: 'wollte', mögen: 'möchte', wissen: 'wüsste', kommen: 'käme', gehen: 'ginge', geben: 'gäbe', finden: 'fände', bleiben: 'bliebe', tun: 'täte', lassen: 'ließe', brauchen: 'bräuchte' };
+  const KONJ2 = { sein: 'wäre', haben: 'hätte', werden: 'würde', können: 'könnte', dürfen: 'dürfte', müssen: 'müsste', sollen: 'sollte', wollen: 'wollte', mögen: 'möchte', möchten: 'möchte', wissen: 'wüsste', kommen: 'käme', gehen: 'ginge', geben: 'gäbe', finden: 'fände', bleiben: 'bliebe', tun: 'täte', lassen: 'ließe', brauchen: 'bräuchte' };
   const IMP_OVR = { sein: ['sei', 'seid', 'seien Sie'], haben: ['hab(e)', 'habt', 'haben Sie'], werden: ['werde', 'werdet', 'werden Sie'], wissen: ['wisse', 'wisst', 'wissen Sie'] };
-  const MODALS = new Set(['können', 'dürfen', 'müssen', 'sollen', 'wollen', 'mögen']);
+  const MODALS = new Set(['können', 'dürfen', 'müssen', 'sollen', 'wollen', 'mögen', 'möchten']);
 
   function parseSpec(spec) {
     let s = spec.trim(), refl = null, aux = null, sep = '';
@@ -78,7 +78,7 @@
     const v = parseSpec(spec), f = baseForms(v.base);
     let aux = v.aux || (f.aux === 'hs' ? 's' : f.aux);
     if (v.refl) aux = v.aux || 'h';
-    const R = v.refl ? REFL[v.refl] : null, sepT = v.sep ? ' ' + v.sep : '';
+    const R = v.refl ? REFL[v.refl] : null, sepT = v.sep ? ' ' + v.sep.trim() : '';
     const pp = v.sep + f.pp;
     const P = praesens(v.base, f), T = praeteritum(f.praet);
     const line = (i, verb, rest) => `${verb}${R ? ' ' + R[i] : ''}${rest}`;

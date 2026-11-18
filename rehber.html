@@ -257,6 +257,8 @@ body.hide-tr .ph:not(.open) .t::after{content:'Türkçesi için dokun';display:b
 <script src="rehber/c1.js"></script>
 <script src="rehber/c1texte.js"></script>
 <script src="rehber/c1extra.js"></script>
+<script src="rehber/c1wort2.js"></script>
+<script src="rehber/c1wort3.js"></script>
 <script src="rehber/woerter.js"></script>
 <script>
 'use strict';
@@ -295,6 +297,11 @@ function parseGroups(str, cols) {
   }
   return out;
 }
+function mergeGroups(groups) { // aynı adlı kategorileri tek grupta toplar
+  const out = [];
+  for (const g of groups) { const t = out.find(x => x.title === g.title); if (t) t.items.push(...g.items); else out.push(g); }
+  return out;
+}
 function parseEntries(str) { // "=başlık|…" + "~bölüm" / "?noktalar" + satırlar
   const out = []; let e = null, sec = null;
   for (const raw of str.split('\n')) {
@@ -314,7 +321,7 @@ const D = {
   b2briefe: parseEntries(B2_BRIEFE), beruf: parseEntries(BERUF_BRIEFE), b2praes: parseEntries(B2_PRAES), b2problem: parseEntries(B2_PROBLEM), b2disk: parseEntries(B2_DISKUSSION),
   b2wort: parseGroups(B2_WORT, 2), genitiv: parseGroups(B2_GENITIV, 4),
   c1zitate: parseEntries(C1_ZITATE), c1praes: parseEntries(C1_PRAES), c1briefe: parseEntries(C1_BRIEFE), c1themen: parseGroups(C1_THEMEN, 2),
-  c1wort: parseGroups(C1_WORT, 4), idiom: parseGroups(C1_IDIOM, 4), passers: parseGroups(C1_PASSERS, 4), grafik: parseGroups(C1_GRAFIK, 2), c1nvv: parseGroups(C1_NVV, 4), sprich: parseGroups(C1_SPRICH, 2),
+  c1wort: mergeGroups(parseGroups(C1_WORT, 4)), idiom: parseGroups(C1_IDIOM, 4), passers: parseGroups(C1_PASSERS, 4), grafik: parseGroups(C1_GRAFIK, 2), c1nvv: parseGroups(C1_NVV, 4), sprich: parseGroups(C1_SPRICH, 2),
   nominal: parseGroups(C1_NOMINAL, 4), redew: parseGroups(C1_REDEWENDUNGEN, 4), c1red: parseGroups(C1_REDEMITTEL, 2), partikeln: parseGroups(C1_PARTIKELN, 4), c1konn: parseGroups(C1_KONN, 4),
 };
 D.words = (() => {
@@ -332,7 +339,7 @@ for (const raw of WICHTIG.split('\n')) {
   const p = raw.trim().split('|'); if (p.length < 5) continue;
   VMAP.set(p[0], { spec: p[0], tr: p[1], rek: p[2], ex: p[3], extr: p[4], wichtig: true });
 }
-const WICHTIG_LIST = [...VMAP.values()];
+const WICHTIG_LIST = [...VMAP.values()].sort((a, b) => { const k = v => E.parseSpec(v.spec).label.replace(/^sich /, ''); return k(a).localeCompare(k(b), 'de') || a.spec.length - b.spec.length; });
 for (const [inf, e] of E.IRRMAP) if (!VMAP.has(inf)) VMAP.set(inf, { spec: inf, tr: e.tr, rek: '', ex: '', extr: '' });
 const IRR_LIST = [...E.IRRMAP.values()];
 
@@ -421,7 +428,7 @@ const SECTIONS = [
   { id: 'c1zitate', lvl: 'c1', de: 'C1 Zitate', tr: 'Tartışma konuları ve örnek görüşler', icon: '💭', hue: '#7c3aed', n: () => D.c1zitate.length + ' tema' },
   { id: 'c1praes', lvl: 'c1', de: 'C1 Präsentationen', tr: 'Örnek sunumlar', icon: '🎤', hue: '#0369a1', n: () => D.c1praes.length + ' sunum' },
   { id: 'c1themen', lvl: 'c1', de: 'C1 wichtige Themen', tr: 'Konulara göre ifadeler', icon: '🗂️', hue: '#b45309', n: () => D.c1themen.length + ' tema' },
-  { id: 'c1wort', lvl: 'c1', de: 'C1 Wortschatz', tr: 'Akademik kelimeler + örnek', icon: '📖', hue: '#15803d', n: () => D.c1wort.reduce((n, g) => n + g.items.length, 0) + ' kelime' },
+  { id: 'c1wort', lvl: 'c1', de: 'C1 Wortschatz', tr: '8 kategoride akademik kelimeler', icon: '📖', hue: '#15803d', n: () => D.c1wort.reduce((n, g) => n + g.items.length, 0) + ' kelime' },
   { id: 'c1briefe', lvl: 'c1', de: 'C1 Briefe', tr: 'Şikâyet, okur mektubu, resmî', icon: '✉️', hue: '#a16207', n: () => D.c1briefe.length + ' mektup' },
   { id: 'idiom', lvl: 'c1', de: 'C1 Idiomatische Verben', tr: 'Deyimsel edatlı fiiller', icon: '🧩', hue: '#0f766e', n: () => D.idiom.reduce((n, g) => n + g.items.length, 0) + ' fiil' },
   { id: 'partikeln', lvl: 'c1', de: 'C1 Modalpartikeln', tr: 'doch, ja, mal, halt …', icon: '✨', hue: '#a16207', n: () => D.partikeln.reduce((n, g) => n + g.items.length, 0) + ' edat' },
@@ -562,7 +569,12 @@ const RENDER = {
     if (sub != null && D.c1themen[sub]) { const g = D.c1themen[sub]; return bar(g.title, g.tr, { tr: true }) + `<main class="wrap stack"><ul class="list">${g.items.map(p => phrase(p[0], p[1])).join('')}</ul>${nextPrev('c1themen', +sub, D.c1themen.length, i => D.c1themen[i].title)}</main>`; }
     return bar(s.de, s.tr) + `<main class="wrap stack"><ul class="list">${D.c1themen.map((g, i) => rowLink(`#/s/c1themen/${i}`, g.title, g.tr, { em: g.emoji, n: g.items.length })).join('')}</ul></main>`;
   },
-  c1wort(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${searchBox('Kelime, anlam veya örnek ara…', UI.q)}<div id="glist" class="stack" data-gl="c1wort" data-gloss="1"></div></main>`; },
+  c1wort(s) {
+    const cat = UI.cat || '';
+    return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack">${searchBox('Kelime, anlam veya örnek ara…', UI.q)}
+      <div class="chips" role="group" aria-label="Kategori"><button class="chip" data-cat="" aria-pressed="${!cat}">Alle (Tümü)</button>${D.c1wort.map(g => `<button class="chip" data-cat="${esc(g.title)}" aria-pressed="${cat === g.title}">${esc(g.title)}</button>`).join('')}</div>
+      <p class="muted small" id="gcount" style="margin:0 2px"></p><div id="glist" class="stack" data-gl="c1wort" data-gloss="1"></div></main>`;
+  },
   c1briefe(s, sub) { return letterSection(s, sub, 'c1briefe', '#/s/c1red', 'C1 Redemittel'); },
   idiom(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack"><div class="tip">C1'de edatlı fiiller sözlük anlamlarının ötesinde <b>mecazi</b> anlamlar kazanır. Örnek cümlelerle öğren.</div>${searchBox('Fiil veya anlam ara…', UI.q)}<div id="glist" class="stack" data-gl="idiom" data-gloss="1"></div></main>`; },
   passers(s) { return bar(s.de, s.tr, { tr: true }) + `<main class="wrap stack lesson">${lessonHtml(LESSONS.passers)}${searchBox('Yapı veya cümle ara…', UI.q)}<div id="glist" class="stack" data-gl="passers" data-gloss="1"></div></main>`; },
@@ -654,7 +666,9 @@ function entryDetail(e, i, key) {
 function fillGloss() {
   const el = $('#glist'); if (!el) return;
   const key = el.dataset.gl, gloss = !!el.dataset.gloss, art = !el.dataset.plain, q = norm(UI.q || '');
-  const groups = D[key].map(g => ({ ...g, items: g.items.filter(p => !q || norm(p[0]).includes(q) || norm(p[1]).includes(q)) })).filter(g => g.items.length);
+  const cat = key === 'c1wort' ? UI.cat || '' : '';
+  const groups = D[key].filter(g => !cat || g.title === cat).map(g => ({ ...g, items: g.items.filter(p => !q || norm(p[0]).includes(q) || norm(p[1]).includes(q) || (p[2] && norm(p[2]).includes(q))) })).filter(g => g.items.length);
+  const cnt = $('#gcount'); if (cnt) cnt.textContent = `${groups.reduce((n, g) => n + g.items.length, 0)} / ${D[key].reduce((n, g) => n + g.items.length, 0)} kelime`;
   el.innerHTML = groups.length ? (gloss ? phraseGroups(groups, { gloss: true }) : groups.map(g => `<div class="grp">${esc(g.title)}<span>${esc(g.tr)} · ${g.items.length}</span></div><ul class="list">${g.items.map(([de, tr]) => phrase(de, tr, { art })).join('')}</ul>`).join('')) : '<p class="empty">Sonuç yok.</p>';
 }
 
@@ -962,6 +976,7 @@ document.addEventListener('click', e => {
   if (d.trtoggle !== undefined) { showTr = !showTr; store.set('showTr', showTr); t.setAttribute('aria-pressed', !showTr); t.textContent = showTr ? 'TR' : 'TR ✕'; applyTr(); document.querySelectorAll('.ph.open').forEach(x => x.classList.remove('open')); return; }
   if (d.reveal !== undefined) { if (!showTr) t.closest('.ph').classList.toggle('open'); return; }
   if (d.clear !== undefined) { const i = $('#q'); i.value = ''; i.dispatchEvent(new Event('input')); i.focus(); return; }
+  if (d.cat !== undefined && t.classList.contains('chip')) { UI.cat = d.cat; document.querySelectorAll('[data-cat]').forEach(b => b.setAttribute('aria-pressed', b.dataset.cat === d.cat)); fillGloss(); return; }
   if (d.wl) { UI.wl = d.wl; store.set('wl', d.wl); document.querySelectorAll('[data-wl]').forEach(b => b.setAttribute('aria-pressed', b.dataset.wl === d.wl)); fillWords(); return; }
   if (d.tense) { UI.tense = d.tense; const y = window.scrollY; render(); window.scrollTo(0, y); return; }
   if (d.qa) return answerQuiz(t);
