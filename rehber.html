@@ -249,6 +249,8 @@ body.hide-tr .ph:not(.open) .t::after{content:'Türkçesi için dokun';display:b
 <script src="rehber/bild.js"></script>
 <script src="rehber/planen.js"></script>
 <script src="rehber/briefe.js"></script>
+<script src="rehber/briefe2.js"></script>
+<script src="rehber/briefe3.js"></script>
 <script src="rehber/grammatik.js"></script>
 <script src="rehber/b2.js"></script>
 <script src="rehber/b2briefe.js"></script>
@@ -303,11 +305,13 @@ function mergeGroups(groups) { // aynı adlı kategorileri tek grupta toplar
   for (const g of groups) { const t = out.find(x => x.title === g.title); if (t) t.items.push(...g.items); else out.push(g); }
   return out;
 }
+const BRIEF_GROUPS = [['Einladung', 'Davet, tebrik ve cevap'], ['Bitte', 'Rica, yardım ve teşekkür'], ['Entschuldigung', 'Mazeret, hastalık ve erteleme'], ['Anfrage', 'Bilgi talebi ve başvuru'], ['Beschwerde', 'Şikâyet ve reklamasyon'], ['Mitteilung', 'Arıza ve bildirim'], ['Kündigung', 'Fesih ve iptal']];
+function sortBriefe(list) { const o = g => { const k = BRIEF_GROUPS.findIndex(x => x[0] === g); return k < 0 ? 99 : k; }; return list.map((b, k) => [b, k]).sort((x, y) => o(x[0].g) - o(y[0].g) || x[1] - y[1]).map(x => x[0]); }
 function parseEntries(str) { // "=başlık|…" + "~bölüm" / "?noktalar" + satırlar
   const out = []; let e = null, sec = null;
   for (const raw of str.split('\n')) {
     const line = raw.trim(); if (!line) continue;
-    if (line[0] === '=') { const p = line.slice(1).split('|'); e = { title: p[0], tr: p[1], a: p[2], b: p[3], secs: [], points: '' }; sec = { name: '', lines: [] }; e.secs.push(sec); out.push(e); continue; }
+    if (line[0] === '=') { const p = line.slice(1).split('|'); e = { title: p[0], tr: p[1], a: p[2], b: p[3], g: p[4] || '', secs: [], points: '' }; sec = { name: '', lines: [] }; e.secs.push(sec); out.push(e); continue; }
     if (line[0] === '~') { sec = { name: line.slice(1), lines: [] }; e.secs.push(sec); continue; }
     if (line[0] === '?') { e.points = line.slice(1); continue; }
     const i = line.indexOf('|'); sec.lines.push([line.slice(0, i), line.slice(i + 1)]);
@@ -317,7 +321,7 @@ function parseEntries(str) { // "=başlık|…" + "~bölüm" / "?noktalar" + sat
 }
 const D = {
   alltag: parseGroups(ALLTAG, 2), bildThemes: parseGroups(BILD_THEMES, 2), bild: parseEntries(BILD),
-  planRed: parseGroups(PLANEN_REDEMITTEL, 2), planen: parseEntries(PLANEN), briefRed: parseGroups(BRIEF_REDEMITTEL, 2), briefe: parseEntries(BRIEFE),
+  planRed: parseGroups(PLANEN_REDEMITTEL, 2), planen: parseEntries(PLANEN), briefRed: parseGroups(BRIEF_REDEMITTEL, 2), briefe: sortBriefe(parseEntries(BRIEFE)),
   konj: parseGroups(KONJ, 4), b2praep: parseGroups(B2_PRAEP, 4), b2nvv: parseGroups(B2_NVV, 4), b2konn: parseGroups(B2_KONN, 4), b2red: parseGroups(B2_REDEMITTEL, 2),
   b2briefe: parseEntries(B2_BRIEFE), beruf: parseEntries(BERUF_BRIEFE), b2praes: parseEntries(B2_PRAES), b2problem: parseEntries(B2_PROBLEM), b2disk: parseEntries(B2_DISKUSSION),
   b2wort: parseGroups(B2_WORT, 2), genitiv: parseGroups(B2_GENITIV, 4),
@@ -505,7 +509,7 @@ const RENDER = {
     if (sub === 'kalip') return bar('Brief kalıp cümleleri', 'Hitap, giriş, rica, kapanış', { tr: true }) + `<main class="wrap stack">${phraseGroups(D.briefRed)}</main>`;
     if (sub != null && D.briefe[sub]) return briefDetail(D.briefe[sub], +sub);
     return bar(s.de, s.tr) + `<main class="wrap stack"><a class="banner" href="#/s/briefe/kalip"><span>B1 Brief kalıp cümleleri<small>Her mektupta kullanabileceğin ifadeler</small></span>${I.chev}</a>
-      <ul class="list">${D.briefe.map((b, i) => rowLink(`#/s/briefe/${i}`, b.title, b.tr + (b.a === 'formell' ? ' · resmî' : ' · samimi'))).join('')}</ul></main>`;
+      ${searchBox('Brief suchen… / Mektup ara…', UI.q)}<p class="muted small" id="bcount" style="margin:0 2px"></p><div id="blist" class="stack"></div></main>`;
   },
   wichtig(s) {
     return bar(s.de, s.tr) + `<main class="wrap stack">${searchBox('Verb suchen… / Fiil ara…', UI.q)}<ul class="list" id="vlist"></ul></main>`;
@@ -674,6 +678,19 @@ function fillGloss() {
 }
 
 /* Brief */
+function fillBriefe() {
+  const el = $('#blist'); if (!el) return;
+  const q = norm(UI.q || '');
+  const hit = b => !q || norm(b.title).includes(q) || norm(b.tr).includes(q) || norm(b.b || '').includes(q);
+  let total = 0;
+  const html = BRIEF_GROUPS.concat([['', 'Diğer']]).map(([g, label]) => {
+    const items = D.briefe.map((b, i) => [b, i]).filter(([b]) => (BRIEF_GROUPS.some(x => x[0] === b.g) ? b.g : '') === g && hit(b));
+    total += items.length;
+    return items.length ? `<div class="grp">${esc(label)}<span>${esc(g || '—')} · ${items.length}</span></div><ul class="list">${items.map(([b, i]) => rowLink(`#/s/briefe/${i}`, b.title, b.tr + (b.a === 'formell' ? ' · resmî' : ' · samimi'))).join('')}</ul>` : '';
+  }).join('');
+  el.innerHTML = html || '<p class="empty">Sonuç yok.</p>';
+  const c = $('#bcount'); if (c) c.textContent = `${total} / ${D.briefe.length} mektup`;
+}
 function briefDetail(b, i, key = 'briefe') {
   const lines = b.secs.flatMap(s => s.lines);
   return bar(b.title, b.tr + kindLabel(b.a), { tr: true }) + `<main class="wrap stack">
@@ -942,7 +959,7 @@ function render() {
   else if (ROUTE.v === 'study') html = renderStudy();
   else if (ROUTE.v === 'search') html = renderSearch();
   app.innerHTML = html;
-  fillVerbList(); fillWords(); fillGloss(); fillSearch();
+  fillVerbList(); fillWords(); fillGloss(); fillBriefe(); fillSearch();
   applyTr();
   const t = { home: 'Wegweiser', search: 'Ara · Wegweiser', study: 'Kartlar · Wegweiser' }[ROUTE.v] || ((ROUTE.v === 'sec' && SEC[ROUTE.id] ? SEC[ROUTE.id].de : 'Fiil') + ' · Wegweiser');
   document.title = t;
@@ -995,7 +1012,7 @@ document.addEventListener('click', e => {
 document.addEventListener('input', e => {
   if (e.target.id !== 'q') return;
   if (ROUTE.v === 'search') { UI.sq = e.target.value; fillSearch(); }
-  else { UI.q = e.target.value; fillVerbList(); fillWords(); fillGloss(); }
+  else { UI.q = e.target.value; fillVerbList(); fillWords(); fillGloss(); fillBriefe(); }
 });
 
 try { const t = store.get('theme', null); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
