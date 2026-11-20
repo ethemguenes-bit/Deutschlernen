@@ -42,7 +42,7 @@
 
 html,body{height:100%}
 body{background:var(--paper);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.5;
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:22px 22px}
+}
 *{box-sizing:border-box}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;touch-action:manipulation}
@@ -58,6 +58,8 @@ header.top .inner{display:flex;align-items:center;justify-content:space-between;
 .hchips{display:flex;gap:8px;font-size:13px;font-variant-numeric:tabular-nums}
 .hchip{display:flex;align-items:center;gap:5px;padding:3px 10px;border:1px solid var(--line);border-radius:999px;background:var(--sheet)}
 .hchip svg{width:14px;height:14px}
+.hchip small{font-size:11px;color:var(--ink-soft);font-weight:500}
+@media (max-width:360px){.hchip small{display:none}}
 main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 main .inner{padding-block:18px 28px;display:flex;flex-direction:column;gap:16px}
 nav.tabs{flex:none;background:var(--sheet);border-top:1px solid var(--line)}
@@ -254,32 +256,60 @@ a.stop{text-decoration:none}
 details.how{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:12px 16px}
 details.how summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--ink-soft)}
 details.how .method{margin-top:12px}
-.rtabs{position:fixed;right:0;top:calc(env(safe-area-inset-top,0px) + 120px);z-index:30;display:none;flex-direction:column;align-items:flex-end;gap:6px}
-body.home .rtabs{display:flex}
-.rtabs .lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding-right:5px}
-.rtab{width:34px;border:0;border-radius:12px 0 0 12px;color:#fff;display:grid;place-items:center;box-shadow:-3px 3px 10px rgba(16,35,31,.18);padding:0}
-.rtab span{writing-mode:vertical-rl;font-size:13px;font-weight:700;padding:12px 0}
-.rtab.t-a{background:#10231f} .rtab.t-b2{background:#0f766e} .rtab.t-c1{background:#a46512}
-@media (max-width:720px){body.home #view{padding-right:30px}}
-.rdrawer{position:fixed;inset:0;z-index:70;display:flex;justify-content:flex-end;background:rgba(16,24,40,.45)}
-.rdrawer[hidden]{display:none}
-.rd-tabs{display:flex;flex-direction:column;gap:6px;padding-top:calc(env(safe-area-inset-top,0px) + 96px);margin-right:-1px}
-.rd-tabs .rtab{opacity:.85}
-.rd-tabs .rtab[aria-current="true"]{opacity:1;width:40px;background:var(--sheet);color:var(--ink);border-left:4px solid #0f766e;box-shadow:none}
-.rd-panel{width:min(330px,calc(100vw - 50px));background:var(--sheet);box-shadow:-10px 0 30px rgba(16,24,40,.22);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
-.rd-head{display:flex;align-items:flex-start;gap:10px;padding:18px 16px 12px;border-bottom:1px solid var(--line)}
-.rd-head .k{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0f766e}
-.rd-head h3{margin:2px 0 0;font-family:var(--f-sent);font-size:24px}
-.rd-head p{margin:2px 0 0}
-.rd-x{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--sheet);display:grid;place-items:center;flex:none}
-.rd-x svg{width:18px;height:18px}
-.rd-body{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:16px}
-.rd-body h4{margin:0 0 4px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
-.rd-body a.rl{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:15px;font-weight:600}
-.rd-body a.rl svg{width:16px;height:16px;color:var(--ink-soft)}
-.rd-chips{display:flex;flex-wrap:wrap;gap:6px}
-.rd-chips a{padding:7px 10px;border-radius:999px;background:var(--paper);border:1px solid var(--line);color:var(--ink);font-size:13px;font-weight:600;text-decoration:none}
-.rd-foot{margin:0 16px calc(16px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:12px;background:#0f766e;color:#fff;font-weight:700;text-decoration:none}
+/* Ana ekran: arama, devam kartı, hızlı erişim */
+.hsearch{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 14px;border:1px solid var(--line);border-radius:14px;background:var(--sheet);box-shadow:var(--shadow);margin-bottom:-4px;color:var(--ink-soft);text-decoration:none}
+.hsearch svg{width:18px;height:18px;flex:none}
+.hsearch input{flex:1;min-width:0;border:0;background:none;font:inherit;font-size:15px;color:var(--ink);padding:12px 0;outline:none}
+.hsearch:focus-within{border-color:var(--accent)}
+.hsearch.as-link span{font-size:15px}
+.hsugg{display:flex;flex-direction:column;background:var(--sheet);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.hsugg[hidden]{display:none}
+.hs{display:flex;flex-direction:column;gap:1px;padding:10px 14px;border:0;border-bottom:1px solid var(--line);background:none;text-align:left;text-decoration:none;color:var(--ink);min-height:48px}
+.hs:last-child{border-bottom:0} .hs b{font-size:15px} .hs span{font-size:12px;color:var(--ink-soft)}
+.hs.all b{color:var(--accent)}
+.ftitle{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.fsel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.fsel label{display:flex;flex-direction:column;gap:3px;min-width:0}
+.fsel label.wide{grid-column:1/-1}
+.fsel label>span{font-size:12px;color:var(--ink-soft);font-weight:600}
+.fsel select{width:100%;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px;padding:0 10px}
+.fsel select:disabled{opacity:.55}
+.cont{display:flex;align-items:center;gap:12px;width:100%;padding:14px;border:1px solid var(--line);border-radius:var(--r);background:var(--sheet);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);text-align:left}
+.cont .ci{width:44px;height:44px;border-radius:12px;background:#0f766e;color:#fff;display:grid;place-items:center;flex:none}
+.cont .ci svg{width:22px;height:22px}
+.cont .ct{flex:1;min-width:0;display:flex;flex-direction:column}
+.cont .ct small{font-size:12px;font-weight:700;color:#0f766e;text-transform:uppercase;letter-spacing:.05em}
+.cont .ct b{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cont .ct span{font-size:13px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cont>svg,.plink>svg{width:18px;height:18px;color:var(--ink-soft);flex:none}
+.plink{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:6px 10px;width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);background:var(--sheet);text-align:left;color:var(--ink)}
+.plink .pl-t{display:flex;flex-direction:column;min-width:0}
+.plink .pl-t b{font-size:15px} .plink .pl-t span{font-size:12px;color:var(--ink-soft)}
+.plink .pl-p{font-weight:700;color:var(--accent);font-size:15px}
+.plink .pbar{grid-column:1/-1}
+.qhead{display:flex;justify-content:space-between;align-items:center}
+.qhead h2{margin:0}
+.linkbtn{border:0;background:none;color:var(--accent);font-weight:600;font-size:14px;display:flex;align-items:center;gap:2px;padding:8px 0;min-height:40px}
+.linkbtn svg{width:16px;height:16px}
+.qgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.qt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--sheet);text-decoration:none;color:var(--ink);text-align:left;min-height:112px;box-shadow:var(--shadow)}
+.qt .qi{width:38px;height:38px;border-radius:11px;background:color-mix(in srgb,#0f766e 14%,transparent);color:#0f766e;display:grid;place-items:center;margin-bottom:6px}
+.qt .qi.g{background:var(--accent-bg);color:var(--accent)}
+.qt .qi svg{width:20px;height:20px}
+.qt b{font-size:15px;line-height:1.25} .qt>span:last-child{font-size:12px;color:var(--ink-soft)}
+/* Rehber sekmesi */
+.rhead h2{font-family:var(--f-sent);font-size:24px;text-transform:none;letter-spacing:0;color:var(--ink);margin:0}
+.rseg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.rseg button{border:1px solid var(--line);background:var(--sheet);border-radius:12px;padding:9px 6px;display:flex;flex-direction:column;align-items:center;gap:1px;color:var(--ink);min-height:52px}
+.rseg b{font-size:15px} .rseg span{font-size:11px;color:var(--ink-soft);text-align:center}
+.rseg button[aria-pressed="true"]{background:#0f766e;border-color:#0f766e;color:#fff}
+.rseg button[aria-pressed="true"] span{color:rgba(255,255,255,.85)}
+.rg h2{margin-bottom:6px;text-transform:none;letter-spacing:.02em;font-size:14px}
+.rg a.rl{display:flex;justify-content:space-between;align-items:center;min-height:48px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:15px;font-weight:600}
+.rg a.rl:last-child{border-bottom:0}
+.rg a.rl svg{width:16px;height:16px;color:var(--ink-soft)}
+.rd-chips{display:flex;flex-wrap:wrap;gap:8px}
+.rd-chips a{min-height:40px;display:inline-flex;align-items:center;padding:0 12px;border-radius:999px;background:var(--paper);border:1px solid var(--line);color:var(--ink);font-size:14px;font-weight:600;text-decoration:none}
 .hbtn{width:36px;height:36px;border-radius:12px;border:1px solid var(--line);background:var(--sheet);display:grid;place-items:center;color:var(--ink);padding:0}
 .hbtn svg{width:18px;height:18px}
 .method{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;counter-reset:m}
@@ -397,23 +427,21 @@ textarea.ans:focus{border-style:solid;border-color:var(--accent);outline:none}
     <div class="brand">Satz<b>heft</b></div>
     <div class="hchips">
       
-      <span class="hchip" title="Günlük seri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 4 5 6 5 11a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-4-1-6 1-10z"/></svg><span id="hStreak">0</span></span>
-      <span class="hchip" title="Bugün çalışılacak"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg><span id="hDue">0</span></span>
+      <span class="hchip" title="Günlük seri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 4 5 6 5 11a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-4-1-6 1-10z"/></svg><span id="hStreak">0</span><small>gün seri</small></span>
+      <span class="hchip" title="Bugün çalışılacak"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg><span id="hDue">0</span><small>bugün</small></span>
     <button class="hbtn" data-tab="settings" aria-label="Ayarlar" title="Ayarlar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
     </div>
   </div></header>
   <main id="main" class="gut"><div class="inner" id="view"></div></main>
   <nav class="tabs gut" aria-label="Bölümler"><div class="inner">
-    <button data-tab="study"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v18M6 4h11l-2 4 2 4H6"/></svg>Yolum</button>
+    <button data-tab="study"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Ana sayfa</button>
     <button data-tab="list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Cümleler</button>
+    <button data-tab="rehber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h11a1 1 0 0 1 1 1v17l-6.5-4L5 21V4a1 1 0 0 1 1-1z"/></svg>Rehber</button>
     <button data-tab="game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M14 6.5h4a2.5 2.5 0 0 1 2.5 2.5v1.5M10 17.5H6A2.5 2.5 0 0 1 3.5 15v-1.5"/></svg>Oyun</button>
-    <button data-tab="read"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.5C4 4.5 7 4 12 6c5-2 8-1.5 10-.5V19c-2-1-5-1.5-10 .5-5-2-8-1.5-10-.5z"/><path d="M12 6v13.5"/></svg>Öğren</button>
-    <button data-tab="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>İstatistik</button>
+    <button data-tab="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>İlerleme</button>
   </div></nav>
 </div>
 <div class="overlay" id="overlay" hidden><div class="modal" id="modal" role="dialog" aria-modal="true"></div></div>
-<nav class="rtabs" aria-label="Rehber · sınav hazırlığı"><span class="lbl">Rehber</span><button class="rtab t-a" data-rehber="a"><span>A1–B1</span></button><button class="rtab t-b2" data-rehber="b2"><span>B2</span></button><button class="rtab t-c1" data-rehber="c1"><span>C1</span></button></nav>
-<div class="rdrawer" id="rdrawer" hidden></div>
 <div id="wordbar" role="status" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -4833,7 +4861,7 @@ function speak(text, slow) {
 function renderHeader() {
   $('#hStreak').textContent = streak();
   const c = counts(); $('#hDue').textContent = c.learn + c.rev + c.fresh;
-  document.querySelectorAll('nav.tabs button').forEach(b => b.setAttribute('aria-current', b.dataset.tab === tab ? 'page' : 'false'));
+  document.querySelectorAll('nav.tabs button').forEach(b => b.setAttribute('aria-current', b.dataset.tab === (tab === 'read' ? 'rehber' : tab) ? 'page' : 'false'));
 }
 function render() {
   renderHeader();
@@ -4843,6 +4871,7 @@ function render() {
   else if (tab === 'list') v.innerHTML = viewList();
   else if (tab === 'game') v.innerHTML = viewGame();
   else if (tab === 'read') v.innerHTML = viewLearn();
+  else if (tab === 'rehber') v.innerHTML = viewRehber();
   else if (tab === 'stats') v.innerHTML = viewStats();
   else v.innerHTML = viewSettings();
   afterRender();
@@ -4870,6 +4899,46 @@ function levelStats() {
   return out;
 }
 const WARN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>';
+const HICON = {
+  mail: '<path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/>',
+  verb: '<path d="M4 7h16M4 12h10M4 17h7"/><path d="M17 14l3 3-3 3"/>',
+  img: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/>',
+  talk: '<path d="M4 5h11v8H8l-4 3z"/><path d="M15 9h5v8l-3-2h-6v-2"/>',
+  words: '<path d="M4 4h12l4 4v12H4z"/><path d="M8 11h8M8 15h5"/>',
+  game: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M14 6.5h4a2.5 2.5 0 0 1 2.5 2.5v1.5M10 17.5H6A2.5 2.5 0 0 1 3.5 15v-1.5"/>',
+  book: '<path d="M2 5.5C4 4.5 7 4 12 6c5-2 8-1.5 10-.5V19c-2-1-5-1.5-10 .5-5-2-8-1.5-10-.5z"/><path d="M12 6v13.5"/>',
+  quote: '<path d="M7 7h4v4c0 3-2 5-4 5M14 7h4v4c0 3-2 5-4 5"/>',
+};
+const hicon = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${HICON[k]}</svg>`;
+const CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+const QUICK = {
+  a: [['briefe', 'B1 Briefe', 'Mektup örnekleri', 'mail'], ['wichtig', 'Wichtige Verben', 'Edat ve hâl bilgisiyle', 'verb'], ['bild', 'Bildbeschreibung', 'Resim anlatma', 'img'], ['planen', 'Etwas planen', 'Diyaloglar', 'talk']],
+  b2: [['b2briefe', 'B2 Briefe', 'Şikâyet, başvuru', 'mail'], ['b2praep', 'Verben + Präp.', 'Edatlı fiiller', 'verb'], ['b2disk', 'Diskussionen', 'Tartışma konuları', 'talk'], ['b2wort', 'B2 Wortschatz', 'Kelimeler', 'words']],
+  c1: [['c1briefe', 'C1 Briefe', 'Resmî yazışma', 'mail'], ['c1wort', 'C1 Wortschatz', '400 kelime', 'words'], ['c1zitate', 'Zitate', 'Tartışma', 'quote'], ['nominal', 'Nominalisierung', '100 madde', 'verb']],
+};
+const rehberKeyFor = lvl => lvl === 'B2' ? 'b2' : lvl === 'C1' || lvl === 'C2' ? 'c1' : 'a';
+let rehberLvl = null;
+function lastRehber() { try { const v = JSON.parse(localStorage.getItem('satzheft.lastRehber') || 'null'); return v && v.h ? v : null; } catch (e) { return null; } }
+function homeNorm(x) { return (x || '').toLocaleLowerCase('tr').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ı/g, 'i').replace(/ß/g, 'ss'); }
+function homeIndex() {
+  const out = [
+    ['Cümleler', 'Tüm cümleler, arama', { tab: 'list' }], ['Oyun', 'Kelime oyunu', { tab: 'game' }], ['Dersler ve hikâyeler', 'Gramer dersleri, okuma', { tab: 'read' }],
+    ['İlerleme', 'İstatistik ve seviye yolu', { tab: 'stats' }], ['Ayarlar', 'Günlük hedef, ses, yedek', { tab: 'settings' }], ['Zayıf cümleler', 'Sık yanıldıkların', { act: 'weak' }],
+  ];
+  for (const m of Object.values(REHBER_MENU)) for (const [g, items] of m.groups) for (const [id, n] of items) out.push([n, `Rehber ${m.title} · ${g.split(' · ')[1] || g}`, { href: 'rehber.html#/s/' + id }]);
+  return out;
+}
+function homeSuggest(v) {
+  const box = $('#hsugg'); if (!box) return;
+  const q = homeNorm(v.trim());
+  if (!q) { box.hidden = true; box.innerHTML = ''; return; }
+  const hits = homeIndex().filter(([n, sub]) => homeNorm(n + ' ' + sub).includes(q)).slice(0, 6);
+  const row = ([n, sub, to]) => to.href ? `<a class="hs" href="${to.href}"><b>${esc(n)}</b><span>${esc(sub)}</span></a>`
+    : `<button class="hs" ${to.tab ? `data-tab="${to.tab}"` : `data-act="${to.act}"`}><b>${esc(n)}</b><span>${esc(sub)}</span></button>`;
+  box.innerHTML = hits.map(row).join('') + `<a class="hs all" href="rehber.html#/suche/${encodeURIComponent(v.trim())}"><b>“${esc(v.trim())}” için Rehber'in tamamında ara</b><span>Kelime, fiil, cümle ve mektuplarda</span></a>`;
+  box.hidden = false;
+}
+
 function viewHome() {
   const lvl = S.settings.level || 'all';
   if (S.settings.topic && (!deckNames().includes(S.settings.topic) || (lvl !== 'all' && levelOfDeck(S.settings.topic) !== lvl))) { S.settings.topic = ''; save(); }
@@ -4878,12 +4947,20 @@ function viewHome() {
   const goal = t.n + left, pct = goal ? t.n / goal : 1, R = 40, CIRC = 2 * Math.PI * R;
   const weak = weakCards().length, dir = S.settings.dir;
   const tomorrow = (() => { const end = startOfDay() + 2 * DAY; let n = 0; for (const s of allSentences()) { const cc = cardOf(s.id); if (cc && cc.s === 2 && cc.d > Date.now() && cc.d < end && activeDeck(s.deck)) n++; } return n; })();
-  const topicShort = topic ? topic.replace(/^(A1|A2|B1|B2|C1|C2) · /, '') : 'Karışık';
-  const tag = (lvl === 'all' ? 'Tüm seviyeler' : LEVEL_LABEL[lvl]) + ' · ' + topicShort;
   const startBtn = left
     ? `<button class="btn primary wide" data-act="start" style="min-height:52px;font-size:17px">${t.n ? 'Çalışmaya devam et' : 'Çalışmaya başla'}</button>`
     : `<div class="stack"><p style="margin:0"><b>Bugünkü kartlar bitti.</b> <span class="muted">${t.n ? `Bugün ${t.n} kart, %${Math.round(100 * t.ok / t.n)} doğru. ` : ''}Yarın ${tomorrow} tekrar seni bekliyor.</span></p>
-        ${c.freshTotal ? `<button class="btn wide" data-act="morenew">${ICON.plus} 5 yeni cümle daha</button>` : `<p class="muted small" style="margin:0">Burada yeni cümle kalmadı. Yoldan başka bir seviye ya da konu seç.</p>`}</div>`;
+        ${c.freshTotal ? `<button class="btn wide" data-act="morenew">${ICON.plus} 5 yeni cümle daha</button>` : `<p class="muted small" style="margin:0">Burada yeni cümle kalmadı. Aşağıdan başka bir seviye ya da konu seç.</p>`}</div>`;
+
+  const st = levelStats();
+  const levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'mine'].filter(l => st[l]);
+  const decks = lvl === 'all' ? [] : deckNames().filter(d => levelOfDeck(d) === lvl && deckOn(d));
+  const opt = (v, label, sel) => `<option value="${esc(v)}"${sel ? ' selected' : ''}>${esc(label)}</option>`;
+  const selects = `<div class="fsel">
+      <label><span>Seviye</span><select id="selLevel">${opt('all', 'Tüm seviyeler', lvl === 'all')}${levels.map(l => opt(l, (l === 'mine' ? 'Benim cümlelerim' : l + ' · ' + LEVEL_NAME[l]), l === lvl)).join('')}</select></label>
+      <label><span>Konu</span><select id="selTopic" ${decks.length > 1 ? '' : 'disabled'}>${opt('', 'Karışık', !topic)}${decks.map(d => opt(d, d.replace(/^(A1|A2|B1|B2|C1|C2) · /, ''), d === topic)).join('')}</select></label>
+      <label class="wide"><span>Yön</span><select id="selDir">${opt('tr-de', 'Türkçe → Almanca', dir === 'tr-de')}${opt('de-tr', 'Almanca → Türkçe', dir === 'de-tr')}${opt('listen', 'Dinle → Yaz', dir === 'listen')}</select></label>
+    </div>`;
   const focus = `<section class="sheet focus" aria-label="Bugün">
     <div class="focus-top">
       <div class="ring" role="img" aria-label="Bugün ${t.n} kart çalışıldı, ${left} kart kaldı">
@@ -4891,66 +4968,39 @@ function viewHome() {
         <div class="mid"><b>${t.n}<small>/${goal}</small></b><span>bugün</span></div>
       </div>
       <div class="focus-info">
-        <span class="lvtag" title="${esc(tag)}">${esc(tag)}</span>
+        <div class="ftitle">Bugünkü çalışman</div>
         <div class="focus-nums"><b class="c-new">${c.fresh}</b> yeni · <b class="c-rev">${c.rev}</b> tekrar<br><b class="c-learn">${c.learn}</b> öğreniliyor</div>
       </div>
     </div>
     ${startBtn}
-    <div class="dirs" role="group" aria-label="Çalışma yönü">
-      <button data-dir="tr-de" aria-pressed="${dir === 'tr-de'}">Türkçe → Almanca</button>
-      <button data-dir="de-tr" aria-pressed="${dir === 'de-tr'}">Almanca → Türkçe</button>
-      <button data-dir="listen" aria-pressed="${dir === 'listen'}">Dinle → Yaz</button>
-    </div>
-    ${lvl === 'all' && weak ? `<button class="weaklink" data-act="weak">${WARN_SVG}Zayıf cümleler: ${Math.min(20, weak)} · ayrıca çalış</button>` : ''}
+    ${selects}
+    ${weak ? `<button class="weaklink" data-act="weak">${WARN_SVG}Zayıf cümleler: ${Math.min(20, weak)} · ayrıca çalış</button>` : ''}
   </section>`;
 
-  const st = levelStats();
-  const levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'mine'].filter(l => st[l]);
-  const stops = levels.map(l => {
-    const o = st[l], p = o.total ? Math.round(100 * o.learned / o.total) : 0;
-    const dotCls = l === lvl ? 'cur' : p >= 100 ? 'full' : '';
-    const dotTxt = l === 'mine' ? '★' : l;
-    if (l !== lvl) return `<li><button class="stop" data-level="${l}" aria-label="${LEVEL_LABEL[l]} seviyesinden başla">
-        <span class="dot ${dotCls}">${dotTxt}</span>
-        <span class="stop-body"><span class="stop-top"><b>${LEVEL_NAME[l] || l}</b><span>%${p}</span></span>
-          <span class="pbar"><i style="width:${p}%"></i></span>
-          <span class="stop-sub">${o.learned} / ${o.total} öğrenildi${o.due ? ` · ${o.due} tekrar bekliyor` : ''}</span></span></button></li>`;
-    const decks = deckNames().filter(d => levelOfDeck(d) === l && deckOn(d));
-    const shown = homeTopicsAll ? decks : decks.slice(0, 4);
-    if (topic && !shown.includes(topic)) shown.push(topic);
-    const words = typeof WORDS !== 'undefined' ? WORDS.filter(w => levelOfDeck(w.deck) === l).length : 0;
-    const lessons = typeof LESSONS !== 'undefined' ? LESSONS.filter(x => x.level === l).length : 0;
-    const stories = typeof STORIES !== 'undefined' ? STORIES.filter(x => x.level === l).length : 0;
-    return `<li class="cur-row"><span class="dot cur">${dotTxt}</span>
-      <div class="stop-card">
-        <div class="stop-top"><b>${LEVEL_NAME[l] || l} · aktif</b><span>%${p}</span></div>
-        <div class="pbar"><i style="width:${p}%"></i></div>
-        <div class="stop-sub">${o.learned} / ${o.total} öğrenildi${o.due ? ` · ${o.due} tekrar bekliyor` : ''}</div>
-        ${decks.length > 1 ? `<div class="ktitle">Konu seç</div>
-        <div class="topics" role="group" aria-label="Konu">
-          <button data-topic="" aria-pressed="${!topic}">Karışık</button>
-          ${shown.map(d => `<button data-topic="${esc(d)}" aria-pressed="${topic === d}">${esc(d.replace(/^(A1|A2|B1|B2|C1|C2) · /, ''))}</button>`).join('')}
-          ${decks.length > 4 ? `<button class="more" data-act="moretopics">${homeTopicsAll ? 'Daha az' : '+' + (decks.length - shown.length) + ' konu'}</button>` : ''}
-        </div>` : ''}
-        <div class="shortcuts">
-          <button data-tab="list"><b>Cümleler</b><span>${o.total}</span></button>
-          <button data-tab="game"><b>Oyun</b><span>${words ? words + ' kelime' : 'kelime oyunu'}</span></button>
-          <button data-tab="read"><b>Dersler</b><span>${lessons ? lessons + ' ders' : ''}${stories ? ' · ' + stories + ' hikâye' : ''}</span></button>
-        </div>
-        <button class="weaklink" data-act="weak" ${weak ? '' : 'disabled'}>${WARN_SVG}${weak ? `Zayıf cümleler: ${Math.min(20, weak)} · ayrıca çalış` : 'Zayıf cümle yok'}</button>
-      </div></li>`;
-  }).join('');
-  const later = ['B2', 'C1'].filter(l => !st[l]).map(l => `<li><a class="stop" href="rehber.html#/lvl/${l.toLowerCase()}">
-      <span class="dot later">${l}</span>
-      <span class="stop-body"><b style="font-size:15px">${LEVEL_NAME[l]}</b><span class="stop-sub">Sınav hazırlığı · Rehber'de</span></span></a></li>`).join('');
+  const last = lastRehber();
+  const cont = last ? `<a class="cont" href="rehber.html${esc(last.h)}"><span class="ci">${hicon('book')}</span><span class="ct"><small>Kaldığın yerden devam et</small><b>${esc(last.t)}</b><span>${esc(last.t === last.s ? 'Rehber' : 'Rehber · ' + last.s)}</span></span>${CHEV}</a>` : '';
 
-  return `${focus}
-  <section class="stack plain" aria-label="Yolun">
-    <div class="path-head">
-      <div><h2>Yolun</h2><p class="muted small">Bir durağa dokun: halka o seviyeye geçer, oradan başlarsın.</p></div>
-      <button class="alllv" data-level="all" aria-pressed="${lvl === 'all'}">Tümü</button>
-    </div>
-    <ol class="path">${stops}${later}</ol>
+  const cur = lvl !== 'all' && st[lvl] ? lvl : null;
+  const sum = cur ? st[cur] : levels.reduce((o, l) => ({ total: o.total + st[l].total, learned: o.learned + st[l].learned }), { total: 0, learned: 0 });
+  const p = sum.total ? Math.round(100 * sum.learned / sum.total) : 0;
+  const prog = `<button class="plink" data-tab="stats"><span class="pl-t"><b>${cur ? (cur === 'mine' ? 'Benim cümlelerim' : cur + ' · ' + LEVEL_NAME[cur]) : 'Tüm seviyeler'}</b><span>${sum.learned} / ${sum.total} cümle öğrenildi · seviye yolu</span></span><span class="pl-p">%${p}</span>${CHEV}<span class="pbar"><i style="width:${p}%"></i></span></button>`;
+
+  const rk = rehberKeyFor(lvl);
+  const tiles = QUICK[rk].map(([id, n, sub, ic]) => `<a class="qt" href="rehber.html#/s/${id}"><span class="qi">${hicon(ic)}</span><b>${esc(n)}</b><span>${esc(sub)}</span></a>`).join('')
+    + `<button class="qt" data-tab="game"><span class="qi g">${hicon('game')}</span><b>Oyun</b><span>Kelime eşleştirme</span></button>`
+    + `<button class="qt" data-tab="read"><span class="qi g">${hicon('book')}</span><b>Dersler</b><span>Gramer ve hikâyeler</span></button>`;
+
+  return `<form class="hsearch" id="hsearch" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="hq" type="search" placeholder="Ne çalışmak istersin?" autocomplete="off" spellcheck="false" enterkeyhint="search" aria-label="Ara">
+    </form>
+    <div class="hsugg" id="hsugg" hidden></div>
+  ${focus}
+  ${cont}
+  ${prog}
+  <section class="stack plain" aria-label="Hızlı erişim">
+    <div class="qhead"><h2>Hızlı erişim</h2><button class="linkbtn" data-tab="rehber">Tüm bölümler ${CHEV}</button></div>
+    <div class="qgrid">${tiles}</div>
   </section>
   <details class="how"><summary>Nasıl çalışmalıyım?</summary>
     <ol class="method">
@@ -4961,7 +5011,32 @@ function viewHome() {
   </details>`;
 }
 
-/* Rehber ayraçları: sağdan açılan panel, bölümler sınav becerilerine göre */
+/* İlerleme sekmesinin başındaki seviye yolu */
+function levelPath() {
+  const lvl = S.settings.level || 'all', st = levelStats();
+  const levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'mine'].filter(l => st[l]);
+  const stops = levels.map(l => {
+    const o = st[l], p = o.total ? Math.round(100 * o.learned / o.total) : 0;
+    const dotCls = l === lvl ? 'cur' : p >= 100 ? 'full' : '';
+    return `<li><button class="stop" data-level="${l}" aria-label="${LEVEL_LABEL[l]} seviyesine geç ve çalış">
+        <span class="dot ${dotCls}">${l === 'mine' ? '★' : l}</span>
+        <span class="stop-body"><span class="stop-top"><b>${LEVEL_NAME[l] || l}${l === lvl ? ' · aktif' : ''}</b><span>%${p}</span></span>
+          <span class="pbar"><i style="width:${p}%"></i></span>
+          <span class="stop-sub">${o.learned} / ${o.total} öğrenildi${o.due ? ` · ${o.due} tekrar bekliyor` : ''}</span></span></button></li>`;
+  }).join('');
+  const later = ['B2', 'C1'].filter(l => !st[l]).map(l => `<li><a class="stop" href="rehber.html#/lvl/${l.toLowerCase()}">
+      <span class="dot later">${l}</span>
+      <span class="stop-body"><b style="font-size:15px">${LEVEL_NAME[l]}</b><span class="stop-sub">Sınav hazırlığı · Rehber'de</span></span></a></li>`).join('');
+  return `<section class="stack plain" aria-label="Seviye yolun" style="margin-bottom:18px">
+    <div class="path-head">
+      <div><h2>Seviye yolun</h2><p class="muted small">Bir seviyeye dokun: ana sayfada o seviyeden çalışmaya başlarsın.</p></div>
+      <button class="alllv" data-level="all" aria-pressed="${lvl === 'all'}">Tümü</button>
+    </div>
+    <ol class="path">${stops}${later}</ol>
+  </section>`;
+}
+
+/* Rehber sekmesi: bölümler sınav becerilerine göre */
 const REHBER_MENU = {
   a: { title: 'A1 – B1', sub: 'DTZ / Goethe B1', lvl: 'a', groups: [
     ['Schreiben · Yazma', [['briefe', 'B1 Briefe']]],
@@ -4979,27 +5054,22 @@ const REHBER_MENU = {
     ['Grammatik · Gramer', [['nominal', 'Nominalisierung'], ['partizip', 'Partizipien'], ['passers', 'Passiv-Ersatz'], ['modalsubj', 'Modalverben'], ['c1konn', 'Konnektoren']], true],
     ['Wortschatz · Kelime', [['c1wort', 'C1 Wortschatz'], ['idiom', 'Idiomatische Verben'], ['c1nvv', 'Nomen-Verb-Verb.'], ['redew', 'Redewendungen'], ['sprich', 'Sprichwörter'], ['partikeln', 'Modalpartikeln']]]] },
 };
-let rehberReturnFocus = null;
-function openRehber(k) {
-  const m = REHBER_MENU[k]; if (!m) return;
-  const el = $('#rdrawer');
-  if (el.hidden) rehberReturnFocus = document.activeElement;
-  const chev = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
-  el.innerHTML = `<div class="rd-tabs" role="group" aria-label="Rehber seviyesi">${Object.keys(REHBER_MENU).map(x => `<button class="rtab t-${x}" data-rehber="${x}" aria-current="${x === k}"><span>${REHBER_MENU[x].title.replace(/ /g, '')}</span></button>`).join('')}</div>
-    <aside class="rd-panel" role="dialog" aria-modal="true" aria-label="Rehber ${m.title}">
-      <div class="rd-head"><div style="flex:1"><div class="k">Rehber · sınav hazırlığı</div><h3>${m.title}</h3><p class="muted small">${m.sub}</p></div>
-        <button class="rd-x" data-rclose aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-      <div class="rd-body">${m.groups.map(([h, items, chips]) => `<section><h4>${h}</h4>${chips
-        ? `<div class="rd-chips">${items.map(([id, n]) => `<a href="rehber.html#/s/${id}">${esc(n)}</a>`).join('')}</div>`
-        : items.map(([id, n]) => `<a class="rl" href="rehber.html#/s/${id}"><span>${esc(n)}</span>${chev}</a>`).join('')}</section>`).join('')}</div>
-      <a class="rd-foot" href="rehber.html#/lvl/${m.lvl}">Rehber'i aç · ${m.title}</a>
-    </aside>`;
-  el.hidden = false;
-  const cur = el.querySelector('.rd-x'); if (cur) cur.focus();
+function viewRehber() {
+  const k = rehberLvl || (rehberLvl = rehberKeyFor(S.settings.level));
+  const m = REHBER_MENU[k];
+  const seg = `<div class="rseg" role="group" aria-label="Rehber seviyesi">${Object.keys(REHBER_MENU).map(x => `<button data-rlvl="${x}" aria-pressed="${x === k}"><b>${REHBER_MENU[x].title}</b><span>${REHBER_MENU[x].sub}</span></button>`).join('')}</div>`;
+  const groups = m.groups.map(([h, items, chips]) => `<section class="sheet rg"><h2>${h}</h2>${chips
+    ? `<div class="rd-chips">${items.map(([id, n]) => `<a href="rehber.html#/s/${id}">${esc(n)}</a>`).join('')}</div>`
+    : items.map(([id, n]) => `<a class="rl" href="rehber.html#/s/${id}"><span>${esc(n)}</span>${CHEV}</a>`).join('')}</section>`).join('');
+  return `<div class="stack">
+    <div class="rhead"><h2>Rehber</h2><p class="muted small">Sınav hazırlığı: yazma, konuşma, gramer ve kelime</p></div>
+    <a class="hsearch as-link" href="rehber.html#/suche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Rehber'de ara: kelime, fiil, mektup…</span></a>
+    ${seg}
+    <button class="cont" data-tab="read"><span class="ci">${hicon('book')}</span><span class="ct"><small>Satzheft</small><b>Dersler ve hikâyeler</b><span>Gramer dersleri, okuma parçaları</span></span>${CHEV}</button>
+    ${groups}
+    <a class="btn wide" href="rehber.html#/lvl/${m.lvl}">Rehber'i tam ekran aç · ${m.title}</a>
+  </div>`;
 }
-function closeRehber() { const el = $('#rdrawer'); el.hidden = true; el.innerHTML = ''; if (rehberReturnFocus && rehberReturnFocus.focus) rehberReturnFocus.focus(); }
-$('#rdrawer').addEventListener('click', e => { if (e.target.id === 'rdrawer') closeRehber(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#rdrawer').hidden) closeRehber(); });
 
 function viewSession() {
   const c = counts();
@@ -5136,7 +5206,8 @@ function viewStats() {
   const fmax = Math.max(1, ...fc);
   const dn = ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'];
   const weak = weakCards().slice(0, 10);
-  return `
+  const path = levelPath();
+  return `${path}
   <div class="tiles">
     <div class="tile"><strong>${streak()}</strong><span>gün seri</span></div>
     <div class="tile"><strong>${todayRO().n}</strong><span>bugün çalışılan</span></div>
@@ -5302,10 +5373,9 @@ document.addEventListener('click', e => {
   if (t.dataset.sq) { const [qi, oi] = t.dataset.sq.split(':').map(Number); reader.ans[qi] = oi; render(); return; }
   if (t.dataset.tab) { tab = t.dataset.tab; hideWord(); stopStory(); if (tab === 'read') { reader = null; lesson = null; } render(); $('#main').scrollTop = 0; return; }
   if (t.dataset.dir) { S.settings.dir = t.dataset.dir; save(); render(); return; }
-  if (t.dataset.level) { const changed = S.settings.level !== t.dataset.level; S.settings.level = t.dataset.level; if (changed) { S.settings.topic = ''; homeTopicsAll = false; } save(); render(); if (changed) toast(t.dataset.level === 'all' ? 'Tüm seviyeler karışık' : 'Seviye: ' + LEVEL_LABEL[t.dataset.level]); return; }
+  if (t.dataset.level) { const changed = S.settings.level !== t.dataset.level; S.settings.level = t.dataset.level; if (changed) { S.settings.topic = ''; homeTopicsAll = false; } if (tab === 'stats') tab = 'study'; save(); render(); $('#main').scrollTop = 0; if (changed) toast(t.dataset.level === 'all' ? 'Tüm seviyeler karışık' : 'Seviye: ' + LEVEL_LABEL[t.dataset.level]); return; }
   if (t.dataset.topic !== undefined) { S.settings.topic = t.dataset.topic; save(); render(); toast(t.dataset.topic ? 'Konu: ' + t.dataset.topic.replace(/^(A1|A2|B1|B2|C1|C2) · /, '') : 'Karışık: seviyenin tüm konuları'); return; }
-  if (t.dataset.rehber) { openRehber(t.dataset.rehber); return; }
-  if (t.dataset.rclose !== undefined) { closeRehber(); return; }
+  if (t.dataset.rlvl) { rehberLvl = t.dataset.rlvl; render(); return; }
   if (t.dataset.rate) { rate(+t.dataset.rate); return; }
   if (t.dataset.f) { listState.f = t.dataset.f; listState.limit = 150; render(); return; }
   if (t.dataset.edit) { openEdit(t.dataset.edit); return; }
@@ -5351,6 +5421,7 @@ document.addEventListener('click', e => {
 $('#overlay').addEventListener('click', e => { if (e.target.id === 'overlay') closeModal(); });
 document.addEventListener('submit', e => {
   e.preventDefault();
+  if (e.target.id === 'hsearch') { const q = $('#hq').value.trim(); location.href = 'rehber.html#/suche' + (q ? '/' + encodeURIComponent(q) : ''); return; }
   if (e.target.id === 'addForm') {
     const deck = ($('#fDeck').value || '').trim() || 'Benim cümlelerim';
     let pairs;
@@ -5371,12 +5442,16 @@ document.addEventListener('submit', e => {
 });
 document.addEventListener('input', e => {
   if (e.target.id === 'ans' && /\n/.test(e.target.value)) { e.target.value = e.target.value.replace(/\n/g, ' ').trim(); reveal(); return; }
+  if (e.target.id === 'hq') { homeSuggest(e.target.value); return; }
   if (e.target.id === 'q') { listState.q = e.target.value; listState.limit = 150; listState.focus = true; render(); }
   else if (e.target.id === 'setRate') { S.settings.rate = +e.target.value; $('#rateVal').textContent = S.settings.rate.toFixed(2); }
 });
 document.addEventListener('change', e => {
   const t = e.target;
   if (t.id === 'deckSel') { listState.deck = t.value; render(); }
+  else if (t.id === 'selLevel') { S.settings.level = t.value; S.settings.topic = ''; save(); render(); toast(t.value === 'all' ? 'Tüm seviyeler karışık' : 'Seviye: ' + LEVEL_LABEL[t.value]); }
+  else if (t.id === 'selTopic') { S.settings.topic = t.value; save(); render(); }
+  else if (t.id === 'selDir') { S.settings.dir = t.value; save(); render(); }
   else if (t.id === 'setNew') { S.settings.newPerDay = +t.value; save(); }
   else if (t.id === 'setSpeak') { S.settings.autoSpeak = t.checked; save(); }
   else if (t.id === 'setRate') { save(); }
