@@ -947,7 +947,7 @@ function parseHash() {
   if (p[0] === 's') return { v: 'sec', id: p[1], sub: p[2], sub2: p[3] };
   if (p[0] === 'verb') return { v: 'verb', spec: p.slice(1).join('/') };
   if (p[0] === 'karten') return { v: p[1] === 'lernen' ? 'study' : 'home', lvl: 'karten' };
-  if (p[0] === 'suche') return { v: 'search' };
+  if (p[0] === 'suche') { if (p[1]) UI.sq = p.slice(1).join('/'); return { v: 'search' }; }
   return { v: 'home', lvl: 'a' };
 }
 function render() {
@@ -961,6 +961,7 @@ function render() {
   app.innerHTML = html;
   fillVerbList(); fillWords(); fillGloss(); fillBriefe(); fillSearch();
   applyTr();
+  if (ROUTE.v === 'sec' && SEC[ROUTE.id]) { const h = app.querySelector('.bar h2'), ht = h && h.firstChild ? h.firstChild.textContent.trim() : ''; try { localStorage.setItem('satzheft.lastRehber', JSON.stringify({ h: location.hash, t: ht || SEC[ROUTE.id].de, s: SEC[ROUTE.id].de, at: Date.now() })); } catch (e) {} }
   const t = { home: 'Wegweiser', search: 'Ara · Wegweiser', study: 'Kartlar · Wegweiser' }[ROUTE.v] || ((ROUTE.v === 'sec' && SEC[ROUTE.id] ? SEC[ROUTE.id].de : 'Fiil') + ' · Wegweiser');
   document.title = t;
 }

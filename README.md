@@ -2,7 +2,7 @@
 
 Almanca cümle ezber programı (Anki tarzı aralıklı tekrar). Tek dosya: `index.html` — tarayıcıda açmanız yeterli.
 
-- **Ana ekran:** odak halkası (bugünkü kartlar) + A1 → C1 yol haritası. Bir durağa dokununca o seviyeden, "Konu seç" ile istenen konudan başlanır. Sağ kenardaki **Rehber ayraçları** (A1–B1, B2, C1) sınav bölümlerini açar.
+- **Ana ekran:** üstte arama ("Ne çalışmak istersin?"), bugünkü kartlar halkası ve tek "Çalışmaya başla" düğmesi; seviye, konu ve yön seçim kutularıyla seçilir. Altında **Kaldığın yerden devam et** (Rehber'de son açılan sayfa), seviye ilerlemesi ve 6 kutuluk **Hızlı erişim**. Alt menü: Ana sayfa · Cümleler · Rehber · Oyun · İlerleme. Rehber sekmesi A1–B1 / B2 / C1 bölümlerini ve dersleri tek ekranda listeler; seviye yolu İlerleme sekmesindedir.
 - 600 hazır cümle (A1, A2 ve B1 için her biri 200), konulara göre destelere ayrılmış
 - Aralıklı tekrar: Tekrar / Zor / İyi / Kolay puanlaması; yanlış cümleler dakikalar içinde yeniden gelir, aralıkları kısalır
 - Üç yön: Türkçe → Almanca, Almanca → Türkçe, Dinle → Yaz
