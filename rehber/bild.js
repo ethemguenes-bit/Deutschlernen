@@ -39,13 +39,13 @@ Zum Schluss möchte ich sagen, dass …|Son olarak şunu söylemek istiyorum: �
 
 window.BILD = `=Familie beim Abendessen|Akşam yemeğinde aile|👨‍👩‍👧‍👦🍲🥗🕯️|Familie
 ~bild
-Auf dem Bild sehe ich eine Familie beim Abendessen.|Resimde akşam yemeği yiyen bir aile görüyorum.
-Die Familie sitzt an einem großen Tisch in der Küche.|Aile mutfakta büyük bir masada oturuyor.
-Es sind vier Personen: die Eltern und zwei Kinder.|Dört kişiler: anne baba ve iki çocuk.
-Auf dem Tisch stehen eine Suppe, Salat und Brot.|Masada çorba, salata ve ekmek var.
-Der Vater erzählt etwas und alle lachen.|Baba bir şey anlatıyor ve herkes gülüyor.
+Auf dem Bild sehe ich eine Familie beim Essen.|Resimde yemek yiyen bir aile görüyorum.
+Fünf Personen sitzen an einem Tisch mit einer weißen Tischdecke.|Beyaz örtülü bir masada beş kişi oturuyor.
+Wahrscheinlich sind das die Großmutter, die Eltern und zwei Kinder.|Muhtemelen bunlar büyükanne, anne baba ve iki çocuk.
+Auf dem Tisch stehen Reis, Salat, ein Topf mit Gemüse und eine Schüssel Bohnen.|Masada pilav, salata, bir tencere sebze yemeği ve bir kâse fasulye var.
+Die Mutter reicht eine Schüssel weiter, und alle lächeln.|Anne bir kâseyi uzatıyor ve herkes gülümsüyor.
+Das Mädchen links trägt eine karierte Bluse, der Junge rechts ein rotes Hemd.|Soldaki kız ekoseli bir bluz, sağdaki oğlan kırmızı bir gömlek giyiyor.
 Die Stimmung ist sehr gemütlich und fröhlich.|Atmosfer çok sıcak ve neşeli.
-Ich glaube, die Familie isst jeden Abend zusammen.|Sanırım aile her akşam birlikte yemek yiyor.
 ~erfahrung
 In meiner Familie essen wir am Wochenende immer zusammen.|Bizim ailede hafta sonları hep birlikte yemek yeriz.
 In der Woche ist das schwierig, weil wir zu unterschiedlichen Zeiten arbeiten.|Hafta içi zor, çünkü farklı saatlerde çalışıyoruz.
@@ -136,11 +136,13 @@ Ist Sport für Sie wichtig? Warum?|Spor sizin için önemli mi? Neden?
 
 =Umzug|Taşınma|📦🚚🛋️👫|Wohnen
 ~bild
-Auf dem Bild sieht man ein junges Paar beim Umzug.|Resimde taşınan genç bir çift görülüyor.
-Sie tragen gemeinsam ein Sofa aus einem Transporter.|Birlikte bir kamyonetten kanepe taşıyorlar.
-Vor dem Haus stehen viele Kartons.|Evin önünde birçok koli duruyor.
-Die beiden sehen müde, aber glücklich aus.|İkisi yorgun ama mutlu görünüyor.
-Vielleicht ziehen sie in ihre erste gemeinsame Wohnung.|Belki ilk ortak evlerine taşınıyorlar.
+Das Foto ist von oben aufgenommen, wahrscheinlich aus einem Fenster.|Fotoğraf yukarıdan, muhtemelen bir pencereden çekilmiş.
+Man sieht eine Straße und einen weißen Pick-up voller Kartons.|Bir sokak ve kolilerle dolu beyaz bir kamyonet görülüyor.
+Zwei Männer laden gerade einen Holztisch auf das Auto.|İki adam şu anda tahta bir masayı arabaya yüklüyor.
+Auf dem Rasen und auf dem Gehweg stehen viele Sachen: Kartons, Taschen, Stühle und Müllsäcke.|Çimenlerde ve kaldırımda birçok eşya var: koliler, çantalar, sandalyeler ve çöp poşetleri.
+Vorne packen eine Frau und ein Mann Sachen in Kartons.|Önde bir kadın ve bir adam eşyaları kolilere yerleştiriyor.
+Links steht eine Person mit einer Pflanze in der Hand.|Solda elinde bir bitki tutan bir kişi duruyor.
+Es sind viele Helfer da; vielleicht helfen Freunde beim Umzug.|Çok sayıda yardımcı var; belki taşınmada arkadaşlar yardım ediyor.
 ~erfahrung
 Ich bin in Deutschland schon dreimal umgezogen.|Almanya'da şimdiden üç kez taşındım.
 Freunde haben mir beim Tragen geholfen.|Arkadaşlarım taşımada bana yardım etti.
@@ -189,10 +191,12 @@ Wie reisen Sie am liebsten?|En çok nasıl seyahat etmeyi seversiniz?
 =Kinder in der Schule|Okulda çocuklar|🧑‍🏫👧👦📚|Bildung
 ~bild
 Das Bild zeigt ein Klassenzimmer in einer Grundschule.|Resim bir ilkokuldaki sınıfı gösteriyor.
-Eine Lehrerin steht an der Tafel.|Bir öğretmen tahtanın önünde duruyor.
-Die Kinder sitzen in Gruppen und arbeiten zusammen.|Çocuklar gruplar halinde oturup birlikte çalışıyor.
-Ein Mädchen meldet sich, weil es eine Frage hat.|Bir kız çocuğu sorusu olduğu için parmak kaldırıyor.
-Die Atmosphäre ist ruhig und konzentriert.|Ortam sakin ve odaklı.
+Vorne steht eine Lehrerin neben einem großen Bildschirm.|Önde büyük bir ekranın yanında bir öğretmen duruyor.
+Auf dem Bildschirm sieht man einen Skorpion; die Kinder lernen etwas über Tiere.|Ekranda bir akrep görülüyor; çocuklar hayvanlar hakkında bir şey öğreniyor.
+Die Lehrerin hebt die Hand, und viele Kinder melden sich auch.|Öğretmen elini kaldırıyor ve birçok çocuk da parmak kaldırıyor.
+Die Kinder tragen hellblaue Schuluniformen und sitzen mit dem Rücken zu uns.|Çocuklar açık mavi okul üniforması giyiyor ve bize sırtları dönük oturuyorlar.
+An den Wänden hängen bunte Bilder und eine Uhr.|Duvarlarda renkli resimler ve bir saat asılı.
+Die Kinder sehen interessiert und aktiv aus.|Çocuklar ilgili ve hareketli görünüyor.
 ~erfahrung
 Meine Tochter geht in die dritte Klasse.|Kızım üçüncü sınıfa gidiyor.
 Sie geht gern zur Schule und hat viele Freunde.|Okula gitmeyi seviyor ve birçok arkadaşı var.
@@ -290,11 +294,13 @@ Haben Sie schon einmal ehrenamtlich gearbeitet?|Hiç gönüllü olarak çalışt
 
 =Urlaub am Meer|Deniz kenarında tatil|🏖️⛱️🌊👨‍👩‍👧|Reisen
 ~bild
-Das Bild zeigt einen Strand im Sommer.|Resim yazın bir plajı gösteriyor.
-Eine Familie liegt unter einem Sonnenschirm.|Bir aile güneş şemsiyesinin altında uzanıyor.
-Die Kinder bauen eine Sandburg.|Çocuklar kumdan kale yapıyor.
-Im Hintergrund sieht man das Meer und ein paar Boote.|Arka planda deniz ve birkaç tekne görülüyor.
-Die Familie ist entspannt und genießt die Sonne.|Aile rahat ve güneşin tadını çıkarıyor.
+Das Bild zeigt einen breiten Strand am Meer.|Resim deniz kenarında geniş bir plajı gösteriyor.
+Zwei Frauen gehen am Wasser spazieren.|İki kadın su kenarında yürüyüş yapıyor.
+Eine trägt ein kleines Kind auf dem Arm.|Biri kucağında küçük bir çocuk taşıyor.
+Ein brauner Hund läuft vor ihnen über den Sand.|Önlerinde kahverengi bir köpek kumların üzerinde koşuyor.
+Rechts steht ein leerer Kinderwagen.|Sağda boş bir bebek arabası duruyor.
+Der Himmel ist bewölkt, und die Frauen tragen Jacken; es ist wohl nicht sehr warm.|Gökyüzü bulutlu ve kadınlar ceket giyiyor; hava muhtemelen pek sıcak değil.
+Im Hintergrund sieht man Hügel und ein paar Häuser an der Küste.|Arka planda tepeler ve kıyıda birkaç ev görülüyor.
 ~erfahrung
 Letzten Sommer waren wir zwei Wochen in Antalya.|Geçen yaz iki hafta Antalya'daydık.
 Wir sind jeden Tag schwimmen gegangen.|Her gün yüzmeye gittik.

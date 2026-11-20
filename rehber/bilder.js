@@ -87,5 +87,37 @@ window.BILD_FOTOS = {
   "by": "Ciphr.com",
   "lic": "CC BY 2.0",
   "page": "https://commons.wikimedia.org/wiki/File:Woman_Working_from_Home_during_Maternity_Leave.jpg"
+ },
+ "Familie beim Abendessen": {
+  "f": "abendessen.jpg",
+  "w": 960,
+  "h": 640,
+  "by": "National Cancer Institute",
+  "lic": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Family_eating_meal.jpg"
+ },
+ "Kinder in der Schule": {
+  "f": "schule.jpg",
+  "w": 960,
+  "h": 720,
+  "by": "Arachnerds",
+  "lic": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Lauren_Esposito_in_Saba.jpg"
+ },
+ "Umzug": {
+  "f": "umzug.jpg",
+  "w": 960,
+  "h": 720,
+  "by": "Claude Boucher",
+  "lic": "CC BY-SA 3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Demenagement_quebec1.jpg"
+ },
+ "Urlaub am Meer": {
+  "f": "meer.jpg",
+  "w": 960,
+  "h": 540,
+  "by": "Keith Parker",
+  "lic": "CC BY-SA 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:At_the_beach,_Alaska,_2008.jpg"
  }
 };
