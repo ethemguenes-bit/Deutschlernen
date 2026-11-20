@@ -39,13 +39,13 @@ Zum Schluss möchte ich sagen, dass …|Son olarak şunu söylemek istiyorum: �
 
 window.BILD = `=Familie beim Abendessen|Akşam yemeğinde aile|👨‍👩‍👧‍👦🍲🥗🕯️|Familie
 ~bild
-Auf dem Bild sehe ich eine Familie beim Abendessen.|Resimde akşam yemeği yiyen bir aile görüyorum.
-Die Familie sitzt an einem großen Tisch in der Küche.|Aile mutfakta büyük bir masada oturuyor.
-Es sind vier Personen: die Eltern und zwei Kinder.|Dört kişiler: anne baba ve iki çocuk.
-Auf dem Tisch stehen eine Suppe, Salat und Brot.|Masada çorba, salata ve ekmek var.
-Der Vater erzählt etwas und alle lachen.|Baba bir şey anlatıyor ve herkes gülüyor.
+Auf dem Bild sehe ich eine Familie beim Essen.|Resimde yemek yiyen bir aile görüyorum.
+Fünf Personen sitzen an einem Tisch mit einer weißen Tischdecke.|Beyaz örtülü bir masada beş kişi oturuyor.
+Wahrscheinlich sind das die Großmutter, die Eltern und zwei Kinder.|Muhtemelen bunlar büyükanne, anne baba ve iki çocuk.
+Auf dem Tisch stehen Reis, Salat, ein Topf mit Gemüse und eine Schüssel Bohnen.|Masada pilav, salata, bir tencere sebze yemeği ve bir kâse fasulye var.
+Die Mutter reicht eine Schüssel weiter, und alle lächeln.|Anne bir kâseyi uzatıyor ve herkes gülümsüyor.
+Das Mädchen links trägt eine karierte Bluse, der Junge rechts ein rotes Hemd.|Soldaki kız ekoseli bir bluz, sağdaki oğlan kırmızı bir gömlek giyiyor.
 Die Stimmung ist sehr gemütlich und fröhlich.|Atmosfer çok sıcak ve neşeli.
-Ich glaube, die Familie isst jeden Abend zusammen.|Sanırım aile her akşam birlikte yemek yiyor.
 ~erfahrung
 In meiner Familie essen wir am Wochenende immer zusammen.|Bizim ailede hafta sonları hep birlikte yemek yeriz.
 In der Woche ist das schwierig, weil wir zu unterschiedlichen Zeiten arbeiten.|Hafta içi zor, çünkü farklı saatlerde çalışıyoruz.
@@ -59,13 +59,13 @@ Essen Sie lieber zu Hause oder im Restaurant?|Evde mi yoksa restoranda mı yemey
 
 =Einkaufen auf dem Wochenmarkt|Semt pazarında alışveriş|🧺🍅🍎🥕👩‍🦳|Einkaufen
 ~bild
-Das Foto zeigt einen Wochenmarkt in einer Stadt.|Fotoğraf bir şehirdeki semt pazarını gösteriyor.
-Im Vordergrund steht ein Stand mit Obst und Gemüse.|Ön planda meyve ve sebze tezgâhı var.
-Eine ältere Frau kauft Tomaten und Äpfel.|Yaşlı bir kadın domates ve elma alıyor.
-Sie hat einen Korb in der Hand.|Elinde bir sepet var.
-Der Verkäufer ist freundlich und lächelt.|Satıcı güler yüzlü ve gülümsüyor.
-Im Hintergrund sieht man viele Menschen und andere Stände.|Arka planda birçok insan ve başka tezgâhlar görülüyor.
-Wahrscheinlich ist es Samstagvormittag, denn es ist sehr voll.|Muhtemelen cumartesi öğleden önce, çünkü çok kalabalık.
+Das Foto zeigt einen Obst- und Gemüsestand auf einem Wochenmarkt.|Fotoğraf bir semt pazarındaki meyve-sebze tezgâhını gösteriyor.
+Im Vordergrund liegen Frühlingszwiebeln, Ingwer und Radieschen.|Ön planda taze soğan, zencefil ve turp var.
+In der Mitte sieht man viele orangefarbene Kürbisse.|Ortada çok sayıda turuncu balkabağı görülüyor.
+Links liegen Tomaten und Gurken, oben sieht man Bananen, Äpfel und Eier.|Solda domates ve salatalık var, yukarıda muz, elma ve yumurta görülüyor.
+Das Obst und Gemüse liegt in grünen Kisten, und überall stecken kleine Preisschilder.|Meyve ve sebzeler yeşil kasalarda duruyor ve her yerde küçük fiyat etiketleri var.
+Menschen sieht man auf dem Bild nicht, nur die Waren.|Resimde insan görünmüyor, sadece ürünler var.
+Weil es Kürbisse gibt, ist es wahrscheinlich Herbst.|Balkabağı olduğu için muhtemelen sonbahar.
 ~erfahrung
 Ich gehe gern auf den Markt, weil das Gemüse dort frisch ist.|Pazara gitmeyi severim, çünkü sebzeler orada taze.
 Manchmal ist es aber teurer als im Supermarkt.|Ama bazen süpermarketten daha pahalı.
@@ -79,13 +79,13 @@ Achten Sie auf Bio-Produkte?|Organik ürünlere dikkat eder misiniz?
 
 =Arbeit im Büro|Ofiste çalışma|👩‍💼💻📊☕|Arbeit
 ~bild
-Auf dem Bild sieht man ein modernes Büro.|Resimde modern bir ofis görülüyor.
-Drei Kollegen sitzen an einem Tisch und haben eine Besprechung.|Üç iş arkadaşı bir masada oturmuş toplantı yapıyor.
-Eine Frau zeigt eine Grafik auf ihrem Laptop.|Bir kadın dizüstü bilgisayarında bir grafik gösteriyor.
-Die anderen hören ihr aufmerksam zu.|Diğerleri onu dikkatle dinliyor.
-Auf dem Tisch stehen Kaffeetassen und Unterlagen.|Masada kahve fincanları ve belgeler var.
-Die Personen tragen Business-Kleidung.|Kişiler iş kıyafeti giyiyor.
-Ich vermute, dass sie ein neues Projekt planen.|Sanırım yeni bir proje planlıyorlar.
+Auf dem Foto sieht man eine Frau in einem hellen Büro.|Fotoğrafta aydınlık bir ofiste bir kadın görülüyor.
+Sie sitzt mit dem Rücken zu uns am Schreibtisch und arbeitet am Computer.|Bize sırtı dönük olarak masada oturuyor ve bilgisayarda çalışıyor.
+Auf dem Schreibtisch stehen ein Telefon und ein großer Bildschirm, daneben liegen Zeitschriften.|Masada bir telefon ve büyük bir ekran var, yanında dergiler duruyor.
+An ihrem Stuhl hängt eine große, grün karierte Tasche.|Sandalyesinde büyük, yeşil ekoseli bir çanta asılı.
+Rechts stehen Bücher im Regal, und an der Wand hängen bunte Bilder.|Sağda rafta kitaplar duruyor ve duvarda renkli resimler asılı.
+Durch die großen Fenster kommt viel Licht, draußen sieht man Bäume.|Büyük pencerelerden bol ışık giriyor, dışarıda ağaçlar görülüyor.
+Vielleicht arbeitet sie in einem Verlag oder in einer Werbeagentur.|Belki bir yayınevinde ya da bir reklam ajansında çalışıyor.
 ~erfahrung
 Ich arbeite nicht im Büro, sondern in einem Lager.|Ofiste değil, bir depoda çalışıyorum.
 Bei uns gibt es jeden Montag eine kurze Teambesprechung.|Bizde her pazartesi kısa bir ekip toplantısı olur.
@@ -99,12 +99,13 @@ Was ist Ihnen bei der Arbeit wichtig?|İşte sizin için ne önemli?
 
 =Homeoffice mit Kind|Çocukla evden çalışma|👨‍💻🧒🧸🏠|Arbeit
 ~bild
-Auf dem Foto sitzt ein Mann zu Hause am Schreibtisch.|Fotoğrafta bir adam evde çalışma masasında oturuyor.
-Er hat einen Laptop und ein Headset.|Bir dizüstü bilgisayarı ve kulaklığı var.
-Vermutlich hat er gerade eine Videokonferenz.|Muhtemelen şu anda bir video konferansı var.
-Neben ihm spielt ein kleines Kind mit Spielzeug.|Yanında küçük bir çocuk oyuncaklarla oynuyor.
-Das Kind möchte Aufmerksamkeit und zieht am Arm des Vaters.|Çocuk ilgi istiyor ve babasının kolunu çekiyor.
-Der Mann sieht ein bisschen gestresst aus.|Adam biraz stresli görünüyor.
+Auf dem Foto sieht man eine Frau, die zu Hause am Schreibtisch arbeitet.|Fotoğrafta evde çalışma masasında çalışan bir kadın görülüyor.
+Ihr Gesicht sieht man nicht, nur ihren Oberkörper und ihre Arme.|Yüzü görünmüyor, sadece üst bedeni ve kolları görülüyor.
+Auf dem Arm hält sie ein Baby in einer beigen Decke.|Kucağında bej bir battaniyeye sarılı bir bebek tutuyor.
+Mit der anderen Hand tippt sie auf der Tastatur.|Diğer eliyle klavyede yazıyor.
+Auf dem Schreibtisch stehen ein Bildschirm und eine kleine Pflanze, vorne liegt ein Notizblock.|Masada bir ekran ve küçük bir bitki var, önde bir not defteri duruyor.
+Das Baby schläft wahrscheinlich, deshalb kann sie ein bisschen arbeiten.|Bebek muhtemelen uyuyor, bu yüzden biraz çalışabiliyor.
+Vielleicht ist sie in Elternzeit und erledigt nur ein paar wichtige Aufgaben.|Belki ebeveyn iznindedir ve sadece birkaç önemli işi hallediyor.
 ~erfahrung
 Während der Corona-Zeit habe ich auch von zu Hause gearbeitet.|Korona döneminde ben de evden çalıştım.
 Das war praktisch, weil ich keinen Arbeitsweg hatte.|Pratikti, çünkü işe gidip gelmem gerekmiyordu.
@@ -116,12 +117,13 @@ Welche Vorteile und Nachteile hat Homeoffice?|Evden çalışmanın avantajları 
 
 =Sport im Park|Parkta spor|🏃‍♀️🚴🌳⚽|Freizeit
 ~bild
-Das Bild zeigt einen Park an einem sonnigen Tag.|Resim güneşli bir günde bir parkı gösteriyor.
-Im Vordergrund joggt eine junge Frau.|Ön planda genç bir kadın koşuyor.
-Sie trägt Sportkleidung und hört Musik.|Spor kıyafeti giyiyor ve müzik dinliyor.
-Rechts fahren zwei Männer Fahrrad.|Sağda iki adam bisiklet sürüyor.
-Im Hintergrund spielen Kinder Fußball auf der Wiese.|Arka planda çocuklar çimenlerde futbol oynuyor.
-Die Leute wirken aktiv und gut gelaunt.|İnsanlar hareketli ve keyifli görünüyor.
+Das Foto zeigt einen großen, grünen Park an einem sonnigen Tag.|Fotoğraf güneşli bir günde büyük, yeşil bir parkı gösteriyor.
+Zwei Frauen joggen auf einem Weg; man sieht sie von hinten.|İki kadın bir yolda koşuyor; onları arkadan görüyoruz.
+Eine trägt ein blaues, die andere ein rotes Oberteil.|Biri mavi, diğeri kırmızı bir üst giyiyor.
+Links stehen eine alte Laterne und große Bäume.|Solda eski bir sokak lambası ve büyük ağaçlar var.
+Im Hintergrund steht eine Bank am Rand des Weges.|Arka planda yolun kenarında bir bank duruyor.
+Die Bäume werfen Schatten auf den Weg und die Wiese.|Ağaçlar yola ve çimenlere gölge düşürüyor.
+Der Park ist fast leer; vielleicht ist es früh am Morgen.|Park neredeyse boş; belki sabahın erken saatleri.
 ~erfahrung
 Ich gehe zweimal pro Woche joggen, meistens morgens.|Haftada iki kez koşuya çıkarım, genelde sabahları.
 Sport hilft mir gegen Stress.|Spor strese karşı bana yardımcı oluyor.
@@ -134,11 +136,13 @@ Ist Sport für Sie wichtig? Warum?|Spor sizin için önemli mi? Neden?
 
 =Umzug|Taşınma|📦🚚🛋️👫|Wohnen
 ~bild
-Auf dem Bild sieht man ein junges Paar beim Umzug.|Resimde taşınan genç bir çift görülüyor.
-Sie tragen gemeinsam ein Sofa aus einem Transporter.|Birlikte bir kamyonetten kanepe taşıyorlar.
-Vor dem Haus stehen viele Kartons.|Evin önünde birçok koli duruyor.
-Die beiden sehen müde, aber glücklich aus.|İkisi yorgun ama mutlu görünüyor.
-Vielleicht ziehen sie in ihre erste gemeinsame Wohnung.|Belki ilk ortak evlerine taşınıyorlar.
+Das Foto ist von oben aufgenommen, wahrscheinlich aus einem Fenster.|Fotoğraf yukarıdan, muhtemelen bir pencereden çekilmiş.
+Man sieht eine Straße und einen weißen Pick-up voller Kartons.|Bir sokak ve kolilerle dolu beyaz bir kamyonet görülüyor.
+Zwei Männer laden gerade einen Holztisch auf das Auto.|İki adam şu anda tahta bir masayı arabaya yüklüyor.
+Auf dem Rasen und auf dem Gehweg stehen viele Sachen: Kartons, Taschen, Stühle und Müllsäcke.|Çimenlerde ve kaldırımda birçok eşya var: koliler, çantalar, sandalyeler ve çöp poşetleri.
+Vorne packen eine Frau und ein Mann Sachen in Kartons.|Önde bir kadın ve bir adam eşyaları kolilere yerleştiriyor.
+Links steht eine Person mit einer Pflanze in der Hand.|Solda elinde bir bitki tutan bir kişi duruyor.
+Es sind viele Helfer da; vielleicht helfen Freunde beim Umzug.|Çok sayıda yardımcı var; belki taşınmada arkadaşlar yardım ediyor.
 ~erfahrung
 Ich bin in Deutschland schon dreimal umgezogen.|Almanya'da şimdiden üç kez taşındım.
 Freunde haben mir beim Tragen geholfen.|Arkadaşlarım taşımada bana yardım etti.
@@ -151,11 +155,13 @@ Wohnen Sie lieber in der Stadt oder auf dem Land?|Şehirde mi yoksa kırsalda m�
 
 =Beim Arzt|Doktorda|🩺👩‍⚕️🤒🪑|Gesundheit
 ~bild
-Das Foto zeigt eine Arztpraxis.|Fotoğraf bir doktor muayenehanesini gösteriyor.
-Eine Ärztin untersucht einen kleinen Jungen.|Bir kadın doktor küçük bir oğlan çocuğunu muayene ediyor.
-Die Mutter sitzt daneben und hält seine Hand.|Annesi yanında oturuyor ve elini tutuyor.
-Der Junge hat wahrscheinlich Fieber oder Husten.|Çocuğun muhtemelen ateşi ya da öksürüğü var.
-Die Ärztin ist freundlich und erklärt etwas.|Doktor güler yüzlü ve bir şey açıklıyor.
+Auf dem Bild sieht man eine Ärztin in ihrem Sprechzimmer.|Resimde muayene odasında bir kadın doktor görülüyor.
+Sie hat blonde Haare und trägt eine Brille und einen weißen Kittel.|Sarı saçlı, gözlüklü ve beyaz önlük giyiyor.
+Um den Hals hat sie ein Stethoskop.|Boynunda bir stetoskop var.
+Sie sitzt am Schreibtisch und tippt etwas in den Computer.|Masada oturuyor ve bilgisayara bir şey yazıyor.
+Vielleicht schreibt sie gerade ein Rezept oder eine Krankschreibung.|Belki şu anda bir reçete ya da hastalık raporu yazıyor.
+Auf dem Tisch stehen eine kleine Pflanze und eine Holzkiste, rechts liegen Papiere.|Masada küçük bir bitki ve tahta bir kutu var, sağda kâğıtlar duruyor.
+Ein Patient ist nicht zu sehen; wahrscheinlich kommt gleich der nächste.|Hasta görünmüyor; muhtemelen birazdan sıradaki gelecek.
 ~erfahrung
 Wenn meine Kinder krank sind, gehe ich zum Kinderarzt.|Çocuklarım hasta olduğunda çocuk doktoruna giderim.
 Oft muss man lange auf einen Termin warten.|Çoğu zaman randevu için uzun süre beklemek gerekir.
@@ -166,11 +172,13 @@ Was machen Sie, wenn Sie krank sind?|Hasta olduğunuzda ne yaparsınız?
 
 =Am Bahnhof|Garda|🚉🧳⏰👨‍👩‍👦|Reisen
 ~bild
-Auf dem Bild sieht man einen Bahnsteig.|Resimde bir peron görülüyor.
-Viele Reisende warten mit Koffern auf den Zug.|Birçok yolcu bavullarıyla treni bekliyor.
-Eine Familie schaut auf die Anzeigetafel.|Bir aile bilgi panosuna bakıyor.
-Vielleicht hat der Zug Verspätung, denn sie sehen ungeduldig aus.|Belki trenin rötarı var, çünkü sabırsız görünüyorlar.
-Ein Mann telefoniert und trinkt einen Kaffee.|Bir adam telefonla konuşuyor ve kahve içiyor.
+Das ist ein altes Schwarz-Weiß-Foto von einem großen Bahnhof.|Bu, büyük bir garın eski, siyah-beyaz bir fotoğrafı.
+Man sieht einen langen Bahnsteig unter einer Halle mit hohen Bögen.|Yüksek kemerli bir hangarın altında uzun bir peron görülüyor.
+Links steht ein Zug, rechts sieht man die Gleise.|Solda bir tren duruyor, sağda raylar görülüyor.
+Viele Reisende warten auf dem Bahnsteig, einige haben Taschen dabei.|Birçok yolcu peronda bekliyor, bazılarının yanında çanta var.
+Vorne hängen große Uhren und eine Tafel mit den Gleisnummern.|Önde büyük saatler ve peron numaralarını gösteren bir tabela asılı.
+Die Kleidung der Leute sieht altmodisch aus; das Foto ist wohl aus den 80er-Jahren.|İnsanların kıyafetleri eski moda görünüyor; fotoğraf muhtemelen 80'li yıllardan.
+Heute gibt es an den Bahnhöfen meistens digitale Anzeigetafeln.|Bugün garlarda genellikle dijital bilgi ekranları var.
 ~erfahrung
 Ich fahre oft mit dem Zug zu meinen Verwandten.|Akrabalarıma sık sık trenle giderim.
 Leider hatte mein Zug schon oft Verspätung.|Maalesef trenim şimdiden pek çok kez rötar yaptı.
@@ -183,10 +191,12 @@ Wie reisen Sie am liebsten?|En çok nasıl seyahat etmeyi seversiniz?
 =Kinder in der Schule|Okulda çocuklar|🧑‍🏫👧👦📚|Bildung
 ~bild
 Das Bild zeigt ein Klassenzimmer in einer Grundschule.|Resim bir ilkokuldaki sınıfı gösteriyor.
-Eine Lehrerin steht an der Tafel.|Bir öğretmen tahtanın önünde duruyor.
-Die Kinder sitzen in Gruppen und arbeiten zusammen.|Çocuklar gruplar halinde oturup birlikte çalışıyor.
-Ein Mädchen meldet sich, weil es eine Frage hat.|Bir kız çocuğu sorusu olduğu için parmak kaldırıyor.
-Die Atmosphäre ist ruhig und konzentriert.|Ortam sakin ve odaklı.
+Vorne steht eine Lehrerin neben einem großen Bildschirm.|Önde büyük bir ekranın yanında bir öğretmen duruyor.
+Auf dem Bildschirm sieht man einen Skorpion; die Kinder lernen etwas über Tiere.|Ekranda bir akrep görülüyor; çocuklar hayvanlar hakkında bir şey öğreniyor.
+Die Lehrerin hebt die Hand, und viele Kinder melden sich auch.|Öğretmen elini kaldırıyor ve birçok çocuk da parmak kaldırıyor.
+Die Kinder tragen hellblaue Schuluniformen und sitzen mit dem Rücken zu uns.|Çocuklar açık mavi okul üniforması giyiyor ve bize sırtları dönük oturuyorlar.
+An den Wänden hängen bunte Bilder und eine Uhr.|Duvarlarda renkli resimler ve bir saat asılı.
+Die Kinder sehen interessiert und aktiv aus.|Çocuklar ilgili ve hareketli görünüyor.
 ~erfahrung
 Meine Tochter geht in die dritte Klasse.|Kızım üçüncü sınıfa gidiyor.
 Sie geht gern zur Schule und hat viele Freunde.|Okula gitmeyi seviyor ve birçok arkadaşı var.
@@ -198,11 +208,13 @@ Was war Ihr Lieblingsfach in der Schule?|Okulda en sevdiğiniz ders neydi?
 
 =Zusammen kochen|Birlikte yemek yapmak|👩‍🍳🧑‍🍳🥘🔪|Essen
 ~bild
-Auf dem Foto kochen zwei Freunde zusammen in der Küche.|Fotoğrafta iki arkadaş mutfakta birlikte yemek yapıyor.
-Der Mann schneidet Gemüse und die Frau rührt in einem Topf.|Adam sebze doğruyor, kadın tencereyi karıştırıyor.
-Auf dem Tisch liegen Zwiebeln, Paprika und Kräuter.|Masada soğan, biber ve otlar var.
-Sie lachen und haben offensichtlich viel Spaß.|Gülüyorlar ve belli ki çok eğleniyorlar.
-Vielleicht bereiten sie ein Essen für Gäste vor.|Belki misafirler için yemek hazırlıyorlar.
+Das Foto zeigt ein Backblech mit Kartoffelstreifen aus der Nähe.|Fotoğraf yakından çekilmiş, üzerinde patates dilimleri olan bir fırın tepsisini gösteriyor.
+Man sieht nur die Hände von zwei Personen.|Sadece iki kişinin elleri görülüyor.
+Links sind große Hände, wahrscheinlich von der Mutter oder vom Vater.|Solda büyük eller var, muhtemelen annenin ya da babanın.
+Rechts sieht man kleine Kinderhände.|Sağda küçük çocuk elleri görülüyor.
+Zusammen legen sie selbstgemachte Pommes frites auf das Blech.|Birlikte ev yapımı patates kızartmalarını tepsiye diziyorlar.
+Gleich kommen die Pommes in den Backofen.|Patatesler birazdan fırına girecek.
+Die Stimmung wirkt gemütlich; vielleicht kochen sie am Wochenende zusammen.|Ortam sıcak görünüyor; belki hafta sonu birlikte yemek yapıyorlar.
 ~erfahrung
 Ich koche gern, besonders türkische Gerichte.|Yemek yapmayı severim, özellikle Türk yemeklerini.
 Am Wochenende koche ich oft mit meinem Mann zusammen.|Hafta sonları sık sık eşimle birlikte yemek yaparım.
@@ -213,11 +225,13 @@ Was ist Ihr Lieblingsgericht?|En sevdiğiniz yemek ne?
 
 =Geburtstagsfeier|Doğum günü kutlaması|🎂🎈🎁🥳|Feste
 ~bild
-Das Bild zeigt eine Geburtstagsfeier.|Resim bir doğum günü kutlamasını gösteriyor.
-In der Mitte steht ein Kuchen mit Kerzen.|Ortada mumlu bir pasta var.
-Ein Mädchen bläst die Kerzen aus.|Bir kız çocuğu mumları üflüyor.
-Um sie herum stehen Freunde und Familie und singen.|Etrafında arkadaşları ve ailesi durup şarkı söylüyor.
-Überall hängen bunte Luftballons.|Her yerde renkli balonlar asılı.
+Auf dem Bild sieht man eine Geburtstagsfeier für kleine Kinder.|Resimde küçük çocuklar için bir doğum günü partisi görülüyor.
+Die Kinder sitzen an zwei bunten Picknicktischen aus Plastik.|Çocuklar plastikten iki renkli piknik masasında oturuyor.
+Viele tragen bunte Partyhüte.|Birçoğu renkli parti şapkası takıyor.
+Sie essen und trinken; auf den Tischen stehen Teller und Becher.|Yiyip içiyorlar; masalarda tabaklar ve bardaklar var.
+Die Kinder sind ungefähr zwei Jahre alt.|Çocuklar yaklaşık iki yaşında.
+Die Wände sind gelb und der Boden ist kariert; vielleicht ist es ein Spielzentrum.|Duvarlar sarı, zemin damalı; belki bir oyun merkezi.
+Eltern sieht man nicht, aber sie sind sicher in der Nähe.|Ebeveynler görünmüyor ama kesinlikle yakındalar.
 ~erfahrung
 Meinen letzten Geburtstag habe ich mit Freunden im Restaurant gefeiert.|Son doğum günümü arkadaşlarla restoranda kutladım.
 Für die Kinder organisieren wir immer eine Party zu Hause.|Çocuklar için hep evde bir parti düzenleriz.
@@ -228,11 +242,13 @@ Wie feiern Sie Ihren Geburtstag?|Doğum gününüzü nasıl kutlarsınız?
 
 =Handy & Medien|Cep telefonu ve medya|📱👩‍👧📺🛋️|Medien
 ~bild
-Auf dem Bild sitzt eine Familie auf dem Sofa.|Resimde bir aile kanepede oturuyor.
-Alle schauen auf ihr Handy oder Tablet.|Herkes telefonuna ya da tabletine bakıyor.
-Niemand spricht miteinander.|Kimse birbiriyle konuşmuyor.
-Der Fernseher läuft im Hintergrund, aber keiner sieht hin.|Televizyon arka planda açık ama kimse bakmıyor.
-Ich finde die Situation ein bisschen traurig.|Durumu biraz üzücü buluyorum.
+Das Foto zeigt eine Mutter mit zwei Kindern auf dem Sofa.|Fotoğraf kanepede iki çocuğuyla bir anneyi gösteriyor.
+Vorne sitzt ein kleines Mädchen mit langen, dunklen Haaren.|Önde uzun, koyu saçlı küçük bir kız oturuyor.
+Sie hält die Fernbedienung in der Hand und schaut zum Fernseher.|Elinde kumandayı tutuyor ve televizyona bakıyor.
+Hinter ihr liegt die Mutter; ihr Gesicht sieht man nicht.|Arkasında anne uzanıyor; yüzü görünmüyor.
+Rechts sitzt ein kleiner Junge und stützt den Kopf auf die Hand.|Sağda küçük bir oğlan oturuyor ve başını eline dayamış.
+Die Kinder sehen konzentriert aus; vielleicht läuft gerade ein Zeichentrickfilm.|Çocuklar dikkatli görünüyor; belki şu anda bir çizgi film oynuyor.
+Es ist wohl ein ruhiger Nachmittag zu Hause.|Muhtemelen evde sakin bir öğleden sonra.
 ~erfahrung
 Bei uns gibt es eine Regel: Beim Essen gibt es kein Handy.|Bizde bir kural var: Yemekte telefon yok.
 Meine Kinder dürfen nur eine Stunde pro Tag am Tablet spielen.|Çocuklarım günde sadece bir saat tablette oynayabilir.
@@ -243,11 +259,13 @@ Wie viele Stunden am Tag benutzen Sie Ihr Handy?|Telefonunuzu günde kaç saat k
 
 =Hausarbeit|Ev işleri|🧹🧺🍽️👨‍👩‍👧|Familie
 ~bild
-Das Foto zeigt eine Familie bei der Hausarbeit.|Fotoğraf ev işi yapan bir aileyi gösteriyor.
-Der Vater saugt Staub und die Mutter wäscht ab.|Baba elektrikli süpürge çekiyor, anne bulaşık yıkıyor.
-Die Tochter hängt die Wäsche auf.|Kız çocuğu çamaşırları asıyor.
-Alle helfen mit, das finde ich gut.|Herkes yardım ediyor, bunu iyi buluyorum.
-Es ist wahrscheinlich Samstag, weil alle zu Hause sind.|Muhtemelen cumartesi, çünkü herkes evde.
+Auf dem Foto saugt eine Person das Wohnzimmer.|Fotoğrafta bir kişi oturma odasını süpürüyor.
+Man sieht nur ihre Beine; sie ist barfuß und trägt eine Jeans.|Sadece bacakları görülüyor; çıplak ayaklı ve kot pantolon giyiyor.
+Sie benutzt einen modernen Akku-Staubsauger mit Licht.|Işıklı, modern bir şarjlı süpürge kullanıyor.
+In der Mitte stehen zwei runde Couchtische, darauf liegt ein Handy.|Ortada iki yuvarlak sehpa var, üzerinde bir cep telefonu duruyor.
+Auf dem Holzboden liegt ein heller Teppich.|Ahşap zeminde açık renkli bir halı var.
+Rechts steht ein Schrank, im Hintergrund sieht man ein Sofa und ein Fenster.|Sağda bir dolap var, arka planda bir kanepe ve bir pencere görülüyor.
+Die Wohnung wirkt hell, modern und ordentlich.|Daire aydınlık, modern ve düzenli görünüyor.
 ~erfahrung
 Bei uns teilen wir die Hausarbeit auf.|Bizde ev işlerini paylaşırız.
 Ich koche und mein Mann putzt das Bad.|Ben yemek yaparım, eşim banyoyu temizler.
@@ -259,10 +277,13 @@ Wer macht bei Ihnen die Hausarbeit?|Sizde ev işlerini kim yapıyor?
 
 =Ehrenamt|Gönüllü çalışma|🤝🧓🍞📦|Gesellschaft
 ~bild
-Auf dem Bild sieht man Freiwillige bei einer Tafel.|Resimde bir gıda bankasında gönüllüler görülüyor.
-Sie verteilen Lebensmittel an Menschen mit wenig Geld.|Az parası olan insanlara gıda dağıtıyorlar.
-Eine junge Frau gibt einem älteren Mann eine Tüte mit Brot.|Genç bir kadın yaşlı bir adama içinde ekmek olan bir poşet veriyor.
-Alle sind freundlich und hilfsbereit.|Herkes nazik ve yardımsever.
+Das Foto zeigt die große Lagerhalle einer Lebensmittelbank.|Fotoğraf bir gıda bankasının büyük deposunu gösteriyor.
+Viele Freiwillige packen Lebensmittel in Kartons.|Birçok gönüllü yiyecekleri kolilere yerleştiriyor.
+Sie stehen an langen Tischen, auf denen die Waren liegen.|Ürünlerin bulunduğu uzun masaların başında duruyorlar.
+Im Vordergrund stapeln sich viele braune Kartons.|Ön planda birçok kahverengi koli üst üste yığılmış.
+Im Hintergrund sieht man Paletten und große Tore.|Arka planda paletler ve büyük kapılar görülüyor.
+Die Halle ist sehr hoch und hat viele Lampen an der Decke.|Depo çok yüksek ve tavanında birçok lamba var.
+Die Pakete werden wahrscheinlich an Familien mit wenig Geld verteilt.|Paketler muhtemelen az parası olan ailelere dağıtılacak.
 ~erfahrung
 Ich helfe manchmal in unserem Moscheeverein bei Festen.|Bazen cami derneğimizde şenliklerde yardım ederim.
 Ich finde es wichtig, anderen Menschen zu helfen.|Başka insanlara yardım etmeyi önemli buluyorum.
@@ -273,11 +294,13 @@ Haben Sie schon einmal ehrenamtlich gearbeitet?|Hiç gönüllü olarak çalışt
 
 =Urlaub am Meer|Deniz kenarında tatil|🏖️⛱️🌊👨‍👩‍👧|Reisen
 ~bild
-Das Bild zeigt einen Strand im Sommer.|Resim yazın bir plajı gösteriyor.
-Eine Familie liegt unter einem Sonnenschirm.|Bir aile güneş şemsiyesinin altında uzanıyor.
-Die Kinder bauen eine Sandburg.|Çocuklar kumdan kale yapıyor.
-Im Hintergrund sieht man das Meer und ein paar Boote.|Arka planda deniz ve birkaç tekne görülüyor.
-Die Familie ist entspannt und genießt die Sonne.|Aile rahat ve güneşin tadını çıkarıyor.
+Das Bild zeigt einen breiten Strand am Meer.|Resim deniz kenarında geniş bir plajı gösteriyor.
+Zwei Frauen gehen am Wasser spazieren.|İki kadın su kenarında yürüyüş yapıyor.
+Eine trägt ein kleines Kind auf dem Arm.|Biri kucağında küçük bir çocuk taşıyor.
+Ein brauner Hund läuft vor ihnen über den Sand.|Önlerinde kahverengi bir köpek kumların üzerinde koşuyor.
+Rechts steht ein leerer Kinderwagen.|Sağda boş bir bebek arabası duruyor.
+Der Himmel ist bewölkt, und die Frauen tragen Jacken; es ist wohl nicht sehr warm.|Gökyüzü bulutlu ve kadınlar ceket giyiyor; hava muhtemelen pek sıcak değil.
+Im Hintergrund sieht man Hügel und ein paar Häuser an der Küste.|Arka planda tepeler ve kıyıda birkaç ev görülüyor.
 ~erfahrung
 Letzten Sommer waren wir zwei Wochen in Antalya.|Geçen yaz iki hafta Antalya'daydık.
 Wir sind jeden Tag schwimmen gegangen.|Her gün yüzmeye gittik.

@@ -201,6 +201,12 @@ body.hide-tr .ph:not(.open) .t::after{content:'Türkçesi için dokun';display:b
 /* Bild & Dialog & Brief */
 .scene{aspect-ratio:16/9;border-radius:var(--r);display:grid;place-items:center;font-size:clamp(44px,13vw,78px);letter-spacing:.06em;background:linear-gradient(160deg,color-mix(in srgb,var(--hue) 24%,var(--surface)),color-mix(in srgb,var(--hue) 8%,var(--surface)));border:1px solid var(--line);box-shadow:var(--shadow);position:relative;overflow:hidden}
 .scene::after{content:'';position:absolute;inset:10px;border:2px dashed color-mix(in srgb,var(--hue) 35%,transparent);border-radius:10px;pointer-events:none}
+.photo{margin:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);background:var(--surface)}
+.photo img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+.photo figcaption{font-size:11px;color:var(--soft);padding:6px 10px;line-height:1.4}
+.photo figcaption a{color:inherit}
+.thumb.ph{padding:0;overflow:hidden;width:60px;height:44px}
+.thumb.ph img{width:100%;height:100%;object-fit:cover;display:block}
 .thumb{width:52px;height:40px;border-radius:9px;display:grid;place-items:center;font-size:17px;background:color-mix(in srgb,var(--hue) 16%,var(--surface));flex:none;letter-spacing:-.1em}
 .task{padding:14px 16px;border-radius:var(--r);background:var(--accent-bg);color:var(--ink);font-size:15px}
 .task b{display:block;color:var(--accent);font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
@@ -247,6 +253,7 @@ body.hide-tr .ph:not(.open) .t::after{content:'Türkçesi için dokun';display:b
 <script src="rehber/engine.js"></script>
 <script src="rehber/alltag.js"></script>
 <script src="rehber/bild.js"></script>
+<script src="rehber/bilder.js"></script>
 <script src="rehber/planen.js"></script>
 <script src="rehber/briefe.js"></script>
 <script src="rehber/briefe2.js"></script>
@@ -491,7 +498,7 @@ const RENDER = {
     if ((sub === 'mit' || sub === 'ohne') && sub2 != null && D.bild[sub2]) return bildDetail(D.bild[sub2], sub === 'mit', +sub2, sub);
     if (sub === 'mit' || sub === 'ohne') {
       const mit = sub === 'mit';
-      return bar(mit ? 'Bildbeschreibungen (resimli)' : 'Bildbeschreibungen (resimsiz)', D.bild.length + ' konu') + `<main class="wrap stack"><ul class="list">${D.bild.map((b, i) => rowLink(`#/s/bild/${sub}/${i}`, b.title, b.tr + ' · ' + b.b, { thumb: mit ? `<span class="thumb" style="--hue:${s.hue}" aria-hidden="true">${esc([...segs(b.a)].slice(0, 2).join(''))}</span>` : '' })).join('')}</ul></main>`;
+      return bar(mit ? 'Bildbeschreibungen (resimli)' : 'Bildbeschreibungen (resimsiz)', D.bild.length + ' konu') + `<main class="wrap stack"><ul class="list">${D.bild.map((b, i) => rowLink(`#/s/bild/${sub}/${i}`, b.title, b.tr + ' · ' + b.b, { thumb: mit ? (fotoOf(b) ? `<span class="thumb ph" aria-hidden="true"><img src="rehber/img/bild/${fotoOf(b).f}" alt="" loading="lazy" decoding="async"></span>` : `<span class="thumb" style="--hue:${s.hue}" aria-hidden="true">${esc([...segs(b.a)].slice(0, 2).join(''))}</span>`) : '' })).join('')}</ul></main>`;
     }
     return bar(s.de, s.tr) + `<main class="wrap stack"><div class="opts3">
       <a class="opt" href="#/s/bild/themes"><span class="em">🗂️</span><span><b>Themes</b><span>Resim anlatırken kullanılan kalıplar</span></span></a>
@@ -606,10 +613,16 @@ function nextPrev(id, i, n, name) {
 
 /* Bild */
 const BILD_SEC = { bild: ['Resmi anlat', '1'], erfahrung: ['Kendi deneyimin', '2'], heimat: ['Kendi ülkenle karşılaştır', '3'], fragen: ['Sınavda sorulabilecek sorular', '?'] };
+const fotoOf = b => (window.BILD_FOTOS || {})[b.title];
+function fotoFig(b) {
+  const f = fotoOf(b); if (!f) return '';
+  return `<figure class="photo"><a href="rehber/img/bild/${f.f}" target="_blank" rel="noopener"><img src="rehber/img/bild/${f.f}" alt="${esc(b.tr)}" width="${f.w}" height="${f.h}" loading="lazy" decoding="async"></a>
+    <figcaption>Foto: ${esc(f.by)} · <a href="${esc(f.page)}" target="_blank" rel="noopener">${esc(f.lic)}</a> · Wikimedia Commons</figcaption></figure>`;
+}
 function bildDetail(b, mit, i, mode) {
   const hue = SEC.bild.hue;
   return bar(b.title, b.tr + ' · ' + b.b, { tr: true }) + `<main class="wrap stack">
-    ${mit ? `<div class="scene" style="--hue:${hue}" role="img" aria-label="${esc(b.tr)}">${esc(b.a)}</div><p class="muted small" style="margin:-6px 2px 0">Önce sahneye bakıp kendin anlatmayı dene, sonra örnek metni oku.</p>` : ''}
+    ${mit ? `${fotoFig(b) || `<div class="scene" style="--hue:${hue}" role="img" aria-label="${esc(b.tr)}">${esc(b.a)}</div>`}<p class="muted small" style="margin:-6px 2px 0">Önce sahneye bakıp kendin anlatmayı dene, sonra örnek metni oku.</p>` : ''}
     ${b.secs.map(sc => { const [t] = BILD_SEC[sc.name] || [sc.name]; return `<div class="grp">${esc(t)}</div><ul class="list">${sc.lines.map(([de, tr]) => phrase(de, tr)).join('')}</ul>`; }).join('')}
     <button class="btn" data-sayall="${i}">${I.play} Tüm metni dinle</button>
     ${nextPrevBild(mode, i)}
