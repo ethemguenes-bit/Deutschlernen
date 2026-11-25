@@ -36,9 +36,9 @@ Satzheft'in üst kısmındaki **Rehber** düğmesiyle açılır. A1–B1, B2, C1
 Satzheft'ten bağımsız, ayrı bir programdır: kendi adresi, ikonu, çevrimdışı önbelleği (`dhl/sw.js`) ve kaydı vardır.
 Adres: https://ethemguenes-bit.github.io/Deutschlernen/dhl/ — telefona kendi ikonuyla ayrı uygulama olarak kurulur.
 
-- **Cümleler:** 75 numaralı cümle (Günlük durumlar, Müşteriyle, Adres ve teslimat sorunları, İş arkadaşlarıyla, Depoda ve yüklemede, Araç ve yol, Mesai/mola/izin); her birinde Türkçe, Almanca, Türkçe okunuş, kelime açıklamaları ve varsa alternatif
+- **Cümleler:** 105 numaralı cümle (Günlük durumlar, Müşteriyle, Adres ve teslimat sorunları, İş arkadaşlarıyla, Depoda ve yüklemede, Araç ve yol, Mesai/mola/izin, Özel gönderiler ve ödeme, Telefonda); her birinde Türkçe, Almanca, Türkçe okunuş, kelime açıklamaları ve varsa alternatif
 - **Çalış:** Kartlar, Doğruyu seç, Dinle ve anla, Cümle kur
-- **Kelimeler:** 65 kelime/ifade · **Kalıplar:** 5 soru kalıbı · **Ekle:** kendi cümlelerin (76'dan itibaren), yedek
+- **Kelimeler:** 80 kelime/ifade · **Kalıplar:** 5 soru kalıbı · **Ekle:** kendi cümlelerin (106'dan itibaren), yedek
 
 Hazır cümleler `dhl/index.html` içindeki `BASE` listesindedir. Dosyalar değişince `dhl/sw.js` içindeki `VERSION` değerini artırın.
 
