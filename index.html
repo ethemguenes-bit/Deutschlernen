@@ -292,6 +292,12 @@ details.how .method{margin-top:12px}
 .linkbtn{border:0;background:none;color:var(--accent);font-weight:600;font-size:14px;display:flex;align-items:center;gap:2px;padding:8px 0;min-height:40px}
 .linkbtn svg{width:16px;height:16px}
 .qgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.qt.wide{grid-column:1/-1;flex-direction:row;align-items:center;gap:12px;min-height:76px}
+.qt.wide .qi{margin-bottom:0;flex:none}
+.qt .qi.r{background:color-mix(in srgb,#c8352b 13%,transparent);color:#c8352b}
+.qt .qw{flex:1;min-width:0;display:flex;flex-direction:column}
+.qt .qw>span{font-size:12px;color:var(--ink-soft)}
+.qt.wide>span.qgo{flex:none;font-size:13px;font-weight:700;color:var(--accent-ink);background:var(--accent);border-radius:999px;padding:7px 14px}
 .qt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--sheet);text-decoration:none;color:var(--ink);text-align:left;min-height:112px;box-shadow:var(--shadow)}
 .qt .qi{width:38px;height:38px;border-radius:11px;background:color-mix(in srgb,#0f766e 14%,transparent);color:#0f766e;display:grid;place-items:center;margin-bottom:6px}
 .qt .qi.g{background:var(--accent-bg);color:var(--accent)}
@@ -5189,7 +5195,10 @@ function viewHome() {
   const prog = `<button class="plink" data-tab="stats"><span class="pl-t"><b>${cur ? (cur === 'mine' ? 'Benim cümlelerim' : cur + ' · ' + LEVEL_NAME[cur]) : 'Tüm seviyeler'}</b><span>${sum.learned} / ${sum.total} cümle öğrenildi · seviye yolu</span></span><span class="pl-p">%${p}</span>${CHEV}<span class="pbar"><i style="width:${p}%"></i></span></button>`;
 
   const rk = rehberKeyFor(lvl);
-  const tiles = QUICK[rk].map(([id, n, sub, ic]) => `<a class="qt" href="rehber.html#/s/${id}"><span class="qi">${hicon(ic)}</span><b>${esc(n)}</b><span>${esc(sub)}</span></a>`).join('')
+  const IFD = 'B1 · Almanca İfadeler';
+  const ifdAll = allSentences().filter(x => x.deck === IFD), ifdLearned = ifdAll.filter(x => { const cc = cardOf(x.id); return cc && cc.s === 2; }).length;
+  const ifdTile = ifdAll.length ? `<button class="qt wide" data-act="ifade"><span class="qi r">${hicon('talk')}</span><span class="qw"><b>Almanca İfadeler</b><span>Günlük konuşmada ${ifdAll.length} kalıp ifade · ${ifdLearned} öğrenildi</span></span><span class="qgo">Çalış</span></button>` : '';
+  const tiles = ifdTile + QUICK[rk].map(([id, n, sub, ic]) => `<a class="qt" href="rehber.html#/s/${id}"><span class="qi">${hicon(ic)}</span><b>${esc(n)}</b><span>${esc(sub)}</span></a>`).join('')
     + `<button class="qt" data-tab="game"><span class="qi g">${hicon('game')}</span><b>Oyun</b><span>Kelime eşleştirme</span></button>`
     + `<button class="qt" data-tab="read"><span class="qi g">${hicon('book')}</span><b>Dersler</b><span>Gramer ve hikâyeler</span></button>`;
 
@@ -5592,6 +5601,7 @@ document.addEventListener('click', e => {
   else if (a === 'say' || a === 'sayslow') { const s = findSentence(sess && sess.cur); if (s) speak(s.de, a === 'sayslow'); }
   else if (a === 'morenew') { today().x = (today().x || 0) + 5; save(); startSession('srs'); }
   else if (a === 'add') openAdd();
+  else if (a === 'ifade') { S.settings.level = 'B1'; S.settings.topic = 'B1 · Almanca İfadeler'; const sk = S.settings.skipDecks || []; if (sk.includes(S.settings.topic)) S.settings.skipDecks = sk.filter(d => d !== S.settings.topic); save(); toast('Konu: Almanca İfadeler'); startSession('srs'); }
   else if (a === 'moretopics') { homeTopicsAll = !homeTopicsAll; render(); }
   else if (a === 'lback') { lesson = null; render(); $('#main').scrollTop = 0; }
   else if (a === 'lretry') { lesson.ans = {}; lesson.checked = false; render(); }
