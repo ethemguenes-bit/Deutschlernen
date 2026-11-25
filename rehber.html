@@ -281,6 +281,11 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;'
 const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\*(.+?)\*/g, '<i>$1</i>');
 function hash(s) { let h = 5381; for (const ch of s) h = ((h << 5) + h + ch.codePointAt(0)) | 0; return (h >>> 0).toString(36); }
 function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+/* Telefonun geri tuşu: ilk dokunuşta bir koruma kaydı eklenir; geri tuşu onu tüketince yeniden eklenir, ekran değişmez. */
+const NAV = { cur: location.href, armed: false };
+function armGuard() { if (NAV.armed) return; NAV.armed = true; history.pushState({ g: 1 }, '', NAV.cur); }
+addEventListener('pointerdown', armGuard, true); addEventListener('keydown', armGuard, true);
+addEventListener('popstate', e => { if (!(e.state && e.state.g)) history.pushState({ g: 1 }, '', NAV.cur); });
 const store = {
   get(k, d) { try { const v = localStorage.getItem('wg.' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem('wg.' + k, JSON.stringify(v)); } catch (e) {} },
@@ -884,7 +889,7 @@ function renderKarten() {
 }
 function startStudy(deckId) {
   if (!prepStudy(deckId)) return;
-  if (location.hash === '#/karten/lernen') { render(); window.scrollTo(0, 0); } else location.hash = '#/karten/lernen';
+  go('#/karten/lernen');
 }
 function prepStudy(deckId) {
   const d = decks().find(x => x.id === deckId); if (!d) return false;
@@ -973,7 +978,7 @@ function parseHash() {
 }
 function render() {
   ROUTE = parseHash();
-  if (ROUTE.v === 'start') { const ok = prepStudy(ROUTE.deck); history.replaceState(null, '', ok ? '#/karten/lernen' : '#/karten'); lastHash = location.hash; navStack[navStack.length - 1] = location.hash; ROUTE = parseHash(); }
+  if (ROUTE.v === 'start') { const ok = prepStudy(ROUTE.deck); history.replaceState(history.state, '', ok ? '#/karten/lernen' : '#/karten'); NAV.cur = location.href; lastHash = location.hash; navStack[navStack.length - 1] = location.hash; ROUTE = parseHash(); }
   const app = $('#app'); let html;
   if (ROUTE.v === 'home') html = renderHome(ROUTE.lvl);
   else if (ROUTE.v === 'sec') html = renderSection(ROUTE.id, ROUTE.sub, ROUTE.sub2);
@@ -998,24 +1003,28 @@ function saveLast() {
 }
 let saveT = 0; window.addEventListener('scroll', () => { clearTimeout(saveT); saveT = setTimeout(saveLast, 400); }, { passive: true });
 let lastHash = location.hash;
-window.addEventListener('hashchange', () => {
-  scrollMem.set(lastHash, window.scrollY);
-  const back = navStack.length > 1 && navStack[navStack.length - 2] === location.hash;
-  if (back) navStack.pop(); else navStack.push(location.hash);
+/* Gezinme: Rehber içi geçişler tarayıcı geçmişine yazılmaz (telefonun geri tuşu uygulamayı etkilemesin).
+   Ekrandaki geri düğmesi kendi yığınımızı (navStack) kullanır. */
+function go(hash, back = false) {
+  if (!hash.startsWith('#')) hash = '#' + hash;
+  if (hash === location.hash && !back) { render(); window.scrollTo(0, 0); return; }
+  scrollMem.set(location.hash, window.scrollY);
+  if (back) navStack.pop(); else navStack.push(hash);
+  history.replaceState(history.state, '', hash); NAV.cur = location.href;
   const prev = parseHash();
   if (!back && prev.v !== 'verb') UI.q = '';
   if (prev.v === 'verb' && !back) UI.tense = 'Präsens';
   lastHash = location.hash;
   render();
   window.scrollTo(0, back ? (scrollMem.get(location.hash) || 0) : 0);
-});
+}
 navStack.push(location.hash);
 function parentOf(r) {
   if (r.v === 'sec') return r.sub2 != null ? `#/s/${r.id}/${r.sub}` : r.sub != null ? `#/s/${r.id}` : `#/lvl/${SEC[r.id] ? SEC[r.id].lvl : 'a'}`;
   if (r.v === 'study') return '#/karten';
   return '#/';
 }
-function goBack() { if (navStack.length > 1) history.back(); else location.hash = parentOf(ROUTE); }
+function goBack() { if (navStack.length > 1) go(navStack[navStack.length - 2], true); else location.replace('index.html'); }
 
 document.addEventListener('click', e => {
   const t = e.target.closest('button, a, [data-reveal], [data-flip]'); if (!t) return;
@@ -1023,7 +1032,7 @@ document.addEventListener('click', e => {
   if (d.back !== undefined) return goBack();
   if (d.star) { e.preventDefault(); return toggleStar(d.star, t); }
   if (d.say) { e.preventDefault(); return say(d.say); }
-  if (d.lvl) { store.set('lvl', d.lvl); location.hash = d.lvl === 'karten' ? '#/karten' : '#/lvl/' + d.lvl; return; }
+  if (d.lvl) { store.set('lvl', d.lvl); go(d.lvl === 'karten' ? '#/karten' : '#/lvl/' + d.lvl); return; }
   if (d.trtoggle !== undefined) { showTr = !showTr; store.set('showTr', showTr); t.setAttribute('aria-pressed', !showTr); t.textContent = showTr ? 'TR' : 'TR ✕'; applyTr(); document.querySelectorAll('.ph.open').forEach(x => x.classList.remove('open')); return; }
   if (d.reveal !== undefined) { if (!showTr) t.closest('.ph').classList.toggle('open'); return; }
   if (d.clear !== undefined) { const i = $('#q'); i.value = ''; i.dispatchEvent(new Event('input')); i.focus(); return; }
@@ -1049,10 +1058,17 @@ document.addEventListener('input', e => {
 });
 
 try { const t = store.get('theme', null); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+document.addEventListener('click', e => {
+  if (e.defaultPrevented) return;
+  const a = e.target.closest('a[href]'); if (!a || a.target === '_blank') return;
+  const h = a.getAttribute('href');
+  if (h.startsWith('#')) { e.preventDefault(); go(h); }
+  else if (/^(index|rehber)\.html/.test(h)) { e.preventDefault(); location.replace(h); }
+});
 let RESUME_Y = 0; try { const L = JSON.parse(localStorage.getItem('satzheft.lastRehber') || 'null'); if (L && L.h === location.hash && L.y > 0 && /[?&]devam/.test(location.search)) RESUME_Y = L.y; } catch (e) {}
 render();
 if (RESUME_Y) { window.scrollTo(0, RESUME_Y); requestAnimationFrame(() => window.scrollTo(0, RESUME_Y)); }
-if (/[?&]devam/.test(location.search)) history.replaceState(null, '', location.pathname + location.hash);
+if (/[?&]devam/.test(location.search)) { history.replaceState(history.state, '', location.pathname + location.hash); NAV.cur = location.href; }
 
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && !(window.claude && window.claude.use)) {
   navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(() => {});
