@@ -40,6 +40,7 @@ Adres: https://ethemguenes-bit.github.io/Deutschlernen/dhl/ — telefona kendi i
 - **Ana sayfa:** ilerleme halkası, günlük seri, Anki kısayolu, bölümler, günün cümlesi, telefona yükleme düğmesi
 - **Anki:** aralıklı tekrar (Tekrar / Zor / İyi / Kolay), günde yeni kart sınırı, yön ve deste seçimi
 - **Oyun (Paket Yarışı):** Almanca→Türkçe ve Türkçe→Almanca sorular, 3 can, süre, seri çarpanı, rekor; yanlışlar Anki'de öne alınır
+- **Cihaz kullanımı:** Zebra el terminali kılavuzu; numaralı kayıtlar (001: Müşteri evde yok – Benachrichtigung), işlem sırası, ekran seçenekleri, okunuşlar ve kelimeler. Kayıtlar `dhl/index.html` içindeki `GUIDES` listesinde
 - **Alıştırmalar:** Kartlar, Doğruyu seç, Dinle ve anla, Cümle kur
 - **Kelimeler:** 80 kelime/ifade · **Kalıplar:** 5 soru kalıbı · **Ekle:** kendi cümlelerin (106'dan itibaren), yedek
 

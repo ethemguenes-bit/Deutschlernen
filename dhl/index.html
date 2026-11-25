@@ -278,6 +278,33 @@ button.logo{border:0;cursor:pointer}
 .tbar i{display:block;height:100%;background:var(--ok);transition:width .1s linear}
 .tbar i.low{background:var(--bad)}
 .gtag{font-size:13px;font-weight:700;color:var(--soft)}
+
+/* Cihaz kullanımı */
+.devcta{width:100%;display:flex;align-items:center;gap:12px;text-align:left;border:0;background:#1f2328;color:#fff;border-radius:18px;padding:14px;box-shadow:var(--shadow);margin-top:12px}
+.devcta .ce{font-size:26px;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;flex:none;background:#ffcc00}
+.devcta .ct{flex:1;min-width:0;display:flex;flex-direction:column}
+.devcta b{font-size:17px}.devcta .ct span{opacity:.75;font-size:13.5px}
+.devhero{display:flex;gap:14px;align-items:center;background:#1f2328;color:#fff;border-radius:22px;padding:18px;box-shadow:var(--shadow)}
+.devhero .e{font-size:42px;width:64px;height:64px;border-radius:18px;background:#ffcc00;display:grid;place-items:center;flex:none}
+.devhero h2{margin:0;font-size:22px}.devhero p{margin:4px 0 0;font-size:14px;opacity:.8}
+.dno{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.back{border:0;background:transparent;color:var(--accent);font-weight:700;font-size:15px;padding:4px 0;margin-bottom:6px}
+.devhead h2{margin:2px 0 4px;font-size:22px;line-height:1.25}.devhead p{margin:0;color:var(--soft);font-size:14px}
+.flow{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
+.flow li{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;position:relative;margin-bottom:18px}
+.flow li:not(:last-child)::after{content:"↓";position:absolute;left:22px;bottom:-19px;color:var(--soft);font-weight:700}
+.flow .sn{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:13px;display:grid;place-items:center;flex:none}
+.flow small{display:block;color:var(--soft);font-size:13px;margin-top:2px}
+.key{display:inline-block;background:#1f2328;color:#ffcc00;border-radius:7px;padding:1px 8px;font-weight:700;font-size:14.5px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.zebra{background:#2b2f35;border-radius:24px;padding:14px 12px 10px;box-shadow:var(--shadow)}
+.zscreen{background:#f4f7fb;color:#111;border-radius:10px;overflow:hidden;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
+.ztitle{background:#ffcc00;padding:9px 12px;font-weight:800}
+.zopt{display:flex;gap:10px;align-items:center;padding:11px 12px;border-top:1px solid #d6dce5}
+.zopt.main{background:#d9f2e0;font-weight:700}
+.zn{width:22px;height:22px;border-radius:6px;background:#2b2f35;color:#fff;display:grid;place-items:center;font-size:12px;flex:none}
+.zbtm{text-align:center;color:#8a929c;font-size:11px;font-weight:800;letter-spacing:.3em;margin-top:8px}
+.opt-card.main{border:2px solid var(--ok)}
+.when{margin-top:8px;font-size:14.5px;font-weight:600}
 </style>
 </head>
 <body>
@@ -865,6 +892,67 @@ function viewGame() {
     </div>`;
 }
 
+// ---------- Cihaz kullanımı (Zebra el terminali) ----------
+// Her kayıt: no, başlık, konu, işlem sırası (adımlar), ekrandaki seçenekler, kelimeler.
+// Adımda ekran yazısı { de, tr } ile, düz metin string ile yazılır.
+const GUIDES = [
+  {
+    no: '001', icon: '🏠', title: 'Müşteri evde yok', de: 'Benachrichtigung',
+    konu: 'Müşteri evde yokken bildirim (Benachrichtigung) bırakma',
+    steps: [
+      'Müşteri evde yok.',
+      { pre: 'Cihazda', de: 'Benachrichtigung', tr: 'Bildirim', post: 'tuşuna bas.' },
+      { pre: 'Şu ekran açılır:', de: 'Ablageort ungeeignet, weil …', tr: 'Bırakma yeri uygun değil, çünkü …' },
+    ],
+    screen: 'Ablageort ungeeignet, weil …',
+    options: [
+      { de: 'Nicht nutzbar / zugänglich / auffindbar', tr: 'Kullanılamıyor / erişilemiyor / bulunamıyor', ok: 'Niht nutsbaa / tsuugenglih / auffintbaa', when: 'Müşteri evde yoksa, evde kimse yoksa bu ilk seçeneği seç.', main: true },
+      { de: 'Gefährlich (z. B. Hund)', tr: 'Tehlikeli (örneğin köpek var)', ok: 'Gefeerlih (tsum bayşpiil hunt)', when: 'Bırakma yeri tehlikeliyse, örneğin köpek varsa.' },
+      { de: 'Nicht auf Empfängergrundstück', tr: 'Alıcının mülkünde değil', ok: 'Niht auf empfengagruntştük', when: 'Bırakma yeri alıcının mülkünde (evinin, bahçesinin içinde) değilse.' },
+      { de: 'Kunde verzogen / unbekannt', tr: 'Müşteri taşınmış / tanınmıyor', ok: 'Kunde fertsoogın / unbekant', when: 'Müşteri taşınmışsa veya bu adreste tanınmıyorsa.' },
+    ],
+    words: [
+      ['die Benachrichtigung', 'bildirim', 'dii benahrihtigung'], ['der Ablageort', 'bırakma yeri', 'dea aplaageort'],
+      ['ungeeignet', 'uygun değil', 'ungegaynet'], ['weil', 'çünkü', 'vayl'],
+      ['nutzbar', 'kullanılabilir', 'nutsbaa'], ['zugänglich', 'erişilebilir', 'tsuugenglih'], ['auffindbar', 'bulunabilir', 'auffintbaa'],
+      ['gefährlich', 'tehlikeli', 'gefeerlih'], ['z. B. (zum Beispiel)', 'örneğin', 'tsum bayşpiil'],
+      ['das Grundstück', 'arsa, mülk', 'das gruntştük'], ['der Empfänger', 'alıcı', 'dea empfenga'],
+      ['verzogen', 'taşınmış', 'fertsoogın'], ['unbekannt', 'bilinmiyor, tanınmıyor', 'unbekant'],
+    ],
+  },
+];
+let devOpen = null;
+function viewDevice() {
+  const g = GUIDES.find(x => x.no === devOpen);
+  if (!g) {
+    return `<section class="devhero"><div class="e">📟</div><div><h2>Cihaz kullanımı</h2><p>Zebra el terminalinde hangi ekranda hangi tuşa basılır? Almanca ekran yazıları, Türkçe anlamları ve okunuşlarıyla.</p></div></section>
+      <h2 class="sec">Kayıtlar (${GUIDES.length})</h2>
+      <div class="cats">${GUIDES.map(x => `<button class="crow" data-dev="${x.no}"><span class="ce">${x.icon}</span><span class="ct"><span class="dno">Kayıt ${x.no}</span><b>${esc(x.title)} – ${esc(x.de)}</b><span>${esc(x.konu)}</span></span><span class="chev">›</span></button>`).join('')}</div>
+      <p class="muted" style="margin-top:14px">Yeni kayıtlar 002, 003… diye bu listeye eklenecek.</p>`;
+  }
+  const step = (st, i) => typeof st === 'string'
+    ? `<li><span class="sn">${i + 1}</span><span>${esc(st)}</span></li>`
+    : `<li><span class="sn">${i + 1}</span><span>${esc(st.pre)} <span class="key" lang="de">${esc(st.de)}</span> ${st.post ? esc(st.post) : ''}<small>${esc(st.tr)}</small></span></li>`;
+  return `<button class="back" data-devback>‹ Tüm kayıtlar</button>
+    <section class="devhead"><span class="dno">Kayıt ${g.no}</span><h2>${esc(g.title)} – <span lang="de">${esc(g.de)}</span></h2><p>${esc(g.konu)}</p></section>
+    <h2 class="sec">İşlem sırası</h2>
+    <ol class="flow">${g.steps.map(step).join('')}</ol>
+    <h2 class="sec">Ekrandaki ${g.options.length} seçenek</h2>
+    <div class="zebra"><div class="zscreen">
+      <div class="ztitle" lang="de">${esc(g.screen)}</div>
+      ${g.options.map((o, i) => `<div class="zopt ${o.main ? 'main' : ''}"><span class="zn">${i + 1}</span><span lang="de">${esc(o.de)}</span></div>`).join('')}
+    </div><div class="zbtm">ZEBRA</div></div>
+    <div class="list" style="margin-top:12px">${g.options.map((o, i) => `<article class="sc opt-card ${o.main ? 'main' : ''}">
+      <div class="top"><span class="num">${i + 1}</span><div class="tr">${esc(o.tr)}</div></div>
+      <p class="de" lang="de">${esc(o.de)}</p>
+      <div class="ok"><b>Okunuşu:</b> ${esc(o.ok)}</div>
+      <div class="when">${o.main ? '✅ ' : '👉 '}${esc(o.when)}</div>
+      <div class="acts"><button class="sbtn" data-say="${esc(o.de)}">🔊 Dinle</button><button class="sbtn" data-slow="${esc(o.de)}">🐢 Yavaş</button></div>
+    </article>`).join('')}</div>
+    <h2 class="sec">Ekrandaki kelimeler</h2>
+    <div class="wl">${g.words.map(([d, t, o]) => `<div class="wi"><div class="t"><div class="d" lang="de">${esc(d)}</div><div class="m">${esc(t)}</div><div class="o">${esc(o)}</div></div><button class="ib" data-say="${esc(d)}" aria-label="Dinle">🔊</button></div>`).join('')}</div>`;
+}
+
 // ---------- Ana sayfa ----------
 let installEvt = null;
 addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; if (tab === 'home') render(); });
@@ -903,6 +991,7 @@ function viewHome() {
       ${ring(p)}
     </section>
     <button class="cta" data-tab="anki"><span class="ce">🧠</span><span class="ct"><b>Anki ile çalış</b><span>${due ? `${due} kart seni bekliyor` : 'Bugünlük tamam, harika! 🎉'}</span></span><span class="chev">›</span></button>
+    <button class="devcta" data-tab="device"><span class="ce">📟</span><span class="ct"><b>Cihaz kullanımı</b><span>Zebra el terminali · ${GUIDES.length} kayıt</span></span><span class="chev">›</span></button>
     ${install}
     <div class="tiles">${tiles}</div>
     <section class="dayq"><small>☀️ Günün cümlesi · No ${dq.n}</small><p class="de" lang="de">${esc(dq.de)}</p><div class="dtr">${esc(dq.tr)}</div>${dq.ok ? `<div class="ok"><b>Okunuşu:</b> ${esc(dq.ok)}</div>` : ''}
@@ -912,16 +1001,16 @@ function viewHome() {
 }
 
 // ---------- Çizim ----------
-const SUB = { home: 'İşte kullanılan Almanca', anki: 'Aralıklı tekrar', game: 'Paket Yarışı', list: 'İşte kullanılan cümleler', learn: 'Alıştırma', words: 'Kelime pratiği', pat: 'Soru kalıpları', add: 'Kendi cümlelerin' };
+const SUB = { device: 'Zebra cihaz kılavuzu', home: 'İşte kullanılan Almanca', anki: 'Aralıklı tekrar', game: 'Paket Yarışı', list: 'İşte kullanılan cümleler', learn: 'Alıştırma', words: 'Kelime pratiği', pat: 'Soru kalıpları', add: 'Kendi cümlelerin' };
 function render(keepFocus) {
   const app = $('#app');
   const f = keepFocus && document.activeElement && document.activeElement.id, pos = f && document.activeElement.selectionStart;
-  app.innerHTML = ({ home: viewHome, list: viewList, anki: viewAnki, game: viewGame, learn: viewLearn, words: viewWords, pat: viewPat, add: viewAdd }[tab] || viewHome)();
+  app.innerHTML = ({ home: viewHome, device: viewDevice, list: viewList, anki: viewAnki, game: viewGame, learn: viewLearn, words: viewWords, pat: viewPat, add: viewAdd }[tab] || viewHome)();
   document.querySelectorAll('.nav button').forEach(b => b.setAttribute('aria-current', b.dataset.tab === tab ? 'page' : 'false'));
   $('#sub').textContent = SUB[tab];
   if (f && $('#' + f)) { const el = $('#' + f); el.focus(); try { el.setSelectionRange(pos, pos); } catch (e) {} }
 }
-function go(t) { if (t !== 'game') { gStop(); G = null; } if (t !== 'anki') A = null; tab = t; if (t !== 'learn') Q = null; editId = null; render(); scrollTo(0, 0); try { history.replaceState(null, '', '#' + t); } catch (e) {} }
+function go(t) { if (t !== 'game') { gStop(); G = null; } if (t !== 'anki') A = null; if (t !== 'device') devOpen = null; tab = t; if (t !== 'learn') Q = null; editId = null; render(); scrollTo(0, 0); try { history.replaceState(null, '', '#' + t); } catch (e) {} }
 
 document.addEventListener('click', e => {
   const t = e.target.closest('button,[data-reveal]');
@@ -935,6 +1024,8 @@ document.addEventListener('click', e => {
   if (d.filter) { filter = d.filter; return render(); }
   if (d.hide) { P.hide = P.hide === d.hide ? '' : d.hide; save(); return render(); }
   if (d.whide != null) { whide = !whide; return render(); }
+  if (d.dev) { devOpen = d.dev; render(); return scrollTo(0, 0); }
+  if (d.devback != null) { devOpen = null; render(); return scrollTo(0, 0); }
   if (d.catgo) { filter = d.catgo; query = ''; return go('list'); }
   if (d.install != null) { if (installEvt) { installEvt.prompt(); installEvt.userChoice.finally(() => { installEvt = null; render(); }); } return; }
   if (d.astart != null) { A = null; ankiLoad(); return render(); }
