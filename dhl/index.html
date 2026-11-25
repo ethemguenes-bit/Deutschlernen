@@ -215,6 +215,8 @@ const CATS = [
   ['depo', 'Depoda ve yüklemede', '🏭'],
   ['arac', 'Araç ve yol', '🚐'],
   ['mesai', 'Mesai, mola, izin', '⏰'],
+  ['ozel', 'Özel gönderiler ve ödeme', '📮'],
+  ['telefon', 'Telefonda', '📞'],
   ['mine', 'Benim cümlelerim', '✏️'],
 ];
 // [no, kategori, Türkçe, Almanca, okunuş, notlar [[de, tr]...], alternatif [de, tr]]
@@ -294,6 +296,36 @@ const BASE = [
   [73, 'mesai', 'Yarın izin alabilir miyim?', 'Kann ich morgen frei haben?', 'Kan ih morgın fray haabın?', [['frei haben', 'izinli olmak'], ['der Urlaub', 'yıllık izin, tatil']]],
   [74, 'mesai', 'Sırtım ağrıyor.', 'Ich habe Rückenschmerzen.', 'İh habe rükınşmertsın.', [['der Rücken', 'sırt'], ['die Schmerzen', 'ağrılar']]],
   [75, 'mesai', 'Bugün fazla mesai yapmam gerekiyor mu?', 'Muss ich heute Überstunden machen?', 'Mus ih hoyte üüberştundın mahın?', [['die Überstunden', 'fazla mesai']]],
+  [76, 'ozel', 'Bu bir taahhütlü mektup.', 'Das ist ein Einschreiben.', 'Das ist ayn aynşrayben.', [['das Einschreiben', 'taahhütlü mektup']], ['Für das Einschreiben brauche ich Ihre Unterschrift.', 'Taahhütlü mektup için imzanız gerekiyor.']],
+  [77, 'ozel', 'Bu ekspres bir gönderi.', 'Das ist eine Expresssendung.', 'Das ist ayne ekspreszendung.', [['die Sendung', 'gönderi'], ['express', 'ekspres, hızlı']]],
+  [78, 'ozel', 'Kapıda ödemeli: 25 euro.', 'Das ist eine Nachnahme: 25 Euro.', 'Das ist ayne naahnaame: fünfuntsvantsih oyro.', [['die Nachnahme', 'kapıda ödemeli gönderi']]],
+  [79, 'ozel', 'Nakit mi, kartla mı ödüyorsunuz?', 'Zahlen Sie bar oder mit Karte?', 'Tsaalın zii baa oda mit karte?', [['bar', 'nakit'], ['mit Karte', 'kartla'], ['zahlen', 'ödemek']]],
+  [80, 'ozel', 'Bu paket için yaş kontrolü gerekiyor.', 'Für dieses Paket brauche ich eine Altersprüfung.', 'Für diizes paket brauhe ih ayne altersprüüfung.', [['die Altersprüfung', 'yaş kontrolü']], ['Sind Sie über 18?', '18 yaşından büyük müsünüz?']],
+  [81, 'ozel', 'Paketi yalnızca alıcının kendisine verebilirim.', 'Ich darf das Paket nur dem Empfänger persönlich geben.', 'İh darf das paket nua deem empfenga perzöönlih geebın.', [['persönlich', 'şahsen, bizzat'], ['ich darf', 'iznim var']]],
+  [82, 'ozel', 'Gümrük ücreti ödemeniz gerekiyor.', 'Sie müssen noch Zoll bezahlen.', 'Zii müsın noh tsol betsaalın.', [['der Zoll', 'gümrük'], ['bezahlen', 'ödemek']]],
+  [83, 'ozel', 'Paketi geri göndermek istiyor musunuz?', 'Möchten Sie das Paket zurückschicken?', 'Möhtın zii das paket tsurükşikın?', [['zurückschicken', 'geri göndermek']]],
+  [84, 'ozel', 'İade etiketiniz var mı?', 'Haben Sie ein Retourenetikett?', 'Haabın zii ayn retuurenetiket?', [['die Retoure', 'iade'], ['das Etikett', 'etiket']]],
+  [85, 'ozel', 'Paketi yanımda götürebilirim.', 'Ich kann das Paket mitnehmen.', 'İh kan das paket mitneemın.', [['mitnehmen', 'yanında götürmek']]],
+  [86, 'ozel', 'Paket, Packstation için çok büyük.', 'Das Paket ist zu groß für die Packstation.', 'Das paket ist tsu groos für dii pakştatsyoon.', [['zu groß', 'çok büyük'], ['zu klein', 'çok küçük']]],
+  [87, 'telefon', 'Alo, DHL\'den arıyorum.', 'Hallo, hier ist DHL.', 'Halo, hiia ist de ha el.', [['hier ist …', '(telefonda) ben …, … arıyor']]],
+  [88, 'telefon', 'Paketiniz için arıyorum.', 'Ich rufe wegen Ihres Pakets an.', 'İh ruufe veegın iires pakets an.', [['anrufen', 'telefon etmek'], ['wegen', '… için, … yüzünden']]],
+  [89, 'telefon', 'Kapının önündeyim ama zil yok.', 'Ich stehe vor der Tür, aber es gibt keine Klingel.', 'İh şteeye foa dea tüa, aba es gipt kayne klingıl.', [['vor der Tür', 'kapının önünde'], ['es gibt', 'var']]],
+  [90, 'telefon', 'Lütfen aşağı gelebilir misiniz?', 'Können Sie bitte runterkommen?', 'Könın zii bite runtakomın?', [['runterkommen', 'aşağı inmek']]],
+  [91, 'telefon', 'Beş dakikaya oradayım.', 'Ich bin in fünf Minuten da.', 'İh bin in fünf minuutın da.', [['in fünf Minuten', 'beş dakika içinde']]],
+  [92, 'telefon', 'Sizi anlamadım.', 'Ich habe Sie nicht verstanden.', 'İh habe zii niht ferştandın.', [['verstehen', 'anlamak']], ['Können Sie das bitte wiederholen?', 'Lütfen tekrarlar mısınız?']],
+  [93, 'telefon', 'Sizi hemen geri arayacağım.', 'Ich rufe Sie gleich zurück.', 'İh ruufe zii glayh tsurük.', [['zurückrufen', 'geri aramak'], ['gleich', 'hemen']]],
+  [94, 'musteri', 'Bir dakika lütfen, paketi arabadan getiriyorum.', 'Einen Moment bitte, ich hole das Paket aus dem Auto.', 'Aynen moment bite, ih hoole das paket aus deem auto.', [['einen Moment', 'bir dakika'], ['holen', 'gidip getirmek']]],
+  [95, 'musteri', 'Paketi arabada hâlâ arıyorum.', 'Ich suche das Paket noch im Auto.', 'İh zuuhe das paket noh im auto.', [['suchen', 'aramak']]],
+  [96, 'musteri', 'Gönderen paketin üstünde yazıyor.', 'Der Absender steht auf dem Paket.', 'Dea apzenda şteet auf deem paket.', [['der Absender', 'gönderen']]],
+  [97, 'musteri', 'Gönderi numarası nerede?', 'Wo ist die Sendungsnummer?', 'Vo ist dii zendungsnuma?', [['die Sendungsnummer', 'gönderi (takip) numarası']]],
+  [98, 'musteri', 'Özür dilerim, bir daha olmayacak.', 'Es tut mir leid, das kommt nicht wieder vor.', 'Es tuut mia layt, das komt niht viida foa.', [['Es tut mir leid', 'özür dilerim, üzgünüm'], ['vorkommen', 'olmak, yaşanmak']]],
+  [99, 'ekip', 'Bu paket kimin?', 'Wem gehört dieses Paket?', 'Veem gehört diizes paket?', [['wem', 'kime'], ['gehören', 'ait olmak']]],
+  [100, 'ekip', 'Turumu devralabilir misin?', 'Kannst du meine Tour übernehmen?', 'Kanst du mayne tuua übaneemın?', [['die Tour', 'dağıtım turu'], ['übernehmen', 'devralmak']]],
+  [101, 'ekip', 'Tarayıcının şarjı bitti.', 'Der Akku vom Scanner ist leer.', 'Dea aku fom skena ist leea.', [['der Akku', 'batarya'], ['leer', 'boş']]],
+  [102, 'adres', 'Bu adres sistemde yok.', 'Die Adresse ist nicht im System.', 'Dii adrese ist niht im züsteem.', [['das System', 'sistem']]],
+  [103, 'depo', 'Bugün kaç durağım var?', 'Wie viele Stopps habe ich heute?', 'Vii fiile ştops habe ih hoyte?', [['der Stopp', 'durak (teslimat noktası)']]],
+  [104, 'depo', 'Ağır paketler için bir el arabasına ihtiyacım var.', 'Ich brauche eine Sackkarre für die schweren Pakete.', 'İh brauhe ayne zakkare für dii şveerın pakete.', [['die Sackkarre', 'el arabası (paket taşıma)']]],
+  [105, 'arac', 'Hava çok kötü, yollar kaygan.', 'Das Wetter ist sehr schlecht, die Straßen sind glatt.', 'Das veta ist zeea şleht, dii ştraasın zint glat.', [['das Wetter', 'hava'], ['glatt', 'kaygan']]],
 ];
 
 const WORDS = [
@@ -320,6 +352,11 @@ const WORDS = [
   ['der Rückläufer', 'geri dönen paket', 'dea rüklöyfa'], ['sortieren', 'ayırmak', 'zortiirın'], ['der Stau', 'trafik sıkışıklığı', 'dea ştau'],
   ['der Unfall', 'kaza', 'dea unfal'], ['tanken', 'yakıt almak', 'tankın'], ['die Pause', 'mola', 'dii pauze'],
   ['der Feierabend', 'iş çıkışı', 'dea fayaraabınt'], ['die Überstunden', 'fazla mesai', 'dii üüberştundın'], ['krank', 'hasta', 'krank'],
+  ['das Einschreiben', 'taahhütlü mektup', 'das aynşrayben'], ['die Sendung', 'gönderi', 'dii zendung'], ['die Nachnahme', 'kapıda ödemeli gönderi', 'dii naahnaame'],
+  ['bar', 'nakit', 'baa'], ['der Zoll', 'gümrük', 'dea tsol'], ['die Retoure', 'iade', 'dii retuure'],
+  ['persönlich', 'şahsen', 'perzöönlih'], ['anrufen', 'telefon etmek', 'anruufın'], ['zurückrufen', 'geri aramak', 'tsurükruufın'],
+  ['verstehen', 'anlamak', 'ferşteeyın'], ['die Sendungsnummer', 'gönderi numarası', 'dii zendungsnuma'], ['der Akku', 'batarya', 'dea aku'],
+  ['die Sackkarre', 'el arabası', 'dii zakkare'], ['der Stopp', 'durak', 'dea ştop'], ['glatt', 'kaygan', 'glat'],
 ];
 
 const PATTERNS = [
