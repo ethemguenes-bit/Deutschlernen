@@ -31,16 +31,10 @@ Satzheft'in üst kısmındaki **Rehber** düğmesiyle açılır. A1–B1, B2, C1
 
 `linguaflash-eski.html` önceki sürümdür (ilerleme kaydetmiyordu).
 
-## DHL Almancası (ayrı uygulama, `dhl/` klasörü)
+## DHL Almancası
 
-Satzheft'ten bağımsız, ayrı bir programdır: kendi adresi, ikonu, çevrimdışı önbelleği (`dhl/sw.js`) ve kaydı vardır.
-Adres: https://ethemguenes-bit.github.io/Deutschlernen/dhl/ — telefona kendi ikonuyla ayrı uygulama olarak kurulur.
-
-- **Cümleler:** 75 numaralı cümle (Günlük durumlar, Müşteriyle, Adres ve teslimat sorunları, İş arkadaşlarıyla, Depoda ve yüklemede, Araç ve yol, Mesai/mola/izin); her birinde Türkçe, Almanca, Türkçe okunuş, kelime açıklamaları ve varsa alternatif
-- **Çalış:** Kartlar, Doğruyu seç, Dinle ve anla, Cümle kur
-- **Kelimeler:** 65 kelime/ifade · **Kalıplar:** 5 soru kalıbı · **Ekle:** kendi cümlelerin (76'dan itibaren), yedek
-
-Hazır cümleler `dhl/index.html` içindeki `BASE` listesindedir. Dosyalar değişince `dhl/sw.js` içindeki `VERSION` değerini artırın.
+Ayrı bir depoya taşındı: https://github.com/ethemguenes-bit/dhl-almanca — uygulama adresi https://ethemguenes-bit.github.io/dhl-almanca/ .
+Buradaki `dhl/` ve `dhl.html` yalnızca yeni adrese yönlendirir.
 
 ## Telefona uygulama olarak kurma
 
