@@ -1,7 +1,7 @@
 // Satzheft service worker: works offline after the first visit.
 // Bump VERSION whenever app files change so phones pick up the new version.
-const VERSION = 'satzheft-v23';
-const SHELL = ['./', './index.html', './rehber.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png',
+const VERSION = 'satzheft-v24';
+const SHELL = ['./', './index.html', './rehber.html', './dhl.html', './manifest.webmanifest', './dhl.webmanifest', './icons/dhl-192.png', './icons/dhl-512.png', './icons/dhl-apple.png', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png',
   './rehber/verben.js', './rehber/engine.js', './rehber/alltag.js', './rehber/bild.js', './rehber/bilder.js', './rehber/planen.js', './rehber/briefe.js', './rehber/briefe2.js', './rehber/briefe3.js',
   './rehber/grammatik.js', './rehber/b2.js', './rehber/b2briefe.js', './rehber/b2sprechen.js', './rehber/b2extra.js', './rehber/c1.js', './rehber/c1texte.js', './rehber/c1extra.js', './rehber/c1wort2.js', './rehber/c1wort3.js', './rehber/c1nominal.js', './rehber/woerter.js'];
 
@@ -18,8 +18,9 @@ self.addEventListener('fetch', e => {
   // The page itself: ask the server every time (no-cache revalidates instead of trusting GitHub Pages' 10-minute cache),
   // fall back to the cached copy offline.
   if (req.mode === 'navigate') {
-    // Each page (index.html, rehber.html) is cached under its own address.
-    const page = /rehber\.html$/.test(new URL(req.url).pathname) ? './rehber.html' : './index.html';
+    // Each page (index.html, rehber.html, dhl.html) is cached under its own address.
+    const path = new URL(req.url).pathname;
+    const page = /rehber\.html$/.test(path) ? './rehber.html' : /dhl\.html$/.test(path) ? './dhl.html' : './index.html';
     e.respondWith(fetch(req.url, { cache: 'no-cache' }).then(res => { const copy = res.clone(); caches.open(VERSION).then(c => c.put(page, copy)); return res; })
       .catch(() => caches.match(page)));
     return;

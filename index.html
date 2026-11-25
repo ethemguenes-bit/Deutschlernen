@@ -4923,7 +4923,7 @@ function homeNorm(x) { return (x || '').toLocaleLowerCase('tr').normalize('NFD')
 function homeIndex() {
   const out = [
     ['Cümleler', 'Tüm cümleler, arama', { tab: 'list' }], ['Oyun', 'Kelime oyunu', { tab: 'game' }], ['Dersler ve hikâyeler', 'Gramer dersleri, okuma', { tab: 'read' }],
-    ['İlerleme', 'İstatistik ve seviye yolu', { tab: 'stats' }], ['Ayarlar', 'Günlük hedef, ses, yedek', { tab: 'settings' }], ['Zayıf cümleler', 'Sık yanıldıkların', { act: 'weak' }],
+    ['İlerleme', 'İstatistik ve seviye yolu', { tab: 'stats' }], ['Ayarlar', 'Günlük hedef, ses, yedek', { tab: 'settings' }], ['Zayıf cümleler', 'Sık yanıldıkların', { act: 'weak' }], ['DHL Almancası', 'Paket dağıtımı cümleleri', { href: 'dhl.html' }],
   ];
   for (const m of Object.values(REHBER_MENU)) for (const [g, items] of m.groups) for (const [id, n] of items) out.push([n, `Rehber ${m.title} · ${g.split(' · ')[1] || g}`, { href: 'rehber.html#/s/' + id }]);
   return out;
@@ -4997,6 +4997,7 @@ function viewHome() {
     <div class="hsugg" id="hsugg" hidden></div>
   ${focus}
   ${cont}
+  <a class="cont" href="dhl.html"><span class="ci" style="background:#ffcc00;color:#2a1f00;font-size:20px">📦</span><span class="ct"><small>İş Almancası</small><b>DHL Almancası</b><span>Paket dağıtımında kullanılan cümleler</span></span>${CHEV}</a>
   ${prog}
   <section class="stack plain" aria-label="Hızlı erişim">
     <div class="qhead"><h2>Hızlı erişim</h2><button class="linkbtn" data-tab="rehber">Tüm bölümler ${CHEV}</button></div>
