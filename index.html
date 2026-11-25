@@ -5580,6 +5580,17 @@ function openImport() {
   };
 }
 
+/* Telefonun geri tuşu uygulamayı etkilemesin: koruma kaydı + sayfa geçişleri geçmişe yazılmaz */
+const NAV = { cur: location.href, armed: false };
+function armGuard() { if (NAV.armed) return; NAV.armed = true; history.pushState({ g: 1 }, '', NAV.cur); }
+addEventListener('pointerdown', armGuard, true); addEventListener('keydown', armGuard, true);
+addEventListener('popstate', e => { if (!(e.state && e.state.g)) history.pushState({ g: 1 }, '', NAV.cur); });
+document.addEventListener('click', e => {
+  if (e.defaultPrevented) return;
+  const a = e.target.closest('a[href]'); if (!a || a.target === '_blank') return;
+  const h = a.getAttribute('href');
+  if (/^(index|rehber)\.html/.test(h)) { e.preventDefault(); location.replace(h); }
+});
 /* ---------- events ---------- */
 document.addEventListener('click', e => {
   if (!e.target.closest('#wordbar') && !e.target.closest('.w') && !$('#wordbar').hidden) hideWord();
@@ -5644,7 +5655,7 @@ document.addEventListener('click', e => {
 $('#overlay').addEventListener('click', e => { if (e.target.id === 'overlay') closeModal(); });
 document.addEventListener('submit', e => {
   e.preventDefault();
-  if (e.target.id === 'hsearch') { const q = $('#hq').value.trim(); location.href = 'rehber.html#/suche' + (q ? '/' + encodeURIComponent(q) : ''); return; }
+  if (e.target.id === 'hsearch') { const q = $('#hq').value.trim(); location.replace('rehber.html#/suche' + (q ? '/' + encodeURIComponent(q) : '')); return; }
   if (e.target.id === 'addForm') {
     const deck = ($('#fDeck').value || '').trim() || 'Benim cümlelerim';
     let pairs;
