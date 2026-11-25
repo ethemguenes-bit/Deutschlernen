@@ -889,7 +889,7 @@ function startStudy(deckId) {
   else cards = shuffle(cards).slice(0, 20);
   if (!cards.length) { toast('Bu destede kart yok'); return; }
   SESSION = { deck: d, cards, i: 0, flip: false, ok: 0, bad: 0, dir: store.get('dir', 'de') };
-  location.hash = '#/karten/lernen';
+  if (location.hash === '#/karten/lernen') { render(); window.scrollTo(0, 0); } else location.hash = '#/karten/lernen';
 }
 function renderStudy() {
   const S = SESSION; if (!S) { return renderKarten(); }
