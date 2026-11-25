@@ -392,7 +392,7 @@ function bar(title, sub, { tr = false } = {}) {
     <button class="ibtn" data-back aria-label="Geri">${I.back}</button>
     <h2>${esc(title)}${sub ? `<small>${esc(sub)}</small>` : ''}</h2>
     ${tr ? `<button class="ibtn trbtn" data-trtoggle aria-pressed="${!showTr}" title="Türkçeyi gizle / göster">${showTr ? 'TR' : 'TR ✕'}</button>` : ''}
-    <a class="ibtn" href="#/" aria-label="Ana sayfa">${I.home}</a>
+    <a class="ibtn" href="index.html" aria-label="Satzheft ana sayfa" title="Ana sayfa">${I.home}</a>
   </div></header>`;
 }
 function artClass(de) { const m = /^(der|die|das) /.exec(de); return m ? 'art-' + m[1] : ''; }
@@ -468,7 +468,7 @@ function renderHome(lvl) {
   const secs = SECTIONS.filter(s => s.lvl === L.id);
   return `<header class="head"><div class="wrap">
       <div class="brand"><h1><span class="flag" aria-hidden="true"><i style="background:#1a1a1a"></i><i style="background:#dd0000"></i><i style="background:#ffce00"></i></span>Wegweiser</h1><p>Almanca rehber · A1 – C1</p></div>
-      <a class="hbtn" href="index.html" aria-label="Satzheft cümle kartları" title="Satzheft">${I.book}</a>
+      <a class="hbtn" href="index.html" aria-label="Satzheft ana sayfa" title="Ana sayfa">${I.home}</a>
       <a class="hbtn" href="#/suche" aria-label="Ara">${I.search}</a>
     </div></header>
     ${levelSeg(L.id)}
@@ -871,7 +871,7 @@ function renderKarten() {
   const all = Object.entries(CARDS), now = Date.now();
   const due = all.filter(([, c]) => (c.due || 0) <= now).length, learned = all.filter(([, c]) => (c.box || 0) >= 3).length;
   const dir = store.get('dir', 'de');
-  return `<header class="head"><div class="wrap"><div class="brand"><h1><span class="flag" aria-hidden="true"><i style="background:#1a1a1a"></i><i style="background:#dd0000"></i><i style="background:#ffce00"></i></span>Wegweiser</h1><p>Kartlar ve tekrar</p></div><a class="hbtn" href="#/suche" aria-label="Ara">${I.search}</a></div></header>
+  return `<header class="head"><div class="wrap"><div class="brand"><h1><span class="flag" aria-hidden="true"><i style="background:#1a1a1a"></i><i style="background:#dd0000"></i><i style="background:#ffce00"></i></span>Wegweiser</h1><p>Kartlar ve tekrar</p></div><a class="hbtn" href="index.html" aria-label="Satzheft ana sayfa" title="Ana sayfa">${I.home}</a><a class="hbtn" href="#/suche" aria-label="Ara">${I.search}</a></div></header>
   ${levelSeg('karten')}
   <main class="wrap stack">
     <div class="stats"><div class="stat"><b>${all.length}</b><span>kartım</span></div><div class="stat"><b>${due}</b><span>tekrar zamanı</span></div><div class="stat"><b>${learned}</b><span>öğrenildi</span></div></div>
