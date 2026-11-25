@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>/* Telefonda Chrome "Masaüstü sitesi" açıksa sayfa ~980px genişlikte çizilir ve her şey küçülür: telefon genişliğine geri büyüt. */
+(function () { try { var w = Math.min(screen.width || 9999, window.outerWidth || 9999); if (w < 700 && window.innerWidth >= w * 1.5) { var r = document.documentElement; r.classList.add('dz'); r.style.setProperty('--dz', (window.innerWidth / w).toFixed(3)); } } catch (e) {} })();</script>
+<style>html.dz body{zoom:var(--dz)}</style>
+<style>html.dz body{min-height:calc(100vh / var(--dz))}</style>
 <meta name="theme-color" content="#10231f">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
