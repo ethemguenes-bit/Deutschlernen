@@ -336,6 +336,8 @@ const CATS = [
   ['mesai', 'Mesai, mola, izin', '⏰'],
   ['ozel', 'Özel gönderiler ve ödeme', '📮'],
   ['telefon', 'Telefonda', '📞'],
+  ['sohbet', 'Kısa sohbet ve nezaket', '😊'],
+  ['cihaz', 'Cihaz ve tarayıcı sorunları', '📟'],
   ['mine', 'Benim cümlelerim', '✏️'],
 ];
 // [no, kategori, Türkçe, Almanca, okunuş, notlar [[de, tr]...], alternatif [de, tr]]
@@ -445,6 +447,36 @@ const BASE = [
   [103, 'depo', 'Bugün kaç durağım var?', 'Wie viele Stopps habe ich heute?', 'Vii fiile ştops habe ih hoyte?', [['der Stopp', 'durak (teslimat noktası)']]],
   [104, 'depo', 'Ağır paketler için bir el arabasına ihtiyacım var.', 'Ich brauche eine Sackkarre für die schweren Pakete.', 'İh brauhe ayne zakkare für dii şveerın pakete.', [['die Sackkarre', 'el arabası (paket taşıma)']]],
   [105, 'arac', 'Hava çok kötü, yollar kaygan.', 'Das Wetter ist sehr schlecht, die Straßen sind glatt.', 'Das veta ist zeea şleht, dii ştraasın zint glat.', [['das Wetter', 'hava'], ['glatt', 'kaygan']]],
+  [106, 'sohbet', 'Bugün hava çok güzel.', 'Das Wetter ist heute sehr schön.', 'Das veta ist hoyte zeea şöön.', [['das Wetter', 'hava'], ['schön', 'güzel']]],
+  [107, 'sohbet', 'Bugün çok sıcak.', 'Heute ist es sehr heiß.', 'Hoyte ist es zeea hays.', [['heiß', 'sıcak'], ['kalt', 'soğuk']], ['Heute ist es sehr kalt.', 'Bugün çok soğuk.']],
+  [108, 'sohbet', 'Yağmur yağıyor.', 'Es regnet.', 'Es reegnet.', [['regnen', 'yağmur yağmak'], ['schneien', 'kar yağmak']], ['Es schneit.', 'Kar yağıyor.']],
+  [109, 'sohbet', 'Teşekkürler, size de!', 'Danke, Ihnen auch!', 'Danke, iinen auh!', [['Ihnen auch', 'size de'], ['dir auch', 'sana da']]],
+  [110, 'sohbet', 'Rica ederim.', 'Gern geschehen.', 'Gern geşeeyın.', [['gern', 'memnuniyetle']], ['Bitte schön.', 'Buyurun / rica ederim.']],
+  [111, 'sohbet', 'Çok naziksiniz.', 'Das ist sehr nett von Ihnen.', 'Das ist zeea net fon iinen.', [['nett', 'nazik, hoş']]],
+  [112, 'sohbet', 'Maalesef acelem var.', 'Ich habe es leider eilig.', 'İh habe es layda aylih.', [['eilig', 'acele'], ['leider', 'maalesef']]],
+  [113, 'sohbet', 'Ne zamandır burada çalışıyorsun?', 'Wie lange arbeitest du schon hier?', 'Vii lange arbaytest du şoon hiia?', [['wie lange', 'ne kadar zamandır'], ['schon', '(-dır, -dir) zaten']]],
+  [114, 'cihaz', 'Cihaz donuyor.', 'Das Gerät hängt sich auf.', 'Das gereet hengt zih auf.', [['das Gerät', 'cihaz'], ['sich aufhängen', '(cihaz) donmak']]],
+  [115, 'cihaz', 'Cihazı yeniden başlatmam gerekiyor.', 'Ich muss das Gerät neu starten.', 'İh mus das gereet noy ştartın.', [['neu starten', 'yeniden başlatmak']]],
+  [116, 'cihaz', 'Barkod okunmuyor.', 'Der Barcode lässt sich nicht scannen.', 'Dea barkood lest zih niht skenın.', [['der Barcode', 'barkod'], ['lässt sich nicht …', '… yapılamıyor']]],
+  [117, 'cihaz', 'Gönderi numarasını elle giriyorum.', 'Ich gebe die Sendungsnummer manuell ein.', 'İh geebe dii zendungsnuma manuel ayn.', [['eingeben', 'girmek (yazmak)'], ['manuell', 'elle']]],
+  [118, 'cihaz', 'İmza alanı açılmıyor.', 'Das Unterschriftenfeld öffnet sich nicht.', 'Das unterşriftenfelt öfnet zih niht.', [['das Feld', 'alan'], ['sich öffnen', 'açılmak']]],
+  [119, 'cihaz', 'Cihazda şebeke yok.', 'Das Gerät hat kein Netz.', 'Das gereet hat kayn nets.', [['das Netz', 'şebeke, sinyal']]],
+  [120, 'cihaz', 'Paketi yanlışlıkla teslim edildi diye taradım.', 'Ich habe das Paket aus Versehen als zugestellt gescannt.', 'İh habe das paket aus ferzeeyın als tsuugeştelt geskent.', [['als zugestellt', 'teslim edildi olarak'], ['aus Versehen', 'yanlışlıkla']]],
+  [121, 'musteri', 'Paket kapınızın önünde.', 'Das Paket liegt vor Ihrer Tür.', 'Das paket liigt foa iira tüa.', [['vor Ihrer Tür', 'kapınızın önünde']]],
+  [122, 'musteri', 'Paketi garaja koydum.', 'Ich habe das Paket in die Garage gestellt.', 'İh habe das paket in dii garaaje geştelt.', [['die Garage', 'garaj'], ['stellen', '(dik) koymak']]],
+  [123, 'musteri', 'Bu paket sizin mi?', 'Ist das Ihr Paket?', 'İst das iia paket?', [['Ihr', 'sizin']]],
+  [124, 'musteri', 'Adınızı büyük harflerle yazar mısınız?', 'Können Sie Ihren Namen in Druckbuchstaben schreiben?', 'Könın zii iiren naamen in drukbuhştaabın şrayben?', [['die Druckbuchstaben', 'büyük (matbaa) harfler'], ['schreiben', 'yazmak']]],
+  [125, 'musteri', 'Paketi bugün teslim edemiyorum, yarın gelecek.', 'Ich kann das Paket heute nicht zustellen, es kommt morgen.', 'İh kan das paket hoyte niht tsuuştelen, es komt morgın.', [['es kommt morgen', 'yarın gelecek']]],
+  [126, 'adres', 'Burada asansör yok mu?', 'Gibt es hier keinen Aufzug?', 'Gipt es hiia kaynen auftsuuk?', [['der Aufzug', 'asansör'], ['die Treppe', 'merdiven']]],
+  [127, 'adres', 'Kapı kodunu bilmiyorum.', 'Ich kenne den Türcode nicht.', 'İh kene deen tüürkood niht.', [['kennen', 'bilmek, tanımak'], ['der Türcode', 'kapı kodu']]],
+  [128, 'adres', 'Arka bina nerede?', 'Wo ist das Hinterhaus?', 'Vo ist das hintahaus?', [['das Hinterhaus', 'arka bina'], ['das Vorderhaus', 'ön bina']]],
+  [129, 'adres', 'Bu sokakta iki tane 12 numara var.', 'In dieser Straße gibt es zweimal die Nummer 12.', 'İn diiza ştraase gipt es tsvaymaal dii numa tsvölf.', [['zweimal', 'iki kez, iki tane'], ['die Nummer', 'numara']]],
+  [130, 'ekip', 'Bugün kiminle çalışıyorum?', 'Mit wem arbeite ich heute?', 'Mit veem arbayte ih hoyte?', [['mit wem', 'kiminle']]],
+  [131, 'ekip', 'Bana bölgeyi gösterebilir misin?', 'Kannst du mir den Bezirk zeigen?', 'Kanst du mia deen betsirk tsaygın?', [['zeigen', 'göstermek']]],
+  [132, 'ekip', 'Anahtar nerede?', 'Wo ist der Schlüssel?', 'Vo ist dea şlüsel?', [['der Schlüssel', 'anahtar']]],
+  [133, 'depo', 'Bu kafes dolu.', 'Dieser Rollcontainer ist voll.', 'Diiza rolkonteena ist fol.', [['der Rollcontainer', 'tekerlekli kafes']]],
+  [134, 'depo', 'Paketleri sıraya göre yüklüyorum.', 'Ich lade die Pakete nach der Reihenfolge.', 'İh laade dii pakete naah dea rayenfolge.', [['die Reihenfolge', 'sıra'], ['nach', '… göre']]],
+  [135, 'depo', 'Yarın sabah saat kaçta başlıyoruz?', 'Um wie viel Uhr fangen wir morgen an?', 'Um vii fiil uua fangın viia morgın an?', [['um wie viel Uhr', 'saat kaçta'], ['anfangen', 'başlamak']]],
 ];
 
 const WORDS = [
@@ -476,6 +508,11 @@ const WORDS = [
   ['persönlich', 'şahsen', 'perzöönlih'], ['anrufen', 'telefon etmek', 'anruufın'], ['zurückrufen', 'geri aramak', 'tsurükruufın'],
   ['verstehen', 'anlamak', 'ferşteeyın'], ['die Sendungsnummer', 'gönderi numarası', 'dii zendungsnuma'], ['der Akku', 'batarya', 'dea aku'],
   ['die Sackkarre', 'el arabası', 'dii zakkare'], ['der Stopp', 'durak', 'dea ştop'], ['glatt', 'kaygan', 'glat'],
+  ['das Gerät', 'cihaz', 'das gereet'], ['neu starten', 'yeniden başlatmak', 'noy ştartın'], ['der Barcode', 'barkod', 'dea barkood'],
+  ['eingeben', 'girmek (yazmak)', 'ayngeebın'], ['das Netz', 'şebeke, sinyal', 'das nets'], ['der Aufzug', 'asansör', 'dea auftsuuk'],
+  ['der Türcode', 'kapı kodu', 'dea tüürkood'], ['das Hinterhaus', 'arka bina', 'das hintahaus'], ['der Schlüssel', 'anahtar', 'dea şlüsel'],
+  ['die Reihenfolge', 'sıra', 'dii rayenfolge'], ['anfangen', 'başlamak', 'anfangın'], ['heiß', 'sıcak', 'hays'],
+  ['kalt', 'soğuk', 'kalt'], ['eilig', 'acele', 'aylih'], ['nett', 'nazik', 'net'], ['die Garage', 'garaj', 'dii garaaje'],
 ];
 
 const PATTERNS = [
