@@ -279,6 +279,9 @@ details.how .method{margin-top:12px}
 .fsel select{width:100%;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px;padding:0 10px}
 .fsel select:disabled{opacity:.55}
 .cont{display:flex;align-items:center;gap:12px;width:100%;padding:14px;border:1px solid var(--line);border-radius:var(--r);background:var(--sheet);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);text-align:left}
+.cont.two{flex-wrap:wrap}
+.cont .cbtns{flex-basis:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cont .cbtns .btn{min-height:44px;text-decoration:none;font-size:14px;padding:8px 10px}
 .cont .ci{width:44px;height:44px;border-radius:12px;background:#0f766e;color:#fff;display:grid;place-items:center;flex:none}
 .cont .ci svg{width:22px;height:22px}
 .cont .ct{flex:1;min-width:0;display:flex;flex-direction:column}
@@ -5191,7 +5194,10 @@ function viewHome() {
   </section>`;
 
   const last = lastRehber();
-  const cont = last ? `<a class="cont" href="rehber.html${esc(last.h)}"><span class="ci">${hicon('book')}</span><span class="ct"><small>Kaldığın yerden devam et</small><b>${esc(last.t)}</b><span>${esc(last.t === last.s ? 'Rehber' : 'Rehber · ' + last.s)}</span></span>${CHEV}</a>` : '';
+  const cont = !last ? '' : last.deck
+    ? `<section class="cont two" aria-label="Kaldığın yerden devam et"><span class="ci">${hicon('book')}</span><span class="ct"><small>Kaldığın yerden devam et</small><b>${esc(last.dn || last.t)}</b><span>${esc(last.t === last.s ? 'Rehber' : 'Rehber · ' + last.s)}</span></span>
+        <span class="cbtns"><a class="btn primary" href="rehber.html#/karten/start/${encodeURIComponent(last.deck)}">Kartlarla çalış</a><a class="btn" href="rehber.html?devam${esc(last.h)}">Listeye dön</a></span></section>`
+    : `<a class="cont" href="rehber.html?devam${esc(last.h)}"><span class="ci">${hicon('book')}</span><span class="ct"><small>Kaldığın yerden devam et</small><b>${esc(last.t)}</b><span>${esc(last.t === last.s ? 'Rehber' : 'Rehber · ' + last.s)}</span></span>${CHEV}</a>`;
 
   const cur = lvl !== 'all' && st[lvl] ? lvl : null;
   const sum = cur ? st[cur] : levels.reduce((o, l) => ({ total: o.total + st[l].total, learned: o.learned + st[l].learned }), { total: 0, learned: 0 });
