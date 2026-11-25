@@ -37,7 +37,10 @@ Satzheft'ten bağımsız, ayrı bir programdır: kendi adresi, ikonu, çevrimdı
 Adres: https://ethemguenes-bit.github.io/Deutschlernen/dhl/ — telefona kendi ikonuyla ayrı uygulama olarak kurulur.
 
 - **Cümleler:** 105 numaralı cümle (Günlük durumlar, Müşteriyle, Adres ve teslimat sorunları, İş arkadaşlarıyla, Depoda ve yüklemede, Araç ve yol, Mesai/mola/izin, Özel gönderiler ve ödeme, Telefonda); her birinde Türkçe, Almanca, Türkçe okunuş, kelime açıklamaları ve varsa alternatif
-- **Çalış:** Kartlar, Doğruyu seç, Dinle ve anla, Cümle kur
+- **Ana sayfa:** ilerleme halkası, günlük seri, Anki kısayolu, bölümler, günün cümlesi, telefona yükleme düğmesi
+- **Anki:** aralıklı tekrar (Tekrar / Zor / İyi / Kolay), günde yeni kart sınırı, yön ve deste seçimi
+- **Oyun (Paket Yarışı):** Almanca→Türkçe ve Türkçe→Almanca sorular, 3 can, süre, seri çarpanı, rekor; yanlışlar Anki'de öne alınır
+- **Alıştırmalar:** Kartlar, Doğruyu seç, Dinle ve anla, Cümle kur
 - **Kelimeler:** 80 kelime/ifade · **Kalıplar:** 5 soru kalıbı · **Ekle:** kendi cümlelerin (106'dan itibaren), yedek
 
 Hazır cümleler `dhl/index.html` içindeki `BASE` listesindedir. Dosyalar değişince `dhl/sw.js` içindeki `VERSION` değerini artırın.

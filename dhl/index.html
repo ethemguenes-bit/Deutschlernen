@@ -3,6 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>/* Telefonda Chrome "Masaüstü sitesi" açıksa sayfa ~980px genişlikte çizilir ve tarayıcı onu ekrana sığdırmak için
+   uzaklaştırır; her şey küçülür. Telefon genişliğini bul ve içeriği o oranda büyüt (html.dz + --dz). */
+(function () {
+  function fit() { try {
+    var r = document.documentElement, iw = window.innerWidth, sw = screen.width || 0, vv = window.visualViewport, sc = vv && vv.scale || 1,
+        ow = window.outerWidth || 0, coarse = window.matchMedia && matchMedia('(pointer:coarse)').matches, w = 0, why = '';
+    if (iw >= 700) {
+      if (sw && sw < 700 && iw >= sw * 1.3) { w = sw; why = 'screen'; }
+      else if (ow && ow < 700 && iw >= ow * 1.3) { w = ow; why = 'outer'; }
+      else if (coarse && sc < 0.8) { w = Math.round(iw * sc); why = 'scale'; }
+    }
+    var z = w ? iw / w : 0;
+    if (z > 1.2) { r.classList.add('dz'); r.style.setProperty('--dz', z.toFixed(3)); } else { r.classList.remove('dz'); r.style.removeProperty('--dz'); }
+    window.__dz = 'iw ' + iw + ' · sw ' + sw + ' · ow ' + ow + ' · scale ' + sc.toFixed(2) + ' · dpr ' + (window.devicePixelRatio || 1).toFixed(2) + ' · ' + (coarse ? 'dokunmatik' : 'fare') + ' · zoom ' + (z > 1.2 ? z.toFixed(2) + ' (' + why + ')' : 'yok');
+  } catch (e) { window.__dz = 'hata: ' + e.message; } }
+  fit(); addEventListener('DOMContentLoaded', fit); addEventListener('load', fit); addEventListener('resize', fit); addEventListener('pageshow', fit);
+  setTimeout(fit, 400); if (window.visualViewport) visualViewport.addEventListener('resize', fit);
+})();</script>
+<style>html.dz body{zoom:var(--dz)}</style>
+<style>html.dz body{height:calc(100vh / var(--dz))}</style>
 <meta name="theme-color" content="#ffcc00">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -186,22 +206,94 @@ details.more summary{font-weight:700;cursor:pointer}
 .nav button[aria-current="page"]{color:var(--accent)}
 .nav button[aria-current="page"] .e{filter:none;opacity:1}
 .toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;z-index:30;max-width:calc(100% - 32px);text-align:center}
+
+/* Ana sayfa */
+button.logo{border:0;cursor:pointer}
+.hero{background:linear-gradient(135deg,#ffcc00 0%,#ffb300 100%);color:#2a1f00;border-radius:22px;padding:18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"📦";position:absolute;right:-14px;bottom:-26px;font-size:110px;opacity:.10;transform:rotate(-12deg);pointer-events:none}
+.hero .ht{flex:1;min-width:0;position:relative;z-index:1}
+.hero small{font-weight:700;opacity:.75;font-size:13px}
+.hero h2{margin:2px 0 10px;font-size:24px;letter-spacing:-.02em;line-height:1.15}
+.hstats{display:flex;flex-wrap:wrap;gap:6px}
+.hstats span{background:rgba(255,255,255,.55);border-radius:999px;padding:4px 10px;font-size:13px}
+.ring{width:92px;height:92px;flex:none;position:relative;z-index:1}
+.ring circle{fill:none;stroke-width:9}
+.ring .rt{stroke:rgba(255,255,255,.55)}
+.ring .rf{stroke:#d40511;stroke-linecap:round;transform:rotate(-90deg);transform-origin:42px 42px}
+.ring text{font-weight:800;font-size:17px;fill:#2a1f00}
+.ring .rs{font-size:9.5px;font-weight:600;opacity:.75}
+.cta,.install,.crow{width:100%;display:flex;align-items:center;gap:12px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:14px;box-shadow:var(--shadow);margin-top:12px}
+.cta{background:var(--accent);border-color:var(--accent);color:#fff}
+.cta .ce,.crow .ce{font-size:28px;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;flex:none;background:rgba(255,255,255,.18)}
+.cta .ct,.crow .ct{flex:1;min-width:0;display:flex;flex-direction:column}
+.cta b{font-size:18px}
+.cta .ct span{opacity:.9;font-size:14px}
+.chev{font-size:26px;line-height:1;opacity:.6}
+.install{background:var(--ok-bg);border-color:var(--ok)}
+.install>span:first-child{font-size:26px}
+.install small{display:block;color:var(--soft);font-size:13px}
+.steps{margin:8px 0 0;padding-left:20px;font-size:14px;display:grid;gap:4px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.tile{border:0;border-radius:18px;padding:14px 10px 12px;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;color:#1f1a10;box-shadow:var(--shadow);min-height:112px}
+.tile .te{font-size:28px;margin-bottom:4px}
+.tile b{font-size:15px;line-height:1.2}
+.tile span:last-child{font-size:12px;opacity:.75;line-height:1.25}
+.g1{background:#ffe3e3}.g2{background:#fff0c2}.g3{background:#dff3e4}.g4{background:#e2ecff}.g5{background:#efe3ff}.g6{background:#f3eadb}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tile{filter:brightness(.82) saturate(1.2)}}
+:root[data-theme="dark"] .tile{filter:brightness(.82) saturate(1.2)}
+@media (max-width:360px){.tiles{grid-template-columns:repeat(2,1fr)}}
+.dayq{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--head);border-radius:18px;padding:14px;margin-top:12px;box-shadow:var(--shadow)}
+.dayq small{font-weight:700;color:var(--soft)}
+.dayq .de{margin:6px 0 2px}
+.dtr{font-weight:600}
+.cats{display:flex;flex-direction:column;gap:8px}
+.crow{margin-top:0;padding:10px 12px}
+.crow .ce{background:var(--surface2);font-size:22px}
+.crow .ct>span{font-size:12.5px;color:var(--soft)}
+.crow .bar{margin-top:5px;height:6px}
+/* Anki */
+.ahero,.ghero{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px 18px;text-align:center;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;align-items:stretch}
+.ahero .e,.ghero .e{font-size:46px;line-height:1}
+.ahero h2,.ghero h2{margin:0;font-size:24px}
+.ahero p,.ghero p{margin:0;color:var(--soft);font-size:14.5px}
+.acount{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;font-size:13px}
+.acount span{padding:4px 10px;border-radius:999px;background:var(--surface2)}
+.acount .cn b{color:#1d5fbf}.acount .cl b{color:var(--bad)}.acount .cr b{color:var(--ok)}
+.qtop .acount{flex:1;justify-content:flex-end}
+.rates{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.rb{border:0;border-radius:14px;padding:10px 2px;display:flex;flex-direction:column;align-items:center;gap:1px;color:#fff;font-size:15px}
+.rb span{font-size:11.5px;opacity:.9}
+.rb.again{background:#c0262d}.rb.hard{background:#7c6a55}.rb.good{background:#15803d}.rb.easy{background:#1d5fbf}
+/* Oyun */
+.ghero{background:linear-gradient(160deg,var(--surface) 0%,var(--gold-bg) 100%)}
+.grules{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.grules span{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:13px}
+.gbest{font-size:15px}
+.btn.big{font-size:19px;padding:16px}
+.ghud{display:flex;align-items:center;gap:10px;font-weight:700}
+.ghud .hearts{font-size:18px;letter-spacing:1px}
+.ghud .combo{flex:1;color:var(--accent)}
+.ghud .pts{background:var(--head);color:#2a1f00;border-radius:999px;padding:4px 12px}
+.tbar{height:8px;border-radius:99px;background:var(--surface2);overflow:hidden}
+.tbar i{display:block;height:100%;background:var(--ok);transition:width .1s linear}
+.tbar i.low{background:var(--bad)}
+.gtag{font-size:13px;font-weight:700;color:var(--soft)}
 </style>
 </head>
 <body>
 <header class="head">
   <div class="wrap">
-    <div class="logo" aria-hidden="true">📦</div>
+    <button class="logo" data-tab="home" aria-label="Ana sayfa">📦</button>
     <div class="brand"><h1>DHL Almancası</h1><p id="sub">İşte kullanılan cümleler</p></div>
   </div>
 </header>
 <main class="wrap" id="app"></main>
 <nav class="nav" aria-label="Bölümler"><div class="wrap">
+  <button data-tab="home"><span class="e">🏠</span>Ana sayfa</button>
   <button data-tab="list"><span class="e">💬</span>Cümleler</button>
-  <button data-tab="learn"><span class="e">🎯</span>Çalış</button>
+  <button data-tab="anki"><span class="e">🧠</span>Anki</button>
+  <button data-tab="game"><span class="e">🎮</span>Oyun</button>
   <button data-tab="words"><span class="e">📖</span>Kelimeler</button>
-  <button data-tab="pat"><span class="e">🧩</span>Kalıplar</button>
-  <button data-tab="add"><span class="e">✏️</span>Ekle</button>
 </div></nav>
 <div class="toast" id="toast" hidden></div>
 
@@ -413,9 +505,9 @@ function say(text, slow) {
 }
 
 // ---------- Görünüm ----------
-let tab = 'list', filter = 'all', query = '';
+let tab = 'home', filter = 'all', query = '';
 const box = id => P.box[id] || 0;
-const dots = id => `<span class="lvl" title="Öğrenme düzeyi">${[1, 2, 3, 4].map(i => `<i class="${box(id) >= i ? 'f' : ''}"></i>`).join('')}</span>`;
+const dots = id => `<span class="lvl" title="Öğrenme düzeyi">${[1, 2, 3, 4].map(i => `<i class="${level(id) >= i ? 'f' : ''}"></i>`).join('')}</span>`;
 
 function card(s) {
   const hideDe = P.hide === 'de', hideTr = P.hide === 'tr';
@@ -479,7 +571,7 @@ function setPool() {
 }
 function viewLearn() {
   if (Q) return viewQuiz();
-  const S = all(), learned = S.filter(s => box(s.id) >= 3).length, seen = S.filter(s => P.seen[s.id]).length, p = Math.round(100 * learned / S.length);
+  const S = all(), learned = S.filter(s => level(s.id) >= 3).length, seen = S.filter(s => P.seen[s.id]).length, p = Math.round(100 * learned / S.length);
   const opts = [['all', 'Tüm cümleler'], ['new', 'Hiç çalışmadıklarım'], ['weak', 'Zorlandıklarım'], ['star', 'Yıldızlılar'], ...CATS.filter(c => c[0] !== 'mine' || P.mine.length).map(c => [c[0], c[1]])]
     .map(([k, n]) => `<option value="${k}" ${learnSet === k ? 'selected' : ''}>${esc(n)}</option>`).join('');
   return `<div class="stats">
@@ -505,7 +597,7 @@ function startQuiz(mode) {
 }
 function others(s, key, n) { return shuffle(all().filter(x => x.id !== s.id && x[key] !== s[key])).slice(0, n).map(x => x[key]); }
 function grade(s, ok) {
-  P.seen[s.id] = 1;
+  P.seen[s.id] = 1; logDay();
   P.box[s.id] = ok ? Math.min(5, box(s.id) + 1) : 0;
   if (ok) Q.right++; else if (!Q.wrong.includes(s)) Q.wrong.push(s);
   save();
@@ -608,17 +700,228 @@ function viewAdd() {
     </details>`;
 }
 
+// ---------- Günlük kayıt ve düzey ----------
+const DAY = 864e5, MIN = 6e4;
+const dkey = d => d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+const today = () => dkey(new Date());
+P.srs = P.srs || {}; P.days = P.days || {}; P.best = P.best || 0; P.newDay = P.newDay || { d: '', n: 0 };
+P.anki = Object.assign({ dir: 'tr', perDay: 10, set: 'all' }, P.anki || {});
+P.game = Object.assign({ dir: 'mix', speed: 12 }, P.game || {});
+function logDay() { const t = today(); P.days[t] = (P.days[t] || 0) + 1; }
+function streak() { let n = 0; const d = new Date(); if (!P.days[today()]) d.setDate(d.getDate() - 1); while (P.days[dkey(d)]) { n++; d.setDate(d.getDate() - 1); } return n; }
+function level(id) { const c = P.srs[id], a = c ? (c.ivl >= 21 ? 4 : c.ivl >= 7 ? 3 : c.ivl >= 3 ? 2 : c.ivl >= 1 ? 1 : 0) : 0; return Math.max(a, Math.min(4, box(id))); }
+const fmtIvl = ms => ms < 60 * MIN ? Math.max(1, Math.round(ms / MIN)) + ' dk' : ms < DAY ? Math.round(ms / (60 * MIN)) + ' sa' : ms < 30 * DAY ? Math.round(ms / DAY) + ' gün' : (ms / (30 * DAY)).toFixed(1).replace('.0', '') + ' ay';
+
+// ---------- Anki (aralıklı tekrar) ----------
+let A = null; // { id, shown, d, n }
+function ankiPool() { const k = P.anki.set, S = all(); return k === 'all' ? S : k === 'star' ? S.filter(s => P.star[s.id]) : S.filter(s => s.cat === k); }
+function newLeft() { if (P.newDay.d !== today()) P.newDay = { d: today(), n: 0 }; return Math.max(0, P.anki.perDay - P.newDay.n); }
+function ankiCounts() {
+  const now = Date.now(); let learn = 0, rev = 0, fresh = 0;
+  for (const s of ankiPool()) { const c = P.srs[s.id]; if (!c) fresh++; else if (c.due <= now + 20 * MIN) c.ivl ? rev++ : learn++; }
+  return { learn, rev, fresh: Math.min(fresh, newLeft()), freshAll: fresh };
+}
+function ankiNext() {
+  const now = Date.now(), pool = ankiPool(), byDue = (a, b) => P.srs[a.id].due - P.srs[b.id].due;
+  const due = pool.filter(s => P.srs[s.id] && P.srs[s.id].due <= now).sort(byDue);
+  if (due.length) return due[0];
+  if (newLeft()) { const n = pool.find(s => !P.srs[s.id]); if (n) return n; }
+  return pool.filter(s => P.srs[s.id] && P.srs[s.id].due <= now + 20 * MIN).sort(byDue)[0] || null;
+}
+// r: 0 Tekrar, 1 Zor, 2 İyi, 3 Kolay
+function schedule(old, r, now) {
+  const c = old ? { ...old } : { ivl: 0, ease: 2.5, step: 0, reps: 0, lapses: 0 };
+  if (!c.ivl) {
+    if (r === 0) { c.step = 0; c.due = now + MIN; }
+    else if (r === 1) c.due = now + 6 * MIN;
+    else if (r === 2) { if (c.step) { c.ivl = 1; c.due = now + DAY; } else { c.step = 1; c.due = now + 10 * MIN; } }
+    else { c.ivl = 4; c.due = now + 4 * DAY; }
+  } else if (r === 0) { c.lapses++; c.ease = Math.max(1.3, c.ease - 0.2); c.ivl = 0; c.step = 1; c.due = now + 10 * MIN; }
+  else {
+    if (r === 1) { c.ivl = Math.max(c.ivl + 1, c.ivl * 1.2); c.ease = Math.max(1.3, c.ease - 0.15); }
+    else if (r === 2) c.ivl = Math.max(c.ivl + 1, c.ivl * c.ease);
+    else { c.ivl = Math.max(c.ivl + 2, c.ivl * c.ease * 1.3); c.ease += 0.15; }
+    c.ivl = Math.round(c.ivl); c.due = now + c.ivl * DAY;
+  }
+  c.reps++; return c;
+}
+function ankiLoad() { const s = ankiNext(); A = s ? { id: s.id, shown: false, d: P.anki.dir === 'mix' ? (Math.random() < .5 ? 'tr' : 'de') : P.anki.dir, n: A ? A.n : 0 } : { done: true, n: A ? A.n : 0 }; if (s && A.d === 'de') setTimeout(() => say(s.de), 250); }
+function viewAnki() {
+  const c = ankiCounts();
+  const counts = `<div class="acount"><span class="cn">Yeni <b>${c.fresh}</b></span><span class="cl">Öğreniliyor <b>${c.learn}</b></span><span class="cr">Tekrar <b>${c.rev}</b></span></div>`;
+  if (!A) {
+    const sets = [['all', 'Tüm cümleler'], ['star', '★ Yıldızlılar'], ...CATS.filter(k => k[0] !== 'mine' || P.mine.length).map(k => [k[0], k[2] + ' ' + k[1]])]
+      .map(([k, n]) => `<option value="${k}" ${P.anki.set === k ? 'selected' : ''}>${esc(n)}</option>`).join('');
+    const total = c.fresh + c.learn + c.rev;
+    return `<section class="ahero"><div class="e">🧠</div><h2>Anki ile çalış</h2><p>Bildiğin cümleler seyrek, zorlandıkların sık gelir. Her gün birkaç dakika yeter.</p>${counts}
+        <button class="btn" data-astart ${total ? '' : 'disabled style="opacity:.5"'}>${total ? `Başla · ${total} kart` : 'Bugünlük kart kalmadı 🎉'}</button></section>
+      <h2 class="sec">Ayarlar</h2>
+      <div class="form">
+        <label>Yön<div class="seg">${[['tr', 'Türkçe → Almanca'], ['de', 'Almanca → Türkçe'], ['mix', 'Karışık']].map(([k, n]) => `<button type="button" data-adir="${k}" aria-pressed="${P.anki.dir === k}">${n}</button>`).join('')}</div></label>
+        <label>Günde yeni kart<div class="seg">${[5, 10, 20, 30].map(k => `<button type="button" data-aper="${k}" aria-pressed="${P.anki.perDay === k}">${k}</button>`).join('')}</div></label>
+        <label>Deste<select class="sel" id="aset">${sets}</select></label>
+      </div>
+      <div class="tip" style="margin-top:12px">💡 Kartı görünce cevabı <b>yüksek sesle söyle</b>, sonra çevir ve dürüstçe puanla: <b>Tekrar</b> = bilemedim, <b>Zor</b> = zorlukla, <b>İyi</b> = bildim, <b>Kolay</b> = çok kolaydı.</div>`;
+  }
+  if (A.done) return `<div class="quiz result"><div class="e">🎉</div><h3>Bugünlük bitti!</h3><p class="muted">${A.n} kart çalıştın. Yarın yeni kartlar ve tekrarlar seni bekliyor.</p>
+      <button class="btn" data-tab="game">🎮 Biraz oyun oyna</button><button class="btn ghost" data-aquit>Tamam</button></div>`;
+  const s = all().find(x => x.id === A.id), now = Date.now(), old = P.srs[s.id];
+  const okLine = s.ok ? `<div class="ok"><b>Okunuşu:</b> ${esc(s.ok)}</div>` : '';
+  const audio = `<div class="acts"><button class="sbtn" data-say="${esc(s.de)}">🔊 Dinle</button><button class="sbtn" data-slow="${esc(s.de)}">🐢 Yavaş</button></div>`;
+  const front = A.d === 'tr' ? `<div class="prompt">${esc(s.tr)}</div>` : `<p class="prompt de" lang="de">${esc(s.de)}</p>${audio}`;
+  const back = A.d === 'tr' ? `<p class="prompt de" lang="de">${esc(s.de)}</p>${okLine}${audio}` : `<div class="prompt">${esc(s.tr)}</div>${okLine}`;
+  const notes = s.notes.length ? `<div class="notes">${s.notes.map(([d, t]) => `<div><b>${esc(d)}</b><span>${esc(t)}</span></div>`).join('')}</div>` : '';
+  const rb = [['Tekrar', 'again'], ['Zor', 'hard'], ['İyi', 'good'], ['Kolay', 'easy']].map(([n, k], r) => `<button class="rb ${k}" data-rate="${r}"><b>${n}</b><span>${fmtIvl(schedule(old, r, now).due - now)}</span></button>`).join('');
+  return `<div class="quiz">
+      <div class="qtop"><button class="qx" data-aquit>✕ Çık</button>${counts}</div>
+      <div class="hint">${!old ? '🆕 Yeni kart · ' : ''}No ${s.n} · ${A.d === 'tr' ? 'Almancasını söyle' : 'Türkçe anlamı ne?'}</div>
+      ${front}
+      ${A.shown ? `<div class="answer">${back}${notes}</div><div class="rates">${rb}</div>` : `<button class="btn" data-ashow>Cevabı göster</button>`}
+    </div>`;
+}
+function ankiRate(r) {
+  const s = all().find(x => x.id === A.id), was = P.srs[s.id];
+  if (!was) { newLeft(); P.newDay.n++; }
+  P.srs[s.id] = schedule(was, r, Date.now()); P.seen[s.id] = 1; logDay(); save();
+  A.n++; ankiLoad(); render();
+}
+
+// ---------- Oyun: Paket Yarışı ----------
+let G = null, gTimer = 0;
+function gStop() { clearInterval(gTimer); gTimer = 0; }
+function gameStart() {
+  gStop();
+  G = { deck: shuffle(all()), i: 0, lives: 3, score: 0, combo: 0, right: 0, wrong: [], q: null, over: false };
+  gameQ();
+}
+function gameQ() {
+  if (G.i >= G.deck.length) { G.deck = shuffle(G.deck); G.i = 0; }
+  const s = G.deck[G.i++], d = P.game.dir === 'mix' ? (Math.random() < .5 ? 'tr' : 'de') : P.game.dir, key = d === 'tr' ? 'de' : 'tr';
+  const same = shuffle(all().filter(x => x.id !== s.id && x.cat === s.cat && x[key] !== s[key])).map(x => x[key]);
+  const rest = shuffle(all().filter(x => x.id !== s.id && x[key] !== s[key])).map(x => x[key]);
+  const opts = [...new Set([...same.slice(0, 2), ...rest])].filter(o => o !== s[key]).slice(0, 3);
+  G.q = { s, d, key, opts: shuffle([s[key], ...opts]), picked: null, end: Date.now() + P.game.speed * 1000 };
+  render(); if (d === 'de') say(s.de);
+  gStop(); gTimer = setInterval(gTick, 100);
+}
+function gTick() {
+  if (!G || !G.q || G.q.picked != null) return gStop();
+  const left = G.q.end - Date.now(), bar = $('#gbar');
+  if (bar) { const p = Math.max(0, left / (P.game.speed * 1000)); bar.style.width = (p * 100) + '%'; bar.classList.toggle('low', p < .3); }
+  if (left <= 0) gameAnswer(-1);
+}
+function gameAnswer(i) {
+  const q = G.q; if (q.picked != null) return; gStop();
+  q.picked = i; const ok = i >= 0 && q.opts[i] === q.s[q.key];
+  if (ok) {
+    G.combo++; G.right++;
+    const mult = G.combo >= 10 ? 3 : G.combo >= 5 ? 2 : 1, bonus = Math.max(0, Math.ceil((q.end - Date.now()) / 1000));
+    q.gain = (10 + bonus) * mult; G.score += q.gain;
+    P.box[q.s.id] = Math.min(5, box(q.s.id) + 1);
+  } else {
+    G.combo = 0; G.lives--; G.wrong.push(q.s); P.box[q.s.id] = 0;
+    if (P.srs[q.s.id]) P.srs[q.s.id].due = Math.min(P.srs[q.s.id].due, Date.now());
+  }
+  P.seen[q.s.id] = 1; logDay();
+  if (G.lives <= 0) { G.over = true; G.record = G.score > P.best; if (G.record) P.best = G.score; }
+  save(); render();
+  if (q.d === 'tr' || !ok) say(q.s.de);
+  if (ok && !G.over) setTimeout(() => { if (G && G.q === q) gameQ(); }, 1100);
+}
+function viewGame() {
+  if (!G) {
+    return `<section class="ghero"><div class="e">🚚</div><h2>Paket Yarışı</h2>
+        <p>Almanca cümle gelir, Türkçesini bul. Türkçe cümle gelir, Almancasını bul. Her doğru cevap bir paket teslimi!</p>
+        <div class="grules"><span>❤️❤️❤️ 3 can</span><span>⚡ Hızlı cevap = bonus</span><span>🔥 Seri = x2, x3 puan</span></div>
+        <div class="gbest">🏆 Rekorun: <b>${P.best}</b> puan</div>
+        <button class="btn big" data-gstart>▶ Oyna</button></section>
+      <h2 class="sec">Oyun ayarları</h2>
+      <div class="form">
+        <label>Soru türü<div class="seg">${[['mix', 'Karışık'], ['de', 'Almanca → Türkçe'], ['tr', 'Türkçe → Almanca']].map(([k, n]) => `<button type="button" data-gdir="${k}" aria-pressed="${P.game.dir === k}">${n}</button>`).join('')}</div></label>
+        <label>Süre<div class="seg">${[[20, '🐢 Rahat 20 sn'], [12, 'Normal 12 sn'], [7, '⚡ Hızlı 7 sn']].map(([k, n]) => `<button type="button" data-gspeed="${k}" aria-pressed="${P.game.speed === k}">${n}</button>`).join('')}</div></label>
+      </div>`;
+  }
+  const hearts = '❤️'.repeat(Math.max(0, G.lives)) + '🤍'.repeat(3 - Math.max(0, G.lives));
+  if (G.over) {
+    return `<div class="quiz result"><div class="e">${G.record ? '🏆' : '📦'}</div>
+      <h3>${G.score} puan</h3>
+      <p class="muted">${G.right} paket teslim edildi.${G.record ? ' <b>Yeni rekor!</b>' : ` Rekorun: ${P.best}`}</p>
+      ${G.wrong.length ? `<div class="notes" style="text-align:left"><div style="font-weight:700">Yanlış yaptıkların:</div>${G.wrong.map(s => `<div><b>${esc(s.de)}</b><span>${esc(s.tr)}</span></div>`).join('')}</div>
+        <p class="muted" style="margin:0">Bu cümleler Anki'de öne alındı.</p>` : ''}
+      <button class="btn" data-gstart>Tekrar oyna</button><button class="btn ghost" data-gquit>Bitir</button></div>`;
+  }
+  const q = G.q, s = q.s, done = q.picked != null;
+  const prompt = q.d === 'de'
+    ? `<div class="gtag">🇩🇪 → 🇹🇷 Türkçesi ne?</div><p class="prompt de" lang="de">${esc(s.de)}</p><div class="acts"><button class="sbtn" data-say="${esc(s.de)}">🔊 Dinle</button></div>`
+    : `<div class="gtag">🇹🇷 → 🇩🇪 Almancası ne?</div><div class="prompt">${esc(s.tr)}</div>`;
+  const opts = q.opts.map((o, i) => { const cls = !done ? '' : o === s[q.key] ? 'right' : i === q.picked ? 'wrong' : ''; return `<button class="opt ${q.key === 'de' ? 'de' : ''} ${cls}" data-gpick="${i}" ${done ? 'disabled' : ''} ${q.key === 'de' ? 'lang="de"' : ''}>${esc(o)}</button>`; }).join('');
+  const fb = !done ? '' : q.picked >= 0 && q.opts[q.picked] === s[q.key]
+    ? `<div class="fb good">✓ Doğru! +${q.gain} ${G.combo >= 5 ? `· 🔥 ${G.combo} seri` : ''}</div>`
+    : `<div class="fb bad">${q.picked < 0 ? '⏰ Süre doldu!' : '✗ Yanlış!'}</div><div class="answer"><p class="prompt de" lang="de">${esc(s.de)}</p><div>${esc(s.tr)}</div>${s.ok ? `<div class="ok"><b>Okunuşu:</b> ${esc(s.ok)}</div>` : ''}</div>${G.lives > 0 ? '<button class="btn" data-gnext>Devam →</button>' : ''}`;
+  return `<div class="quiz game">
+      <div class="ghud"><button class="qx" data-gquit>✕</button><span class="hearts">${hearts}</span><span class="combo">${G.combo >= 2 ? '🔥' + G.combo : ''}</span><span class="pts">📦 ${G.score}</span></div>
+      <div class="tbar"><i id="gbar" style="width:${done ? 0 : 100}%"></i></div>
+      ${prompt}<div class="opts">${opts}</div>${fb}
+    </div>`;
+}
+
+// ---------- Ana sayfa ----------
+let installEvt = null;
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; if (tab === 'home') render(); });
+addEventListener('appinstalled', () => { installEvt = null; toast('Uygulama yüklendi!'); if (tab === 'home') render(); });
+const isStandalone = () => (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
+function ring(p) {
+  const r = 34, c = 2 * Math.PI * r;
+  return `<svg class="ring" viewBox="0 0 84 84" aria-label="%${p} öğrenildi"><circle cx="42" cy="42" r="${r}" class="rt"/><circle cx="42" cy="42" r="${r}" class="rf" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - p / 100)}"/><text x="42" y="40" text-anchor="middle">%${p}</text><text x="42" y="55" text-anchor="middle" class="rs">öğrenildi</text></svg>`;
+}
+function viewHome() {
+  const S = all(), learned = S.filter(s => level(s.id) >= 3).length, p = Math.round(100 * learned / S.length);
+  const h = new Date().getHours(), greet = h < 11 ? ['Guten Morgen!', 'Günaydın'] : h < 17 ? ['Guten Tag!', 'İyi günler'] : ['Guten Abend!', 'İyi akşamlar'];
+  const st = streak(), c = ankiCounts(), due = c.fresh + c.learn + c.rev;
+  const dq = S[Math.floor(Date.now() / DAY) % BASE.length];
+  const tiles = [
+    ['game', '🎮', 'Oyun', P.best ? `Rekor: ${P.best}` : 'Paket Yarışı', 'g1'],
+    ['learn', '🎯', 'Alıştırmalar', 'Seç, dinle, cümle kur', 'g2'],
+    ['list', '💬', 'Cümleler', `${S.length} cümle`, 'g3'],
+    ['words', '📖', 'Kelimeler', `${WORDS.length} kelime`, 'g4'],
+    ['pat', '🧩', 'Kalıplar', `${PATTERNS.length} soru kalıbı`, 'g5'],
+    ['add', '✏️', 'Cümle ekle', 'Kendi cümlelerin', 'g6'],
+  ].map(([t, e, n, sub, g]) => `<button class="tile ${g}" data-tab="${t}"><span class="te">${e}</span><b>${n}</b><span>${esc(sub)}</span></button>`).join('');
+  const cats = CATS.filter(k => S.some(s => s.cat === k[0])).map(([k, n, e]) => {
+    const r = S.filter(s => s.cat === k), l = r.filter(s => level(s.id) >= 3).length, cp = Math.round(100 * l / r.length);
+    return `<button class="crow" data-catgo="${k}"><span class="ce">${e}</span><span class="ct"><b>${esc(n)}</b><span>${l} / ${r.length} öğrenildi</span><span class="bar"><i style="width:${cp}%"></i></span></span><span class="chev">›</span></button>`;
+  }).join('');
+  const install = isStandalone() ? '' : installEvt
+    ? `<button class="install" data-install><span>📲</span><span><b>Telefona uygulama olarak yükle</b><small>Ana ekranda kendi ikonuyla açılır, internetsiz çalışır</small></span></button>`
+    : `<details class="more"><summary>📲 Telefona nasıl yüklenir?</summary><ol class="steps">
+        <li>Chrome menüsünü (⋮) aç. <b>Masaüstü sitesi</b> işaretliyse işareti kaldır.</li>
+        <li>Menüde <b>Uygulamayı yükle</b> veya <b>Ana ekrana ekle</b> seç.</li>
+        <li>Bu seçenekler yoksa sayfayı bir kez yenile ve tekrar bak.</li></ol></details>`;
+  return `<section class="hero">
+      <div class="ht"><small>${greet[0]} · ${greet[1]}</small><h2>Bugün ne çalışalım?</h2>
+        <div class="hstats"><span>🔥 <b>${st}</b> gün seri</span><span>📦 <b>${learned}</b> / ${S.length} cümle</span></div></div>
+      ${ring(p)}
+    </section>
+    <button class="cta" data-tab="anki"><span class="ce">🧠</span><span class="ct"><b>Anki ile çalış</b><span>${due ? `${due} kart seni bekliyor` : 'Bugünlük tamam, harika! 🎉'}</span></span><span class="chev">›</span></button>
+    ${install}
+    <div class="tiles">${tiles}</div>
+    <section class="dayq"><small>☀️ Günün cümlesi · No ${dq.n}</small><p class="de" lang="de">${esc(dq.de)}</p><div class="dtr">${esc(dq.tr)}</div>${dq.ok ? `<div class="ok"><b>Okunuşu:</b> ${esc(dq.ok)}</div>` : ''}
+      <div class="acts"><button class="sbtn" data-say="${esc(dq.de)}">🔊 Dinle</button><button class="sbtn" data-slow="${esc(dq.de)}">🐢 Yavaş</button></div></section>
+    <h2 class="sec">Bölümler</h2>
+    <div class="cats">${cats}</div>`;
+}
+
 // ---------- Çizim ----------
-const SUB = { list: 'İşte kullanılan cümleler', learn: 'Alıştırma', words: 'Kelime pratiği', pat: 'Soru kalıpları', add: 'Kendi cümlelerin' };
+const SUB = { home: 'İşte kullanılan Almanca', anki: 'Aralıklı tekrar', game: 'Paket Yarışı', list: 'İşte kullanılan cümleler', learn: 'Alıştırma', words: 'Kelime pratiği', pat: 'Soru kalıpları', add: 'Kendi cümlelerin' };
 function render(keepFocus) {
   const app = $('#app');
   const f = keepFocus && document.activeElement && document.activeElement.id, pos = f && document.activeElement.selectionStart;
-  app.innerHTML = tab === 'list' ? viewList() : tab === 'learn' ? viewLearn() : tab === 'words' ? viewWords() : tab === 'pat' ? viewPat() : viewAdd();
+  app.innerHTML = ({ home: viewHome, list: viewList, anki: viewAnki, game: viewGame, learn: viewLearn, words: viewWords, pat: viewPat, add: viewAdd }[tab] || viewHome)();
   document.querySelectorAll('.nav button').forEach(b => b.setAttribute('aria-current', b.dataset.tab === tab ? 'page' : 'false'));
   $('#sub').textContent = SUB[tab];
   if (f && $('#' + f)) { const el = $('#' + f); el.focus(); try { el.setSelectionRange(pos, pos); } catch (e) {} }
 }
-function go(t) { tab = t; if (t !== 'learn') Q = null; editId = null; render(); scrollTo(0, 0); try { history.replaceState(null, '', '#' + t); } catch (e) {} }
+function go(t) { if (t !== 'game') { gStop(); G = null; } if (t !== 'anki') A = null; tab = t; if (t !== 'learn') Q = null; editId = null; render(); scrollTo(0, 0); try { history.replaceState(null, '', '#' + t); } catch (e) {} }
 
 document.addEventListener('click', e => {
   const t = e.target.closest('button,[data-reveal]');
@@ -632,6 +935,20 @@ document.addEventListener('click', e => {
   if (d.filter) { filter = d.filter; return render(); }
   if (d.hide) { P.hide = P.hide === d.hide ? '' : d.hide; save(); return render(); }
   if (d.whide != null) { whide = !whide; return render(); }
+  if (d.catgo) { filter = d.catgo; query = ''; return go('list'); }
+  if (d.install != null) { if (installEvt) { installEvt.prompt(); installEvt.userChoice.finally(() => { installEvt = null; render(); }); } return; }
+  if (d.astart != null) { A = null; ankiLoad(); return render(); }
+  if (d.ashow != null) { A.shown = true; if (A.d === 'tr') say(all().find(x => x.id === A.id).de); return render(); }
+  if (d.rate) return ankiRate(+d.rate);
+  if (d.aquit != null) { A = null; render(); return scrollTo(0, 0); }
+  if (d.adir) { P.anki.dir = d.adir; save(); return render(); }
+  if (d.aper) { P.anki.perDay = +d.aper; save(); return render(); }
+  if (d.gstart != null) { gameStart(); return scrollTo(0, 0); }
+  if (d.gpick) return gameAnswer(+d.gpick);
+  if (d.gnext != null) return gameQ();
+  if (d.gquit != null) { gStop(); G = null; return render(); }
+  if (d.gdir) { P.game.dir = d.gdir; save(); return render(); }
+  if (d.gspeed) { P.game.speed = +d.gspeed; save(); return render(); }
   if (d.mode) return startQuiz(d.mode);
   if (d.quit != null) { Q = null; return render(); }
   if (d.again != null) { const m = Q.mode; Q = null; return startQuiz(m); }
@@ -663,7 +980,7 @@ document.addEventListener('click', e => {
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'dhl-almanca-yedek.json'; a.click(); return;
   }
   if (d.import != null) return $('#impf').click();
-  if (d.reset != null) { if (confirm('Tüm ilerleme (puanlar ve yıldızlar) sıfırlansın mı? Eklediğin cümleler kalır.')) { P.box = {}; P.seen = {}; P.star = {}; save(); toast('İlerleme sıfırlandı.'); render(); } }
+  if (d.reset != null) { if (confirm('Tüm ilerleme (puanlar ve yıldızlar) sıfırlansın mı? Eklediğin cümleler kalır.')) { P.box = {}; P.seen = {}; P.star = {}; P.srs = {}; P.days = {}; P.best = 0; P.newDay = { d: '', n: 0 }; save(); toast('İlerleme sıfırlandı.'); render(); } }
 });
 document.addEventListener('input', e => {
   if (e.target.id === 'q') { query = e.target.value; render(true); }
@@ -671,8 +988,9 @@ document.addEventListener('input', e => {
 });
 document.addEventListener('change', e => {
   if (e.target.id === 'set') learnSet = e.target.value;
+  if (e.target.id === 'aset') { P.anki.set = e.target.value; save(); render(); }
   if (e.target.id === 'impf' && e.target.files[0]) {
-    e.target.files[0].text().then(t => { const o = JSON.parse(t); if (!o || !Array.isArray(o.mine)) throw 0; P = Object.assign({ mine: [], star: {}, box: {}, seen: {}, hide: '' }, o); save(); toast('Yedek yüklendi.'); render(); })
+    e.target.files[0].text().then(t => { const o = JSON.parse(t); if (!o || !Array.isArray(o.mine)) throw 0; P = Object.assign({ mine: [], star: {}, box: {}, seen: {}, hide: '', srs: {}, days: {}, best: 0, newDay: { d: '', n: 0 }, anki: { dir: 'tr', perDay: 10, set: 'all' }, game: { dir: 'mix', speed: 12 } }, o); save(); toast('Yedek yüklendi.'); render(); })
       .catch(() => toast('Bu dosya okunamadı.'));
   }
 });
