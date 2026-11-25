@@ -33,7 +33,7 @@ Satzheft'in üst kısmındaki **Rehber** düğmesiyle açılır. A1–B1, B2, C1
 
 ## DHL Almancası (`dhl.html`)
 
-Paket dağıtımında müşteri ve iş arkadaşlarıyla konuşmak için ayrı bir uygulama. Satzheft ana ekranındaki **DHL Almancası** kartıyla veya doğrudan `dhl.html` adresiyle açılır; telefona kendi ikonuyla ayrı uygulama olarak da kurulabilir.
+Paket dağıtımında müşteri ve iş arkadaşlarıyla konuşmak için ayrı bir uygulama. Satzheft ana ekranındaki **DHL Almancası** kartıyla veya doğrudan https://ethemguenes-bit.github.io/Deutschlernen/dhl/ adresiyle açılır; telefona kendi ikonuyla ayrı uygulama olarak da kurulabilir.
 
 - **Cümleler:** 35 numaralı cümle (Günlük durumlar, Müşteriyle, Adres ve teslimat sorunları, İş arkadaşlarıyla); her birinde Türkçe, Almanca, Türkçe okunuş, kelime açıklamaları ve varsa alternatif. Arama, yıldızlama, Almancayı/Türkçeyi gizleyip kendini sınama, normal ve yavaş seslendirme
 - **Çalış:** Kartlar (iki yön), Doğruyu seç, Dinle ve anla, Cümle kur (kelimeleri sırala); ilerleme ve "zorlandıklarım" listesi
