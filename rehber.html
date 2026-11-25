@@ -883,13 +883,17 @@ function renderKarten() {
   </main>`;
 }
 function startStudy(deckId) {
-  const d = decks().find(x => x.id === deckId); if (!d) return;
+  if (!prepStudy(deckId)) return;
+  if (location.hash === '#/karten/lernen') { render(); window.scrollTo(0, 0); } else location.hash = '#/karten/lernen';
+}
+function prepStudy(deckId) {
+  const d = decks().find(x => x.id === deckId); if (!d) return false;
   let cards = d.cards();
   if (deckId === 'mine') { const now = Date.now(); const due = cards.filter(c => (CARDS[c.id].due || 0) <= now); cards = (due.length ? shuffle(due) : shuffle(cards)).slice(0, 30); }
   else cards = shuffle(cards).slice(0, 20);
-  if (!cards.length) { toast('Bu destede kart yok'); return; }
+  if (!cards.length) { toast('Bu destede kart yok'); return false; }
   SESSION = { deck: d, cards, i: 0, flip: false, ok: 0, bad: 0, dir: store.get('dir', 'de') };
-  if (location.hash === '#/karten/lernen') { render(); window.scrollTo(0, 0); } else location.hash = '#/karten/lernen';
+  return true;
 }
 function renderStudy() {
   const S = SESSION; if (!S) { return renderKarten(); }
@@ -963,12 +967,13 @@ function parseHash() {
   if (p[0] === 'lvl') return { v: 'home', lvl: p[1] };
   if (p[0] === 's') return { v: 'sec', id: p[1], sub: p[2], sub2: p[3] };
   if (p[0] === 'verb') return { v: 'verb', spec: p.slice(1).join('/') };
-  if (p[0] === 'karten') return { v: p[1] === 'lernen' ? 'study' : 'home', lvl: 'karten' };
+  if (p[0] === 'karten') return p[1] === 'start' ? { v: 'start', deck: p[2] } : { v: p[1] === 'lernen' ? 'study' : 'home', lvl: 'karten' };
   if (p[0] === 'suche') { if (p[1]) UI.sq = p.slice(1).join('/'); return { v: 'search' }; }
   return { v: 'home', lvl: 'a' };
 }
 function render() {
   ROUTE = parseHash();
+  if (ROUTE.v === 'start') { const ok = prepStudy(ROUTE.deck); history.replaceState(null, '', ok ? '#/karten/lernen' : '#/karten'); lastHash = location.hash; navStack[navStack.length - 1] = location.hash; ROUTE = parseHash(); }
   const app = $('#app'); let html;
   if (ROUTE.v === 'home') html = renderHome(ROUTE.lvl);
   else if (ROUTE.v === 'sec') html = renderSection(ROUTE.id, ROUTE.sub, ROUTE.sub2);
@@ -978,10 +983,20 @@ function render() {
   app.innerHTML = html;
   fillVerbList(); fillWords(); fillGloss(); fillBriefe(); fillSearch();
   applyTr();
-  if (ROUTE.v === 'sec' && SEC[ROUTE.id]) { const h = app.querySelector('.bar h2'), ht = h && h.firstChild ? h.firstChild.textContent.trim() : ''; try { localStorage.setItem('satzheft.lastRehber', JSON.stringify({ h: location.hash, t: ht || SEC[ROUTE.id].de, s: SEC[ROUTE.id].de, at: Date.now() })); } catch (e) {} }
+  saveLast();
   const t = { home: 'Wegweiser', search: 'Ara · Wegweiser', study: 'Kartlar · Wegweiser' }[ROUTE.v] || ((ROUTE.v === 'sec' && SEC[ROUTE.id] ? SEC[ROUTE.id].de : 'Fiil') + ' · Wegweiser');
   document.title = t;
 }
+/* Satzheft ana sayfasındaki "Kaldığın yerden devam et" için son açılan bölüm, kart destesi ve kaydırma konumu */
+const SEC_DECK = { wortschatz: () => 'w-' + UI.wl, wichtig: 'verbs', stark: 'stamm', unreg: 'stamm', alltag: 'alltag', b2wort: 'b2wort', b2praep: 'b2praep', b2nvv: 'nvv', c1wort: 'c1wort', sprich: 'sprich', redew: 'redew' };
+function saveLast() {
+  if (ROUTE.v !== 'sec' || !SEC[ROUTE.id]) return;
+  const h = $('#app .bar h2'), ht = h && h.firstChild ? h.firstChild.textContent.trim() : '';
+  let dk = ROUTE.sub == null ? SEC_DECK[ROUTE.id] : null; if (typeof dk === 'function') dk = dk();
+  const deck = dk && decks().find(x => x.id === dk);
+  try { localStorage.setItem('satzheft.lastRehber', JSON.stringify({ h: location.hash, t: ht || SEC[ROUTE.id].de, s: SEC[ROUTE.id].de, y: Math.round(window.scrollY), deck: deck ? deck.id : '', dn: deck ? deck.de : '', at: Date.now() })); } catch (e) {}
+}
+let saveT = 0; window.addEventListener('scroll', () => { clearTimeout(saveT); saveT = setTimeout(saveLast, 400); }, { passive: true });
 let lastHash = location.hash;
 window.addEventListener('hashchange', () => {
   scrollMem.set(lastHash, window.scrollY);
@@ -1013,7 +1028,7 @@ document.addEventListener('click', e => {
   if (d.reveal !== undefined) { if (!showTr) t.closest('.ph').classList.toggle('open'); return; }
   if (d.clear !== undefined) { const i = $('#q'); i.value = ''; i.dispatchEvent(new Event('input')); i.focus(); return; }
   if (d.cat !== undefined && t.classList.contains('chip')) { UI.cat = d.cat; document.querySelectorAll('[data-cat]').forEach(b => b.setAttribute('aria-pressed', b.dataset.cat === d.cat)); fillGloss(); return; }
-  if (d.wl) { UI.wl = d.wl; store.set('wl', d.wl); document.querySelectorAll('[data-wl]').forEach(b => b.setAttribute('aria-pressed', b.dataset.wl === d.wl)); fillWords(); return; }
+  if (d.wl) { UI.wl = d.wl; store.set('wl', d.wl); document.querySelectorAll('[data-wl]').forEach(b => b.setAttribute('aria-pressed', b.dataset.wl === d.wl)); fillWords(); saveLast(); return; }
   if (d.tense) { UI.tense = d.tense; const y = window.scrollY; render(); window.scrollTo(0, y); return; }
   if (d.qa) return answerQuiz(t);
   if (d.retry !== undefined) { const box = t.closest('[data-quiz]'); box.querySelectorAll('.q').forEach(q => { delete q.dataset.done; delete q.dataset.right; q.querySelectorAll('button').forEach(b => b.classList.remove('ok', 'no')); }); box.querySelector('.score').hidden = true; return; }
@@ -1034,7 +1049,10 @@ document.addEventListener('input', e => {
 });
 
 try { const t = store.get('theme', null); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+let RESUME_Y = 0; try { const L = JSON.parse(localStorage.getItem('satzheft.lastRehber') || 'null'); if (L && L.h === location.hash && L.y > 0 && /[?&]devam/.test(location.search)) RESUME_Y = L.y; } catch (e) {}
 render();
+if (RESUME_Y) { window.scrollTo(0, RESUME_Y); requestAnimationFrame(() => window.scrollTo(0, RESUME_Y)); }
+if (/[?&]devam/.test(location.search)) history.replaceState(null, '', location.pathname + location.hash);
 
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && !(window.claude && window.claude.use)) {
   navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(() => {});
