@@ -35,11 +35,11 @@ Satzheft'in üst kısmındaki **Rehber** düğmesiyle açılır. A1–B1, B2, C1
 
 Paket dağıtımında müşteri ve iş arkadaşlarıyla konuşmak için ayrı bir uygulama. Satzheft ana ekranındaki **DHL Almancası** kartıyla veya doğrudan https://ethemguenes-bit.github.io/Deutschlernen/dhl/ adresiyle açılır; telefona kendi ikonuyla ayrı uygulama olarak da kurulabilir.
 
-- **Cümleler:** 35 numaralı cümle (Günlük durumlar, Müşteriyle, Adres ve teslimat sorunları, İş arkadaşlarıyla); her birinde Türkçe, Almanca, Türkçe okunuş, kelime açıklamaları ve varsa alternatif. Arama, yıldızlama, Almancayı/Türkçeyi gizleyip kendini sınama, normal ve yavaş seslendirme
+- **Cümleler:** 75 numaralı cümle (Günlük durumlar, Müşteriyle, Adres ve teslimat sorunları, İş arkadaşlarıyla, Depoda ve yüklemede, Araç ve yol, Mesai/mola/izin); her birinde Türkçe, Almanca, Türkçe okunuş, kelime açıklamaları ve varsa alternatif. Arama, yıldızlama, Almancayı/Türkçeyi gizleyip kendini sınama, normal ve yavaş seslendirme
 - **Çalış:** Kartlar (iki yön), Doğruyu seç, Dinle ve anla, Cümle kur (kelimeleri sırala); ilerleme ve "zorlandıklarım" listesi
-- **Kelimeler:** 38 kelime/ifade, okunuşlarıyla, der/die/das renkli
+- **Kelimeler:** 65 kelime/ifade, okunuşlarıyla, der/die/das renkli
 - **Kalıplar:** Wo soll ich …? · Wie kann ich …? · Darf ich …? · Können Sie …? · Muss ich …? (üçer örnek)
-- **Ekle:** yeni cümleler 36'dan itibaren numaralanır; tek tek veya toplu (`Türkçe | Almanca | Okunuş`) ekleme, düzenleme, yedek
+- **Ekle:** yeni cümleler 76'dan itibaren numaralanır; tek tek veya toplu (`Türkçe | Almanca | Okunuş`) ekleme, düzenleme, yedek
 
 Hazır cümleler `dhl.html` içindeki `BASE` listesindedir.
 
