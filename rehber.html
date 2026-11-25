@@ -282,10 +282,16 @@ const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\*(.+?)\*
 function hash(s) { let h = 5381; for (const ch of s) h = ((h << 5) + h + ch.codePointAt(0)) | 0; return (h >>> 0).toString(36); }
 function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 /* Telefonun geri tuşu: ilk dokunuşta bir koruma kaydı eklenir; geri tuşu onu tüketince yeniden eklenir, ekran değişmez. */
-const NAV = { cur: location.href, armed: false };
-function armGuard() { if (NAV.armed) return; NAV.armed = true; history.pushState({ g: 1 }, '', NAV.cur); }
-addEventListener('pointerdown', armGuard, true); addEventListener('keydown', armGuard, true);
-addEventListener('popstate', e => { if (!(e.state && e.state.g)) history.pushState({ g: 1 }, '', NAV.cur); });
+const NAV = { cur: location.href, fresh: false };
+/* Chrome, kullanıcı etkileşimi olmadan eklenen geçmiş kayıtlarını geri tuşunda atlar; dokunmatik ekranda etkileşim
+   parmak kalkınca (pointerup / touchend / click) sayılır. Bu yüzden koruma kaydı bu olaylarda eklenir / tazelenir. */
+function armGuard() { if (NAV.fresh) return; NAV.fresh = true; history.pushState({ g: 1 }, '', NAV.cur); }
+['pointerup', 'touchend', 'click', 'keydown'].forEach(t => addEventListener(t, armGuard, true));
+addEventListener('popstate', e => {
+  if (e.state && e.state.g) history.replaceState({ g: 1 }, '', NAV.cur);
+  else history.pushState({ g: 1 }, '', NAV.cur);
+  NAV.fresh = false;
+});
 const store = {
   get(k, d) { try { const v = localStorage.getItem('wg.' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem('wg.' + k, JSON.stringify(v)); } catch (e) {} },
