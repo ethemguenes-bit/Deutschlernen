@@ -351,6 +351,10 @@ details.how .method{margin-top:12px}
 .sbar .meter i{display:block;height:100%;background:var(--green);border-radius:99px;transition:width .3s}
 .sbar .cnt{font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink-soft);white-space:nowrap}
 .card{display:flex;flex-direction:column;gap:16px;min-height:300px}
+.ifoto{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--paper)}
+.ifoto img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.ifoto figcaption{font-size:10.5px;color:var(--ink-soft);padding:4px 10px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ifoto figcaption a{color:inherit}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
 .chip{font-size:12px;padding:2px 9px;border-radius:999px;background:var(--paper);border:1px solid var(--line);color:var(--ink-soft);white-space:nowrap}
 .chip.new{background:var(--accent-bg);border-color:transparent;color:var(--accent)}
@@ -5309,6 +5313,12 @@ function viewRehber() {
   </div>`;
 }
 
+/* Almanca İfadeler: anlam grubuna göre gerçek fotoğraf (Wikimedia Commons, özgür lisanslı) — ifadeyi hafızada bir görüntüye bağlar */
+function ifadeFoto(s) {
+  if (typeof IFADE_TEMA === 'undefined' || s.deck !== 'B1 · Almanca İfadeler') return '';
+  const t = IFADE_TEMA[s.de], f = t && IFADE_FOTO[t]; if (!f) return '';
+  return `<figure class="ifoto"><img src="img/ifade/${f.f}" alt="${esc(f.ad)}" width="${f.w}" height="${f.h}" decoding="async"><figcaption>${esc(f.ad)} · Foto: ${esc(f.by)} · <a href="${esc(f.page)}" target="_blank" rel="noopener">${esc(f.lic)}</a></figcaption></figure>`;
+}
 function viewSession() {
   const c = counts();
   const left = sess.mode === 'weak' ? sess.weakQueue.length : c.learn + c.rev + c.fresh;
@@ -5342,7 +5352,7 @@ function viewSession() {
   else promptHtml = `<div class="lang">Dinle ve Almancasını yaz</div><button class="bigplay" data-act="say" aria-label="Cümleyi dinle">${ICON.play}</button><button class="btn" data-act="sayslow" style="align-self:center">${ICON.slow} Yavaş</button>`;
   const targetLang = dir === 'de-tr' ? 'tr' : 'de';
   if (!sess.revealed) {
-    return bar + `<section class="sheet card">${chips}${promptHtml}
+    return bar + `<section class="sheet card">${chips}${ifadeFoto(s)}${promptHtml}
       <textarea id="ans" class="ans" lang="${targetLang}" enterkeyhint="go" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="${targetLang === 'de' ? 'Almancasını yaz (isteğe bağlı)' : 'Türkçesini yaz (isteğe bağlı)'}"></textarea>
       <button class="btn primary wide" data-act="reveal">Cevabı göster</button>
       <p class="kbd">Enter: cevabı göster · 1–4: puanla</p>
