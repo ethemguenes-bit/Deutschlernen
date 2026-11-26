@@ -9,6 +9,7 @@ Almanca cümle ezber programı (Anki tarzı aralıklı tekrar). Tek dosya: `inde
 - Yazılan cevabı kelime kelime karşılaştırma, Almanca seslendirme (normal ve yavaş)
 - "Zayıf cümleler" alıştırması: en çok yanlış yapılanlar
 - Öğren > Gramer: 24 kısa ders (A1, A2, B1 için 8'er): kural, renkli görsel özet, örnekler, Türkçe konuşanlar için ipuçları, mini test ve konuyla ilgili cümlelerle alıştırma
+- Alıştırmalar (ana sayfa): Doğruyu seç (4 seçenek), Dinle ve anla (dinle, anlamını seç), Cümle kur (kelimeleri sırala) — seçili seviye/konudan 10 soruluk turlar
 - Öğren > Hikayeler: 15 kısa hikaye (A1, A2, B1 için 5'er); kelimeye dokununca anlamı, cümle çevirisi, sesli dinleme, anlama soruları, cümleyi kartlara ekleme
 - Kelime eşleştirme oyunu: 2400 kelime (A1: 650, A2: 650, B1: 1100), renkli artikeller (der/die/das), karıştırılan kelimeler daha sık gelir
 - Seviye seçimi: Tümü / A1 / A2 / B1 / Benim

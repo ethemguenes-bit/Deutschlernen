@@ -351,6 +351,29 @@ details.how .method{margin-top:12px}
 .sbar .meter i{display:block;height:100%;background:var(--green);border-radius:99px;transition:width .3s}
 .sbar .cnt{font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink-soft);white-space:nowrap}
 .card{display:flex;flex-direction:column;gap:16px;min-height:300px}
+.qmodes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.qm{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px 10px;border:1px solid var(--line);border-radius:16px;background:var(--sheet);text-align:left;color:var(--ink);min-height:118px;box-shadow:var(--shadow)}
+.qm .qi{width:36px;height:36px;border-radius:11px;background:var(--accent-bg);color:var(--accent);display:grid;place-items:center;margin-bottom:6px}
+.qm .qi svg{width:20px;height:20px}
+.qm b{font-size:14px;line-height:1.2} .qm>span:last-child{font-size:11.5px;color:var(--ink-soft);line-height:1.3}
+.card.quiz{gap:14px}
+.qopts{display:flex;flex-direction:column;gap:8px}
+.qopt{border:1.5px solid var(--line);border-radius:12px;background:var(--sheet);padding:12px 14px;text-align:left;font-size:16px;line-height:1.35;color:var(--ink);min-height:52px}
+.qopt[lang="de"]{font-family:var(--f-sent);font-size:17px}
+.qopt:disabled{opacity:1;cursor:default}
+.qopt.good,.qline.good{border-color:var(--green);background:var(--green-bg)}
+.qopt.bad,.qline.bad{border-color:var(--red);background:var(--red-bg)}
+.qline{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:58px;padding:8px;border:2px dashed var(--line);border-radius:12px}
+.qbank{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.qchip{border:1.5px solid var(--line);border-radius:10px;background:var(--sheet);padding:8px 12px;font-family:var(--f-sent);font-size:17px;color:var(--ink);min-height:44px}
+.qchip.in{background:var(--accent-bg);border-color:var(--accent)}
+.qchip:disabled:not(.in){opacity:.3}
+.qfb{border-radius:12px;padding:10px 12px;font-size:15px}
+.qfb.good{background:var(--green-bg);color:var(--ink)} .qfb.bad{background:var(--red-bg);color:var(--ink)}
+.qfb span{font-family:var(--f-sent);font-size:17px}
+.qwrong{display:flex;flex-direction:column;gap:8px}
+.qwr{display:grid;grid-template-columns:1fr auto;gap:0 8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.qwr b{font-family:var(--f-sent);font-weight:500;font-size:16px} .qwr span{grid-column:1;font-size:13px;color:var(--ink-soft)} .qwr .iconbtn{grid-column:2;grid-row:1/3}
 .card.anki{cursor:pointer;text-align:center;align-items:stretch}
 .card.anki .chips{justify-content:center}
 .card.anki .prompt{font-size:clamp(24px,7vw,32px);line-height:1.25;text-align:center}
@@ -5109,7 +5132,7 @@ function speak(text, slow) {
 function renderHeader() {
   $('#hStreak').textContent = streak();
   const c = counts(); $('#hDue').textContent = c.learn + c.rev + c.fresh;
-  document.querySelectorAll('nav.tabs button').forEach(b => b.setAttribute('aria-current', b.dataset.tab === (tab === 'read' ? 'rehber' : tab) ? 'page' : 'false'));
+  document.querySelectorAll('nav.tabs button').forEach(b => b.setAttribute('aria-current', b.dataset.tab === (tab === 'read' ? 'rehber' : tab === 'quiz' ? 'study' : tab) ? 'page' : 'false'));
 }
 function render() {
   renderHeader();
@@ -5120,6 +5143,7 @@ function render() {
   else if (tab === 'game') v.innerHTML = viewGame();
   else if (tab === 'read') v.innerHTML = viewLearn();
   else if (tab === 'rehber') v.innerHTML = viewRehber();
+  else if (tab === 'quiz') v.innerHTML = viewQuiz();
   else if (tab === 'stats') v.innerHTML = viewStats();
   else v.innerHTML = viewSettings();
   afterRender();
@@ -5156,6 +5180,9 @@ const HICON = {
   game: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M14 6.5h4a2.5 2.5 0 0 1 2.5 2.5v1.5M10 17.5H6A2.5 2.5 0 0 1 3.5 15v-1.5"/>',
   book: '<path d="M2 5.5C4 4.5 7 4 12 6c5-2 8-1.5 10-.5V19c-2-1-5-1.5-10 .5-5-2-8-1.5-10-.5z"/><path d="M12 6v13.5"/>',
   quote: '<path d="M7 7h4v4c0 3-2 5-4 5M14 7h4v4c0 3-2 5-4 5"/>',
+  check: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M7.5 12.5l3 3 6-6.5"/>',
+  ear: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4.5" height="6.5" rx="1.5"/><rect x="16.5" y="14" width="4.5" height="6.5" rx="1.5"/>',
+  blocks: '<rect x="3" y="4" width="8" height="6" rx="1.2"/><rect x="13" y="4" width="8" height="6" rx="1.2"/><rect x="8" y="14" width="8" height="6" rx="1.2"/>',
 };
 const hicon = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${HICON[k]}</svg>`;
 const CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
@@ -5252,6 +5279,10 @@ function viewHome() {
   ${focus}
   ${cont}
   ${prog}
+  <section class="stack plain" aria-label="Alıştırmalar">
+    <div class="qhead"><h2>Alıştırmalar</h2><span class="muted small">${esc(lvl === 'all' ? 'Tüm seviyeler' : (lvl === 'mine' ? 'Benim cümlelerim' : lvl))}${topic ? ' · ' + esc(topic.replace(/^(A1|A2|B1|B2|C1|C2) · /, '')) : ''}</span></div>
+    <div class="qmodes">${Object.entries(QUIZ_MODES).map(([k, m]) => `<button class="qm" data-qmode="${k}"><span class="qi">${hicon(m.ic)}</span><b>${m.ad}</b><span>${m.alt}</span></button>`).join('')}</div>
+  </section>
   <section class="stack plain" aria-label="Hızlı erişim">
     <div class="qhead"><h2>Hızlı erişim</h2><button class="linkbtn" data-tab="rehber">Tüm bölümler ${CHEV}</button></div>
     <div class="qgrid">${tiles}</div>
@@ -5334,6 +5365,96 @@ function ifadeFoto(s) {
   if (typeof IFADE_TEMA === 'undefined' || s.deck !== 'B1 · Almanca İfadeler') return '';
   const t = IFADE_TEMA[s.de], f = t && IFADE_FOTO[t]; if (!f) return '';
   return `<figure class="ifoto"><img src="img/ifade/${f.f}" alt="${esc(f.ad)}" width="${f.w}" height="${f.h}" decoding="async"><figcaption>${esc(f.ad)} · Foto: ${esc(f.by)} · <a href="${esc(f.page)}" target="_blank" rel="noopener">${esc(f.lic)}</a></figcaption></figure>`;
+}
+/* Alıştırmalar: Doğruyu seç · Dinle ve anla · Cümle kur (seçili seviye/konudaki cümlelerle, 10 soruluk tur) */
+const QUIZ_MODES = {
+  choose: { ad: 'Doğruyu seç', alt: '4 seçenekten doğru Almanca cümle', ic: 'check' },
+  listen: { ad: 'Dinle ve anla', alt: 'Almancayı dinle, anlamını seç', ic: 'ear' },
+  build: { ad: 'Cümle kur', alt: 'Kelimeleri doğru sıraya diz', ic: 'blocks' },
+};
+let quiz = null;
+const qWords = de => de.split(/\s+/).filter(Boolean);
+const qNorm = x => x.toLocaleLowerCase('de').replace(/[.,!?;:„“"»«…]/g, '').replace(/\s+/g, ' ').trim();
+function quizPool(mode) {
+  let pool = allSentences().filter(s => activeDeck(s.deck));
+  if (pool.length < 8) pool = allSentences().filter(s => inLevel(s.deck));
+  if (pool.length < 8) pool = allSentences();
+  if (mode === 'build') { const b = pool.filter(s => { const n = qWords(s.de).length; return n >= 3 && n <= 12; }); if (b.length >= 4) pool = b; }
+  return pool;
+}
+function startQuiz(mode) {
+  const pool = quizPool(mode);
+  const seen = new Set(), items = [];
+  for (const s of shuffle(pool.slice())) { if (seen.has(s.de)) continue; seen.add(s.de); items.push(s.id); if (items.length === 10) break; }
+  if (!items.length) { toast('Bu seçimde cümle yok'); return; }
+  quiz = { mode, pool, items, i: 0, ok: 0, wrong: [], ans: null, built: [], opts: [] };
+  quizPrep(); tab = 'quiz'; render(); $('#main').scrollTop = 0;
+}
+function quizPrep() {
+  const s = findSentence(quiz.items[quiz.i]); quiz.ans = null; quiz.built = [];
+  if (quiz.mode === 'build') {
+    const w = qWords(s.de).map((t, k) => ({ t, k })); let n = 0;
+    do { shuffle(w); } while (w.map(x => x.t).join(' ') === s.de && ++n < 8);
+    quiz.opts = w;
+  } else {
+    const key = quiz.mode === 'choose' ? 'de' : 'tr', right = s[key];
+    const near = quiz.pool.filter(x => x[key] !== right).sort((a, b) => Math.abs(a[key].length - right.length) - Math.abs(b[key].length - right.length)).slice(0, 14);
+    const picks = []; for (const o of shuffle(near)) { if (!picks.includes(o[key])) picks.push(o[key]); if (picks.length === 3) break; }
+    quiz.opts = shuffle([right, ...picks]);
+  }
+  if (quiz.mode === 'listen' && canSpeak()) setTimeout(() => speak(s.de), 300);
+}
+function quizAnswer(k) {
+  if (!quiz || quiz.ans !== null) return;
+  const s = findSentence(quiz.items[quiz.i]), key = quiz.mode === 'choose' ? 'de' : 'tr';
+  quiz.ans = k; const ok = quiz.opts[k] === s[key];
+  if (ok) quiz.ok++; else quiz.wrong.push(s.id);
+  if (quiz.mode === 'choose' && canSpeak()) speak(s.de);
+  render();
+}
+function quizCheck() {
+  if (!quiz || quiz.ans !== null || !quiz.built.length) return;
+  const s = findSentence(quiz.items[quiz.i]);
+  const ok = qNorm(quiz.built.map(k => quiz.opts[k].t).join(' ')) === qNorm(s.de);
+  quiz.ans = ok ? 1 : 0; if (ok) quiz.ok++; else quiz.wrong.push(s.id);
+  if (canSpeak()) speak(s.de);
+  render();
+}
+function viewQuiz() {
+  if (!quiz) { tab = 'study'; return viewHome(); }
+  const M = QUIZ_MODES[quiz.mode], n = quiz.items.length;
+  const top = `<div class="sbar"><button class="iconbtn" data-act="qquit" aria-label="Alıştırmayı bitir">${ICON.close}</button><div class="meter" aria-hidden="true"><i style="width:${Math.round(100 * Math.min(quiz.i, n) / n)}%"></i></div><span class="cnt">${Math.min(quiz.i + 1, n)} / ${n}</span></div>`;
+  if (quiz.i >= n) {
+    const wrong = quiz.wrong.map(findSentence).filter(Boolean);
+    return top + `<section class="sheet stack">
+      <h3>${M.ad} · tur bitti</h3>
+      <div class="today"><div class="${quiz.ok === n ? 'n-rev' : ''}"><strong>${quiz.ok} / ${n}</strong><span>doğru</span></div><div class="n-rev"><strong>%${Math.round(100 * quiz.ok / n)}</strong><span>başarı</span></div><div class="${wrong.length ? 'n-learn' : ''}"><strong>${wrong.length}</strong><span>yanlış</span></div></div>
+      ${wrong.length ? `<div class="qwrong"><div class="lang">Tekrar bak</div>${wrong.map(s => `<div class="qwr"><b lang="de">${esc(s.de)}</b><span>${esc(s.tr)}</span>${canSpeak() ? `<button class="iconbtn" data-say="${esc(s.de)}" aria-label="Dinle">${ICON.play}</button>` : ''}</div>`).join('')}</div>` : '<p class="muted" style="margin:0">Hepsi doğru, tebrikler!</p>'}
+      <button class="btn primary wide" data-qmode="${quiz.mode}">Yeni tur</button>
+      <button class="btn wide" data-act="qquit">Ana sayfaya dön</button>
+    </section>`;
+  }
+  const s = findSentence(quiz.items[quiz.i]), done = quiz.ans !== null;
+  let body;
+  if (quiz.mode === 'build') {
+    const used = new Set(quiz.built), ok = quiz.ans === 1;
+    body = `<div class="lang">${M.ad} · Türkçesi</div><div class="prompt">${esc(s.tr)}</div>
+      <div class="qline${done ? (ok ? ' good' : ' bad') : ''}" aria-label="Senin cümlen">${quiz.built.length ? quiz.built.map((k, j) => `<button class="qchip in" data-qrm="${j}" ${done ? 'disabled' : ''} lang="de">${esc(quiz.opts[k].t)}</button>`).join('') : '<span class="muted small">Aşağıdaki kelimelere sırayla dokun</span>'}</div>
+      <div class="qbank">${quiz.opts.map((w, k) => `<button class="qchip" data-qadd="${k}" ${used.has(k) || done ? 'disabled' : ''} lang="de">${esc(w.t)}</button>`).join('')}</div>
+      ${done ? `<div class="qfb ${ok ? 'good' : 'bad'}"><b>${ok ? 'Doğru!' : 'Doğrusu:'}</b> <span lang="de">${esc(s.de)}</span></div>` : ''}`;
+  } else {
+    const key = quiz.mode === 'choose' ? 'de' : 'tr', right = s[key];
+    const opts = quiz.opts.map((o, k) => { const cls = done ? (o === right ? ' good' : k === quiz.ans ? ' bad' : '') : '';
+      return `<button class="qopt${cls}" data-qopt="${k}" ${done ? 'disabled' : ''} ${key === 'de' ? 'lang="de"' : ''}>${esc(o)}</button>`; }).join('');
+    const head = quiz.mode === 'choose'
+      ? `<div class="lang">${M.ad} · Türkçesi</div><div class="prompt">${esc(s.tr)}</div>`
+      : `<div class="lang">${M.ad}</div><div class="row" style="justify-content:center"><button class="bigplay" data-act="qsay" aria-label="Cümleyi dinle">${ICON.play}</button><button class="btn" data-act="qsayslow" style="align-self:center">${ICON.slow} Yavaş</button></div>${done ? `<div class="prompt" lang="de" style="text-align:center">${esc(s.de)}</div>` : ''}`;
+    body = head + `<div class="qopts">${opts}</div>`;
+    if (done && quiz.mode === 'choose') body += canSpeak() ? `<div class="row" style="justify-content:center"><button class="btn" data-act="qsay">${ICON.play} Dinle</button></div>` : '';
+  }
+  const foot = done ? `<button class="btn primary wide" data-act="qnext" style="min-height:52px">${quiz.i + 1 < n ? 'Devam' : 'Sonucu gör'}</button>`
+    : quiz.mode === 'build' ? `<div class="row" style="flex-wrap:nowrap"><button class="btn" data-act="qclear" style="flex:1" ${quiz.built.length ? '' : 'disabled'}>Temizle</button><button class="btn primary" data-act="qcheck" style="flex:2" ${quiz.built.length ? '' : 'disabled'}>Kontrol et</button></div>` : '';
+  return top + `<section class="sheet card quiz">${ifadeFoto(s)}${body}</section>${foot}`;
 }
 function viewSession() {
   const c = counts();
@@ -5679,6 +5800,10 @@ document.addEventListener('click', e => {
   if (t.dataset.level) { const changed = S.settings.level !== t.dataset.level; S.settings.level = t.dataset.level; if (changed) { S.settings.topic = ''; homeTopicsAll = false; } if (tab === 'stats') tab = 'study'; save(); render(); $('#main').scrollTop = 0; if (changed) toast(t.dataset.level === 'all' ? 'Tüm seviyeler karışık' : 'Seviye: ' + LEVEL_LABEL[t.dataset.level]); return; }
   if (t.dataset.topic !== undefined) { S.settings.topic = t.dataset.topic; save(); render(); toast(t.dataset.topic ? 'Konu: ' + t.dataset.topic.replace(/^(A1|A2|B1|B2|C1|C2) · /, '') : 'Karışık: seviyenin tüm konuları'); return; }
   if (t.dataset.rlvl) { rehberLvl = t.dataset.rlvl; render(); return; }
+  if (t.dataset.qmode) { startQuiz(t.dataset.qmode); return; }
+  if (t.dataset.qopt !== undefined) { quizAnswer(+t.dataset.qopt); return; }
+  if (t.dataset.qadd !== undefined) { if (quiz && quiz.ans === null && !quiz.built.includes(+t.dataset.qadd)) { quiz.built.push(+t.dataset.qadd); render(); } return; }
+  if (t.dataset.qrm !== undefined) { if (quiz && quiz.ans === null) { quiz.built.splice(+t.dataset.qrm, 1); render(); } return; }
   if (t.dataset.rate) { rate(+t.dataset.rate); return; }
   if (t.dataset.f) { listState.f = t.dataset.f; listState.limit = 150; render(); return; }
   if (t.dataset.edit) { openEdit(t.dataset.edit); return; }
@@ -5693,6 +5818,11 @@ document.addEventListener('click', e => {
   else if (a === 'morenew') { today().x = (today().x || 0) + 5; save(); startSession('srs'); }
   else if (a === 'add') openAdd();
   else if (a === 'ifade') { S.settings.level = 'B1'; S.settings.topic = 'B1 · Almanca İfadeler'; const sk = S.settings.skipDecks || []; if (sk.includes(S.settings.topic)) S.settings.skipDecks = sk.filter(d => d !== S.settings.topic); save(); toast('Konu: Almanca İfadeler'); startSession('srs'); }
+  else if (a === 'qquit') { quiz = null; tab = 'study'; render(); $('#main').scrollTop = 0; }
+  else if (a === 'qnext') { if (quiz) { quiz.i++; if (quiz.i < quiz.items.length) quizPrep(); render(); $('#main').scrollTop = 0; } }
+  else if (a === 'qcheck') quizCheck();
+  else if (a === 'qclear') { if (quiz && quiz.ans === null) { quiz.built = []; render(); } }
+  else if (a === 'qsay' || a === 'qsayslow') { const qs = quiz && findSentence(quiz.items[quiz.i]); if (qs) speak(qs.de, a === 'qsayslow'); }
   else if (a === 'moretopics') { homeTopicsAll = !homeTopicsAll; render(); }
   else if (a === 'lback') { lesson = null; render(); $('#main').scrollTop = 0; }
   else if (a === 'lretry') { lesson.ans = {}; lesson.checked = false; render(); }
