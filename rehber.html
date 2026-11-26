@@ -404,11 +404,25 @@ const speech = { voice: null };
 const canSpeak = () => 'speechSynthesis' in window;
 function pickVoice() { if (!canSpeak()) return; const vs = speechSynthesis.getVoices(); speech.voice = vs.find(v => /^de[-_]DE/i.test(v.lang) && /google|natural|premium|enhanced/i.test(v.name)) || vs.find(v => /^de[-_]DE/i.test(v.lang)) || vs.find(v => /^de/i.test(v.lang)) || null; }
 if (canSpeak()) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
-function say(text) {
+/* Android Chrome uzun metinleri bazen hiç okumuyor ve cancel()'dan hemen sonraki speak()'i yutabiliyor:
+   metni cümlelere böl, kısa bir beklemeden sonra sırayla kuyruğa ekle. */
+let sayBtnEl = null;
+function sayReset() { if (sayBtnEl) { sayBtnEl.innerHTML = sayBtnEl.dataset.label; sayBtnEl.removeAttribute('aria-pressed'); sayBtnEl = null; } }
+function say(text, btn) {
   if (!canSpeak()) { toast('Bu cihazda seslendirme yok'); return; }
-  speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text.replace(/…/g, '').replace(/\s\/\s/g, ', ').replace(/\(.*?\)/g, ''));
-  u.lang = 'de-DE'; if (speech.voice) u.voice = speech.voice; u.rate = 0.92; speechSynthesis.speak(u);
+  if (btn && btn === sayBtnEl) { speechSynthesis.cancel(); sayReset(); return; }  // ikinci dokunuş: durdur
+  speechSynthesis.cancel(); sayReset();
+  const clean = text.replace(/…/g, '').replace(/\s\/\s/g, ', ').replace(/\(.*?\)/g, '').replace(/\s+/g, ' ').trim();
+  const parts = []; for (const sent of clean.split(/(?<=[.!?:;])\s+/)) { if (sent.length <= 220) parts.push(sent); else parts.push(...sent.split(/(?<=,)\s+/)); }
+  if (btn) { sayBtnEl = btn; btn.dataset.label = btn.dataset.label || btn.innerHTML; btn.innerHTML = '■ Durdur'; btn.setAttribute('aria-pressed', 'true'); }
+  setTimeout(() => {
+    parts.filter(Boolean).forEach((t, k, a) => {
+      const u = new SpeechSynthesisUtterance(t); u.lang = 'de-DE'; if (speech.voice) u.voice = speech.voice; u.rate = 0.92;
+      if (k === a.length - 1) { u.onend = sayReset; u.onerror = sayReset; }
+      speechSynthesis.speak(u);
+    });
+    if (speechSynthesis.paused) speechSynthesis.resume();
+  }, 80);
 }
 const sayBtn = de => canSpeak() ? `<button class="act" data-say="${esc(de)}" aria-label="Dinle">${I.play}</button>` : '';
 
@@ -741,7 +755,7 @@ function briefDetail(b, i, key = 'briefe') {
   return bar(b.title, b.tr + kindLabel(b.a), { tr: true }) + `<main class="wrap stack">
     <div class="task"><b>Görev</b>${esc(b.b)}</div>
     <div class="paper">${lines.map(([de, tr], k) => { const sig = k === lines.length - 1 || k === lines.length - 2 && /Grüß|Gruß|Grüße/.test(de); const id = reg(de, tr);
-      return `<div class="ln ph${sig ? ' sig' : ''}" style="padding-inline:0"><div class="t" data-reveal><p class="de" lang="de">${esc(de)}</p><p class="tr">${esc(tr)}</p></div><div class="acts">${starBtn(id)}</div></div>`; }).join('')}</div>
+      return `<div class="ln ph${sig ? ' sig' : ''}" style="padding-inline:0"><div class="t" data-reveal><p class="de" lang="de">${esc(de)}</p><p class="tr">${esc(tr)}</p></div><div class="acts">${sayBtn(de)}${starBtn(id)}</div></div>`; }).join('')}</div>
     <button class="btn" data-saybrief="${key}:${i}">${I.play} Mektubu dinle</button>
     ${nextPrev(key, i, D[key].length, k => D[key][k].title)}
   </main>`;
@@ -1069,10 +1083,10 @@ document.addEventListener('click', e => {
   if (d.study) { e.preventDefault(); return startStudy(d.study); }
   if (d.flip !== undefined) { if (SESSION && !SESSION.flip) { SESSION.flip = true; render(); } return; }
   if (d.grade) return grade(d.grade === '1');
-  if (d.sayall) { const b = D.bild[+d.sayall]; return say(b.secs.flatMap(s => s.name === 'fragen' ? [] : s.lines.map(l => l[0])).join(' ')); }
-  if (d.sayplan) { const p = D.planen[+d.sayplan]; return say(p.secs.flatMap(s => s.lines.map(l => l[0].replace(/^[AB]:\s*/, ''))).join(' ')); }
-  if (d.saybrief) { const [k, n] = d.saybrief.split(':'); const b = D[k][+n]; return say(b.secs.flatMap(s => s.lines.map(l => l[0])).join(' ')); }
-  if (d.sayentry) { const [k, n] = d.sayentry.split(':'); const e = D[k][+n]; return say(e.secs.flatMap(s => s.lines.map(l => l[0].replace(/^[AB]:\s*/, ''))).join(' ')); }
+  if (d.sayall) { const b = D.bild[+d.sayall]; return say(b.secs.flatMap(s => s.name === 'fragen' ? [] : s.lines.map(l => l[0])).join(' '), t); }
+  if (d.sayplan) { const p = D.planen[+d.sayplan]; return say(p.secs.flatMap(s => s.lines.map(l => l[0].replace(/^[AB]:\s*/, ''))).join(' '), t); }
+  if (d.saybrief) { const [k, n] = d.saybrief.split(':'); const b = D[k][+n]; return say(b.secs.flatMap(s => s.lines.map(l => l[0])).join(' '), t); }
+  if (d.sayentry) { const [k, n] = d.sayentry.split(':'); const e = D[k][+n]; return say(e.secs.flatMap(s => s.lines.map(l => l[0].replace(/^[AB]:\s*/, ''))).join(' '), t); }
 });
 document.addEventListener('input', e => {
   if (e.target.id !== 'q') return;
