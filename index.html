@@ -351,6 +351,18 @@ details.how .method{margin-top:12px}
 .sbar .meter i{display:block;height:100%;background:var(--green);border-radius:99px;transition:width .3s}
 .sbar .cnt{font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink-soft);white-space:nowrap}
 .card{display:flex;flex-direction:column;gap:16px;min-height:300px}
+.card.anki{cursor:pointer;text-align:center;align-items:stretch}
+.card.anki .chips{justify-content:center}
+.card.anki .prompt{font-size:clamp(24px,7vw,32px);line-height:1.25;text-align:center}
+.card.anki .lang{text-align:center}
+.card.anki .row{justify-content:center}
+.card.anki:not(.back){animation:flipin .25s ease}
+.card.anki.back{cursor:default;animation:flipin .3s ease}
+@keyframes flipin{from{transform:perspective(900px) rotateY(-12deg);opacity:.6}to{transform:none;opacity:1}}
+.tapflip{margin:4px 0 0;color:var(--ink-soft);font-size:13px}
+.flipline{border:0;border-top:2px dashed var(--line);margin:4px 0;width:100%}
+.ans-big{font-family:var(--f-sent);font-size:clamp(24px,7vw,32px);line-height:1.25;color:var(--accent);font-weight:600}
+.anki-rate{margin-top:12px}
 .ifoto{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--paper)}
 .ifoto img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
 .ifoto figcaption{font-size:10.5px;color:var(--ink-soft);padding:4px 10px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -5355,6 +5367,14 @@ function viewSession() {
   else if (dir === 'de-tr') promptHtml = `<div class="lang">Almanca</div><div class="row" style="align-items:flex-start;flex-wrap:nowrap"><div class="prompt" style="flex:1;min-width:0">${esc(s.de)}</div>${canSpeak() ? `<button class="iconbtn" data-act="say" aria-label="Dinle">${ICON.play}</button>` : ''}</div>`;
   else promptHtml = `<div class="lang">Dinle ve Almancasını yaz</div><button class="bigplay" data-act="say" aria-label="Cümleyi dinle">${ICON.play}</button><button class="btn" data-act="sayslow" style="align-self:center">${ICON.slow} Yavaş</button>`;
   const targetLang = dir === 'de-tr' ? 'tr' : 'de';
+  const anki = s.deck === 'B1 · Almanca İfadeler' && dir !== 'listen';
+  if (!sess.revealed && anki) {
+    return bar + `<section class="sheet card anki" data-tapreveal role="button" tabindex="0" aria-label="Kartı çevir">${chips}${ifadeFoto(s)}${promptHtml}
+      <p class="tapflip">Cevabı düşün, sonra karta dokun</p>
+    </section>
+    <button class="btn primary wide" data-act="reveal" style="margin-top:12px;min-height:52px">Çevir</button>
+    <p class="kbd">Boşluk: çevir · 1–4: puanla</p>`;
+  }
   if (!sess.revealed) {
     return bar + `<section class="sheet card">${chips}${ifadeFoto(s)}${promptHtml}
       <textarea id="ans" class="ans" lang="${targetLang}" enterkeyhint="go" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="${targetLang === 'de' ? 'Almancasını yaz (isteğe bağlı)' : 'Türkçesini yaz (isteğe bağlı)'}"></textarea>
@@ -5371,6 +5391,18 @@ function viewSession() {
     const n = schedule(card, g, Date.now()); return fmtIvl(n.d - Date.now());
   });
   const names = ['Bilemedim', 'Zor', 'İyi', 'Kolay'];
+  if (anki) {
+    const ank = ['Tekrar', 'Zor', 'İyi', 'Kolay'];
+    return bar + `<section class="sheet card anki back">${chips}${ifadeFoto(s)}${promptHtml}
+      <hr class="flipline">
+      <div class="ans-big" lang="${targetLang}">${esc(answer)}</div>
+      ${dir === 'de-tr' && canSpeak() ? '' : canSpeak() ? `<div class="row" style="justify-content:center"><button class="btn" data-act="say">${ICON.play} Dinle</button><button class="btn" data-act="sayslow">${ICON.slow} Yavaş</button></div>` : ''}
+    </section>
+    <div class="rate anki-rate" role="group" aria-label="Ne kadar iyi bildin?">
+      ${[1, 2, 3, 4].map(g => `<button class="g${g}" data-rate="${g}"><span>${prevs[g - 1] || '&nbsp;'}</span><b>${ank[g - 1]}</b></button>`).join('')}
+    </div>
+    <p class="kbd">${sess.mode === 'weak' ? 'Alıştırma modu: puanın tekrar takvimini değiştirmez.' : 'Üstteki süre, kartın bir sonraki gelişine kadar geçecek zaman.'}</p>`;
+  }
   const other = dir === 'tr-de' ? '' : `<div class="muted">${esc(dir === 'listen' ? s.tr : s.de)}</div>`;
   return bar + `<section class="sheet card">${chips}${dir === 'listen' ? `<div class="lang">Duyduğun cümle</div>` : promptHtml}
     <div class="answer">
@@ -5631,6 +5663,7 @@ document.addEventListener('click', e => {
 /* ---------- events ---------- */
 document.addEventListener('click', e => {
   if (!e.target.closest('#wordbar') && !e.target.closest('.w') && !$('#wordbar').hidden) hideWord();
+  if (e.target.closest('[data-tapreveal]') && !e.target.closest('a,button')) { reveal(); return; }
   const t = e.target.closest('button,[data-edit]'); if (!t) return;
   if (t.dataset.gde || t.dataset.gtr) { gameTap(t); return; }
   if (t.classList.contains('w')) { showWord(t); return; }
