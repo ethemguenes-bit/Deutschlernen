@@ -4994,6 +4994,7 @@ function fmtIvl(ms) {
 /* ---------- daily counters & stats ---------- */
 function today() { const k = dayKey(); if (!S.days[k]) S.days[k] = { n: 0, ok: 0, nw: 0, x: 0 }; return S.days[k]; }
 function todayRO() { return S.days[dayKey()] || { n: 0, ok: 0, nw: 0, x: 0 }; }
+function addNew(n) { const t = today(); t.x = Math.max((t.x || 0) + n, t.nw - S.settings.newPerDay + n); }
 function newLimitLeft() { const t = todayRO(); return Math.max(0, S.settings.newPerDay + (t.x || 0) - t.nw); }
 function streak() {
   let n = 0; let t = startOfDay();
@@ -5392,6 +5393,7 @@ function startQuiz(mode) {
   const seen = new Set(), items = [];
   for (const s of shuffle(pool.slice())) { if (seen.has(s.de)) continue; seen.add(s.de); items.push(s.id); if (items.length === 10) break; }
   if (!items.length) { toast('Bu seçimde cümle yok'); return; }
+  sess = null;
   quiz = { mode, pool, items, i: 0, ok: 0, wrong: [], ans: null, built: [], opts: [] };
   quizPrep(); tab = 'quiz'; render(); $('#main').scrollTop = 0;
 }
@@ -5470,6 +5472,16 @@ function viewSession() {
       <div class="meter" aria-hidden="true"><i style="width:${pct}%"></i></div>
       <span class="cnt">${sess.mode === 'weak' ? esc(sess.label || 'Zayıflar') + ' · ' : ''}${left} kaldı</span>
     </div>`;
+  if (!sess.cur && !sess.done && sess.mode !== 'weak') {
+    const fr = counts().freshTotal;
+    return bar + `<section class="sheet stack">
+      <h3>Şu an çalışılacak kart yok</h3>
+      <p class="muted" style="margin:0">${fr ? `Bugünkü yeni kart sınırına (${S.settings.newPerDay}) ulaştın ve tekrar zamanı gelmiş kart yok. Bu konuda henüz görmediğin <b>${fr}</b> kart var.` : 'Bu konudaki tüm kartları gördün ve şu an tekrar zamanı gelmiş kart yok. Tekrarlar zamanı gelince burada görünecek.'}</p>
+      ${fr ? '<button class="btn primary wide" data-act="morenew10">10 yeni kart daha</button>' : ''}
+      <button class="btn wide" data-qmode="choose">Alıştırma yap: Doğruyu seç</button>
+      <button class="btn wide" data-act="quit">Ana sayfaya dön</button>
+    </section>`;
+  }
   if (!sess.cur) {
     const acc = sess.done ? Math.round(100 * sess.ok / sess.done) : 0;
     const mins = Math.max(1, Math.round((Date.now() - sess.start) / MIN));
@@ -5820,9 +5832,10 @@ document.addEventListener('click', e => {
   else if (a === 'quit') { sess = null; render(); }
   else if (a === 'reveal') reveal();
   else if (a === 'say' || a === 'sayslow') { const s = findSentence(sess && sess.cur); if (s) speak(s.de, a === 'sayslow'); }
+  else if (a === 'morenew10') { addNew(10); save(); startSession('srs'); }
   else if (a === 'morenew') { today().x = (today().x || 0) + 5; save(); startSession('srs'); }
   else if (a === 'add') openAdd();
-  else if (a === 'ifade') { S.settings.level = 'B1'; S.settings.topic = 'B1 · Almanca İfadeler'; const sk = S.settings.skipDecks || []; if (sk.includes(S.settings.topic)) S.settings.skipDecks = sk.filter(d => d !== S.settings.topic); save(); toast('Konu: Almanca İfadeler'); startSession('srs'); }
+  else if (a === 'ifade') { S.settings.level = 'B1'; S.settings.topic = 'B1 · Almanca İfadeler'; const sk = S.settings.skipDecks || []; if (sk.includes(S.settings.topic)) S.settings.skipDecks = sk.filter(d => d !== S.settings.topic); const cc = counts(); if (!(cc.learn + cc.rev + cc.fresh) && cc.freshTotal) { addNew(10); toast('Bugünkü yeni kart sınırı dolmuştu: 10 yeni ifade daha açıldı'); } else toast('Konu: Almanca İfadeler'); save(); startSession('srs'); }
   else if (a === 'qquit') { quiz = null; tab = 'study'; render(); $('#main').scrollTop = 0; }
   else if (a === 'qnext') { if (quiz) { quiz.i++; if (quiz.i < quiz.items.length) quizPrep(); render(); $('#main').scrollTop = 0; } }
   else if (a === 'qcheck') quizCheck();
